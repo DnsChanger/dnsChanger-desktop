@@ -74,10 +74,3 @@ function getActiveDns(interfaceName) {
     })
 }
 
-function extractDns(input) {
-    const regex = /Statically Configured DNS Servers:\s+([\d.]+)\s+([\d.]+)/gm;
-    const matches = regex.exec(input);
-    const dnsServers = [matches[1].trim(), matches[2].trim()];
-    return dnsServers
-    //ChatGpt
-}

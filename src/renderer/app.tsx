@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button} from "react-daisyui"
 import {findServer, Server, servers} from "../constants/servers.cosntant";
 import IpcMainEvent = Electron.IpcMainEvent;
-
+import {ipcMain} from "electron";
 
 declare global {
     interface Window {
@@ -11,11 +11,11 @@ declare global {
 }
 type  setState<T> = React.Dispatch<React.SetStateAction<T>>
 
+
 export function App() {
     const [currentActive, setCurrentActive] = useState<string>("")
-    const [isOnline, setIsOnline] = useState<boolean>(navigator.onLine)
-    window.addEventListener('online', () => setIsOnline(true))
-    window.addEventListener('offline', () => setIsOnline(false))
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+
     return (
         <div>
             <div className=" lg:flex-row dark:bg-zinc-900/95">
@@ -36,7 +36,8 @@ export function App() {
                                     {servers.map((server, index) => {
                                         return (
                                             <div key={index}>
-                                                <Button onClick={() => clickHandler(server, setCurrentActive, isOnline)}
+                                                <Button disabled={isLoading}
+                                                        onClick={(e) => clickHandler.apply(e, [server, setCurrentActive, setIsLoading])}
                                                         color={currentActive == server.key ? "success" : "info"}
                                                 >{server.names.fa}</Button>
                                             </div>
@@ -45,7 +46,7 @@ export function App() {
                                 </div>
                                 <div className={"py-4"}>
                                     <p>
-                                        Status: {isOnline ? "Online" : "Offline"}
+                                        {isLoading ? " درحال اتصال..." : ""}
                                     </p>
                                 </div>
                             </div>
@@ -58,18 +59,25 @@ export function App() {
 }
 
 
-async function clickHandler(server: Server, setCurrentActive: setState<string>, isOnlienState: boolean) {
+async function clickHandler(server: Server, setCurrentActive: setState<string>, setIsLoading: any) {
     try {
-        if (isOnlienState)
-            await window.ipc.setDns(server)
-        else
-            alert("اتصال خودتون رو به اینترنت بررسی کنید.")
+
+        this.target.classList.add("loading")
+        setIsLoading(true)
+        const response = await window.ipc.setDns(server)
+        if (response.success) {
+            setCurrentActive(server.key)
+        }
+        alert(response.message)
+
+
     } catch (e: any) {
         alert(e.message)
+    } finally {
+        this.target.classList.remove("loading")
+        setIsLoading(false)
     }
 }
 
-window.ipc.onSetDns((_event: IpcMainEvent, value: any) => {
-    alert(value.message)
-})
+
 

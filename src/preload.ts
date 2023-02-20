@@ -4,6 +4,5 @@ import {contextBridge, ipcRenderer} from "electron"
 import {Server} from "./constants/servers.cosntant";
 
 contextBridge.exposeInMainWorld('ipc', {
-    setDns: (server: Server) => ipcRenderer.send('set-dns', server),
-    onSetDns: (cb: any) => ipcRenderer.on("set-dns", cb)
+    setDns: (server: Server) => ipcRenderer.invoke('set-dns', server),
 })

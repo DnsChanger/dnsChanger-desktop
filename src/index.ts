@@ -44,7 +44,7 @@ app.on('window-all-closed', () => {
         app.quit();
     }
 });
-import "./ipc/dns"
+import "./main/ipc/dns"
 
 app.on('activate', () => {
     // On OS X it's common to re-create a window in the app when the
