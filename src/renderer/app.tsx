@@ -7,12 +7,14 @@ declare global {
 }
 
 export function App() {
-    const [response, setResponse] = useState("N/A")
     return (
         <div>
-            Hello from Electron 👋
-            Status : {response}
-            <button onClick={() => testPing(setResponse)}>test ping</button>
+            <div className=" lg:flex-row dark:bg-zinc-900/95">
+                <main className=" rounded-3xl dark:bg-zinc-900/95">
+             
+
+                </main>
+            </div>
         </div>
     )
 }
