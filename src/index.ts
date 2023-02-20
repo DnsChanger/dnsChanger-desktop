@@ -44,12 +44,8 @@ app.on('window-all-closed', () => {
         app.quit();
     }
 });
-ipcMain.on('asynchronous-message', (event, arg) => {
-    console.log(arg) // prints "ping" in the Node console
-    // works like `send`, but returning a message back
-    // to the renderer that sent the original message
-    event.reply('asynchronous-reply', 'pong')
-})
+import "./ipc/dns"
+
 app.on('activate', () => {
     // On OS X it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
