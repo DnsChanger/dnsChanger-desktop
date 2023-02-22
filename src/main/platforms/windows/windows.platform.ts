@@ -1,4 +1,4 @@
-import {Platform} from "../../interfaces/platform.interface";
+import { Platform } from "../../interfaces/platform.interface";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import network from "network"
@@ -10,7 +10,7 @@ export class WindowsPlatform implements Platform {
 
     clearDns(interfaceName: string): Promise<void> {
         return new Promise((resolve, reject) => {
-            sudo.exec(`netsh interface ip set dns  "${interfaceName}" dhcp`, {
+            sudo.exec(`netsh interface ip set dns "${interfaceName}" dhcp`, {
                 name: "test"
             }, (error, stdout, stderr) => {
                 if (error) {
@@ -56,7 +56,7 @@ export class WindowsPlatform implements Platform {
 
     private execCmd(cmd: string): Promise<string | Buffer> {
         return new Promise((resolve, reject) => {
-            sudo.exec(cmd, {name: "dnsChanger"}, (error, stdout, stderr) => {
+            sudo.exec(cmd, { name: "dnsChanger" }, (error, stdout, stderr) => {
                 if (error) {
                     reject(error)
                     return;

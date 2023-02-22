@@ -9,8 +9,8 @@
     font-style: normal;
 
     src: url("./renderer/fonts/vazir/Vazir-Variable.woff2") format("woff2 supports variations"),
-    url("./renderer/fonts/vazir/Vazir-Variable.woff2") format("woff2-variations"),
-    url("./renderer/fonts/vazir/Vazir-Variable.woff") format("woff-variations");
+        url("./renderer/fonts/vazir/Vazir-Variable.woff2") format("woff2-variations"),
+        url("./renderer/fonts/vazir/Vazir-Variable.woff") format("woff-variations");
 }
 
 @font-face {
@@ -19,9 +19,9 @@
     src: url("./renderer/fonts/vazir/Vazir-Regular.eot");
 
     src: url("./renderer/fonts/vazir/Vazir-Regular.eot?#iefix") format("embedded-opentype"),
-    url("./renderer/fonts/vazir/Vazir-Regular.woff2") format("woff2"),
-    url("./renderer/fonts/vazir/Vazir-Regular.woff") format("woff"),
-    url("./renderer/fonts/vazir/Vazir-Regular.ttf") format("truetype");
+        url("./renderer/fonts/vazir/Vazir-Regular.woff2") format("woff2"),
+        url("./renderer/fonts/vazir/Vazir-Regular.woff") format("woff"),
+        url("./renderer/fonts/vazir/Vazir-Regular.ttf") format("truetype");
 
     font-weight: normal;
 
@@ -34,9 +34,9 @@
     src: url("./renderer/fonts/vazir/Vazir-Bold.eot");
 
     src: url("./renderer/fonts/vazir/Vazir-Bold.eot?#iefix") format("embedded-opentype"),
-    url("./renderer/fonts/vazir/Vazir-Bold.woff2") format("woff2"),
-    url("./renderer/fonts/vazir/Vazir-Bold.woff") format("woff"),
-    url("./renderer/fonts/vazir/Vazir-Bold.ttf") format("truetype");
+        url("./renderer/fonts/vazir/Vazir-Bold.woff2") format("woff2"),
+        url("./renderer/fonts/vazir/Vazir-Bold.woff") format("woff"),
+        url("./renderer/fonts/vazir/Vazir-Bold.ttf") format("truetype");
 
     font-weight: bold;
 
@@ -49,9 +49,9 @@
     src: url("./renderer/fonts/vazir/Vazir-Black.eot");
 
     src: url("./renderer/fonts/vazir/Vazir-Black.eot?#iefix") format("embedded-opentype"),
-    url("./renderer/fonts/vazir/Vazir-Black.woff2") format("woff2"),
-    url("./renderer/fonts/vazir/Vazir-Black.woff") format("woff"),
-    url("./renderer/fonts/vazir/Vazir-Black.ttf") format("truetype");
+        url("./renderer/fonts/vazir/Vazir-Black.woff2") format("woff2"),
+        url("./renderer/fonts/vazir/Vazir-Black.woff") format("woff"),
+        url("./renderer/fonts/vazir/Vazir-Black.ttf") format("truetype");
 
     font-weight: 900;
 
@@ -64,9 +64,9 @@
     src: url("./renderer/fonts/vazir/Vazir-Medium.eot");
 
     src: url("./renderer/fonts/vazir/Vazir-Medium.eot?#iefix") format("embedded-opentype"),
-    url("./renderer/fonts/vazir/Vazir-Medium.woff2") format("woff2"),
-    url("./renderer/fonts/vazir/Vazir-Medium.woff") format("woff"),
-    url("./renderer/fonts/vazir/Vazir-Medium.ttf") format("truetype");
+        url("./renderer/fonts/vazir/Vazir-Medium.woff2") format("woff2"),
+        url("./renderer/fonts/vazir/Vazir-Medium.woff") format("woff"),
+        url("./renderer/fonts/vazir/Vazir-Medium.ttf") format("truetype");
 
     font-weight: 500;
 
@@ -79,9 +79,9 @@
     src: url("./renderer/fonts/vazir/Vazir-Light.eot");
 
     src: url("./renderer/fonts/vazir/Vazir-Light.eot?#iefix") format("embedded-opentype"),
-    url("./renderer/fonts/vazir/Vazir-Light.woff2") format("woff2"),
-    url("./renderer/fonts/vazir/Vazir-Light.woff") format("woff"),
-    url("./renderer/fonts/vazir/Vazir-Light.ttf") format("truetype");
+        url("./renderer/fonts/vazir/Vazir-Light.woff2") format("woff2"),
+        url("./renderer/fonts/vazir/Vazir-Light.woff") format("woff"),
+        url("./renderer/fonts/vazir/Vazir-Light.ttf") format("truetype");
 
     font-weight: 300;
 
@@ -94,9 +94,9 @@
     src: url("./renderer/fonts/vazir/Vazir-Thin.eot");
 
     src: url("./renderer/fonts/vazir/Vazir-Light.eot?#iefix") format("embedded-opentype"),
-    url("./renderer/fonts/vazir/Vazir-Thin.woff2") format("woff2"),
-    url("./renderer/fonts/vazir/Vazir-Thin.woff") format("woff"),
-    url("./renderer/fonts/vazir/Vazir-Thin.ttf") format("truetype");
+        url("./renderer/fonts/vazir/Vazir-Thin.woff2") format("woff2"),
+        url("./renderer/fonts/vazir/Vazir-Thin.woff") format("woff"),
+        url("./renderer/fonts/vazir/Vazir-Thin.ttf") format("truetype");
 
     font-weight: 100;
 
@@ -105,4 +105,24 @@
 
 body {
     font-family: Vazir;
+}
+
+/* scrolbar */
+::-webkit-scrollbar {
+    width: 0.3em;
+}
+
+/* scrolbar backgrond with theme  */
+html[data-theme="dark"]::-webkit-scrollbar {
+    background-color: #1d1d1d;
+}
+
+/* scrolbar thumb */
+::-webkit-scrollbar-thumb {
+    background-color: #4a759c9c;
+}
+
+/* scrolbar thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #1d1d1d;
 }

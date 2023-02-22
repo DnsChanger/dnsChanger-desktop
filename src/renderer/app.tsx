@@ -11,13 +11,10 @@ declare global {
         ipc: any
     }
 }
-type setState<T> = React.Dispatch<React.SetStateAction<T>>
 
 
 export function App() {
     const [currentActive, setCurrentActive] = useState<string>("")
-    const [isLoading, setIsLoading] = useState<boolean>(false)
-
     return (
         <div>
             <div className=" lg:flex-row dark:bg-zinc-900/95">
@@ -32,25 +29,27 @@ export function App() {
                                     <h1 className="text-3xl font-bold mb-2">
                                         بهترین های رفع تحریم
                                     </h1>
-                                    <span className="text-green-500">
-                                        شما به x وصل شدید
-                                    </span>
+                                    {currentActive &&
+
+                                        <span className="text-green-500">
+                                            شما به <strong>{findServer(currentActive)?.names.fa}</strong> وصل شدید
+                                        </span>
+                                    }
                                 </div>
 
                                 <div className={"relative border border-gray-700 rounded-2xl  shadow-2xl"}>
-
-                                    <div className={"card items-center "}>
-                                        <div className={"overflow-x-auto card-body"} >
+                                    <div className={"card items-center card-body"}>
+                                        <div className={"overflow-y-auto "} >
                                             <div className={"grid h-[200px] w-[300px] "}>
                                                 {servers.map((server, index) =>
-                                                    <ServerComponent server={server} key={index} />)}
+                                                    <ServerComponent server={server} currentActive={currentActive} setCurrentActive={setCurrentActive} key={index} />)}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="mt-3">
                                     <div className="float-right">
-                                        <Button className="bg-green-500 text-white">
+                                        <Button color="success" className="text-white">
                                             <FontAwesomeIcon icon={["fas", "plus"]} className="mr-2"></FontAwesomeIcon>
                                             افزودن DNS دلخواه
                                         </Button>
@@ -64,27 +63,6 @@ export function App() {
             </div>
         </div>
     )
-}
-
-
-async function clickHandler(server: Server, setCurrentActive: setState<string>, setIsLoading: any) {
-    try {
-
-        this.target.classList.add("loading")
-        setIsLoading(true)
-        const response = await window.ipc.setDns(server)
-        if (response.success) {
-            setCurrentActive(server.key)
-        }
-        alert(response.message)
-
-
-    } catch (e: any) {
-        alert(e.message)
-    } finally {
-        this.target.classList.remove("loading")
-        setIsLoading(false)
-    }
 }
 
 

@@ -12,7 +12,7 @@ export const servers: Array<Server> = [
     {
         key: "SHECAN",
         names: {
-            eng: "shecan",
+            eng: "Shecan",
             fa: "شکن"
         },
         servers: ["178.22.122.100", "185.51.200.2"],
@@ -21,7 +21,7 @@ export const servers: Array<Server> = [
     {
         key: "ELECTRO",
         names: {
-            eng: "electro team",
+            eng: "Electro team",
             fa: "الکترو تیم"
         },
         servers: ["78.157.42.100", "78.157.42.101"],
@@ -30,11 +30,20 @@ export const servers: Array<Server> = [
     {
         key: "RADAR_GAME",
         names: {
-            eng: "radar game",
+            eng: "Radar game",
             fa: "رادارگیم",
         },
         servers: ["10.202.10.10", "10.202.10.11"],
         avatar: "radar.png"
+    },
+    {
+        key: "403.ONLINE",
+        names: {
+            eng: "403",
+            fa: "403",
+        },
+        servers: ["10.202.10.202", "10.202.10.102"],
+        avatar: "403.png"
     }
 ]
 
