@@ -6,7 +6,7 @@ import { ipcMain } from "electron";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ServerComponent } from "./component/servers/server.component";
 import { activityContext } from './context/activty.context';
-
+import { shell } from "electron";
 declare global {
     interface Window {
         ipc: any
@@ -26,13 +26,23 @@ export function App() {
         setStatus
     }
     return (
+
         <div>
+
+            <div className="navbar bg-base-100">
+                <div className="navbar-start"></div>
+                <div className="navbar-end">
+                    <Button className={"btn gap-2 normal-case btn-ghost"} onClick={() => window.ipc.openBrowser("https://github.com/DnsChanger/dnsChanger-desktop")}>
+                        <FontAwesomeIcon icon={["fab", "github"]} size={"lg"} />
+                    </Button>
+                </div>
+            </div>
             <div className=" lg:flex-row dark:bg-zinc-900/95">
                 <main className=" rounded-3xl dark:bg-zinc-900/95">
 
                     <activityContext.Provider value={values}>
 
-                        <div className="hero min-h-screen ">
+                        <div className="hero">
                             <div
                                 className="px-0 sm:p-4 hero-content text-center max-w-[350px] md:max-w-[450px] md:min-w-[720px]  mb-1 ">
                                 <div className="max-w-full sm:pt-[100px] sm:pb-[100px] sm:pr-[30px] sm:pl-[30px] p-1">

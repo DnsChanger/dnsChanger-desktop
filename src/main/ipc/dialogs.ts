@@ -1,4 +1,4 @@
-import { ipcMain } from "electron";
+import { ipcMain, shell } from "electron";
 import { Server } from "../../constants/servers.cosntant";
 import { dnsService } from "../config";
 
@@ -30,3 +30,7 @@ ipcMain.handle("dialogs:clear-dns", async (event, server: Server) => {
     }
 })
 
+
+ipcMain.on("dialogs:openbrowser", (ev, url) => {
+    shell.openExternal(url)
+})

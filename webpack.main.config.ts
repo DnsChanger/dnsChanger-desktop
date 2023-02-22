@@ -1,5 +1,5 @@
 import type { Configuration } from 'webpack';
-
+import path from "path"
 import { rules } from './webpack.rules';
 
 export const mainConfig: Configuration = {
@@ -15,7 +15,7 @@ export const mainConfig: Configuration = {
   resolve: {
     extensions: ['.js', '.ts', '.renderer', '.tsx', '.css', '.json'],
   },
-  stats:{
+  stats: {
     errorDetails: true,
   }
 };
