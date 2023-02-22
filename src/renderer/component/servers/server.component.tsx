@@ -38,9 +38,10 @@ export function ServerComponent(prop: Props) {
 
 async function clickHandler(server: Server, setCurrentActive: setState<string>, isConnect: boolean) {
     const activityContextData = this as ActivityContext
+
     try {
         if (activityContextData.isWaiting) {
-            alert("لطفا تا پایان درخواست قبلی صبر کنید.")
+            window.ipc.notif("لطفا تا پایان درخواست قبلی صبر کنید.")
             return;
         }
         activityContextData.setIsWaiting(true)
@@ -58,11 +59,11 @@ async function clickHandler(server: Server, setCurrentActive: setState<string>, 
             }
         }
 
-        alert(response.message)
+        window.ipc.notif(response.message)
 
 
     } catch (e: any) {
-        alert(e.message)
+        window.ipc.notif(e.message)
     } finally {
         activityContextData.setIsWaiting(false)
         activityContextData.setStatus("")

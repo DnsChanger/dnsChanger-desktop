@@ -5,5 +5,6 @@ import { Server } from "./constants/servers.cosntant";
 
 contextBridge.exposeInMainWorld('ipc', {
     setDns: (server: Server) => ipcRenderer.invoke('dialogs:set-dns', server),
-    clearDns: () => ipcRenderer.invoke('dialogs:clear-dns')
+    clearDns: () => ipcRenderer.invoke('dialogs:clear-dns'),
+    notif: (message: string) => ipcRenderer.send("notif", message)
 })

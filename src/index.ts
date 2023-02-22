@@ -25,7 +25,6 @@ const createWindow = (): void => {
     mainWindow.setMenu(null)
     // and load the index.html of the app.
     mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-
     // Open the DevTools.
     // mainWindow.webContents.openDevTools();
 };
@@ -39,7 +38,7 @@ app.on('window-all-closed', () => {
     }
 });
 import "./main/ipc/dns"
-
+import "./main/ipc/notif"
 app.on('activate', () => {
     // On OS X it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
