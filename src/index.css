@@ -8,20 +8,20 @@
 
     font-style: normal;
 
-    src: url("./renderer/fonts/vazir/Vazir-Variable.woff2") format("woff2 supports variations"),
-        url("./renderer/fonts/vazir/Vazir-Variable.woff2") format("woff2-variations"),
-        url("./renderer/fonts/vazir/Vazir-Variable.woff") format("woff-variations");
+    src: url("../assets/fonts/vazir/Vazir-Variable.woff2") format("woff2 supports variations"),
+        url("../assets/fonts/vazir/Vazir-Variable.woff2") format("woff2-variations"),
+        url("../assets/fonts/vazir/Vazir-Variable.woff") format("woff-variations");
 }
 
 @font-face {
     font-family: Vazir;
 
-    src: url("./renderer/fonts/vazir/Vazir-Regular.eot");
+    src: url("../assets/fonts/vazir/Vazir-Regular.eot");
 
-    src: url("./renderer/fonts/vazir/Vazir-Regular.eot?#iefix") format("embedded-opentype"),
-        url("./renderer/fonts/vazir/Vazir-Regular.woff2") format("woff2"),
-        url("./renderer/fonts/vazir/Vazir-Regular.woff") format("woff"),
-        url("./renderer/fonts/vazir/Vazir-Regular.ttf") format("truetype");
+    src: url("../assets/fonts/vazir/Vazir-Regular.eot?#iefix") format("embedded-opentype"),
+        url("../assets/fonts/vazir/Vazir-Regular.woff2") format("woff2"),
+        url("../assets/fonts/vazir/Vazir-Regular.woff") format("woff"),
+        url("../assets/fonts/vazir/Vazir-Regular.ttf") format("truetype");
 
     font-weight: normal;
 
@@ -31,12 +31,12 @@
 @font-face {
     font-family: Vazir;
 
-    src: url("./renderer/fonts/vazir/Vazir-Bold.eot");
+    src: url("../assets/fonts/vazir/Vazir-Bold.eot");
 
-    src: url("./renderer/fonts/vazir/Vazir-Bold.eot?#iefix") format("embedded-opentype"),
-        url("./renderer/fonts/vazir/Vazir-Bold.woff2") format("woff2"),
-        url("./renderer/fonts/vazir/Vazir-Bold.woff") format("woff"),
-        url("./renderer/fonts/vazir/Vazir-Bold.ttf") format("truetype");
+    src: url("../assets/fonts/vazir/Vazir-Bold.eot?#iefix") format("embedded-opentype"),
+        url("../assets/fonts/vazir/Vazir-Bold.woff2") format("woff2"),
+        url("../assets/fonts/vazir/Vazir-Bold.woff") format("woff"),
+        url("../assets/fonts/vazir/Vazir-Bold.ttf") format("truetype");
 
     font-weight: bold;
 
@@ -46,42 +46,29 @@
 @font-face {
     font-family: Vazir;
 
-    src: url("./renderer/fonts/vazir/Vazir-Black.eot");
+    src: url("../assets/fonts/vazir/Vazir-Black.eot");
 
-    src: url("./renderer/fonts/vazir/Vazir-Black.eot?#iefix") format("embedded-opentype"),
-        url("./renderer/fonts/vazir/Vazir-Black.woff2") format("woff2"),
-        url("./renderer/fonts/vazir/Vazir-Black.woff") format("woff"),
-        url("./renderer/fonts/vazir/Vazir-Black.ttf") format("truetype");
+    src: url("../assets/fonts/vazir/Vazir-Black.eot?#iefix") format("embedded-opentype"),
+        url("../assets/fonts/vazir/Vazir-Black.woff2") format("woff2"),
+        url("../assets/fonts/vazir/Vazir-Black.woff") format("woff"),
+        url("../assets/fonts/vazir/Vazir-Black.ttf") format("truetype");
 
     font-weight: 900;
 
     font-style: normal;
 }
 
-@font-face {
-    font-familyface: Vazir;
 
-    src: url("./renderer/fonts/vazir/Vazir-Medium.eot");
-
-    src: url("./renderer/fonts/vazir/Vazir-Medium.eot?#iefix") format("embedded-opentype"),
-        url("./renderer/fonts/vazir/Vazir-Medium.woff2") format("woff2"),
-        url("./renderer/fonts/vazir/Vazir-Medium.woff") format("woff"),
-        url("./renderer/fonts/vazir/Vazir-Medium.ttf") format("truetype");
-
-    font-weight: 500;
-
-    font-style: normal;
-}
 
 @font-face {
     font-family: Vazir;
 
-    src: url("./renderer/fonts/vazir/Vazir-Light.eot");
+    src: url("../assets/fonts/vazir/Vazir-Light.eot");
 
-    src: url("./renderer/fonts/vazir/Vazir-Light.eot?#iefix") format("embedded-opentype"),
-        url("./renderer/fonts/vazir/Vazir-Light.woff2") format("woff2"),
-        url("./renderer/fonts/vazir/Vazir-Light.woff") format("woff"),
-        url("./renderer/fonts/vazir/Vazir-Light.ttf") format("truetype");
+    src: url("../assets/fonts/vazir/Vazir-Light.eot?#iefix") format("embedded-opentype"),
+        url("../assets/fonts/vazir/Vazir-Light.woff2") format("woff2"),
+        url("../assets/fonts/vazir/Vazir-Light.woff") format("woff"),
+        url("../assets/fonts/vazir/Vazir-Light.ttf") format("truetype");
 
     font-weight: 300;
 
@@ -91,12 +78,12 @@
 @font-face {
     font-family: Vazir;
 
-    src: url("./renderer/fonts/vazir/Vazir-Thin.eot");
+    src: url("../assets/fonts/vazir/Vazir-Thin.eot");
 
-    src: url("./renderer/fonts/vazir/Vazir-Light.eot?#iefix") format("embedded-opentype"),
-        url("./renderer/fonts/vazir/Vazir-Thin.woff2") format("woff2"),
-        url("./renderer/fonts/vazir/Vazir-Thin.woff") format("woff"),
-        url("./renderer/fonts/vazir/Vazir-Thin.ttf") format("truetype");
+    src: url("../assets/fonts/vazir/Vazir-Light.eot?#iefix") format("embedded-opentype"),
+        url("../assets/fonts/vazir/Vazir-Thin.woff2") format("woff2"),
+        url("../assets/fonts/vazir/Vazir-Thin.woff") format("woff"),
+        url("../assets/fonts/vazir/Vazir-Thin.ttf") format("truetype");
 
     font-weight: 100;
 
