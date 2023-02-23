@@ -7,7 +7,8 @@ import { WebpackPlugin } from '@electron-forge/plugin-webpack';
 
 import { mainConfig } from './webpack.main.config';
 import { rendererConfig } from './webpack.renderer.config';
-
+import dotenv from "dotenv"
+dotenv.config()
 const config: ForgeConfig = {
     packagerConfig: {},
     rebuildConfig: {},
@@ -36,6 +37,20 @@ const config: ForgeConfig = {
             },
         }),
     ],
+    publishers: [
+        {
+            name: '@electron-forge/publisher-github',
+            config: {
+                repository: {
+                    owner: 'sajjadmrx',
+                    name: 'dnsChanger-desktop',
+                    authToken: process.env.GITHUB_TOKEN,
+                },
+                prerelease: false,
+                draft: true,
+            }
+        }
+    ]
 };
 
 export default config;

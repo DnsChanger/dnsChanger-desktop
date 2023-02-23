@@ -73,14 +73,14 @@ export function App() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="mt-3">
+                                    {/* <div className="mt-3">
                                         <div className="float-right">
                                             <Button color="success" className="text-white">
                                                 <FontAwesomeIcon icon={["fas", "plus"]} className="mr-2"></FontAwesomeIcon>
                                                 افزودن DNS دلخواه
                                             </Button>
                                         </div>
-                                    </div>
+                                    </div> */}
 
                                 </div>
                             </div>
