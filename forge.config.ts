@@ -42,12 +42,13 @@ const config: ForgeConfig = {
             name: '@electron-forge/publisher-github',
             config: {
                 repository: {
-                    owner: 'sajjadmrx',
+                    owner: 'DnsChanger',
                     name: 'dnsChanger-desktop',
                     authToken: process.env.GITHUB_TOKEN,
                 },
                 prerelease: false,
                 draft: true,
+                tagPrefix: "v"
             }
         }
     ]
