@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Badge, Button, Tooltip } from "react-daisyui"
-import { findServer, Server, servers } from "../constants/servers.cosntant";
-import IpcMainEvent = Electron.IpcMainEvent;
-import { ipcMain } from "electron";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ServerComponent } from "./component/servers/server.component";
-import { activityContext } from './context/activty.context';
-import { shell } from "electron";
+import React, {useState} from "react";
+import {Button} from "react-daisyui"
+import {findServer, servers} from "../shared/constants/servers.cosntant";
+
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {ServerComponent} from "./component/servers/server.component";
+import {activityContext} from './context/activty.context';
+
 declare global {
     interface Window {
         ipc: any
@@ -32,8 +31,9 @@ export function App() {
             <div className="navbar bg-base-100">
                 <div className="navbar-start"></div>
                 <div className="navbar-end">
-                    <Button className={"btn gap-2 normal-case btn-ghost"} onClick={() => window.ipc.openBrowser("https://github.com/DnsChanger/dnsChanger-desktop")}>
-                        <FontAwesomeIcon icon={["fab", "github"]} size={"lg"} />
+                    <Button className={"btn gap-2 normal-case btn-ghost"}
+                            onClick={() => window.ipc.openBrowser("https://github.com/DnsChanger/dnsChanger-desktop")}>
+                        <FontAwesomeIcon icon={["fab", "github"]} size={"lg"}/>
                     </Button>
                 </div>
             </div>
@@ -60,13 +60,15 @@ export function App() {
 
                                     <div className={"relative border border-gray-700 rounded-2xl  shadow-2xl"}>
                                         <div className={"card items-center card-body"}>
-                                            <div className={"overflow-y-auto "} >
+                                            <div className={"overflow-y-auto "}>
                                                 <div className={"grid h-[200px] w-[300px] "}>
                                                     {servers.map((server, index) =>
-                                                        <ServerComponent server={server} currentActive={currentActive} setCurrentActive={setCurrentActive} key={index} />)}
+                                                        <ServerComponent server={server} currentActive={currentActive}
+                                                                         setCurrentActive={setCurrentActive}
+                                                                         key={index}/>)}
                                                 </div>
                                             </div>
-                                            <div >
+                                            <div>
                                                 <p color="" className="text-red-400 absolute bottom-[10px] right-2">
                                                     {status}
                                                 </p>

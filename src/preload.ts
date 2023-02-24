@@ -1,11 +1,12 @@
 // See the Electron documentation for details on how to use preload scripts:
 // https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
-import { contextBridge, ipcRenderer } from "electron"
-import { Server } from "./constants/servers.cosntant";
+import {contextBridge, ipcRenderer} from "electron"
+import {Server} from "./shared/interfaces/server.interface";
+import {EventsKeys} from "./shared/constants/eventsKeys.constant";
 
 contextBridge.exposeInMainWorld('ipc', {
-    setDns: (server: Server) => ipcRenderer.invoke('dialogs:set-dns', server),
-    clearDns: () => ipcRenderer.invoke('dialogs:clear-dns'),
-    notif: (message: string) => ipcRenderer.send("notif", message),
-    openBrowser: (url: string) => ipcRenderer.send("dialogs:openbrowser", url)
+    setDns: (server: Server) => ipcRenderer.invoke(EventsKeys.SET_DNS, server),
+    clearDns: () => ipcRenderer.invoke(EventsKeys.CLEAR_DNS),
+    notif: (message: string) => ipcRenderer.send(EventsKeys.NOTIFICATION, message),
+    openBrowser: (url: string) => ipcRenderer.send(EventsKeys.OPEN_BROWSER, url)
 })

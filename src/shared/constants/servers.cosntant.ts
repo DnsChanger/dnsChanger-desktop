@@ -1,12 +1,4 @@
-export interface Server {
-    key: string
-    names: {
-        eng: string
-        fa: string
-    }
-    servers: string[]
-    avatar: string
-}
+import {Server} from "../interfaces/server.interface";
 
 export const servers: Array<Server> = [
     {

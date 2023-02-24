@@ -1,11 +1,11 @@
+import {Button} from 'react-daisyui';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {setState} from '../../interfaces/react.interface';
+import React, {} from 'react';
+import {activityContext} from '../../context/activty.context';
+import {ActivityContext} from '../../interfaces/activty.interface';
+import {Server} from "../../../shared/interfaces/server.interface";
 
-import { Button } from 'react-daisyui';
-import { Server } from '../../../constants/servers.cosntant';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { setState } from '../../../renderer/interfaces/react.interface';
-import React, { useState } from 'react';
-import { activityContext } from '../../context/activty.context';
-import { ActivityContext } from '../../interfaces/activty.interface';
 interface Props {
     server: Server
     currentActive: string,
@@ -20,14 +20,14 @@ export function ServerComponent(prop: Props) {
         <div dir='auto' className=' mb-2 p-2'>
             <div className="flex flex-nowrap">
                 <div className='flex-none'>
-                    <FontAwesomeIcon icon={"server"} />
+                    <FontAwesomeIcon icon={"server"}/>
                 </div>
                 <div className='flex-1 w-64'>{server.names.eng}</div>
                 <div>
                     <Button shape='circle' size='sm' color={isConnect ? 'success' : 'warning'}
-                        onClick={(e) => clickHandler.apply(activityContextData, [server, prop.setCurrentActive, isConnect])}
+                            onClick={() => clickHandler.apply(activityContextData, [server, prop.setCurrentActive, isConnect])}
                     >
-                        <FontAwesomeIcon icon={isConnect ? 'stop' : "power-off"} />
+                        <FontAwesomeIcon icon={isConnect ? 'stop' : "power-off"}/>
                     </Button>
                 </div>
             </div>
@@ -50,8 +50,7 @@ async function clickHandler(server: Server, setCurrentActive: setState<string>, 
             activityContextData.setStatus("یک لحظه...")
             response = await window.ipc.clearDns();
             response.success && setCurrentActive('')
-        }
-        else {
+        } else {
             activityContextData.setStatus("درحال اتصال....")
             response = await window.ipc.setDns(server);
             if (response.success) {

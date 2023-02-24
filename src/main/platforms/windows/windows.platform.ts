@@ -1,4 +1,4 @@
-import { Platform } from "../../interfaces/platform.interface";
+import {Platform} from "../../interfaces/platform.interface";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import network from "network"
@@ -11,8 +11,8 @@ export class WindowsPlatform implements Platform {
     clearDns(interfaceName: string): Promise<void> {
         return new Promise((resolve, reject) => {
             sudo.exec(`netsh interface ip set dns "${interfaceName}" dhcp`, {
-                name: "test"
-            }, (error, stdout, stderr) => {
+                name: "DnsChanger"
+            }, (error) => {
                 if (error) {
                     reject(error)
                     return;
@@ -56,7 +56,7 @@ export class WindowsPlatform implements Platform {
 
     private execCmd(cmd: string): Promise<string | Buffer> {
         return new Promise((resolve, reject) => {
-            sudo.exec(cmd, { name: "dnsChanger" }, (error, stdout, stderr) => {
+            sudo.exec(cmd, {name: "dnsChanger"}, (error, stdout, stderr) => {
                 if (error) {
                     reject(error)
                     return;
@@ -69,8 +69,7 @@ export class WindowsPlatform implements Platform {
     private extractDns(input: string): Array<string> {
         const regex = /Statically Configured DNS Servers:\s+([\d.]+)\s+([\d.]+)/gm;
         const matches = regex.exec(input);
-        const dnsServers = [matches[1].trim(), matches[2].trim()];
-        return dnsServers
+        return [matches[1].trim(), matches[2].trim()]
         //ChatGpt
     }
 
