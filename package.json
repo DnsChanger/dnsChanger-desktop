@@ -27,6 +27,7 @@
     "@types/dotenv": "^8.2.0",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.0",
+    "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
     "@vercel/webpack-asset-relocator-loader": "^1.7.3",
@@ -56,9 +57,13 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "dotenv": "^16.0.3",
     "electron-squirrel-startup": "^1.0.0",
+    "electron-store": "^8.1.0",
+    "flowbite": "^1.6.3",
+    "flowbite-react": "^0.3.8",
     "network": "^0.6.1",
     "react": "^18.2.0",
     "react-dom": "^18.0.0",
-    "sudo-prompt": "^9.2.1"
+    "sudo-prompt": "^9.2.1",
+    "uuid": "^9.0.0"
   }
 }

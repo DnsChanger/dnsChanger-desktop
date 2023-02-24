@@ -8,5 +8,7 @@ contextBridge.exposeInMainWorld('ipc', {
     setDns: (server: Server) => ipcRenderer.invoke(EventsKeys.SET_DNS, server),
     clearDns: () => ipcRenderer.invoke(EventsKeys.CLEAR_DNS),
     notif: (message: string) => ipcRenderer.send(EventsKeys.NOTIFICATION, message),
-    openBrowser: (url: string) => ipcRenderer.send(EventsKeys.OPEN_BROWSER, url)
+    openBrowser: (url: string) => ipcRenderer.send(EventsKeys.OPEN_BROWSER, url),
+    addDns: (data: unknown) => ipcRenderer.invoke(EventsKeys.ADD_DNS, data),
+    fetchCustomServers: () => ipcRenderer.invoke(EventsKeys.FETCH_DNS_LIST)
 })

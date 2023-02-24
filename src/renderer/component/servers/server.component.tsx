@@ -1,4 +1,4 @@
-import {Button} from 'react-daisyui';
+import {Button, Tooltip} from 'react-daisyui';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {setState} from '../../interfaces/react.interface';
 import React, {} from 'react';
@@ -22,9 +22,14 @@ export function ServerComponent(prop: Props) {
                 <div className='flex-none'>
                     <FontAwesomeIcon icon={"server"}/>
                 </div>
-                <div className='flex-1 w-64'>{server.names.eng}</div>
+                <div className='flex-1 w-64'>
+                    <Tooltip message={server.servers.join("\n")} color={"accent"} position={"bottom"}>
+                        <p className={"font-medium"}>{server.names.eng}</p>
+                    </Tooltip>
+                </div>
                 <div>
                     <Button shape='circle' size='sm' color={isConnect ? 'success' : 'warning'}
+                            disabled={activityContextData.isWaiting}
                             onClick={() => clickHandler.apply(activityContextData, [server, prop.setCurrentActive, isConnect])}
                     >
                         <FontAwesomeIcon icon={isConnect ? 'stop' : "power-off"}/>

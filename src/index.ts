@@ -27,7 +27,8 @@ const createWindow = (): void => {
 
     mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
     // Open the DevTools.
-    // mainWindow.webContents.openDevTools();
+    if (process.env.ENV)
+        mainWindow.webContents.openDevTools();
 };
 
 
@@ -41,6 +42,7 @@ app.on('window-all-closed', () => {
 
 import "./main/ipc/dialogs"
 import "./main/ipc/notif"
+import * as process from "process";
 
 app.on('activate', () => {
     // On OS X it's common to re-create a window in the app when the

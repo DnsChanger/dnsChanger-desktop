@@ -1,10 +1,12 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button} from "react-daisyui"
 import {findServer, servers} from "../shared/constants/servers.cosntant";
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {ServerComponent} from "./component/servers/server.component";
 import {activityContext} from './context/activty.context';
+import {AddDnsModalComponent} from "./component/modals/add-dns.component";
+import {Server} from "../shared/interfaces/server.interface";
+import {ServersComponent} from "./component/servers/servers";
 
 declare global {
     interface Window {
@@ -17,13 +19,24 @@ export function App() {
     const [currentActive, setCurrentActive] = useState<string>("")
     const [isWaiting, setIsWaiting] = useState<boolean>(false);
     const [status, setStatus] = useState<string>("")
-
+    const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
+    const [serversState, setServers] = useState<Server[]>(servers)
     const values = {
         isWaiting,
         setIsWaiting,
         status,
         setStatus
     }
+
+    useEffect(() => {
+        async function fetchCustomServers() {
+            const response = await window.ipc.fetchCustomServers();
+            const newServers = servers.concat(response.servers);
+            setServers(newServers);
+        }
+
+        fetchCustomServers();
+    }, []);
     return (
 
         <div>
@@ -58,14 +71,14 @@ export function App() {
                                         }
                                     </div>
 
+
                                     <div className={"relative border border-gray-700 rounded-2xl  shadow-2xl"}>
                                         <div className={"card items-center card-body"}>
                                             <div className={"overflow-y-auto "}>
                                                 <div className={"grid h-[200px] w-[300px] "}>
-                                                    {servers.map((server, index) =>
-                                                        <ServerComponent server={server} currentActive={currentActive}
-                                                                         setCurrentActive={setCurrentActive}
-                                                                         key={index}/>)}
+                                                    <ServersComponent serversState={serversState}
+                                                                      currentActive={currentActive}
+                                                                      setCurrentActive={setCurrentActive}/>
                                                 </div>
                                             </div>
                                             <div>
@@ -75,14 +88,24 @@ export function App() {
                                             </div>
                                         </div>
                                     </div>
-                                    {/* <div className="mt-3">
+
+
+                                    <div className="mt-3">
                                         <div className="float-right">
-                                            <Button color="success" className="text-white">
-                                                <FontAwesomeIcon icon={["fas", "plus"]} className="mr-2"></FontAwesomeIcon>
+                                            <Button color="success" className="text-white"
+                                                    onClick={() => setIsOpenModal(true)}>
+                                                <FontAwesomeIcon icon={["fas", "plus"]}
+                                                                 className="mr-2"></FontAwesomeIcon>
                                                 افزودن DNS دلخواه
                                             </Button>
+                                            <AddDnsModalComponent isOpen={isOpenModal} setIsOpen={setIsOpenModal}
+                                                                  cb={(va) => {
+                                                                      serversState.push(va);
+                                                                      setServers(serversState)
+                                                                  }}
+                                            />
                                         </div>
-                                    </div> */}
+                                    </div>
 
                                 </div>
                             </div>
