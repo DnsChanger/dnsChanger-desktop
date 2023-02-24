@@ -1,5 +1,12 @@
-import {app, BrowserWindow, nativeImage} from 'electron';
+import {app, BrowserWindow, nativeImage, autoUpdater, dialog} from 'electron';
+import updateElectron from "update-electron-app"
 
+updateElectron({
+    repo: 'github.com/DnsChanger/dnsChanger-desktop',
+    updateInterval: '1 hour',
+    logger: require('electron-log'),
+    notifyUser: true
+})
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 
@@ -29,6 +36,7 @@ const createWindow = (): void => {
     // Open the DevTools.
     if (process.env.ENV)
         mainWindow.webContents.openDevTools();
+
 };
 
 
@@ -51,3 +59,28 @@ app.on('activate', () => {
         createWindow();
     }
 });
+
+
+function updateHandling() {
+    const server = 'https://your-deployment-url.com'
+    const url = `${server}/update/${process.platform}/${app.getVersion()}`
+    autoUpdater.setFeedURL({url})
+    setInterval(() => {
+        autoUpdater.checkForUpdates()
+    }, 60000)
+}
+
+autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
+    const dialogOpts = {
+        type: 'info',
+        buttons: ['Restart', 'Later'],
+        title: 'Application Update',
+        message: process.platform === 'win32' ? releaseNotes : releaseName,
+        detail:
+            'A new version has been downloaded. Restart the application to apply the updates.',
+    }
+
+    dialog.showMessageBox(dialogOpts).then((returnValue) => {
+        if (returnValue.response === 0) autoUpdater.quitAndInstall()
+    })
+})

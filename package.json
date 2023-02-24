@@ -2,8 +2,11 @@
   "name": "dnschanger",
   "productName": "dnschanger",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Dns Changer for Windows, Mac and Linux operating systems",
   "main": ".webpack/main",
+  "repository": {
+    "url": "https://github.com/DnsChanger/dnsChanger-desktop"
+  },
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
@@ -56,6 +59,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "dotenv": "^16.0.3",
+    "electron-log": "^5.0.0-beta.16",
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^8.1.0",
     "flowbite": "^1.6.3",
@@ -64,6 +68,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.0.0",
     "sudo-prompt": "^9.2.1",
+    "update-electron-app": "^2.0.1",
     "uuid": "^9.0.0"
   }
 }
