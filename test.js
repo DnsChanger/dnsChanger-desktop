@@ -1,7 +1,7 @@
 var network = require('network');
 
 const sudo = require('sudo-prompt');
-
+const fs = require("fs/promises")
 
 function getInterfacesList() {
     return new Promise((resolve, reject) => {
@@ -13,16 +13,16 @@ function getInterfacesList() {
 }
 
 
-(async () => {
-    const interfaces = await getInterfacesList();
-    const activeInterface = interfaces.find((inter) => inter.gateway_ip != null)
-    const result = await getActiveDns(activeInterface.name)
-    console.log(extractDns(result))
-    // await setDns(activeInterface.name, '78.157.42.100')
-    // await setDns(activeInterface.name, "78.157.42.101", true)
-    // await clearDns(activeInterface.name)
-    console.log("Done")
-})();
+// (async () => {
+//     const interfaces = await getInterfacesList();
+//     const activeInterface = interfaces.find((inter) => inter.gateway_ip != null)
+//     const result = await getActiveDns(activeInterface.name)
+//     console.log(extractDns(result))
+//     // await setDns(activeInterface.name, '78.157.42.100')
+//     // await setDns(activeInterface.name, "78.157.42.101", true)
+//     // await clearDns(activeInterface.name)
+//     console.log("Done")
+// })();
 
 async function setDns(interfaceName, server, setIndex2 = false) {
     const options = {
@@ -74,3 +74,7 @@ function getActiveDns(interfaceName) {
     })
 }
 
+async function fileAccessLinux() {
+    await fs.access("/etc/resolv.conf", fs.constants.R_OK | fs.constants.W_OK)
+}
+fileAccessLinux()
