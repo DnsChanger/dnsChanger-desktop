@@ -15,7 +15,8 @@ export class LinuxPlatform extends Platform {
         try {
             const cmd = "grep nameserver /etc/resolv.conf | awk '{print $2}'";
             const text = await this.execCmd(cmd) as string;
-            return text.trim().split("\n");
+            const regex = /(?<=nameserver\s)\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/g;
+            return text.trim().match(regex)
         } catch (e) {
             throw e;
         }

@@ -72,8 +72,8 @@ ipcMain.handle(EventsKeys.GET_CUREENT_ACTIVE, async (): Promise<any> => {
         if (!dns.length)
             return { success: false, server: null }
         const store = dnsListStore.get("dnsList") || []
-        servers.concat(store);
-        const server: Server | null = servers.find((server) => server.servers.toString() == dns.toString())
+        const allServers = servers.concat(store);
+        const server: Server | null = allServers.find((server) => server.servers.toString() == dns.toString())
         if (!server)
             return {
                 success: true, server: {
