@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "react";
-import {Button} from "react-daisyui"
-import {findServer, servers} from "../shared/constants/servers.cosntant";
+import React, { useEffect, useState } from "react";
+import { Button } from "react-daisyui"
+import { findServer, servers } from '../shared/constants/servers.cosntant';
 
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {activityContext} from './context/activty.context';
-import {AddDnsModalComponent} from "./component/modals/add-dns.component";
-import {Server} from "../shared/interfaces/server.interface";
-import {ServersComponent} from "./component/servers/servers";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { activityContext } from './context/activty.context';
+import { AddDnsModalComponent } from "./component/modals/add-dns.component";
+import { Server } from "../shared/interfaces/server.interface";
+import { ServersComponent } from "./component/servers/servers";
 
 declare global {
     interface Window {
@@ -37,6 +37,15 @@ export function App() {
 
         fetchCustomServers();
     }, []);
+    useEffect(() => {
+        async function getCurrentActive() {
+            const response = await window.ipc.getCurrentActive();
+            if (response.success) {
+                setCurrentActive(response.server.key)
+            }
+        }
+        getCurrentActive()
+    }, [])
     return (
 
         <div>
@@ -45,8 +54,8 @@ export function App() {
                 <div className="navbar-start"></div>
                 <div className="navbar-end">
                     <Button className={"btn gap-2 normal-case btn-ghost"}
-                            onClick={() => window.ipc.openBrowser("https://github.com/DnsChanger/dnsChanger-desktop")}>
-                        <FontAwesomeIcon icon={["fab", "github"]} size={"lg"}/>
+                        onClick={() => window.ipc.openBrowser("https://github.com/DnsChanger/dnsChanger-desktop")}>
+                        <FontAwesomeIcon icon={["fab", "github"]} size={"lg"} />
                     </Button>
                 </div>
             </div>
@@ -66,7 +75,10 @@ export function App() {
                                         {currentActive &&
 
                                             <span className="text-green-500">
-                                                شما به <strong>{findServer(currentActive)?.names.fa}</strong> وصل شدید
+                                                {currentActive == "unknown" ? "به یک سرور ناشناخته متصل هستید." :
+                                                    <p>  شما به <strong>{findServer(currentActive)?.names.fa}</strong> متصل شدید</p>
+                                                }
+
                                             </span>
                                         }
                                     </div>
@@ -77,8 +89,8 @@ export function App() {
                                             <div className={"overflow-y-auto "}>
                                                 <div className={"grid h-[200px] w-[300px] "}>
                                                     <ServersComponent serversState={serversState}
-                                                                      currentActive={currentActive}
-                                                                      setCurrentActive={setCurrentActive}/>
+                                                        currentActive={currentActive}
+                                                        setCurrentActive={setCurrentActive} />
                                                 </div>
                                             </div>
                                             <div>
@@ -93,16 +105,16 @@ export function App() {
                                     <div className="mt-3">
                                         <div className="float-right">
                                             <Button color="success" className="text-white"
-                                                    onClick={() => setIsOpenModal(true)}>
+                                                onClick={() => setIsOpenModal(true)}>
                                                 <FontAwesomeIcon icon={["fas", "plus"]}
-                                                                 className="mr-2"></FontAwesomeIcon>
+                                                    className="mr-2"></FontAwesomeIcon>
                                                 افزودن DNS دلخواه
                                             </Button>
                                             <AddDnsModalComponent isOpen={isOpenModal} setIsOpen={setIsOpenModal}
-                                                                  cb={(va) => {
-                                                                      serversState.push(va);
-                                                                      setServers(serversState)
-                                                                  }}
+                                                cb={(va) => {
+                                                    serversState.push(va);
+                                                    setServers(serversState)
+                                                }}
                                             />
                                         </div>
                                     </div>

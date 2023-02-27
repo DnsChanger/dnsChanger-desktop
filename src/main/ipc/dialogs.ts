@@ -7,6 +7,7 @@ import { v4 as uuid } from "uuid"
 import { isValidDnsAddress } from "../../shared/validators/dns.validator";
 import { dnsListStore } from "../store/servers.store";
 import { ResponseMessage } from "../constant/messages.constant";
+import { servers } from '../../shared/constants/servers.cosntant';
 
 
 ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
@@ -63,6 +64,34 @@ ipcMain.handle(EventsKeys.FETCH_DNS_LIST, (event) => {
     const store = dnsListStore.get("dnsList") || []
     // list.concat(store);
     return { success: true, servers: store }
+})
+
+ipcMain.handle(EventsKeys.GET_CUREENT_ACTIVE, async (): Promise<any> => {
+    try {
+        const dns: string[] = await dnsService.getActiveDns()
+        if (!dns.length)
+            return { success: false, server: null }
+        const store = dnsListStore.get("dnsList") || []
+        servers.concat(store);
+        const server: Server | null = servers.find((server) => server.servers.toString() == dns.toString())
+        if (!server)
+            return {
+                success: true, server: {
+                    key: "unknown",
+                    servers: dns,
+                    names: {
+                        eng: "unknown",
+                        fa: "unknown"
+                    },
+                    avatar: ""
+                }
+            }
+        else {
+            return { success: true, server }
+        }
+    } catch (error) {
+        return errorHandling(error)
+    }
 })
 
 ipcMain.on(EventsKeys.OPEN_BROWSER, (ev, url) => {
