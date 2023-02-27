@@ -1,4 +1,4 @@
-import { ipcMain, shell } from "electron";
+import { ipcMain, shell, dialog } from 'electron';
 import { dnsService } from "../config";
 import { Server } from "../../shared/interfaces/server.interface";
 import { EventsKeys } from "../../shared/constants/eventsKeys.constant";
@@ -6,34 +6,24 @@ import { EventsKeys } from "../../shared/constants/eventsKeys.constant";
 import { v4 as uuid } from "uuid"
 import { isValidDnsAddress } from "../../shared/validators/dns.validator";
 import { dnsListStore } from "../store/servers.store";
+import { ResponseMessage } from "../constant/messages.constant";
 
 
 ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
     try {
-        // const interfaces = await dnsService.getInterfacesList()
-        // const activeInterface = interfaces.find((inter: any) => inter.gateway_ip != null)
-        // if (!activeInterface && interfaces.length) {
-        //     return { server, success: false, message: "اتصال خود به اینترنت را بررسی کنید." }
-        // }
-        await dnsService.setDns(server.servers, " activeInterface.name")
+        await dnsService.setDns(server.servers)
         return { server, success: true, message: `با موفقیت به ${server.names.fa} متصل شدید.` }
-    } catch (e) {
-        console.log(e)
-        return { server, success: false, message: "خطا ناشناخته" }
+    } catch (e: any) {
+        return { server, ...errorHandling(e) }
     }
 })
 
 ipcMain.handle(EventsKeys.CLEAR_DNS, async (event, server: Server) => {
     try {
-        // const interfaces = await dnsService.getInterfacesList()
-        // const activeInterface = interfaces.find((inter: any) => inter.gateway_ip != null)
-        // if (!activeInterface) {
-        //     return { server, success: false, message: "اتصال خود به اینترنت را بررسی کنید." }
-        // }
-        await dnsService.clearDns("activeInterface.name")
+        await dnsService.clearDns()
         return { server, success: true, message: "موفقیت آمیز" }
     } catch (e) {
-        return { server, success: false, message: "خطا ناشناخته" }
+        return { server, ...errorHandling(e) }
     }
 })
 
@@ -78,3 +68,15 @@ ipcMain.handle(EventsKeys.FETCH_DNS_LIST, (event) => {
 ipcMain.on(EventsKeys.OPEN_BROWSER, (ev, url) => {
     shell.openExternal(url)
 })
+
+
+ipcMain.on(EventsKeys.DIALOG_ERROR, (ev: any, title: string, message: string) => {
+    dialog.showErrorBox(title, message)
+})
+
+function errorHandling(e: any) {
+    // @ts-ignore
+    const msg = ResponseMessage[e.message]
+
+    return { success: false, message: msg || "خطا ناشناخته" }
+}

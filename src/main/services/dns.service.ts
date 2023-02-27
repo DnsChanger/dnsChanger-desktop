@@ -1,20 +1,20 @@
-import {Platform} from "../interfaces/platform.interface";
+import { Platform } from "../platforms/platform"
 
 
 export class DnsService {
     constructor(private platform: Platform) {
     }
 
-    async setDns(nameServers: Array<string>, interfaceName: string) {
-        return this.platform.setDns(nameServers, interfaceName)
+    async setDns(nameServers: Array<string>) {
+        return this.platform.setDns(nameServers)
     }
 
-    async getActiveDns(interfaceName: string) {
-        return this.platform.getActiveDns(interfaceName)
+    async getActiveDns() {
+        return this.platform.getActiveDns()
     }
 
-    async clearDns(interfaceName: string) {
-        return this.platform.clearDns(interfaceName)
+    async clearDns() {
+        return this.platform.clearDns()
     }
 
     async getInterfacesList() {

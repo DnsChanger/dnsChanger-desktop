@@ -1,18 +1,17 @@
-import { Platform } from "../../interfaces/platform.interface";
-import sudo from "sudo-prompt";
 
-export class LinuxPlatform implements Platform {
-    constructor() { }
+import { Platform } from "../platform";
 
-    async clearDns(interfaceName: string): Promise<void> {
+export class LinuxPlatform extends Platform {
+
+    async clearDns(): Promise<void> {
         try {
-            await this.setDns(["192.168.1.1", "127.0.0.1"], "")
+            await this.setDns(["192.168.1.1", "127.0.0.1"])
         } catch (e) {
             throw e;
         }
     }
 
-    async getActiveDns(interfaceName: string): Promise<Array<string>> {
+    async getActiveDns(): Promise<Array<string>> {
         try {
             const cmd = "grep nameserver /etc/resolv.conf | awk '{print $2}'";
             const text = await this.execCmd(cmd) as string;
@@ -26,7 +25,7 @@ export class LinuxPlatform implements Platform {
         return [];
     }
 
-    async setDns(nameServers: Array<string>, interfaceName: string): Promise<void> {
+    async setDns(nameServers: Array<string>): Promise<void> {
         try {
             let lines = "";
             for (let i = 0; i < nameServers.length; i++) {
@@ -39,19 +38,6 @@ export class LinuxPlatform implements Platform {
         } catch (e) {
             throw e;
         }
-    }
-
-    private execCmd(cmd: string): Promise<string | Buffer> {
-        return new Promise((resolve, reject) => {
-            sudo.exec(cmd, { name: "dnsChanger" }, (error, stdout, stderr) => {
-                if (error) {
-                    reject(error);
-                    return;
-                }
-                resolve(stdout);
-            });
-
-        });
     }
 }
 // Powered by ChatGpt 

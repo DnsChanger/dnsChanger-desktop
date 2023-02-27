@@ -1,8 +1,8 @@
 import { DnsService } from "./services/dns.service";
 import { WindowsPlatform } from "./platforms/windows/windows.platform";
-import { Platform } from "./interfaces/platform.interface";
 import os from "os"
-import { LinuxPlatform } from "./platforms/windows/linux.platform";
+import { LinuxPlatform } from "./platforms/linux/linux.platform";
+import { Platform } from './platforms/platform';
 
 let platform: Platform;
 

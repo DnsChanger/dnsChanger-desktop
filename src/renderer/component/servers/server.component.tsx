@@ -1,10 +1,10 @@
-import {Button, Tooltip} from 'react-daisyui';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {setState} from '../../interfaces/react.interface';
-import React, {} from 'react';
-import {activityContext} from '../../context/activty.context';
-import {ActivityContext} from '../../interfaces/activty.interface';
-import {Server} from "../../../shared/interfaces/server.interface";
+import { Button, Tooltip } from 'react-daisyui';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { setState } from '../../interfaces/react.interface';
+import React, { } from 'react';
+import { activityContext } from '../../context/activty.context';
+import { ActivityContext } from '../../interfaces/activty.interface';
+import { Server } from "../../../shared/interfaces/server.interface";
 
 interface Props {
     server: Server
@@ -20,7 +20,7 @@ export function ServerComponent(prop: Props) {
         <div dir='auto' className=' mb-2 p-2'>
             <div className="flex flex-nowrap">
                 <div className='flex-none'>
-                    <FontAwesomeIcon icon={"server"}/>
+                    <FontAwesomeIcon icon={"server"} />
                 </div>
                 <div className='flex-1 w-64'>
                     <Tooltip message={server.servers.join("\n")} color={"accent"} position={"bottom"}>
@@ -29,10 +29,10 @@ export function ServerComponent(prop: Props) {
                 </div>
                 <div>
                     <Button shape='circle' size='sm' color={isConnect ? 'success' : 'warning'}
-                            disabled={activityContextData.isWaiting}
-                            onClick={() => clickHandler.apply(activityContextData, [server, prop.setCurrentActive, isConnect])}
+                        disabled={activityContextData.isWaiting}
+                        onClick={() => clickHandler.apply(activityContextData, [server, prop.setCurrentActive, isConnect])}
                     >
-                        <FontAwesomeIcon icon={isConnect ? 'stop' : "power-off"}/>
+                        <FontAwesomeIcon icon={isConnect ? 'stop' : "power-off"} />
                     </Button>
                 </div>
             </div>
@@ -62,12 +62,13 @@ async function clickHandler(server: Server, setCurrentActive: setState<string>, 
                 setCurrentActive(server.key)
             }
         }
-
-        window.ipc.notif(response.message)
-
+        if (response.success)
+            window.ipc.notif(response.message)
+        else
+            throw response
 
     } catch (e: any) {
-        window.ipc.notif(e.message)
+        window.ipc.dialogError("Error", e.message)
     } finally {
         activityContextData.setIsWaiting(false)
         activityContextData.setStatus("")
