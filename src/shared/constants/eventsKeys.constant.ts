@@ -6,6 +6,7 @@ export enum EventsKeys {
     NOTIFICATION = "notification",
     DIALOG_ERROR = "dialogs:d_error",
     OPEN_BROWSER = "dialogs:open_browser",
-    GET_CUREENT_ACTIVE = "dialogs:get_current_active"
+    GET_CUREENT_ACTIVE = "dialogs:get_current_active",
+    TOGGLE_THEME = "ui:toggleTheme"
 }
 

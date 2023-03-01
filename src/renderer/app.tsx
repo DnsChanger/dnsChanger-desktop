@@ -7,10 +7,12 @@ import { activityContext } from './context/activty.context';
 import { AddDnsModalComponent } from "./component/modals/add-dns.component";
 import { Server } from "../shared/interfaces/server.interface";
 import { ServersComponent } from "./component/servers/servers";
+import { NavbarComponent } from "./component/head/navbar.component";
 
 declare global {
     interface Window {
         ipc: any
+        ui: any
     }
 }
 
@@ -49,17 +51,8 @@ export function App() {
     return (
 
         <div>
-
-            <div className="navbar bg-base-100">
-                <div className="navbar-start"></div>
-                <div className="navbar-end">
-                    <Button className={"btn gap-2 normal-case btn-ghost"}
-                        onClick={() => window.ipc.openBrowser("https://github.com/DnsChanger/dnsChanger-desktop")}>
-                        <FontAwesomeIcon icon={["fab", "github"]} size={"lg"} />
-                    </Button>
-                </div>
-            </div>
-            <div className=" lg:flex-row dark:bg-zinc-900/95">
+            <NavbarComponent />
+            <div className="lg:flex-row dark:bg-zinc-500/95">
                 <main className=" rounded-3xl dark:bg-zinc-900/95">
 
                     <activityContext.Provider value={values}>
@@ -74,12 +67,15 @@ export function App() {
                                         </h1>
                                         {currentActive &&
 
-                                            <span className="text-green-500">
-                                                {currentActive == "unknown" ? "به یک سرور ناشناخته متصل هستید." :
-                                                    <p>  شما به <strong>{findServer(currentActive)?.names.fa}</strong> متصل شدید</p>
-                                                }
+                                            <div className="gap-2 items-center">
+                                                <p className="text-green-500">
+                                                    <FontAwesomeIcon icon={"check-circle"} />
+                                                    {currentActive == "unknown" ? <span>به یک سرور ناشناخته متصل هستید.</span> :
+                                                        <span>  شما به <u>{findServer(currentActive)?.names.fa}</u> متصل شدید</span>
+                                                    }
 
-                                            </span>
+                                                </p>
+                                            </div>
                                         }
                                     </div>
 

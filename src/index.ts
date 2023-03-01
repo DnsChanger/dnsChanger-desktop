@@ -1,4 +1,4 @@
-import {app, BrowserWindow, nativeImage, autoUpdater, dialog} from 'electron';
+import { app, BrowserWindow, nativeImage, autoUpdater, dialog } from 'electron';
 import updateElectron from "update-electron-app"
 
 updateElectron({
@@ -50,6 +50,7 @@ app.on('window-all-closed', () => {
 
 import "./main/ipc/dialogs"
 import "./main/ipc/notif"
+import "./main/ipc/ui"
 import * as process from "process";
 
 app.on('activate', () => {
@@ -64,7 +65,7 @@ app.on('activate', () => {
 function updateHandling() {
     const server = 'https://your-deployment-url.com'
     const url = `${server}/update/${process.platform}/${app.getVersion()}`
-    autoUpdater.setFeedURL({url})
+    autoUpdater.setFeedURL({ url })
     setInterval(() => {
         autoUpdater.checkForUpdates()
     }, 60000)

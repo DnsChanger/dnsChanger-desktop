@@ -12,5 +12,10 @@ contextBridge.exposeInMainWorld('ipc', {
     openBrowser: (url: string) => ipcRenderer.send(EventsKeys.OPEN_BROWSER, url),
     addDns: (data: unknown) => ipcRenderer.invoke(EventsKeys.ADD_DNS, data),
     fetchCustomServers: () => ipcRenderer.invoke(EventsKeys.FETCH_DNS_LIST),
-    getCurrentActive: () => ipcRenderer.invoke(EventsKeys.GET_CUREENT_ACTIVE)
+    getCurrentActive: () => ipcRenderer.invoke(EventsKeys.GET_CUREENT_ACTIVE),
 })
+
+contextBridge.exposeInMainWorld('ui', {
+    toggleTheme: (newTheme: string) => ipcRenderer.send(EventsKeys.TOGGLE_THEME, newTheme)
+})
+
