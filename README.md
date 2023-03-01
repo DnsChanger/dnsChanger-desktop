@@ -31,3 +31,29 @@
 ## 📝 لاگ تغییرات
 
 شما میتونید [لاگ تغییرات](changelog.md) رو برای اطلاعات بیشتر و تغییرات اخیر مشاهده کنید
+
+
+## 🛠️ همکاری
+
+1.
+```bash 
+git clone https://github.com/DnsChanger/dnsChanger-desktop.git
+```
+2.
+```bash
+git checkout -b "my-new-feature"
+```
+3.
+```bash
+npm install
+```
+- developing...
+4. 
+```bash
+ git commit -am 'Add some feature'
+```
+5.
+```bash
+git push origin my-new-feature
+```
+- Submit a pull request 

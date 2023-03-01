@@ -1,12 +1,12 @@
-import type {ForgeConfig} from '@electron-forge/shared-types';
-import {MakerSquirrel} from '@electron-forge/maker-squirrel';
-import {MakerZIP} from '@electron-forge/maker-zip';
-import {MakerDeb} from '@electron-forge/maker-deb';
-import {MakerRpm} from '@electron-forge/maker-rpm';
-import {WebpackPlugin} from '@electron-forge/plugin-webpack';
+import type { ForgeConfig } from '@electron-forge/shared-types';
+import { MakerSquirrel } from '@electron-forge/maker-squirrel';
+import { MakerZIP } from '@electron-forge/maker-zip';
+import { MakerDeb } from '@electron-forge/maker-deb';
+import { MakerRpm } from '@electron-forge/maker-rpm';
+import { WebpackPlugin } from '@electron-forge/plugin-webpack';
 
-import {mainConfig} from './webpack.main.config';
-import {rendererConfig} from './webpack.renderer.config';
+import { mainConfig } from './webpack.main.config';
+import { rendererConfig } from './webpack.renderer.config';
 import dotenv from "dotenv"
 
 dotenv.config()
@@ -17,8 +17,8 @@ const config: ForgeConfig = {
         new MakerSquirrel({
             // ...
         }),
-        new MakerZIP({}, ['darwin', 'linux']),
-        new MakerDeb({})
+        new MakerDeb({}),
+        new MakerRpm({})
     ],
     plugins: [
         new WebpackPlugin({
