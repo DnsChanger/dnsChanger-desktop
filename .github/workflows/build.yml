@@ -13,7 +13,7 @@ jobs:
         run: npm install
       - name: build
         run: npm run make
-          
+
   build_on_win:
     runs-on: windows-latest
     steps:
@@ -25,3 +25,7 @@ jobs:
         run: npm install
       - name: build
         run: npm run make
+permissions:
+  contents: 'read'
+  id-token: 'write'
+  issues: 'write' #__This fixed the HttpError: Resource not accessible by integration
