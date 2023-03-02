@@ -1,8 +1,12 @@
+
 # ✍️ معرفی
 ![GitHub language count](https://img.shields.io/github/languages/count/DnsChanger/dnsChanger-desktop)
 ![GitHub top language](https://img.shields.io/github/languages/top/DnsChanger/dnsChanger-desktop)
 [![Github All Releases](https://img.shields.io/github/downloads/DnsChanger/dnsChanger-desktop/total.svg)]()
 
+<p align="center">
+    <img src="https://media.discordapp.net/attachments/1061003400159952948/1080814684481011762/dns-4.png" alt="dnsChanger screenshot 1" width="600">
+</p>
 
 یک DNS Changer فارسی و اوپن سورس برای سیستم عامل های ویندوز ، مک و لینوکس  که هدفش جمع آوری بهترین DNS ها در یک اپلیکیشن  امن هستش
 
