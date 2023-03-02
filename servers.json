@@ -1,10 +1,10 @@
 [
     {
         "names": {
-            "eng": "",
-            "fa": ""
+            "eng": "asiatech",
+            "fa": "آسیاتک"
         },
-        "servers": [],
-        "avatar": ""
+        "servers": ["194.36.174.161","178.22.122.100"],
+        "avatar": "asiatech.png"
     }
 ]
