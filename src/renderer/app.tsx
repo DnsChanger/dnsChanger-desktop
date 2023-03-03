@@ -100,10 +100,9 @@ export function App() {
 
                                     <div className="mt-3">
                                         <div className="float-right">
-                                            <Button color="success" className="text-white"
+                                            <Button className="text-white btn--dns-fav"
                                                 onClick={() => setIsOpenModal(true)}>
-                                                <FontAwesomeIcon icon={["fas", "plus"]}
-                                                    className="mr-2"></FontAwesomeIcon>
+                                                <FontAwesomeIcon icon={["fas", "plus"]} className="mr-2"></FontAwesomeIcon>
                                                 افزودن DNS دلخواه
                                             </Button>
                                             <AddDnsModalComponent isOpen={isOpenModal} setIsOpen={setIsOpenModal}

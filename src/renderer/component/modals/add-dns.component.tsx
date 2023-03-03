@@ -46,7 +46,7 @@ export function AddDnsModalComponent(props: Props) {
                             <Label className="label">
                                 <span className="label-text">نام سرور</span>
                             </Label>
-                            <Input type={"text"} className={"w-full max-w-xs"} placeholder={"custom server..."}
+                            <Input type={"text"} className={"w-full max-w-xs name--server"} placeholder={"custom server..."}
                                    dir={"auto"} name={"dns_name"}
                                    value={serverName}
                                    onChange={(e) => setServerName(e.target.value)}
@@ -58,14 +58,14 @@ export function AddDnsModalComponent(props: Props) {
                             </Label>
                             <div className={"gap-2 grid grid-cols-4 gap-4"} dir={"ltr"}>
                                 <div>
-                                    <Input type={"text"} className={""} placeholder={"name server 1 ..."}
+                                    <Input type={"text"} className={"name--server"} placeholder={"name server 1 ..."}
                                            name={"first_server"}
                                            value={nameServer1}
                                            onChange={(e) => setNameServer1(e.target.value)}
                                     />
                                 </div>
                                 <div>
-                                    <Input type={"text"} className={""} placeholder={"name server 2 ..."}
+                                    <Input type={"text"} className={"name--server"} placeholder={"name server 2 ..."}
                                            name={"sec_server"}
                                            value={nameServer2}
                                            onChange={(e) => setNameServer2(e.target.value)}

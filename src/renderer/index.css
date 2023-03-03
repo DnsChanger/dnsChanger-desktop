@@ -112,3 +112,18 @@ html[data-theme="dark"]::-webkit-scrollbar {
 ::-webkit-scrollbar-thumb:hover {
     background-color: #1d1d1d;
 }
+
+.btn--dns-fav {
+    background-color: #4a759c9c;
+    color: rgb(255, 255, 255);
+    border: solid 2px #4a749c;
+}
+
+.btn--dns-fav:hover {
+    background-color: #4a749c30;
+    border: solid 2px rgba(126, 218, 209, 0.802);
+}
+
+.name--server:active::placeholder {
+    color: white;
+}
