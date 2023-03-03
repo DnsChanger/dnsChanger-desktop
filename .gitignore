@@ -89,3 +89,5 @@ typings/
 out/
 
 .idea
+
+./store

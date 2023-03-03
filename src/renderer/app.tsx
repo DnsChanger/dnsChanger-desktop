@@ -8,6 +8,8 @@ import { AddDnsModalComponent } from "./component/modals/add-dns.component";
 import { Server } from "../shared/interfaces/server.interface";
 import { ServersComponent } from "./component/servers/servers";
 import { NavbarComponent } from "./component/head/navbar.component";
+import axios from "axios"
+import { UpdateListBtnComponent } from './component/buttons/updateList-btn.component';
 
 declare global {
     interface Window {
@@ -46,8 +48,11 @@ export function App() {
                 setCurrentActive(response.server.key)
             }
         }
+
         getCurrentActive()
     }, [])
+
+
     return (
 
         <div>
@@ -65,18 +70,18 @@ export function App() {
                                         <h1 className="text-3xl font-bold mb-2">
                                             بهترین های رفع تحریم
                                         </h1>
-                                        {currentActive &&
 
-                                            <div className="gap-2 items-center">
+                                        <div className="gap-2 items-center h-2">
+                                            {currentActive &&
                                                 <p className="text-green-500">
                                                     <FontAwesomeIcon icon={"check-circle"} />
-                                                    {currentActive == "unknown" ? <span>به یک سرور ناشناخته متصل هستید.</span> :
+                                                    {currentActive == "unknown" ?
+                                                        <span>به یک سرور ناشناخته متصل هستید.</span> :
                                                         <span>  شما به <u>{findServer(currentActive)?.names.fa}</u> متصل شدید</span>
                                                     }
-
                                                 </p>
-                                            </div>
-                                        }
+                                            }
+                                        </div>
                                     </div>
 
 
@@ -99,13 +104,19 @@ export function App() {
 
 
                                     <div className="mt-3">
-                                        <div className="float-right">
-                                            <Button color="success" className="text-white"
-                                                onClick={() => setIsOpenModal(true)}>
-                                                <FontAwesomeIcon icon={["fas", "plus"]}
-                                                    className="mr-2"></FontAwesomeIcon>
-                                                افزودن DNS دلخواه
-                                            </Button>
+                                        <div className="flex flex-nowrap  gap-2 ml-3">
+                                            <div>
+                                                <Button color="success" className="text-white"
+                                                    onClick={() => setIsOpenModal(true)}>
+                                                    <FontAwesomeIcon icon={["fas", "plus"]}
+                                                        className="mr-2"></FontAwesomeIcon>
+                                                    افزودن DNS دلخواه
+                                                </Button>
+                                            </div>
+                                            <div>
+                                                <UpdateListBtnComponent servers={serversState} setServers={setServers} />
+                                            </div>
+
                                             <AddDnsModalComponent isOpen={isOpenModal} setIsOpen={setIsOpenModal}
                                                 cb={(va) => {
                                                     serversState.push(va);
@@ -125,6 +136,4 @@ export function App() {
         </div>
     )
 }
-
-
 
