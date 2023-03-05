@@ -2,10 +2,19 @@
     {
         "key":"ASIA_TECH",
         "names": {
-            "eng": "asiatech",
+            "eng": "Asiatech",
             "fa": "آسیاتک"
         },
         "servers": ["194.36.174.161","178.22.122.100"],
         "avatar": "asiatech.png"
+    },
+       {
+        "key":"ClOUD_FLARE",
+        "names": {
+            "eng": "Cloudflare",
+            "fa": "کلودفلر"
+        },
+        "servers": ["1.1.1.1","1.0.0.1"],
+        "avatar": "cloudflare.png"
     }
 ]
