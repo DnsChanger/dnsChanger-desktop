@@ -1,14 +1,14 @@
-import { Dropdown } from 'react-daisyui';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useContext, useState } from 'react';
-import { ActivityContext } from '../../../interfaces/activty.interface';
-import { activityContext } from '../../../context/activty.context';
+import {Dropdown} from 'react-daisyui';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {useContext, useState} from 'react';
+import {ActivityContext} from '../../../interfaces/activty.interface';
+import {activityContext} from '../../../context/activty.context';
 import axios from 'axios';
-import { Server } from '../../../../shared/interfaces/server.interface';
+import {Server} from '../../../../shared/interfaces/server.interface';
 import _ from 'lodash';
-import { ServersContext } from '../../../interfaces/servers-context.interface';
-import { serversContext } from '../../../context/servers.context';
-import { UrlsConstant } from '../../../../shared/constants/urls.constant';
+import {ServersContext} from '../../../interfaces/servers-context.interface';
+import {serversContext} from '../../../context/servers.context';
+import {UrlsConstant} from '../../../../shared/constants/urls.constant';
 
 
 const cacheBuster = (url: string) => `${url}?cb=${Date.now()}`;
@@ -32,11 +32,9 @@ export function UpdateListItemComponent() {
 
             const response = await axios.get<Server[]>(cacheBuster(UrlsConstant.STORE))
             const servers = serversContextData.servers.concat(response.data);
-            const uniqList = _.uniqWith(servers, _.isEqual)
-
+            const uniqList: Server[] = _.uniqWith(servers, _.isEqual)
             serversContextData.setServers(uniqList)
-
-
+            await window.ipc.reloadServerList(uniqList)
         } catch (error) {
             window.ipc.dialogError("fetching error", "خطا در دریافت دیتا از مخزن")
         } finally {
@@ -45,12 +43,13 @@ export function UpdateListItemComponent() {
             setIsLoading(false)
         }
     }
+
     return (
         <Dropdown.Item onClick={() => updateHandler()}>
             <FontAwesomeIcon icon={["fas", "redo"]}
 
-                spin={isLoading}
-                className="mr-2" />
+                             spin={isLoading}
+                             className="mr-2"/>
             بروزرسانی لیست
         </Dropdown.Item>
     )

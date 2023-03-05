@@ -1,6 +1,6 @@
 import {Server} from "../interfaces/server.interface";
 
-export const servers: Array<Server> = [
+export const serversConstant: Array<Server> = [
     {
         key: "SHECAN",
         names: {
@@ -39,7 +39,3 @@ export const servers: Array<Server> = [
     }
 ]
 
-
-export function findServer(key: string): Server | null {
-    return servers.find((server) => server.key == key)
-}

@@ -1,8 +1,8 @@
-import React, {useState} from "react";
-import {Button, Input, Modal} from "react-daisyui";
-import {setState} from "../../interfaces/react.interface";
-import {Label} from "flowbite-react";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import React, { useState } from "react";
+import { Button, Input, Modal } from "react-daisyui";
+import { setState } from "../../interfaces/react.interface";
+import { Label } from "flowbite-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface Props {
     isOpen: boolean
@@ -47,28 +47,28 @@ export function AddDnsModalComponent(props: Props) {
                                 <span className="label-text">نام سرور</span>
                             </Label>
                             <Input type={"text"} className={"w-full max-w-xs"} placeholder={"custom server..."}
-                                   dir={"auto"} name={"dns_name"}
-                                   value={serverName}
-                                   onChange={(e) => setServerName(e.target.value)}
+                                dir={"auto"} name={"dns_name"}
+                                value={serverName}
+                                onChange={(e) => setServerName(e.target.value)}
                             />
                         </div>
                         <div className={""}>
                             <Label className="label">
                                 <span className="label-text">آدرس سرور</span>
                             </Label>
-                            <div className={"gap-2 grid grid-cols-4 gap-4"} dir={"ltr"}>
+                            <div className={"gap-2 grid grid-cols-4"} dir={"ltr"}>
                                 <div>
                                     <Input type={"text"} className={""} placeholder={"name server 1 ..."}
-                                           name={"first_server"}
-                                           value={nameServer1}
-                                           onChange={(e) => setNameServer1(e.target.value)}
+                                        name={"first_server"}
+                                        value={nameServer1}
+                                        onChange={(e) => setNameServer1(e.target.value)}
                                     />
                                 </div>
                                 <div>
                                     <Input type={"text"} className={""} placeholder={"name server 2 ..."}
-                                           name={"sec_server"}
-                                           value={nameServer2}
-                                           onChange={(e) => setNameServer2(e.target.value)}
+                                        name={"sec_server"}
+                                        value={nameServer2}
+                                        onChange={(e) => setNameServer2(e.target.value)}
                                     />
                                 </div>
                             </div>
@@ -78,10 +78,10 @@ export function AddDnsModalComponent(props: Props) {
 
                 <Modal.Actions>
                     <Button onClick={() => addHandler()} shape={"circle"} color={"success"}>
-                        <FontAwesomeIcon icon={"plus"}/>
+                        <FontAwesomeIcon icon={"plus"} />
                     </Button>
                     <Button onClick={() => props.setIsOpen(false)} shape={"circle"} color={"error"}>
-                        <FontAwesomeIcon icon={"window-close"}/>
+                        <FontAwesomeIcon icon={"window-close"} />
                     </Button>
                 </Modal.Actions>
             </Modal>
