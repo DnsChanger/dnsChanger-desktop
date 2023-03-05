@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "react-daisyui"
+import { Button, Dropdown } from "react-daisyui"
 import { findServer, servers } from '../shared/constants/servers.cosntant';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,7 +9,8 @@ import { Server } from "../shared/interfaces/server.interface";
 import { ServersComponent } from "./component/servers/servers";
 import { NavbarComponent } from "./component/head/navbar.component";
 import axios from "axios"
-import { UpdateListBtnComponent } from './component/buttons/updateList-btn.component';
+import { ServerListOptionsDropDownComponent } from './component/dropdowns/serverlist-options/serverlist-options.component';
+import { serversContext } from './context/servers.context';
 
 declare global {
     interface Window {
@@ -52,6 +53,10 @@ export function App() {
         getCurrentActive()
     }, [])
 
+    useEffect(() => {
+        console.log("useEffect by serversState")
+    }, [serversState])
+
 
     return (
 
@@ -84,23 +89,32 @@ export function App() {
                                         </div>
                                     </div>
 
+                                    <serversContext.Provider value={{ servers, setServers }}>
 
-                                    <div className={"relative border border-gray-700 rounded-2xl  shadow-2xl"}>
-                                        <div className={"card items-center card-body"}>
-                                            <div className={"overflow-y-auto "}>
-                                                <div className={"grid h-[200px] w-[300px] "}>
-                                                    <ServersComponent serversState={serversState}
-                                                        currentActive={currentActive}
-                                                        setCurrentActive={setCurrentActive} />
+                                        <div className={"border border-gray-700 rounded-2xl  shadow-2xl"}>
+                                            <div className=" mt-2 flex flex-grow gap-2 ml-2 mb-0 top-1">
+
+                                                <ServerListOptionsDropDownComponent />
+                                            </div>
+                                            <div className={"card items-center card-body borderb "}>
+
+                                                <div className={"overflow-y-auto "}>
+
+                                                    <div className={"grid h-[200px] w-[300px] "}>
+                                                        <ServersComponent serversState={serversState}
+                                                            currentActive={currentActive}
+                                                            setCurrentActive={setCurrentActive} />
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <p color="" className="text-red-400 absolute bottom-[10px] right-2">
+                                                        {status}
+                                                    </p>
                                                 </div>
                                             </div>
-                                            <div>
-                                                <p color="" className="text-red-400 absolute bottom-[10px] right-2">
-                                                    {status}
-                                                </p>
-                                            </div>
                                         </div>
-                                    </div>
+                                    </serversContext.Provider>
+
 
 
                                     <div className="mt-3">
@@ -113,9 +127,7 @@ export function App() {
                                                     افزودن DNS دلخواه
                                                 </Button>
                                             </div>
-                                            <div>
-                                                <UpdateListBtnComponent servers={serversState} setServers={setServers} />
-                                            </div>
+
 
                                             <AddDnsModalComponent isOpen={isOpenModal} setIsOpen={setIsOpenModal}
                                                 cb={(va) => {
