@@ -8,6 +8,7 @@ export enum EventsKeys {
     DIALOG_ERROR = "dialogs:d_error",
     OPEN_BROWSER = "dialogs:open_browser",
     GET_CUREENT_ACTIVE = "dialogs:get_current_active",
+    DELETE_DNS = "DELETE_DNS",
     TOGGLE_THEME = "ui:toggleTheme"
 }
 

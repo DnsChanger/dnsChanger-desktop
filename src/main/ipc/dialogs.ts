@@ -7,6 +7,7 @@ import {v4 as uuid} from "uuid"
 import {isValidDnsAddress} from "../../shared/validators/dns.validator";
 import {dnsListStore} from "../store/servers.store";
 import {ResponseMessage} from "../constant/messages.constant";
+import _ from "lodash";
 
 
 ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
@@ -102,6 +103,18 @@ ipcMain.on(EventsKeys.OPEN_BROWSER, (ev, url) => {
 
 ipcMain.on(EventsKeys.DIALOG_ERROR, (ev: any, title: string, message: string) => {
     dialog.showErrorBox(title, message)
+})
+ipcMain.handle(EventsKeys.DELETE_DNS, (ev: any, server: Server) => {
+    const dnsList = dnsListStore.get("dnsList")
+
+    _.remove(dnsList, dns => dns.key === server.key)
+
+    dnsListStore.set("dnsList", dnsList)
+
+    return {
+        success: true,
+        servers: dnsList
+    }
 })
 
 function errorHandling(e: any) {
