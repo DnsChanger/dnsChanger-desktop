@@ -46,9 +46,7 @@ export function App() {
         getCurrentActive()
     }, [])
 
-    useEffect(() => {
-        console.log("useEffect by serversState", serversState)
-    }, [serversState])
+
 
 
     return (
@@ -84,7 +82,7 @@ export function App() {
 
                                     <serversContext.Provider value={{ servers: serversState, setServers }}>
 
-                                        <div className={"border border-gray-600 rounded-2xl  shadow-2xl"}>
+                                        <div className={"border border-y-gray-500 border-x-0 rounded-2xl  shadow-2xl"}>
                                             <div className=" mt-2 flex flex-grow gap-2 ml-2 mb-0 top-1">
                                                 <ServerListOptionsDropDownComponent />
                                             </div>

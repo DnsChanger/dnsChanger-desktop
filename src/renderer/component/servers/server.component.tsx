@@ -18,7 +18,7 @@ export function ServerComponent(prop: Props) {
     const isConnect = server.key == prop.currentActive?.key
     const activityContextData = React.useContext<ActivityContext>(activityContext);
     return (
-        <div dir='ltr' className='mb-2 p-2'>
+        <div dir='ltr' className='mb-2 p-2 border rounded border-gray-500 border-dashed'>
             <div className="flex flex-nowrap">
                 <div className='flex-none'>
                     <FontAwesomeIcon icon={"server"} />

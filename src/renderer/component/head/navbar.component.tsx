@@ -17,7 +17,7 @@ export function NavbarComponent() {
     }, [currentTheme]);
     return (
         <div>
-            <Navbar className=" bg-base-100">
+            <Navbar >
                 <Navbar.Start></Navbar.Start>
                 <Navbar.End>
                     <Button className={"btn gap-2 normal-case btn-ghost"}
