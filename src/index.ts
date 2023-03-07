@@ -62,14 +62,7 @@ app.on('activate', () => {
 });
 
 
-function updateHandling() {
-    const server = 'https://your-deployment-url.com'
-    const url = `${server}/update/${process.platform}/${app.getVersion()}`
-    autoUpdater.setFeedURL({ url })
-    setInterval(() => {
-        autoUpdater.checkForUpdates()
-    }, 60000)
-}
+
 
 autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
     const dialogOpts = {
