@@ -56,7 +56,7 @@ export function AddDnsModalComponent(props: Props) {
                             <Label className="label">
                                 <span className="label-text">آدرس سرور</span>
                             </Label>
-                            <div className={"gap-2 grid grid-cols-4"} dir={"ltr"}>
+                            <div className={"gap-2 grid grid-cols-1"} dir={"ltr"}>
                                 <div>
                                     <Input type={"text"} className={""} placeholder={"name server 1 ..."}
                                         name={"first_server"}

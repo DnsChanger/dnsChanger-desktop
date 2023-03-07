@@ -1,7 +1,7 @@
-import {Dropdown} from "react-daisyui";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {Server} from "../../../../shared/interfaces/server.interface";
-import {DeleteItemComponent} from "./delete.item";
+import { Dropdown } from "react-daisyui";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Server } from "../../../../shared/interfaces/server.interface";
+import { DeleteItemComponent } from "./delete.item";
 
 
 interface Props {
@@ -10,12 +10,12 @@ interface Props {
 
 export function ServerOptionsComponent(props: Props) {
     return (
-        <Dropdown horizontal={"right"}>
-            <Dropdown.Toggle size="xs">
-                <FontAwesomeIcon icon={"ellipsis-v"}/>
+        <Dropdown horizontal={"right"} >
+            <Dropdown.Toggle size="xs" color="ghost">
+                <FontAwesomeIcon icon={"ellipsis-h"} />
             </Dropdown.Toggle>
-            <Dropdown.Menu className={"absolute w-40"}>
-                <DeleteItemComponent server={props.server}/>
+            <Dropdown.Menu className={"absolute"}>
+                <DeleteItemComponent server={props.server} />
             </Dropdown.Menu>
         </Dropdown>
     )

@@ -1,12 +1,11 @@
-import {Button, Dropdown, Tooltip} from 'react-daisyui';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {setState} from '../../interfaces/react.interface';
-import React, {} from 'react';
-import {activityContext} from '../../context/activty.context';
-import {ActivityContext} from '../../interfaces/activty.interface';
-import {Server} from "../../../shared/interfaces/server.interface";
-import {UpdateListItemComponent} from "../dropdowns/serverlist-options/updatelist.item";
-import {ServerOptionsComponent} from "../dropdowns/server-options/server-options.component";
+import React, { } from 'react';
+import { Badge, Button, Dropdown, Tooltip } from 'react-daisyui';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { setState } from '../../interfaces/react.interface';
+import { activityContext } from '../../context/activty.context';
+import { ActivityContext } from '../../interfaces/activty.interface';
+import { Server } from "../../../shared/interfaces/server.interface";
+import { ServerOptionsComponent } from "../dropdowns/server-options/server-options.component";
 
 interface Props {
     server: Server
@@ -19,28 +18,28 @@ export function ServerComponent(prop: Props) {
     const isConnect = server.key == prop.currentActive?.key
     const activityContextData = React.useContext<ActivityContext>(activityContext);
     return (
-        <div dir='ltr' className=' mb-2 p-2'>
+        <div dir='ltr' className='mb-2 p-2'>
             <div className="flex flex-nowrap">
                 <div className='flex-none'>
-                    <FontAwesomeIcon icon={"server"}/>
+                    <FontAwesomeIcon icon={"server"} />
                 </div>
-                <div className='flex-1 w-64'>
-                    <Tooltip message={server.servers.join("\n")} color={"accent"} position={"bottom"}>
-                        <p className={"font-medium"}>{server.names.eng}</p>
+                <div className='flex-1 w-20'>
+                    <Tooltip message={server.servers.join("\n")} position={"bottom"}>
+                        <p className={"font-medium"} >{server.names.eng}</p>
                     </Tooltip>
                 </div>
                 <div className={"flex flex-row gap-2"}>
+
                     <div>
                         <Button shape='circle' size='xs' color={isConnect ? 'success' : 'warning'}
-                                disabled={activityContextData.isWaiting}
-                                onClick={() => clickHandler.apply(activityContextData, [server, prop.setCurrentActive, isConnect])}
+                            disabled={activityContextData.isWaiting}
+                            onClick={() => clickHandler.apply(activityContextData, [server, prop.setCurrentActive, isConnect])}
                         >
-                            <FontAwesomeIcon icon={isConnect ? 'stop' : "power-off"}/>
+                            <FontAwesomeIcon icon={isConnect ? 'stop' : "power-off"} />
                         </Button>
-
                     </div>
                     <div>
-                        <ServerOptionsComponent server={server}/>
+                        <ServerOptionsComponent server={server} />
                     </div>
                 </div>
             </div>

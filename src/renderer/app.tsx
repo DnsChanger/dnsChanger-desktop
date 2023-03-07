@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from "react";
-import {Button} from "react-daisyui"
+import React, { useEffect, useState } from "react";
+import { Button } from "react-daisyui"
 
 
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {activityContext} from './context/activty.context';
-import {AddDnsModalComponent} from "./component/modals/add-dns.component";
-import {Server} from "../shared/interfaces/server.interface";
-import {ServersComponent} from "./component/servers/servers";
-import {NavbarComponent} from "./component/head/navbar.component";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { activityContext } from './context/activty.context';
+import { AddDnsModalComponent } from "./component/modals/add-dns.component";
+import { Server } from "../shared/interfaces/server.interface";
+import { ServersComponent } from "./component/servers/servers";
+import { NavbarComponent } from "./component/head/navbar.component";
 import {
     ServerListOptionsDropDownComponent
 } from './component/dropdowns/serverlist-options/serverlist-options.component';
-import {serversContext} from './context/servers.context';
+import { serversContext } from './context/servers.context';
 
 
 export function App() {
@@ -54,7 +54,7 @@ export function App() {
     return (
 
         <div>
-            <NavbarComponent/>
+            <NavbarComponent />
             <div className="lg:flex-row dark:bg-zinc-500/95">
                 <main className=" rounded-3xl dark:bg-zinc-900/95">
 
@@ -62,7 +62,7 @@ export function App() {
 
                         <div className="hero">
                             <div
-                                className="px-0 sm:p-4 hero-content text-center max-w-[350px] md:max-w-[450px] md:min-w-[720px]  mb-1 ">
+                                className="px-0 sm:p-4 hero-content text-center max-w-[400px]   mb-1 ">
                                 <div className="max-w-full sm:pt-[100px] sm:pb-[100px] sm:pr-[30px] sm:pl-[30px] p-1">
                                     <div className={"grid justify-center mb-10"}>
                                         <h1 className="text-3xl font-bold mb-2">
@@ -72,7 +72,7 @@ export function App() {
                                         <div className="gap-2 items-center h-2">
                                             {currentActive &&
                                                 <p className="text-green-500">
-                                                    <FontAwesomeIcon icon={"check-circle"}/>
+                                                    <FontAwesomeIcon icon={"check-circle"} />
                                                     {currentActive.key == "unknown" ?
                                                         <span>به یک سرور ناشناخته متصل هستید.</span> :
                                                         <span>  شما به <u>{currentActive.names.fa}</u> متصل شدید</span>
@@ -82,20 +82,20 @@ export function App() {
                                         </div>
                                     </div>
 
-                                    <serversContext.Provider value={{servers: serversState, setServers}}>
+                                    <serversContext.Provider value={{ servers: serversState, setServers }}>
 
-                                        <div className={"border border-gray-700 rounded-2xl  shadow-2xl"}>
+                                        <div className={"border border-gray-600 rounded-2xl  shadow-2xl"}>
                                             <div className=" mt-2 flex flex-grow gap-2 ml-2 mb-0 top-1">
-                                                <ServerListOptionsDropDownComponent/>
+                                                <ServerListOptionsDropDownComponent />
                                             </div>
                                             <div className={"card items-center card-body"}>
 
-                                                <div className={"overflow-y-auto "}>
+                                                <div className={"overflow-y-auto"}>
 
-                                                    <div className={"grid h-[200px] w-[300px] "}>
+                                                    <div className={"grid h-[200px] w-[350px] p-2 "}>
                                                         <ServersComponent
                                                             currentActive={currentActive}
-                                                            setCurrentActive={setCurrentActive}/>
+                                                            setCurrentActive={setCurrentActive} />
                                                     </div>
                                                 </div>
                                                 <div>
@@ -105,6 +105,7 @@ export function App() {
                                                 </div>
                                             </div>
                                         </div>
+
                                     </serversContext.Provider>
 
 
@@ -112,19 +113,19 @@ export function App() {
                                         <div className="flex flex-nowrap  gap-2 ml-3">
                                             <div>
                                                 <Button color="success" className="text-white"
-                                                        onClick={() => setIsOpenModal(true)}>
+                                                    onClick={() => setIsOpenModal(true)}>
                                                     <FontAwesomeIcon icon={["fas", "plus"]}
-                                                                     className="mr-2"></FontAwesomeIcon>
+                                                        className="mr-2"></FontAwesomeIcon>
                                                     افزودن DNS دلخواه
                                                 </Button>
                                             </div>
 
 
                                             <AddDnsModalComponent isOpen={isOpenModal} setIsOpen={setIsOpenModal}
-                                                                  cb={(va) => {
-                                                                      serversState.push(va);
-                                                                      setServers(serversState)
-                                                                  }}
+                                                cb={(va) => {
+                                                    serversState.push(va);
+                                                    setServers(serversState)
+                                                }}
                                             />
                                         </div>
                                     </div>
