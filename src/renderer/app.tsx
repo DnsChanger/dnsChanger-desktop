@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "react-daisyui"
+import { BottomNavigation } from "react-daisyui"
 
 
 import { activityContext } from './context/activty.context';
-import { AddDnsModalComponent } from "./component/modals/add-dns.component";
 import { Server } from "../shared/interfaces/server.interface";
 import { ServersComponent } from "./component/servers/servers";
 import { NavbarComponent } from "./component/head/navbar.component";
@@ -12,13 +11,13 @@ import {
 } from './component/dropdowns/serverlist-options/serverlist-options.component';
 import { serversContext } from './context/servers.context';
 import { HiOutlineShieldCheck } from "react-icons/hi"
-import { MdOutlineAddModerator } from "react-icons/md"
+import { TbCloudDataConnection } from "react-icons/tb"
+import { RiSettings3Line } from "react-icons/ri"
 
 export function App() {
     const [currentActive, setCurrentActive] = useState<Server | null>(null)
     const [isWaiting, setIsWaiting] = useState<boolean>(false);
     const [status, setStatus] = useState<string>("")
-    const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
     const [serversState, setServers] = useState<Server[]>([])
     const values = {
         isWaiting,
@@ -47,7 +46,7 @@ export function App() {
     }, [])
 
 
-
+    const size = 30
 
     return (
 
@@ -55,7 +54,6 @@ export function App() {
             <NavbarComponent />
             <div className="lg:flex-row dark:bg-zinc-500/95">
                 <main className=" rounded-3xl dark:bg-zinc-900/95">
-
                     <activityContext.Provider value={values}>
 
                         <div className="hero">
@@ -109,35 +107,20 @@ export function App() {
 
                                     </serversContext.Provider>
 
-
-                                    <div className="mt-3">
-                                        <div className="flex flex-nowrap  gap-2 ml-3">
-                                            <div>
-                                                <Button color="success" className="text-white"
-                                                    onClick={() => setIsOpenModal(true)}>
-                                                    <MdOutlineAddModerator className="mr-2" />
-                                                    افزودن DNS دلخواه
-                                                </Button>
-                                            </div>
-
-
-                                            <AddDnsModalComponent isOpen={isOpenModal} setIsOpen={setIsOpenModal}
-                                                cb={(va) => {
-                                                    serversState.push(va);
-                                                    setServers(serversState)
-                                                }}
-                                            />
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
                     </activityContext.Provider>
-
                 </main>
             </div>
-        </div>
+            <BottomNavigation size="xs">
+                <div className="active">
+                    <TbCloudDataConnection size={size} />
+                </div>
+
+            </BottomNavigation>
+
+        </div >
     )
 }
 
