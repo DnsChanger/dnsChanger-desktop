@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Button, Input, Modal } from "react-daisyui";
 import { setState } from "../../interfaces/react.interface";
 import { Label } from "flowbite-react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import { MdAddModerator, MdOutlineClose } from "react-icons/md"
 interface Props {
     isOpen: boolean
     setIsOpen: setState<boolean>
@@ -78,10 +77,10 @@ export function AddDnsModalComponent(props: Props) {
 
                 <Modal.Actions>
                     <Button onClick={() => addHandler()} shape={"circle"} color={"success"}>
-                        <FontAwesomeIcon icon={"plus"} />
+                        <MdAddModerator />
                     </Button>
                     <Button onClick={() => props.setIsOpen(false)} shape={"circle"} color={"error"}>
-                        <FontAwesomeIcon icon={"window-close"} />
+                        <MdOutlineClose />
                     </Button>
                 </Modal.Actions>
             </Modal>

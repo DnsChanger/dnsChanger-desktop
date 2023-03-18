@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Button } from "react-daisyui"
 
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { activityContext } from './context/activty.context';
 import { AddDnsModalComponent } from "./component/modals/add-dns.component";
 import { Server } from "../shared/interfaces/server.interface";
@@ -12,7 +11,8 @@ import {
     ServerListOptionsDropDownComponent
 } from './component/dropdowns/serverlist-options/serverlist-options.component';
 import { serversContext } from './context/servers.context';
-
+import { HiOutlineShieldCheck } from "react-icons/hi"
+import { MdOutlineAddModerator } from "react-icons/md"
 
 export function App() {
     const [currentActive, setCurrentActive] = useState<Server | null>(null)
@@ -70,11 +70,14 @@ export function App() {
                                         <div className="gap-2 items-center h-2">
                                             {currentActive &&
                                                 <p className="text-green-500">
-                                                    <FontAwesomeIcon icon={"check-circle"} />
+                                                    {""}
+                                                    <HiOutlineShieldCheck style={{ display: "inline" }} />
+
                                                     {currentActive.key == "unknown" ?
-                                                        <span>به یک سرور ناشناخته متصل هستید.</span> :
+                                                        <span>به یک سرور  ناشناخته متصل هستید.</span> :
                                                         <span>  شما به <u>{currentActive.names.fa}</u> متصل شدید</span>
                                                     }
+                                                    <br />
                                                 </p>
                                             }
                                         </div>
@@ -112,8 +115,7 @@ export function App() {
                                             <div>
                                                 <Button color="success" className="text-white"
                                                     onClick={() => setIsOpenModal(true)}>
-                                                    <FontAwesomeIcon icon={["fas", "plus"]}
-                                                        className="mr-2"></FontAwesomeIcon>
+                                                    <MdOutlineAddModerator className="mr-2" />
                                                     افزودن DNS دلخواه
                                                 </Button>
                                             </div>

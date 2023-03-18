@@ -1,15 +1,14 @@
-import {Dropdown} from 'react-daisyui';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {useContext, useState} from 'react';
-import {ActivityContext} from '../../../interfaces/activty.interface';
-import {activityContext} from '../../../context/activty.context';
+import { Dropdown } from 'react-daisyui';
+import { useContext, useState } from 'react';
+import { ActivityContext } from '../../../interfaces/activty.interface';
+import { activityContext } from '../../../context/activty.context';
 import axios from 'axios';
-import {Server} from '../../../../shared/interfaces/server.interface';
+import { Server } from '../../../../shared/interfaces/server.interface';
 import _ from 'lodash';
-import {ServersContext} from '../../../interfaces/servers-context.interface';
-import {serversContext} from '../../../context/servers.context';
-import {UrlsConstant} from '../../../../shared/constants/urls.constant';
-
+import { ServersContext } from '../../../interfaces/servers-context.interface';
+import { serversContext } from '../../../context/servers.context';
+import { UrlsConstant } from '../../../../shared/constants/urls.constant';
+import { RxUpdate } from "react-icons/rx"
 
 const cacheBuster = (url: string) => `${url}?cb=${Date.now()}`;
 
@@ -46,10 +45,8 @@ export function UpdateListItemComponent() {
 
     return (
         <Dropdown.Item onClick={() => updateHandler()}>
-            <FontAwesomeIcon icon={["fas", "redo"]}
-
-                             spin={isLoading}
-                             className="mr-2"/>
+            <RxUpdate
+                className={`mr-2 ${isLoading ? "spinner" : ""}`} />
             بروزرسانی لیست
         </Dropdown.Item>
     )

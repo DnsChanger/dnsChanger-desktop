@@ -1,12 +1,13 @@
 import React, { } from 'react';
 import { Badge, Button, Dropdown, Tooltip } from 'react-daisyui';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { setState } from '../../interfaces/react.interface';
 import { activityContext } from '../../context/activty.context';
 import { ActivityContext } from '../../interfaces/activty.interface';
 import { Server } from "../../../shared/interfaces/server.interface";
 import { ServerOptionsComponent } from "../dropdowns/server-options/server-options.component";
-
+import { TbServerBolt } from "react-icons/tb"
+import { AiOutlinePoweroff } from "react-icons/ai"
+import { BsFillStopCircleFill } from "react-icons/bs"
 interface Props {
     server: Server
     currentActive: Server,
@@ -21,7 +22,7 @@ export function ServerComponent(prop: Props) {
         <div dir='ltr' className='mb-2 p-2 border rounded border-gray-500 border-dashed'>
             <div className="flex flex-nowrap">
                 <div className='flex-none'>
-                    <FontAwesomeIcon icon={"server"} />
+                    <TbServerBolt size={25} />
                 </div>
                 <div className='flex-1 w-20'>
                     <Tooltip message={server.servers.join("\n")} position={"bottom"}>
@@ -35,7 +36,7 @@ export function ServerComponent(prop: Props) {
                             disabled={activityContextData.isWaiting}
                             onClick={() => clickHandler.apply(activityContextData, [server, prop.setCurrentActive, isConnect])}
                         >
-                            <FontAwesomeIcon icon={isConnect ? 'stop' : "power-off"} />
+                            {isConnect ? <BsFillStopCircleFill /> : <AiOutlinePoweroff />}
                         </Button>
                     </div>
                     <div>

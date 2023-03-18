@@ -1,7 +1,8 @@
 import { Button, Navbar } from "react-daisyui";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import react, { useEffect, useState } from 'react';
-
+import { CgSun } from "react-icons/cg"
+import { GiMoonBats } from "react-icons/gi"
+import { BsGithub } from "react-icons/bs"
 export function NavbarComponent() {
     const [currentTheme, setCurrentTheme] = useState(
         localStorage.getItem("theme") || "system"
@@ -22,11 +23,11 @@ export function NavbarComponent() {
                 <Navbar.End>
                     <Button className={"btn gap-2 normal-case btn-ghost"}
                         onClick={() => setCurrentTheme(currentTheme == "dark" ? "light" : "dark")}>
-                        <FontAwesomeIcon icon={currentTheme == "dark" ? "sun" : "moon"} size={"lg"} />
+                        {currentTheme == "dark" ? <CgSun /> : <GiMoonBats />}
                     </Button>
                     <Button className={"btn gap-2 normal-case btn-ghost"}
                         onClick={() => window.ipc.openBrowser("https://github.com/DnsChanger/dnsChanger-desktop")}>
-                        <FontAwesomeIcon icon={["fab", "github"]} size={"lg"} />
+                        <BsGithub />
                     </Button>
                 </Navbar.End>
             </Navbar>

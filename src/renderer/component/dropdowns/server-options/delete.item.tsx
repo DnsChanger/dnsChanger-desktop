@@ -1,10 +1,9 @@
 import { Dropdown } from "react-daisyui";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Server } from "../../../../shared/interfaces/server.interface";
 import { useContext } from "react";
 import { ServersContext } from "../../../interfaces/servers-context.interface";
 import { serversContext } from "../../../context/servers.context";
-
+import { HiOutlineTrash } from "react-icons/hi"
 interface Props {
     server: Server
 }
@@ -25,7 +24,7 @@ export function DeleteItemComponent(props: Props) {
 
     return (
         <Dropdown.Item onClick={() => clickHandler()}>
-            <FontAwesomeIcon icon={"trash-alt"} color={"#ec2222"} />
+            <HiOutlineTrash color={"#ec2222"} />
         </Dropdown.Item>
     )
 }
