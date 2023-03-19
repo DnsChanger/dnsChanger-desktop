@@ -1,0 +1,3 @@
+[submodule "store"]
+	path = store
+	url = https://github.com/DnsChanger/dnsChanger-desktop/tree/store
