@@ -1,31 +1,35 @@
-import React, { useEffect, useState } from "react";
-import { BottomNavigation } from "react-daisyui"
-
-
-import { activityContext } from './context/activty.context';
-import { Server } from "../shared/interfaces/server.interface";
-import { ServersComponent } from "./component/servers/servers";
-import { NavbarComponent } from "./component/head/navbar.component";
-import {
-    ServerListOptionsDropDownComponent
-} from './component/dropdowns/serverlist-options/serverlist-options.component';
-import { serversContext } from './context/servers.context';
-import { HiOutlineShieldCheck } from "react-icons/hi"
-import { TbCloudDataConnection } from "react-icons/tb"
-import { RiSettings3Line } from "react-icons/ri"
-import { Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/home.page";
-
+import { SettingPage } from './pages/setting.page';
+import { BottomNavigation } from 'react-daisyui';
+import { TbCloudDataConnection, TbSettings2 } from 'react-icons/tb';
+import { useState, useEffect } from 'react';
+interface Page {
+    key: string
+    element: JSX.Element
+}
 export function App() {
 
+    const pages: Array<Page> = [
+        { key: "/", element: <HomePage /> },
+        { key: "/setting", element: <SettingPage /> }
+    ]
+    const [currentPage, setCurentPage] = useState<Page>(pages[0])
+    const [currentPath, setCurrentPath] = useState<string>("/")
+
+    useEffect(() => {
+        let page = pages.find((p) => p.key == currentPath)
+        if (!page)
+            page = pages[0];
+        setCurentPage(page)
+    }, [currentPath])
 
     return (
         <div>
-            <Routes >
-                <Route path="/main_window/*">
-                    <Route index element={<HomePage />} />
-                </Route>
-            </Routes>
+            {currentPage.element}
+            <BottomNavigation size="xs" className="mb-2">
+                <div className={`${currentPath == "/" ? "active" : ""}`} onClick={() => setCurrentPath("/")}><TbCloudDataConnection size={30} /></div>
+                <div className={`${currentPath == "/setting" ? "active" : ""}`} onClick={() => setCurrentPath("/setting")}> <TbSettings2 size={30} /></div>
+            </BottomNavigation>
         </div>
     )
 }

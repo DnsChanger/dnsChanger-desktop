@@ -40,6 +40,7 @@ export function HomePage() {
     return (
         <PageWrapper>
             <activityContext.Provider value={values}>
+
                 <div className="hero">
                     <div
                         className="px-0 sm:p-4 hero-content text-center max-w-[400px]   mb-1 ">
