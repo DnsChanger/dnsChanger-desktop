@@ -1,17 +1,8 @@
-import {Notification, Tray, ipcMain, nativeImage} from "electron";
-import {EventsKeys} from "../../shared/constants/eventsKeys.constant";
-import process from "process";
-import path from "path";
+import { Notification, Tray, ipcMain } from "electron";
+import { EventsKeys } from "../../shared/constants/eventsKeys.constant";
+import { getIconPath } from '../shared/getIconPath';
 
 ipcMain.on(EventsKeys.NOTIFICATION, (_event, data) => {
-    let icon;
-
-    switch (process.platform) {
-        case 'win32': icon = path.resolve(__dirname, 'assets', 'icon.png'); break;
-        case 'darwin': icon = path.resolve(__dirname, 'assets', 'icon.ico'); break;
-        case 'linux': icon = path.resolve(__dirname, 'assets', 'icon.png'); break;
-        default : icon = path.resolve(__dirname, 'assets', 'icon.png'); break;
-    }
-
+    const icon = getIconPath()
     new Notification({ title: "DNS Changer", body: data, icon }).show();
 })

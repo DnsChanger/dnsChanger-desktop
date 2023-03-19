@@ -1,5 +1,6 @@
-import { app, BrowserWindow, nativeImage, autoUpdater, dialog } from 'electron';
+import { app, BrowserWindow, autoUpdater, dialog } from 'electron';
 import updateElectron from "update-electron-app"
+import { getIconPath } from './main/shared/getIconPath';
 
 updateElectron({
     repo: 'github.com/DnsChanger/dnsChanger-desktop',
@@ -16,13 +17,7 @@ if (require('electron-squirrel-startup')) {
 }
 
 const createWindow = (): void => {
-    let icon;
-    switch (process.platform) {
-        case 'win32': icon = path.resolve(__dirname, 'assets', 'icon.png'); break;
-        case 'darwin': icon = path.resolve(__dirname, 'assets', 'icon.icns'); break;
-        case 'linux' : icon = path.resolve(__dirname, 'assets', 'icon.png'); break;
-        default : icon = path.resolve(__dirname, 'assets', 'icon.png'); break;
-    }
+    const icon = getIconPath()
     // Create the browser window.
     const mainWindow = new BrowserWindow({
         height: 600,
@@ -56,8 +51,6 @@ app.on('window-all-closed', () => {
 import "./main/ipc/dialogs"
 import "./main/ipc/notif"
 import "./main/ipc/ui"
-import * as process from "process";
-import path from "path";
 
 app.on('activate', () => {
     // On OS X it's common to re-create a window in the app when the
