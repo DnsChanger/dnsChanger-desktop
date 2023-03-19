@@ -51,6 +51,7 @@
     "react-daisyui": "^3.0.2",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
+    "react-router-dom": "^6.9.0",
     "style-loader": "^3.3.1",
     "sudo-prompt": "^9.2.1",
     "tailwindcss": "^3.2.7",
