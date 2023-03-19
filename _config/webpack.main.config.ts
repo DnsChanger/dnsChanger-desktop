@@ -1,5 +1,8 @@
 import type { Configuration } from 'webpack';
 import { rules } from './webpack.rules';
+// eslint-disable-next-line import/default
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import path from 'path';
 
 export const mainConfig: Configuration = {
   /**
@@ -16,5 +19,8 @@ export const mainConfig: Configuration = {
   },
   stats: {
     errorDetails: true,
-  }
+  },
+  plugins: [
+    new CopyWebpackPlugin({ patterns: [{ from: path.join('assets'), to: 'assets' }] })
+  ]
 };
