@@ -16,6 +16,13 @@ if (require('electron-squirrel-startup')) {
 }
 
 const createWindow = (): void => {
+    let icon;
+    switch (process.platform) {
+        case 'win32': icon = path.resolve(__dirname, 'assets', 'icon.png'); break;
+        case 'darwin': icon = path.resolve(__dirname, 'assets', 'icon.icns'); break;
+        case 'linux' : icon = path.resolve(__dirname, 'assets', 'icon.png'); break;
+        default : icon = path.resolve(__dirname, 'assets', 'icon.png'); break;
+    }
     // Create the browser window.
     const mainWindow = new BrowserWindow({
         height: 600,
@@ -25,12 +32,10 @@ const createWindow = (): void => {
         },
         darkTheme: true,
         resizable: false,
+        icon
     });
-    const appIcon = nativeImage.createFromPath("./assets/logo.png")
 
     mainWindow.setMenu(null)
-
-    mainWindow.setIcon(appIcon)
 
     mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
     // Open the DevTools.
@@ -52,6 +57,7 @@ import "./main/ipc/dialogs"
 import "./main/ipc/notif"
 import "./main/ipc/ui"
 import * as process from "process";
+import path from "path";
 
 app.on('activate', () => {
     // On OS X it's common to re-create a window in the app when the
