@@ -22,7 +22,7 @@ switch (os.platform()) {
 
 export const dnsService: DnsService = new DnsService(platform)
 export const autoLauncher = new AutoLaunch({
-    name: 'dnsChanger',
+    name: app.getName(),
     isHidden: false, // show the app on startup
     mac: {
         useLaunchAgent: true, // use a launch agent instead of a launch daemon (macOS only)
