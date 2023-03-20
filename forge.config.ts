@@ -15,7 +15,6 @@ const config: ForgeConfig = {
             "requested-execution-level": "requireAdministrator",
             OriginalFilename: "dnsChanger"
         },
-        name: "dnsChanger",
         icon: './assets/icon'
     },
     rebuildConfig: {},
