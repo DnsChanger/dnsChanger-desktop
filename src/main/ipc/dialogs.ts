@@ -1,13 +1,14 @@
 import {ipcMain, shell, dialog} from 'electron';
-import {dnsService} from "../config";
+import {autoLauncher, dnsService} from "../config";
 import {Server} from "../../shared/interfaces/server.interface";
 import {EventsKeys} from "../../shared/constants/eventsKeys.constant";
 
 import {v4 as uuid} from "uuid"
 import {isValidDnsAddress} from "../../shared/validators/dns.validator";
-import {dnsListStore} from "../store/servers.store";
+import {store} from "../store/store";
 import {ResponseMessage} from "../constant/messages.constant";
 import _ from "lodash";
+import {Settings} from "../../shared/interfaces/settings.interface";
 
 
 ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
@@ -53,20 +54,20 @@ ipcMain.handle(EventsKeys.ADD_DNS, async (event, data) => {
         servers: data.nameServers
     }
 
-    const list: Server[] = dnsListStore.get("dnsList") || []
+    const list: Server[] = store.get("dnsList") || []
     list.push(newServer)
-    dnsListStore.set("dnsList", list)
+    store.set("dnsList", list)
     return {success: true, server: newServer}
 })
 
 ipcMain.handle(EventsKeys.RELOAD_SERVER_LIST, async (event, servers: Server[]) => {
-    dnsListStore.set("dnsList", servers)
+    store.set("dnsList", servers)
     return {success: true}
 })
 
 ipcMain.handle(EventsKeys.FETCH_DNS_LIST, (event) => {
-    const store = dnsListStore.get("dnsList") || []
-    return {success: true, servers: store}
+    const servers = store.get("dnsList") || []
+    return {success: true, servers: servers}
 })
 
 ipcMain.handle(EventsKeys.GET_CUREENT_ACTIVE, async (): Promise<any> => {
@@ -74,8 +75,8 @@ ipcMain.handle(EventsKeys.GET_CUREENT_ACTIVE, async (): Promise<any> => {
         const dns: string[] = await dnsService.getActiveDns()
         if (!dns.length)
             return {success: false, server: null}
-        const store = dnsListStore.get("dnsList") || []
-        const server: Server | null = store.find((server) => server.servers.toString() == dns.toString())
+        const servers = store.get("dnsList") || []
+        const server: Server | null = servers.find((server) => server.servers.toString() == dns.toString())
         if (!server)
             return {
                 success: true, server: {
@@ -96,6 +97,27 @@ ipcMain.handle(EventsKeys.GET_CUREENT_ACTIVE, async (): Promise<any> => {
     }
 })
 
+ipcMain.handle(EventsKeys.GET_SETTINGS, async () => {
+    const settings: Settings = {
+        startUp: false
+    }
+
+    settings.startUp = await autoLauncher.isEnabled()
+    return settings
+})
+
+ipcMain.handle(EventsKeys.TOGGLE_START_UP, async () => {
+    let startUp = await autoLauncher.isEnabled()
+    if (startUp) {
+        await autoLauncher.disable()
+        startUp = false
+    } else {
+        await autoLauncher.enable()
+        startUp = true
+    }
+    return startUp
+})
+
 ipcMain.on(EventsKeys.OPEN_BROWSER, (ev, url) => {
     shell.openExternal(url)
 })
@@ -105,11 +127,11 @@ ipcMain.on(EventsKeys.DIALOG_ERROR, (ev: any, title: string, message: string) =>
     dialog.showErrorBox(title, message)
 })
 ipcMain.handle(EventsKeys.DELETE_DNS, (ev: any, server: Server) => {
-    const dnsList = dnsListStore.get("dnsList")
+    const dnsList = store.get("dnsList")
 
     _.remove(dnsList, dns => dns.key === server.key)
 
-    dnsListStore.set("dnsList", dnsList)
+    store.set("dnsList", dnsList)
 
     return {
         success: true,

@@ -15,6 +15,8 @@ const ipc = {
     reloadServerList: (servers: Array<Server>) => ipcRenderer.invoke(EventsKeys.RELOAD_SERVER_LIST, servers),
     fetchDnsList: () => ipcRenderer.invoke(EventsKeys.FETCH_DNS_LIST),
     getCurrentActive: () => ipcRenderer.invoke(EventsKeys.GET_CUREENT_ACTIVE),
+    getSettings: () => ipcRenderer.invoke(EventsKeys.GET_SETTINGS),
+    toggleStartUP: () => ipcRenderer.invoke(EventsKeys.TOGGLE_START_UP)
 }
 contextBridge.exposeInMainWorld('ipc', ipc)
 

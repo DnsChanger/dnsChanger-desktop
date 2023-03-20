@@ -9,6 +9,8 @@ export enum EventsKeys {
     OPEN_BROWSER = "dialogs:open_browser",
     GET_CUREENT_ACTIVE = "dialogs:get_current_active",
     DELETE_DNS = "DELETE_DNS",
-    TOGGLE_THEME = "ui:toggleTheme"
+    TOGGLE_THEME = "ui:toggleTheme",
+    GET_SETTINGS = "dialogs:get_settings",
+    TOGGLE_START_UP = "dialogs:toggleStartUp "
 }
 
