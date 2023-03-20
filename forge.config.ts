@@ -16,6 +16,7 @@ const config: ForgeConfig = {
             OriginalFilename: "dnsChanger"
         },
         name: "dnsChanger",
+        icon: './assets/icon'
     },
     rebuildConfig: {},
     makers: [
