@@ -11,7 +11,9 @@ import dotenv from "dotenv"
 
 dotenv.config()
 const config: ForgeConfig = {
-    packagerConfig: {},
+    packagerConfig: {
+        icon: './assets/icon'
+    },
     rebuildConfig: {},
     makers: [
         new MakerSquirrel({

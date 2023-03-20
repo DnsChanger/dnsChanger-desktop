@@ -53,6 +53,8 @@
     "typescript": "~4.5.4"
   },
   "dependencies": {
+    "@electron-forge/maker-dmg": "^6.0.5",
+    "@electron-forge/maker-wix": "^6.0.5",
     "@electron-forge/publisher-github": "^6.0.5",
     "@fortawesome/fontawesome-free-brands": "^5.0.13",
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
