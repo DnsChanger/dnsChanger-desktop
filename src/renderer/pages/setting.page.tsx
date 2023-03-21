@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import {  Form, Toggle } from 'react-daisyui';
+import { Form, Toggle } from 'react-daisyui';
 
 import { PageWrapper } from '../Wrappers/pages.wrapper';
 import { Settings } from '../../shared/interfaces/settings.interface';
