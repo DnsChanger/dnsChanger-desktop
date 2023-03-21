@@ -1,6 +1,7 @@
-import electronStore from "electron-store";
-import {Server} from "../../shared/interfaces/server.interface";
-import {serversConstant} from '../../shared/constants/servers.cosntant';
+import electronStore from 'electron-store';
+
+import { Server } from '../../shared/interfaces/server.interface';
+import { serversConstant } from '../../shared/constants/servers.cosntant';
 
 export const store = new electronStore<{
     dnsList: Server[],
@@ -8,6 +9,6 @@ export const store = new electronStore<{
         defaults: {
             dnsList: serversConstant
         },
-        name: "dnsChangerStore"
+        name: 'dnsChangerStore'
     }
 )
