@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+
 import type { ForgeConfig } from '@electron-forge/shared-types';
 import { MakerSquirrel } from '@electron-forge/maker-squirrel';
 import { MakerDeb } from '@electron-forge/maker-deb';
@@ -6,22 +8,20 @@ import { WebpackPlugin } from '@electron-forge/plugin-webpack';
 
 import { mainConfig } from './_config/webpack.main.config';
 import { rendererConfig } from './_config/webpack.renderer.config';
-import dotenv from "dotenv"
 
-dotenv.config()
+dotenv.config();
+
 const config: ForgeConfig = {
     packagerConfig: {
         win32metadata: {
-            "requested-execution-level": "requireAdministrator",
-            OriginalFilename: "dnsChanger"
+            'requested-execution-level': 'requireAdministrator',
+            OriginalFilename: 'dnsChanger'
         },
         icon: './assets/icon'
     },
     rebuildConfig: {},
     makers: [
-        new MakerSquirrel({
-            // ...
-        }),
+        new MakerSquirrel({}),
         new MakerDeb({}),
         new MakerRpm({})
     ],

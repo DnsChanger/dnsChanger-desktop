@@ -1,8 +1,6 @@
-import sudo from "sudo-prompt";
-
+import sudo from 'sudo-prompt';
 
 export abstract class Platform {
-
     public abstract setDns(nameServers: string[]): Promise<void>
     public abstract getActiveDns(): Promise<string[]>
     public abstract clearDns(): Promise<void>
@@ -10,12 +8,12 @@ export abstract class Platform {
 
     protected execCmd(cmd: string): Promise<string | Buffer> {
         return new Promise((resolve, reject) => {
-            sudo.exec(cmd, { name: "dnsChanger" }, (error, stdout, stderr) => {
+            sudo.exec(cmd, { name: 'dnsChanger' }, (error, stdout) => {
                 if (error) {
-                    reject(error)
+                    reject(error);
                     return;
                 }
-                resolve(stdout)
+                resolve(stdout);
             });
         })
     }
