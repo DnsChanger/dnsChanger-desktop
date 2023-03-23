@@ -25,4 +25,9 @@ export const rules: Required<ModuleOptions>['rules'] = [
       },
     },
   },
+  {
+    test: /\.ts$/,
+    exclude: /\.spec\.ts$/,
+    use: 'ts-loader',
+  }
 ];
