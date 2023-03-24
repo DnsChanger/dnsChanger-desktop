@@ -1,4 +1,5 @@
 import path from 'path';
+
 export function getIconPath(): string {
     let icon;
 

@@ -1,23 +1,25 @@
-import {Alert, Form, Toggle} from 'react-daisyui';
-import {PageWrapper} from '../Wrappers/pages.wrapper';
-import {useState, useEffect} from 'react';
-import {Settings} from "../../shared/interfaces/settings.interface";
+import { useState, useEffect } from 'react';
+import { Form, Toggle } from 'react-daisyui';
+
+import { PageWrapper } from '../Wrappers/pages.wrapper';
+import { Settings } from '../../shared/interfaces/settings.interface';
 
 export function SettingPage() {
     const [startUp, setStartUp] = useState<boolean>(false);
+
     useEffect(() => {
         async function getStartUpState() {
-            const settings: Settings = await window.ipc.getSettings() as Settings
-            setStartUp(settings.startUp)
+            const settings: Settings = await window.ipc.getSettings() as Settings;
+
+            setStartUp(settings.startUp);
         }
 
-        getStartUpState()
-    }, [])
-
+        getStartUpState();
+    }, []);
 
     function toggleStartUp() {
         window.ipc.toggleStartUP()
-            .then((res) => setStartUp(res))
+            .then((res) => setStartUp(res));
     }
 
     return (

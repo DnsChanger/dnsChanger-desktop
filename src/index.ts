@@ -1,5 +1,6 @@
-import { app, BrowserWindow, autoUpdater, dialog } from 'electron';
-import updateElectron from "update-electron-app"
+import updateElectron from 'update-electron-app';
+import { app, BrowserWindow, autoUpdater } from 'electron';
+
 import { getIconPath } from './main/shared/getIconPath';
 
 updateElectron({
@@ -7,17 +8,16 @@ updateElectron({
     notifyUser: true
 })
 
-const server = 'https://update.electronjs.org'
-const feed = `${server}/DnsChanger/dnsChanger-desktop/${process.platform}-${process.arch}/${app.getVersion()}`
+const server = 'https://update.electronjs.org';
+const feed = `${server}/DnsChanger/dnsChanger-desktop/${process.platform}-${process.arch}/${app.getVersion()}`;
 
 autoUpdater.setFeedURL({
     url: feed,
     serverType: 'default',
 })
 
-
 setInterval(() => {
-    autoUpdater.checkForUpdates()
+    autoUpdater.checkForUpdates();
 }, 1000 * 60 * 5) //5 minutes 
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -28,7 +28,7 @@ if (require('electron-squirrel-startup')) {
 }
 
 const createWindow = (): void => {
-    const icon = getIconPath()
+    const icon = getIconPath();
     // Create the browser window.
     const mainWindow = new BrowserWindow({
         height: 600,
@@ -41,13 +41,12 @@ const createWindow = (): void => {
         icon
     });
 
-    mainWindow.setMenu(null)
+    mainWindow.setMenu(null);
 
     mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
     // Open the DevTools.
     if (process.env.ENV)
         mainWindow.webContents.openDevTools();
-
 };
 
 
@@ -59,9 +58,9 @@ app.on('window-all-closed', () => {
     }
 });
 
-import "./main/ipc/dialogs"
-import "./main/ipc/notif"
-import "./main/ipc/ui"
+import './main/ipc/ui';
+import './main/ipc/notif';
+import './main/ipc/dialogs';
 
 app.on('activate', () => {
     // On OS X it's common to re-create a window in the app when the
