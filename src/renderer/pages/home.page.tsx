@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { HiOutlineShieldCheck } from 'react-icons/hi';
-
+import { 
+    useTranslation 
+} from 'react-multi-lang' 
 import { PageWrapper } from '../Wrappers/pages.wrapper';
 import { serversContext } from '../context/servers.context';
 import { activityContext } from '../context/activty.context';
@@ -13,6 +15,7 @@ export function HomePage() {
     const [isWaiting, setIsWaiting] = useState<boolean>(false);
     const [status, setStatus] = useState<string>('');
     const [serversState, setServers] = useState<Server[]>([]);
+    const translate = useTranslation();
     const values = {
         isWaiting,
         setIsWaiting,
@@ -48,7 +51,7 @@ export function HomePage() {
                         <div className='max-w-full sm:pt-[100px] sm:pb-[100px] sm:pr-[30px] sm:pl-[30px] p-1'>
                             <div className={'grid justify-center mb-10'}>
                                 <h1 className='text-3xl font-bold mb-2'>
-                                    بهترین های رفع تحریم
+                                    {translate('pages.hometitel')}
                                 </h1>
 
                                 <div className='gap-2 items-center h-2'>
@@ -59,8 +62,8 @@ export function HomePage() {
                                             <HiOutlineShieldCheck style={{ display: 'inline' }} />
                                             {
                                                 currentActive.key == 'unknown'
-                                                    ? <span>به یک سرور  ناشناخته متصل هستید.</span>
-                                                    : <span>  شما به <u>{currentActive.names.fa}</u> متصل شدید</span>
+                                                    ? <span>{translate('pages.annonumos')}</span>
+                                                    : <span> {translate('pages.fixconnection', {currentActive: currentActive.names.eng})} </span>
                                             }
                                             <br />
                                         </p>

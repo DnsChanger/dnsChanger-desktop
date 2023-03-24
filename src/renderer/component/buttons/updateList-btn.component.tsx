@@ -8,6 +8,7 @@ import { setState } from '../../interfaces/react.interface';
 import { activityContext } from '../../context/activty.context';
 import { ActivityContext } from '../../interfaces/activty.interface';
 import { Server } from '../../../shared/interfaces/server.interface';
+import { useTranslation } from 'react-multi-lang';
 
 const repo = 'https://raw.githubusercontent.com/DnsChanger/dnsChanger-desktop/store/servers.json';
 
@@ -21,14 +22,14 @@ interface Props {
 export function UpdateListBtnComponent(prop: Props) {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const activityContextData = useContext<ActivityContext>(activityContext);
-
+    const translate = useTranslation();
     async function updateHandler() {
         if (activityContextData.isWaiting)
             return; //todo add toast
         try {
             setIsLoading(true);
 
-            activityContextData.setStatus('در حال دریافت از مخزن...');
+            activityContextData.setStatus('Retrieving from repository...');
 
             activityContextData.setIsWaiting(true);
 
@@ -48,7 +49,7 @@ export function UpdateListBtnComponent(prop: Props) {
     return (
         <Button color='error' className='text-white' size='xs' onClick={() => updateHandler()}>
             <FaRedoAlt className={`mr-2 ${isLoading ? 'spinner' : ''}`} />
-            بروز رسانی لیست
+            {translate("buttons.update")}
         </Button>
     )
 }

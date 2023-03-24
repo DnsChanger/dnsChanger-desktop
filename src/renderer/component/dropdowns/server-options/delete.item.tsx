@@ -18,7 +18,7 @@ export function DeleteItemComponent(props: Props) {
         const response = await window.ipc.deleteDns(server);
 
         if (response.success) {
-            window.ipc.notif(`${server.names.fa} با موفقیت از لیست حذف شد.`);
+            window.ipc.notif(`${server.names.eng} was successfully removed from the list.`);
             serversContextData.setServers(response.servers);
         } else {
             window.ipc.notif(response.message);

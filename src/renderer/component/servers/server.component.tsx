@@ -57,7 +57,7 @@ async function clickHandler(server: Server, setCurrentActive: setState<Server | 
 
     try {
         if (activityContextData.isWaiting) {
-            window.ipc.notif('لطفا تا پایان درخواست قبلی صبر کنید.');
+            window.ipc.notif('Please wait until the previous request is finished.');
             return;
         }
 
@@ -66,12 +66,12 @@ async function clickHandler(server: Server, setCurrentActive: setState<Server | 
         let response;
 
         if (isConnect) {
-            activityContextData.setStatus('یک لحظه...');
+            activityContextData.setStatus('A moment...');
 
             response = await window.ipc.clearDns();
             response.success && setCurrentActive(null);
         } else {
-            activityContextData.setStatus('درحال اتصال....');
+            activityContextData.setStatus('Connecting...');
 
             response = await window.ipc.setDns(server);
 

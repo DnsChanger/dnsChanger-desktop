@@ -13,7 +13,7 @@ import { isValidDnsAddress } from '../../shared/validators/dns.validator';
 ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
     try {
         await dnsService.setDns(server.servers);
-        return {server, success: true, message: `با موفقیت به ${server.names.fa} متصل شدید.`};
+        return {server, success: true, message: `You have successfully connected to ${server.names.eng}.`};
     } catch (e) {
         return { server, ...errorHandling(e) };
     }
@@ -22,7 +22,7 @@ ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
 ipcMain.handle(EventsKeys.CLEAR_DNS, async (event, server: Server) => {
     try {
         await dnsService.clearDns();
-        return { server, success: true, message: 'موفقیت آمیز' };
+        return { server, success: true, message: 'successful'};
     } catch (e) {
         return { server, ...errorHandling(e) };
     }
@@ -34,13 +34,13 @@ ipcMain.handle(EventsKeys.ADD_DNS, async (event, data) => {
     const nameServer2 = data.nameServers[1];
 
     if (!isValidDnsAddress(nameServer1))
-        return { success: false, message: 'مقدار DNS 1 معتبر نیست.' };
+        return { success: false, message: 'DNS value 1 is not valid.' };
 
     if (nameServer2 && !isValidDnsAddress(nameServer2))
-        return { success: false, message: 'مقدار DNS 2 معتبر نیست.' };
+        return { success: false, message: 'DNS value 2 is not valid.'};
 
     if (nameServer1.toString() == nameServer2.toString())
-        return { success: false, message: 'مقدار DNS 1 و DNS 2 نباید تکراری باشند.' };
+        return { success: false, message: 'DNS 1 and DNS 2 values must not be duplicates.' };
 
     const newServer: Server = {
         key: uuid(),
@@ -147,5 +147,5 @@ function errorHandling(e: { message: string | number; }) {
     // @ts-ignore
     const msg = ResponseMessage[e.message]
 
-    return { success: false, message: msg || 'خطا ناشناخته' };
+    return { success: false, message: msg || 'unknown error' };
 }

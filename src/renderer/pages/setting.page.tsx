@@ -3,10 +3,11 @@ import { Form, Toggle } from 'react-daisyui';
 
 import { PageWrapper } from '../Wrappers/pages.wrapper';
 import { Settings } from '../../shared/interfaces/settings.interface';
+import { useTranslation } from 'react-multi-lang';
 
 export function SettingPage() {
     const [startUp, setStartUp] = useState<boolean>(false);
-
+    const translate = useTranslation();
     useEffect(() => {
         async function getStartUpState() {
             const settings: Settings = await window.ipc.getSettings() as Settings;
@@ -30,7 +31,7 @@ export function SettingPage() {
                     <div className="max-w-full sm:pt-[100px] sm:pb-[100px] sm:pr-[30px] sm:pl-[30px] p-1">
                         <div className={"grid justify-center mb-10"}>
                             <h1 className="text-3xl font-bold mb-2">
-                                تنظیمات
+                                {translate("pages.settings.titel")}
                             </h1>
                         </div>
                     </div>
@@ -38,7 +39,7 @@ export function SettingPage() {
                 <div className={"mt-20"}>
                     <div className=" mt-2 flex flex-grow gap-2 ml-2 mb-0 top-1">
                         <Form className="bg-base-200 p-4 rounded-lg shadow">
-                            <Form.Label title="اجرا شدن خودکار برنامه با روشن شدن سیستم">
+                            <Form.Label title={translate("pages.settings.autorunningTitel")}>
                                 <Toggle className="m-2" color='success'
                                         defaultChecked={startUp}
                                         checked={startUp}

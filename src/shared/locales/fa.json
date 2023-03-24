@@ -1,0 +1,20 @@
+{
+    "pages" : {
+        "hometitel" : "بهترین های رفع تحریم",
+        "fixconnection" : "شما به : {currentActive} متصل شدید",
+        "annonumos" : "به یک سرور  ناشناخته متصل هستید.",
+        "settings" : {
+            "titel" : "تنظیمات",
+            "autorunningTitel" : "اجرا شدن خودکار برنامه با روشن شدن سیستم"
+        },
+        "addfavDnspage" : {
+            "NameOfServer" : "نام سرور",
+            "ipserivce" : "آدرس سرور"
+        }
+    },
+    "buttons" : {
+        "update" : "بروز رسانی لیست",
+        "favDnsServer" : "افزودن سرور (DNS) دلخواه",
+        "add" : "افزودن"
+    }
+}
