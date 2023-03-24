@@ -1,6 +1,6 @@
 module.exports = {
     content: [
-        "./src/renderer/*.{js,jsx,ts,tsx}",
+        "./src/renderer/**/*.{js,jsx,ts,tsx}",
         "node_modules/daisyui/dist/**/*.js",
         "node_modules/react-daisyui/dist/**/*.js",
     ],

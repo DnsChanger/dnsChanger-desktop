@@ -9,8 +9,8 @@
     font-style: normal;
 
     src: url("../../assets/fonts/vazir/Vazir-Variable.woff2") format("woff2 supports variations"),
-    url("../../assets/fonts/vazir/Vazir-Variable.woff2") format("woff2-variations"),
-    url("../../assets/fonts/vazir/Vazir-Variable.woff") format("woff-variations");
+        url("../../assets/fonts/vazir/Vazir-Variable.woff2") format("woff2-variations"),
+        url("../../assets/fonts/vazir/Vazir-Variable.woff") format("woff-variations");
 }
 
 @font-face {
@@ -19,9 +19,9 @@
     src: url("../../assets/fonts/vazir/Vazir-Regular.eot");
 
     src: url("../../assets/fonts/vazir/Vazir-Regular.eot?#iefix") format("embedded-opentype"),
-    url("../../assets/fonts/vazir/Vazir-Regular.woff2") format("woff2"),
-    url("../../assets/fonts/vazir/Vazir-Regular.woff") format("woff"),
-    url("../../assets/fonts/vazir/Vazir-Regular.ttf") format("truetype");
+        url("../../assets/fonts/vazir/Vazir-Regular.woff2") format("woff2"),
+        url("../../assets/fonts/vazir/Vazir-Regular.woff") format("woff"),
+        url("../../assets/fonts/vazir/Vazir-Regular.ttf") format("truetype");
 
     font-weight: normal;
 
@@ -34,9 +34,9 @@
     src: url("../../assets/fonts/vazir/Vazir-Bold.eot");
 
     src: url("../../assets/fonts/vazir/Vazir-Bold.eot?#iefix") format("embedded-opentype"),
-    url("../../assets/fonts/vazir/Vazir-Bold.woff2") format("woff2"),
-    url("../../assets/fonts/vazir/Vazir-Bold.woff") format("woff"),
-    url("../../assets/fonts/vazir/Vazir-Bold.ttf") format("truetype");
+        url("../../assets/fonts/vazir/Vazir-Bold.woff2") format("woff2"),
+        url("../../assets/fonts/vazir/Vazir-Bold.woff") format("woff"),
+        url("../../assets/fonts/vazir/Vazir-Bold.ttf") format("truetype");
 
     font-weight: bold;
 
@@ -49,9 +49,9 @@
     src: url("../../assets/fonts/vazir/Vazir-Black.eot");
 
     src: url("../../assets/fonts/vazir/Vazir-Black.eot?#iefix") format("embedded-opentype"),
-    url("../../assets/fonts/vazir/Vazir-Black.woff2") format("woff2"),
-    url("../../assets/fonts/vazir/Vazir-Black.woff") format("woff"),
-    url("../../assets/fonts/vazir/Vazir-Black.ttf") format("truetype");
+        url("../../assets/fonts/vazir/Vazir-Black.woff2") format("woff2"),
+        url("../../assets/fonts/vazir/Vazir-Black.woff") format("woff"),
+        url("../../assets/fonts/vazir/Vazir-Black.ttf") format("truetype");
 
     font-weight: 900;
 
@@ -65,9 +65,9 @@
     src: url("../../assets/fonts/vazir/Vazir-Light.eot");
 
     src: url("../../assets/fonts/vazir/Vazir-Light.eot?#iefix") format("embedded-opentype"),
-    url("../../assets/fonts/vazir/Vazir-Light.woff2") format("woff2"),
-    url("../../assets/fonts/vazir/Vazir-Light.woff") format("woff"),
-    url("../../assets/fonts/vazir/Vazir-Light.ttf") format("truetype");
+        url("../../assets/fonts/vazir/Vazir-Light.woff2") format("woff2"),
+        url("../../assets/fonts/vazir/Vazir-Light.woff") format("woff"),
+        url("../../assets/fonts/vazir/Vazir-Light.ttf") format("truetype");
 
     font-weight: 300;
 
@@ -80,9 +80,9 @@
     src: url("../../assets/fonts/vazir/Vazir-Thin.eot");
 
     src: url("../../assets/fonts/vazir/Vazir-Light.eot?#iefix") format("embedded-opentype"),
-    url("../../assets/fonts/vazir/Vazir-Thin.woff2") format("woff2"),
-    url("../../assets/fonts/vazir/Vazir-Thin.woff") format("woff"),
-    url("../../assets/fonts/vazir/Vazir-Thin.ttf") format("truetype");
+        url("../../assets/fonts/vazir/Vazir-Thin.woff2") format("woff2"),
+        url("../../assets/fonts/vazir/Vazir-Thin.woff") format("woff"),
+        url("../../assets/fonts/vazir/Vazir-Thin.ttf") format("truetype");
 
     font-weight: 100;
 
@@ -95,7 +95,7 @@ body {
 
 /* scrolbar */
 ::-webkit-scrollbar {
-    width: 0.3em;
+    width: 0.2em;
 }
 
 /* scrolbar backgrond with theme  */
@@ -105,7 +105,7 @@ html[data-theme="dark"]::-webkit-scrollbar {
 
 /* scrolbar thumb */
 ::-webkit-scrollbar-thumb {
-    background-color: #4a759c9c;
+    background-color: #dfba55a1;
 }
 
 /* scrolbar thumb on hover */
@@ -113,17 +113,27 @@ html[data-theme="dark"]::-webkit-scrollbar {
     background-color: #1d1d1d;
 }
 
-.btn--dns-fav {
-    background-color: #4a759c9c;
-    color: rgb(255, 255, 255);
-    border: solid 2px #4a749c;
+.spinner {
+    -webkit-animation: spin 4s linear infinite;
+    -moz-animation: spin 4s linear infinite;
+    animation: spin 4s linear infinite;
 }
 
-.btn--dns-fav:hover {
-    background-color: #4a749c30;
-    border: solid 2px rgba(126, 218, 209, 0.802);
+@-moz-keyframes spin {
+    100% {
+        -moz-transform: rotate(360deg);
+    }
 }
 
-.name--server:active::placeholder {
-    color: white;
+@-webkit-keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
 }

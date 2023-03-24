@@ -5,7 +5,7 @@ export class LinuxPlatform extends Platform {
 
     async clearDns(): Promise<void> {
         try {
-            await this.setDns(["192.168.1.1", "127.0.0.1"])
+            await this.setDns(["1.1.1.1", "8.8.8.8", "192.168.1.1", "127.0.0.1"])
         } catch (e) {
             throw e;
         }

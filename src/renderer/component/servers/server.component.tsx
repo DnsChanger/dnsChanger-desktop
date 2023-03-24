@@ -1,39 +1,47 @@
-import { Button, Tooltip } from 'react-daisyui';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { setState } from '../../interfaces/react.interface';
 import React, { } from 'react';
+import { Badge, Button, Dropdown, Tooltip } from 'react-daisyui';
+import { setState } from '../../interfaces/react.interface';
 import { activityContext } from '../../context/activty.context';
 import { ActivityContext } from '../../interfaces/activty.interface';
 import { Server } from "../../../shared/interfaces/server.interface";
-
+import { ServerOptionsComponent } from "../dropdowns/server-options/server-options.component";
+import { TbServer2 } from "react-icons/tb"
+import { AiOutlinePoweroff } from "react-icons/ai"
+import { BsFillStopCircleFill } from "react-icons/bs"
 interface Props {
     server: Server
-    currentActive: string,
-    setCurrentActive: setState<string>
+    currentActive: Server,
+    setCurrentActive: setState<Server>
 }
 
 export function ServerComponent(prop: Props) {
     const server = prop.server
-    const isConnect = server.key == prop.currentActive
+    const isConnect = server.key == prop.currentActive?.key
     const activityContextData = React.useContext<ActivityContext>(activityContext);
     return (
-        <div dir='ltr' className=' mb-2 p-2'>
+        <div dir='ltr' className='mb-2 p-2 border rounded border-gray-500 border-dashed'>
             <div className="flex flex-nowrap">
                 <div className='flex-none'>
-                    <FontAwesomeIcon icon={"server"} />
+                    <TbServer2 size={25} />
                 </div>
-                <div className='flex-1 w-64'>
-                    <Tooltip message={server.servers.join("\n")} color={"accent"} position={"bottom"}>
-                        <p className={"font-medium"}>{server.names.eng}</p>
+                <div className='flex-1 w-20'>
+                    <Tooltip message={server.servers.join("\n")} position={"bottom"}>
+                        <p className={"font-medium"} >{server.names.eng}</p>
                     </Tooltip>
                 </div>
-                <div>
-                    <Button shape='circle' size='sm' color={isConnect ? 'success' : 'warning'}
-                        disabled={activityContextData.isWaiting}
-                        onClick={() => clickHandler.apply(activityContextData, [server, prop.setCurrentActive, isConnect])}
-                    >
-                        <FontAwesomeIcon icon={isConnect ? 'stop' : "power-off"} />
-                    </Button>
+                <div className={"flex flex-row gap-2"}>
+
+                    <div>
+                        <Button shape='circle' size='xs' color={isConnect ? 'success' : 'warning'}
+                            disabled={activityContextData.isWaiting}
+                            onClick={() => clickHandler.apply(activityContextData, [server, prop.setCurrentActive, isConnect])}
+                        >
+                            {isConnect ? <BsFillStopCircleFill /> : <AiOutlinePoweroff />}
+                        </Button>
+                    </div>
+                    <div>
+                        <ServerOptionsComponent server={server} />
+                    </div>
                 </div>
             </div>
         </div>
@@ -41,7 +49,7 @@ export function ServerComponent(prop: Props) {
 }
 
 
-async function clickHandler(server: Server, setCurrentActive: setState<string>, isConnect: boolean) {
+async function clickHandler(server: Server, setCurrentActive: setState<Server | null>, isConnect: boolean) {
     const activityContextData = this as ActivityContext
 
     try {
@@ -54,12 +62,12 @@ async function clickHandler(server: Server, setCurrentActive: setState<string>, 
         if (isConnect) {
             activityContextData.setStatus("یک لحظه...")
             response = await window.ipc.clearDns();
-            response.success && setCurrentActive('')
+            response.success && setCurrentActive(null)
         } else {
             activityContextData.setStatus("درحال اتصال....")
             response = await window.ipc.setDns(server);
             if (response.success) {
-                setCurrentActive(server.key)
+                setCurrentActive(server)
             }
         }
         if (response.success)

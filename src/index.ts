@@ -1,36 +1,47 @@
-import { app, BrowserWindow, nativeImage, autoUpdater, dialog } from 'electron';
+import { app, BrowserWindow, autoUpdater, dialog } from 'electron';
 import updateElectron from "update-electron-app"
+import { getIconPath } from './main/shared/getIconPath';
 
 updateElectron({
-    repo: 'github.com/DnsChanger/dnsChanger-desktop',
-    updateInterval: '1 hour',
     logger: require('electron-log'),
     notifyUser: true
 })
+
+const server = 'https://update.electronjs.org'
+const feed = `${server}/DnsChanger/dnsChanger-desktop/${process.platform}-${process.arch}/${app.getVersion()}`
+
+autoUpdater.setFeedURL({
+    url: feed,
+    serverType: 'default',
+})
+
+
+setInterval(() => {
+    autoUpdater.checkForUpdates()
+}, 1000 * 60 * 5) //5 minutes 
+
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
-
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
     app.quit();
 }
 
 const createWindow = (): void => {
+    const icon = getIconPath()
     // Create the browser window.
     const mainWindow = new BrowserWindow({
         height: 600,
-        width: 450,
+        width: 500,
         webPreferences: {
             preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
         },
         darkTheme: true,
         resizable: false,
+        icon
     });
-    const appIcon = nativeImage.createFromPath("./assets/logo.png")
 
     mainWindow.setMenu(null)
-
-    mainWindow.setIcon(appIcon)
 
     mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
     // Open the DevTools.
@@ -51,7 +62,6 @@ app.on('window-all-closed', () => {
 import "./main/ipc/dialogs"
 import "./main/ipc/notif"
 import "./main/ipc/ui"
-import * as process from "process";
 
 app.on('activate', () => {
     // On OS X it's common to re-create a window in the app when the
@@ -61,27 +71,3 @@ app.on('activate', () => {
     }
 });
 
-
-function updateHandling() {
-    const server = 'https://your-deployment-url.com'
-    const url = `${server}/update/${process.platform}/${app.getVersion()}`
-    autoUpdater.setFeedURL({ url })
-    setInterval(() => {
-        autoUpdater.checkForUpdates()
-    }, 60000)
-}
-
-autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
-    const dialogOpts = {
-        type: 'info',
-        buttons: ['Restart', 'Later'],
-        title: 'Application Update',
-        message: process.platform === 'win32' ? releaseNotes : releaseName,
-        detail:
-            'A new version has been downloaded. Restart the application to apply the updates.',
-    }
-
-    dialog.showMessageBox(dialogOpts).then((returnValue) => {
-        if (returnValue.response === 0) autoUpdater.quitAndInstall()
-    })
-})
