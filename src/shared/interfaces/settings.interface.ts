@@ -1,7 +1,10 @@
+import { Locales } from "../../i18n/i18n-types";
+
 export interface Settings {
-    startUp: boolean
+    startUp: boolean,
+    lng: Locales
 }
 
-// export interface SettingsInStore extends Omit<Settings, "startUp"> {
-//
-// }
+export interface SettingInStore extends Omit<Settings, "startUp"> {
+
+}

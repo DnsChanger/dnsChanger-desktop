@@ -1,6 +1,6 @@
 import updateElectron from 'update-electron-app';
 import { app, BrowserWindow, autoUpdater } from 'electron';
-
+import ms from "ms"
 import { getIconPath } from './main/shared/getIconPath';
 
 updateElectron({
@@ -18,7 +18,7 @@ autoUpdater.setFeedURL({
 
 setInterval(() => {
     autoUpdater.checkForUpdates();
-}, 1000 * 60 * 5) //5 minutes 
+}, ms("1h"))
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;

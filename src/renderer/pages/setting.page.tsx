@@ -1,20 +1,18 @@
 import { useState, useEffect } from 'react';
-import { Form, Toggle } from 'react-daisyui';
+import { Form, Select, Toggle } from 'react-daisyui';
 
 import { PageWrapper } from '../Wrappers/pages.wrapper';
-import { Settings } from '../../shared/interfaces/settings.interface';
+import { useI18nContext } from '../../i18n/i18n-react';
+import { loadLocaleAsync } from "../../i18n/i18n-util.async";
+import { settingStore } from '../app';
+import { Locales } from '../../i18n/i18n-types';
 
 export function SettingPage() {
     const [startUp, setStartUp] = useState<boolean>(false);
+    const { LL } = useI18nContext()
 
     useEffect(() => {
-        async function getStartUpState() {
-            const settings: Settings = await window.ipc.getSettings() as Settings;
-
-            setStartUp(settings.startUp);
-        }
-
-        getStartUpState();
+        setStartUp(settingStore.startUp);
     }, []);
 
     function toggleStartUp() {
@@ -22,33 +20,71 @@ export function SettingPage() {
             .then((res) => setStartUp(res));
     }
 
+    async function saveSetting() {
+        await window.ipc.saveSettings(settingStore)
+    }
+
     return (
         <PageWrapper>
-            <div className='hero'>
-                <div
-                    className="px-0 sm:p-4 hero-content text-center max-w-[400px]   mb-1 ">
-                    <div className="max-w-full sm:pt-[100px] sm:pb-[100px] sm:pr-[30px] sm:pl-[30px] p-1">
-                        <div className={"grid justify-center mb-10"}>
-                            <h1 className="text-3xl font-bold mb-2">
-                                تنظیمات
-                            </h1>
-                        </div>
-                    </div>
+            <div className="hero flex flex-col justify-center items-center">
+                <div className="max-w-[400px] text-center mb-8">
+                    <h1 className="text-3xl font-bold">{LL.pages.settings.title()}</h1>
                 </div>
-                <div className={"mt-20"}>
-                    <div className=" mt-2 flex flex-grow gap-2 ml-2 mb-0 top-1">
-                        <Form className="bg-base-200 p-4 rounded-lg shadow">
-                            <Form.Label title="اجرا شدن خودکار برنامه با روشن شدن سیستم">
-                                <Toggle className="m-2" color='success'
-                                        defaultChecked={startUp}
-                                        checked={startUp}
-                                        onClick={() => toggleStartUp()}/>
-                            </Form.Label>
-                        </Form>
-                    </div>
+                <div className="flex flex-col items-start gap-4" dir={"auto"}>
+                    <Form className="bg-base-200 p-4 rounded-lg shadow w-96">
+                        <Form.Label title={LL.pages.settings.autoRunningTitle()}>
+                            <Toggle
+                                className="m-2"
+                                color="success"
+                                defaultChecked={startUp}
+                                checked={startUp}
+                                onClick={() => toggleStartUp()}
+                            />
+                        </Form.Label>
+                    </Form>
+                    <LanguageSwitcher cb={() => saveSetting()} />
                 </div>
             </div>
-
         </PageWrapper>
     )
 }
+
+interface Prop {
+    cb: any
+}
+const LanguageSwitcher = (prop: Prop) => {
+    const { LL, locale, setLocale } = useI18nContext()
+    const [language, setLanguage] = useState(locale);
+
+    const handleLanguageChange = async (lng: any) => {
+        setLanguage(lng);
+
+        await loadLocaleAsync(lng)
+        // @ts-ignore
+        setLocale(lng)
+        settingStore.lng = lng
+        prop.cb()
+    };
+
+    return (
+        <div className="flex items-center">
+            <div className="mr-2">{LL.pages.settings.langChanger()}</div>
+            <div className="border-t border-gray-300 flex-grow"></div>
+            <div className="mx-2">|</div>
+            <div className="ml-2">
+                <Select
+                    className="w-32 px-3 py-1 border border-gray-300 rounded-md shadow-sm"
+                    value={language}
+                    onChange={(event) => handleLanguageChange(event.target.value)}
+                >
+                    <Select.Option value={'fa'}>
+                        فارسی
+                    </Select.Option>
+                    <Select.Option value={'eng'}>
+                        English
+                    </Select.Option>
+                </Select>
+            </div>
+        </div>
+    );
+};

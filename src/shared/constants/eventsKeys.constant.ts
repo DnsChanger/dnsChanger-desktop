@@ -11,6 +11,7 @@ export enum EventsKeys {
     DELETE_DNS = 'DELETE_DNS',
     TOGGLE_THEME = 'ui:toggleTheme',
     GET_SETTINGS = 'dialogs:get_settings',
+    SAVE_SETTINGS = 'dialogs:save_settings',
     TOGGLE_START_UP = 'dialogs:toggleStartUp '
 }
 

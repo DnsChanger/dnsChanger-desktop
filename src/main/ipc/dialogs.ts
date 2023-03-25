@@ -10,10 +10,13 @@ import { Settings } from '../../shared/interfaces/settings.interface';
 import { EventsKeys } from '../../shared/constants/eventsKeys.constant';
 import { isValidDnsAddress } from '../../shared/validators/dns.validator';
 
+// todo Refactoring
+
+
 ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
     try {
         await dnsService.setDns(server.servers);
-        return {server, success: true, message: `با موفقیت به ${server.names.fa} متصل شدید.`};
+        return { server, success: true };
     } catch (e) {
         return { server, ...errorHandling(e) };
     }
@@ -22,7 +25,7 @@ ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
 ipcMain.handle(EventsKeys.CLEAR_DNS, async (event, server: Server) => {
     try {
         await dnsService.clearDns();
-        return { server, success: true, message: 'موفقیت آمیز' };
+        return { server, success: true, message: 'SUCCESSFUL' };
     } catch (e) {
         return { server, ...errorHandling(e) };
     }
@@ -34,13 +37,13 @@ ipcMain.handle(EventsKeys.ADD_DNS, async (event, data) => {
     const nameServer2 = data.nameServers[1];
 
     if (!isValidDnsAddress(nameServer1))
-        return { success: false, message: 'مقدار DNS 1 معتبر نیست.' };
+        return { success: false, message: 'invalid_dns1' };
 
     if (nameServer2 && !isValidDnsAddress(nameServer2))
-        return { success: false, message: 'مقدار DNS 2 معتبر نیست.' };
+        return { success: false, message: 'invalid_dns2' };
 
     if (nameServer1.toString() == nameServer2.toString())
-        return { success: false, message: 'مقدار DNS 1 و DNS 2 نباید تکراری باشند.' };
+        return { success: false, message: 'dns1_dns2_duplicates' };
 
     const newServer: Server = {
         key: uuid(),
@@ -54,7 +57,7 @@ ipcMain.handle(EventsKeys.ADD_DNS, async (event, data) => {
 
     const list: Server[] = store.get('dnsList') || [];
     list.push(newServer);
-    
+
     store.set('dnsList', list);
     return { success: true, server: newServer };
 })
@@ -72,13 +75,13 @@ ipcMain.handle(EventsKeys.FETCH_DNS_LIST, () => {
 ipcMain.handle(EventsKeys.GET_CURRENT_ACTIVE, async (): Promise<any> => {
     try {
         const dns: string[] = await dnsService.getActiveDns();
-        
+
         if (!dns.length)
             return { success: false, server: null };
-        
+
         const servers = store.get('dnsList') || [];
         const server: Server | null = servers.find((server) => server.servers.toString() == dns.toString());
-        
+
         if (!server)
             return {
                 success: true, server: {
@@ -101,7 +104,8 @@ ipcMain.handle(EventsKeys.GET_CURRENT_ACTIVE, async (): Promise<any> => {
 
 ipcMain.handle(EventsKeys.GET_SETTINGS, async () => {
     const settings: Settings = {
-        startUp: false
+        startUp: false,
+        lng: store.get("settings").lng
     }
 
     settings.startUp = await autoLauncher.isEnabled()
@@ -110,7 +114,7 @@ ipcMain.handle(EventsKeys.GET_SETTINGS, async () => {
 
 ipcMain.handle(EventsKeys.TOGGLE_START_UP, async () => {
     let startUp = await autoLauncher.isEnabled();
-    
+
     if (startUp) {
         await autoLauncher.disable();
         startUp = false;
@@ -118,7 +122,7 @@ ipcMain.handle(EventsKeys.TOGGLE_START_UP, async () => {
         await autoLauncher.enable();
         startUp = true;
     }
-    
+
     return startUp;
 })
 
@@ -142,10 +146,15 @@ ipcMain.handle(EventsKeys.DELETE_DNS, (ev: any, server: Server) => {
         servers: dnsList
     };
 })
-
+ipcMain.handle(EventsKeys.SAVE_SETTINGS, function (event, data: Settings) {
+    store.set("settings", data)
+    return { success: true }
+})
 function errorHandling(e: { message: string | number; }) {
     // @ts-ignore
     const msg = ResponseMessage[e.message]
 
-    return { success: false, message: msg || 'خطا ناشناخته' };
+    return { success: false, message: msg || 'unknown error' };
 }
+
+

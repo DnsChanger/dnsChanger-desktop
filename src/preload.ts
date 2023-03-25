@@ -4,6 +4,7 @@ import { contextBridge, ipcRenderer } from 'electron';
 
 import { Server } from './shared/interfaces/server.interface';
 import { EventsKeys } from './shared/constants/eventsKeys.constant';
+import { SettingInStore } from './shared/interfaces/settings.interface';
 
 const ipc = {
     setDns: (server: Server) => ipcRenderer.invoke(EventsKeys.SET_DNS, server),
@@ -17,7 +18,8 @@ const ipc = {
     fetchDnsList: () => ipcRenderer.invoke(EventsKeys.FETCH_DNS_LIST),
     getCurrentActive: () => ipcRenderer.invoke(EventsKeys.GET_CURRENT_ACTIVE),
     getSettings: () => ipcRenderer.invoke(EventsKeys.GET_SETTINGS),
-    toggleStartUP: () => ipcRenderer.invoke(EventsKeys.TOGGLE_START_UP)
+    toggleStartUP: () => ipcRenderer.invoke(EventsKeys.TOGGLE_START_UP),
+    saveSettings: (settings: SettingInStore) => ipcRenderer.invoke(EventsKeys.SAVE_SETTINGS, settings)
 }
 
 contextBridge.exposeInMainWorld('ipc', ipc);
