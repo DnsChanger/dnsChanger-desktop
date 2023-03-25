@@ -1,14 +1,14 @@
-import {useEffect, useState} from 'react';
-import {PageWrapper} from '../Wrappers/pages.wrapper';
-import {serversContext} from '../context/servers.context';
-import {activityContext} from '../context/activty.context';
-import {ServersComponent} from '../component/servers/servers';
-import {Server} from '../../shared/interfaces/server.interface';
+import { useEffect, useState } from 'react';
+import { PageWrapper } from '../Wrappers/pages.wrapper';
+import { serversContext } from '../context/servers.context';
+import { activityContext } from '../context/activty.context';
+import { ServersComponent } from '../component/servers/servers';
+import { Server } from '../../shared/interfaces/server.interface';
 import {
     ServerListOptionsDropDownComponent
 } from '../component/dropdowns/serverlist-options/serverlist-options.component';
-import {useI18nContext} from '../../i18n/i18n-react';
-import {HiOutlineShieldCheck} from 'react-icons/hi';
+import { useI18nContext } from '../../i18n/i18n-react';
+import { HiOutlineShieldCheck } from 'react-icons/hi';
 
 export function HomePage() {
     const [currentActive, setCurrentActive] = useState<Server | null>(null);
@@ -16,7 +16,7 @@ export function HomePage() {
     const [status, setStatus] = useState<string>('');
     const [serversState, setServers] = useState<Server[]>([]);
 
-    const {LL, locale} = useI18nContext()
+    const { LL, locale } = useI18nContext()
 
     const values = {
         isWaiting,
@@ -58,33 +58,34 @@ export function HomePage() {
                                     {
                                         currentActive &&
                                         <div className='text-green-500 flex flex-row gap-1 justify-center'>
-                                            <HiOutlineShieldCheck style={{display: 'inline'}}/>
+                                            <HiOutlineShieldCheck style={{ display: 'inline' }} />
                                             {
                                                 currentActive.key == 'unknown'
                                                     ? <span> {LL.pages.home.unknownServer()}</span>
                                                     :
-                                                    <p dangerouslySetInnerHTML={{__html: LL.pages.home.connected({currentActive: currentActive.names.eng})}}></p>
+                                                    <p dangerouslySetInnerHTML={{ __html: LL.pages.home.connected({ currentActive: currentActive.names.eng }) }}></p>
                                             }
                                         </div>
                                     }
                                 </div>
                             </div>
 
-                            <serversContext.Provider value={{servers: serversState, setServers}}>
+                            <serversContext.Provider value={{ servers: serversState, setServers }}>
 
-                                <div className={'border border-y-gray-500 border-x-0 rounded-2xl  shadow-2xl'}>
-                                    <div className=' mt-2 flex flex-grow gap-2 ml-2 mb-0 top-1'>
-                                        <ServerListOptionsDropDownComponent/>
+                                <div className={'border border-y-gray-500 border-x-0 rounded-2xl  shadow-2xl px-1'}>
+                                    <div className='mt-2 flex flex-grow gap-2 mb-0 top-1'
+                                        dir={"auto"}>
+                                        <ServerListOptionsDropDownComponent />
                                     </div>
                                     <div className={'card items-center card-body'}>
                                         <div className={'overflow-y-auto'}>
                                             <div className={'grid h-[200px] w-[350px] p-2 '}>
                                                 <ServersComponent currentActive={currentActive}
-                                                                  setCurrentActive={setCurrentActive}/>
+                                                    setCurrentActive={setCurrentActive} />
                                             </div>
                                         </div>
-                                        <div>
-                                            <p color='' className='text-red-400 absolute bottom-[10px] right-2'>
+                                        <div dir='auto'>
+                                            <p className='text-red-400 absolute bottom-[10px] right-2'>
                                                 {status}
                                             </p>
                                         </div>

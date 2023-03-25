@@ -5,6 +5,12 @@ import { HomePage } from './pages/home.page';
 import { SettingPage } from './pages/setting.page';
 import { loadLocaleAsync } from '../i18n/i18n-util.async';
 import TypesafeI18n from '../i18n/i18n-react';
+import { Settings } from '../shared/interfaces/settings.interface';
+
+export let settingStore: Settings = {
+    lng: "fa",
+    startUp: false
+}
 
 interface Page {
     key: string
@@ -12,7 +18,7 @@ interface Page {
 }
 export function App() {
 
-    const detectedLocale = "fa" //detectLocale(localStorageDetector)
+    const detectedLocale = "fa"
     const [wasLoaded, setWasLoaded] = useState(false)
 
 
@@ -31,14 +37,19 @@ export function App() {
         setCurrentPage(page);
     }, [currentPath]);
     useEffect(() => {
-        loadLocaleAsync(detectedLocale).then(() => setWasLoaded(true))
+        async function getSetting() {
+            settingStore = await window.ipc.getSettings() as Settings;
+        }
+        getSetting().then(() => {
+            loadLocaleAsync(settingStore.lng).then(() => setWasLoaded(true))
+        })
     }, [])
 
     if (!wasLoaded) return null
 
     return (
         <div>
-            <TypesafeI18n locale={detectedLocale}>
+            <TypesafeI18n locale={settingStore.lng}>
                 {currentPage.element}
             </TypesafeI18n>
             <BottomNavigation size='xs' className='mb-2'>

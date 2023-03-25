@@ -8,7 +8,7 @@ import { detectLocale as detectLocaleFn } from 'typesafe-i18n/detectors'
 import { initExtendDictionary } from 'typesafe-i18n/utils'
 import type { Formatters, Locales, Translations, TranslationFunctions } from './i18n-types'
 
-export const baseLocale: Locales = 'eng'
+export const baseLocale: Locales = 'fa'
 
 export const locales: Locales[] = [
 	'eng',

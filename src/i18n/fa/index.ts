@@ -1,6 +1,6 @@
-import type {Translation} from '../i18n-types';
+import {BaseTranslation} from "../i18n-types";
 
-const fa: Translation = {
+const fa: BaseTranslation = {
     pages: {
         home: {
             homeTitle: "بهترین های رفع تحریم",
@@ -9,7 +9,8 @@ const fa: Translation = {
         },
         settings: {
             title: "تنظیمات",
-            autoRunningTitle: "اجرا شدن خودکار برنامه با روشن شدن سیستم"
+            autoRunningTitle: "اجرا شدن خودکار برنامه با روشن شدن سیستم",
+            langChanger: "تغییر زبـان"
         },
         addCustomDns: {
             NameOfServer: "نام سرور",

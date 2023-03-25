@@ -48,7 +48,7 @@ export function UpdateListItemComponent() {
     return (
         <Dropdown.Item onClick={() => updateHandler()}>
             <RxUpdate
-                className={`mr-2 ${isLoading ? 'spinner' : ''}`}/>
+                className={`${isLoading ? 'spinner' : ''}`}/>
             {LL.buttons.update()}
         </Dropdown.Item>
     )

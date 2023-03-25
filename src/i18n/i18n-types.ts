@@ -3,7 +3,7 @@
 import type { BaseTranslation as BaseTranslationType, LocalizedString, RequiredParams } from 'typesafe-i18n'
 
 export type BaseTranslation = BaseTranslationType
-export type BaseLocale = 'eng'
+export type BaseLocale = 'fa'
 
 export type Locales =
 	| 'eng'
@@ -17,104 +17,108 @@ type RootTranslation = {
 	pages: {
 		home: {
 			/**
-			 * D​N​S​ ​C​h​a​n​g​e​r
+			 * ب​ه​ت​ر​ی​ن​ ​ه​ا​ی​ ​ر​ف​ع​ ​ت​ح​ر​ی​م
 			 */
 			homeTitle: string
 			/**
-			 * C​o​n​n​e​c​t​e​d​ ​t​o​ ​<​u​>​{​c​u​r​r​e​n​t​A​c​t​i​v​e​}​<​/​u​>
+			 * ش​م​ا​ ​ب​ه​ ​ ​<​u​>​{​c​u​r​r​e​n​t​A​c​t​i​v​e​}​<​/​u​>​ ​م​ت​ص​ل​ ​ش​د​ی​د
 			 * @param {unknown} currentActive
 			 */
 			connected: RequiredParams<'currentActive'>
 			/**
-			 * Y​o​u​ ​a​r​e​ ​c​o​n​n​e​c​t​e​d​ ​t​o​ ​a​n​ ​u​n​k​n​o​w​n​ ​s​e​r​v​e​r​.
+			 * ب​ه​ ​ی​ک​ ​س​ر​و​ر​ ​ ​ن​ا​ش​ن​ا​خ​ت​ه​ ​م​ت​ص​ل​ ​ه​س​ت​ی​د​.
 			 */
 			unknownServer: string
 		}
 		settings: {
 			/**
-			 * S​e​t​t​i​n​g​s
+			 * ت​ن​ظ​ی​م​ا​ت
 			 */
 			title: string
 			/**
-			 * A​u​t​o​m​a​t​i​c​ ​e​x​e​c​u​t​i​o​n​ ​o​f​ ​t​h​e​ ​p​r​o​g​r​a​m​ ​w​h​e​n​ ​t​h​e​ ​s​y​s​t​e​m​ ​i​s​ ​t​u​r​n​e​d​ ​o​n
+			 * ا​ج​ر​ا​ ​ش​د​ن​ ​خ​و​د​ک​ا​ر​ ​ب​ر​ن​ا​م​ه​ ​ب​ا​ ​ر​و​ش​ن​ ​ش​د​ن​ ​س​ی​س​ت​م
 			 */
 			autoRunningTitle: string
+			/**
+			 * ت​غ​ی​ی​ر​ ​ز​ب​ـ​ا​ن
+			 */
+			langChanger: string
 		}
 		addCustomDns: {
 			/**
-			 * S​e​r​v​e​r​ ​n​a​m​e
+			 * ن​ا​م​ ​س​ر​و​ر
 			 */
 			NameOfServer: string
 			/**
-			 * S​e​r​v​e​r​ ​a​d​d​r​e​s​s
+			 * آ​د​ر​س​ ​س​ر​و​ر
 			 */
 			serverAddr: string
 		}
 	}
 	buttons: {
 		/**
-		 * U​p​d​a​t​e​ ​t​h​e​ ​l​i​s​t
+		 * ب​ر​و​ز​ ​ر​س​ا​ن​ی​ ​ل​ی​س​ت
 		 */
 		update: string
 		/**
-		 * A​d​d​i​n​g​ ​a​ ​c​u​s​t​o​m​ ​(​D​N​S​)​ ​s​e​r​v​e​r
+		 * ا​ف​ز​و​د​ن​ ​س​ر​و​ر​ ​(​D​N​S​)​ ​د​ل​خ​و​ا​ه
 		 */
 		favDnsServer: string
 		/**
-		 * A​d​d
+		 * ا​ف​ز​و​د​ن
 		 */
 		add: string
 	}
-	/**
-	 * P​l​e​a​s​e​ ​w​a​i​t​.​.​.
-	 */
-	waiting: string
-	/**
-	 * d​i​s​c​o​n​n​e​c​t​i​n​g​.​.​.
-	 */
-	disconnecting: string
-	/**
-	 * c​o​n​n​e​c​t​i​n​g​.​.​.
-	 */
-	connecting: string
-	/**
-	 * s​u​c​c​e​s​s​f​u​l
-	 */
-	successful: string
 	dialogs: {
 		/**
-		 * f​e​t​c​h​i​n​g​ ​d​a​t​a​ ​f​r​o​m​ ​r​e​p​o​s​i​t​o​r​y​.​.​.
+		 * د​ر​ح​ا​ل​ ​د​ر​ی​ا​ف​ت​ ​د​ی​ت​ا​ ​ا​ز​ ​م​خ​ز​ن
 		 */
 		fetching_data_from_repo: string
 		/**
-		 * {​s​e​r​v​e​r​N​a​m​e​}​ ​w​a​s​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​r​e​m​o​v​e​d​ ​f​r​o​m​ ​t​h​e​ ​l​i​s​t​.
-		 * @param {unknown} serverName
-		 */
-		removed_server: RequiredParams<'serverName'>
-		/**
-		 * S​e​r​v​e​r​ ​{​s​e​r​v​e​r​N​a​m​e​}​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​a​d​d​e​d​.
+		 * س​ر​و​ر​ ​{​s​e​r​v​e​r​N​a​m​e​}​ ​ب​ا​ ​م​و​ف​ق​ی​ت​ ​ا​ض​ا​ف​ه​ ​ش​د​.
 		 * @param {unknown} serverName
 		 */
 		added_server: RequiredParams<'serverName'>
+		/**
+		 * س​ر​و​ر​ ​{​s​e​r​v​e​r​N​a​m​e​}​ ​ب​ا​ ​م​و​ف​ق​ی​ت​ ​ح​ذ​ف​ ​ش​د​.
+		 * @param {unknown} serverName
+		 */
+		removed_server: RequiredParams<'serverName'>
 	}
 	errors: {
 		/**
-		 * E​r​r​o​r​ ​i​n​ ​r​e​c​e​i​v​i​n​g​ ​d​a​t​a​ ​f​r​o​m​ ​t​h​e​ ​{​t​a​r​g​e​t​}
+		 * خ​ط​ا​ ​د​ر​ ​د​ر​ی​ا​ف​ت​ ​د​ی​ت​ا​ ​ا​ز​ ​{​t​a​r​g​e​t​}
 		 * @param {unknown} target
 		 */
 		error_fetching_data: RequiredParams<'target'>
 	}
+	/**
+	 * د​ر​ح​ا​ل​ ​ا​ت​ص​ا​ل​.​.​.
+	 */
+	connecting: string
+	/**
+	 * ق​ط​ع​ ​ش​د​ن​.​.​.
+	 */
+	disconnecting: string
+	/**
+	 * ک​م​ی​ ​ص​ب​ر​ ​ک​ن​ی​د​.​.​.
+	 */
+	waiting: string
+	/**
+	 * م​و​ف​ق​ی​ت​ ​آ​م​ی​ز
+	 */
+	successful: string
 	validator: {
 		/**
-		 * D​N​S​ ​v​a​l​u​e​ ​1​ ​i​s​ ​n​o​t​ ​v​a​l​i​d​.
+		 * آ​د​ر​س​ ​س​ر​و​ر​ ​1​ ​ن​ا​م​ع​ت​ب​ر​ ​ا​س​ت​.
 		 */
 		invalid_dns1: string
 		/**
-		 * D​N​S​ ​v​a​l​u​e​ ​2​ ​i​s​ ​n​o​t​ ​v​a​l​i​d​.
+		 * آ​د​ر​س​ ​س​ر​و​ر​ ​2​ ​ن​ا​م​ع​ت​ب​ر​ ​ا​س​ت​.
 		 */
 		invalid_dns2: string
 		/**
-		 * D​N​S​ ​1​ ​a​n​d​ ​D​N​S​ ​2​ ​v​a​l​u​e​s​ ​m​u​s​t​ ​n​o​t​ ​b​e​ ​d​u​p​l​i​c​a​t​e​s​.
+		 * آ​د​ر​س​ ​س​ر​و​ر​ه​ا​ی​ ​1​ ​و​ ​2​ ​ن​ب​ا​ی​د​ ​ت​ک​ر​ا​ر​ی​ ​ب​ا​ش​ن​د​.
 		 */
 		dns1_dns2_duplicates: string
 	}
@@ -124,100 +128,104 @@ export type TranslationFunctions = {
 	pages: {
 		home: {
 			/**
-			 * DNS Changer
+			 * بهترین های رفع تحریم
 			 */
 			homeTitle: () => LocalizedString
 			/**
-			 * Connected to <u>{currentActive}</u>
+			 * شما به  <u>{currentActive}</u> متصل شدید
 			 */
 			connected: (arg: { currentActive: unknown }) => LocalizedString
 			/**
-			 * You are connected to an unknown server.
+			 * به یک سرور  ناشناخته متصل هستید.
 			 */
 			unknownServer: () => LocalizedString
 		}
 		settings: {
 			/**
-			 * Settings
+			 * تنظیمات
 			 */
 			title: () => LocalizedString
 			/**
-			 * Automatic execution of the program when the system is turned on
+			 * اجرا شدن خودکار برنامه با روشن شدن سیستم
 			 */
 			autoRunningTitle: () => LocalizedString
+			/**
+			 * تغییر زبـان
+			 */
+			langChanger: () => LocalizedString
 		}
 		addCustomDns: {
 			/**
-			 * Server name
+			 * نام سرور
 			 */
 			NameOfServer: () => LocalizedString
 			/**
-			 * Server address
+			 * آدرس سرور
 			 */
 			serverAddr: () => LocalizedString
 		}
 	}
 	buttons: {
 		/**
-		 * Update the list
+		 * بروز رسانی لیست
 		 */
 		update: () => LocalizedString
 		/**
-		 * Adding a custom (DNS) server
+		 * افزودن سرور (DNS) دلخواه
 		 */
 		favDnsServer: () => LocalizedString
 		/**
-		 * Add
+		 * افزودن
 		 */
 		add: () => LocalizedString
 	}
-	/**
-	 * Please wait...
-	 */
-	waiting: () => LocalizedString
-	/**
-	 * disconnecting...
-	 */
-	disconnecting: () => LocalizedString
-	/**
-	 * connecting...
-	 */
-	connecting: () => LocalizedString
-	/**
-	 * successful
-	 */
-	successful: () => LocalizedString
 	dialogs: {
 		/**
-		 * fetching data from repository...
+		 * درحال دریافت دیتا از مخزن
 		 */
 		fetching_data_from_repo: () => LocalizedString
 		/**
-		 * {serverName} was successfully removed from the list.
-		 */
-		removed_server: (arg: { serverName: unknown }) => LocalizedString
-		/**
-		 * Server {serverName} successfully added.
+		 * سرور {serverName} با موفقیت اضافه شد.
 		 */
 		added_server: (arg: { serverName: unknown }) => LocalizedString
+		/**
+		 * سرور {serverName} با موفقیت حذف شد.
+		 */
+		removed_server: (arg: { serverName: unknown }) => LocalizedString
 	}
 	errors: {
 		/**
-		 * Error in receiving data from the {target}
+		 * خطا در دریافت دیتا از {target}
 		 */
 		error_fetching_data: (arg: { target: unknown }) => LocalizedString
 	}
+	/**
+	 * درحال اتصال...
+	 */
+	connecting: () => LocalizedString
+	/**
+	 * قطع شدن...
+	 */
+	disconnecting: () => LocalizedString
+	/**
+	 * کمی صبر کنید...
+	 */
+	waiting: () => LocalizedString
+	/**
+	 * موفقیت آمیز
+	 */
+	successful: () => LocalizedString
 	validator: {
 		/**
-		 * DNS value 1 is not valid.
+		 * آدرس سرور 1 نامعتبر است.
 		 */
 		invalid_dns1: () => LocalizedString
 		/**
-		 * DNS value 2 is not valid.
+		 * آدرس سرور 2 نامعتبر است.
 		 */
 		invalid_dns2: () => LocalizedString
 		/**
-		 * DNS 1 and DNS 2 values must not be duplicates.
+		 * آدرس سرورهای 1 و 2 نباید تکراری باشند.
 		 */
 		dns1_dns2_duplicates: () => LocalizedString
 	}

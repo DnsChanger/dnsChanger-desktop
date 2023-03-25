@@ -1,6 +1,6 @@
-import type {BaseTranslation} from '../i18n-types'
+import type {Translation} from '../i18n-types';
 
-const eng: BaseTranslation = {
+const eng: Translation = {
     pages: {
         home: {
             homeTitle: "DNS Changer",
@@ -9,7 +9,8 @@ const eng: BaseTranslation = {
         },
         settings: {
             title: "Settings",
-            autoRunningTitle: "Automatic execution of the program when the system is turned on"
+            autoRunningTitle: "Automatic execution of the program when the system is turned on",
+            langChanger: "Language Changer"
         },
         addCustomDns: {
             NameOfServer: "Server name",

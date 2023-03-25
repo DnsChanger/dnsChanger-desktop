@@ -1,15 +1,15 @@
 import React from 'react';
-import {TbServer2} from 'react-icons/tb';
-import {Button, Tooltip} from 'react-daisyui';
-import {AiOutlinePoweroff} from 'react-icons/ai';
-import {BsFillStopCircleFill} from 'react-icons/bs';
+import { TbServer2 } from 'react-icons/tb';
+import { Button, Tooltip } from 'react-daisyui';
+import { AiOutlinePoweroff } from 'react-icons/ai';
+import { BsFillStopCircleFill } from 'react-icons/bs';
 
-import {setState} from '../../interfaces/react.interface';
-import {activityContext} from '../../context/activty.context';
-import {ActivityContext} from '../../interfaces/activty.interface';
-import {Server} from '../../../shared/interfaces/server.interface';
-import {ServerOptionsComponent} from '../dropdowns/server-options/server-options.component';
-import {useI18nContext} from "../../../i18n/i18n-react";
+import { setState } from '../../interfaces/react.interface';
+import { activityContext } from '../../context/activty.context';
+import { ActivityContext } from '../../interfaces/activty.interface';
+import { Server } from '../../../shared/interfaces/server.interface';
+import { ServerOptionsComponent } from '../dropdowns/server-options/server-options.component';
+import { useI18nContext } from "../../../i18n/i18n-react";
 
 interface Props {
     server: Server
@@ -19,7 +19,7 @@ interface Props {
 
 export function ServerComponent(prop: Props) {
 
-    const {LL} = useI18nContext()
+    const { LL } = useI18nContext()
     const server = prop.server;
     const isConnect = server.key == prop.currentActive?.key;
     const activityContextData = React.useContext<ActivityContext>(activityContext);
@@ -51,9 +51,7 @@ export function ServerComponent(prop: Props) {
                 if (response.success)
                     setCurrentActive(server);
             }
-            if (response.success)
-                window.ipc.notif(response.message);
-            else
+            if (!response.success)
                 throw response;
 
         } catch (e) {
@@ -69,7 +67,7 @@ export function ServerComponent(prop: Props) {
         <div dir='ltr' className='mb-2 p-2 border rounded border-gray-500 border-dashed'>
             <div className='flex flex-nowrap' dir='auto'>
                 <div className='flex-none'>
-                    <TbServer2 size={25}/>
+                    <TbServer2 size={25} />
                 </div>
                 <div className='flex-1 w-20'>
                     <Tooltip message={server.servers.join('\n')} position={'bottom'}>
@@ -80,14 +78,14 @@ export function ServerComponent(prop: Props) {
 
                     <div>
                         <Button shape='circle' size='xs' color={isConnect ? 'success' : 'warning'}
-                                disabled={activityContextData.isWaiting}
-                                onClick={() => clickHandler.apply(activityContextData, [server, prop.setCurrentActive, isConnect])}
+                            disabled={activityContextData.isWaiting}
+                            onClick={() => clickHandler.apply(activityContextData, [server, prop.setCurrentActive, isConnect])}
                         >
-                            {isConnect ? <BsFillStopCircleFill/> : <AiOutlinePoweroff/>}
+                            {isConnect ? <BsFillStopCircleFill /> : <AiOutlinePoweroff />}
                         </Button>
                     </div>
                     <div>
-                        <ServerOptionsComponent server={server}/>
+                        <ServerOptionsComponent server={server} />
                     </div>
                 </div>
             </div>
