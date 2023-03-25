@@ -17,19 +17,24 @@ interface Props {
 }
 
 export function ServerComponent(prop: Props) {
+
+
     const server = prop.server;
     const isConnect = server.key == prop.currentActive?.key;
     const activityContextData = React.useContext<ActivityContext>(activityContext);
 
+    // @ts-ignore
+    const serverName = server.names.eng
+
     return (
         <div dir='ltr' className='mb-2 p-2 border rounded border-gray-500 border-dashed'>
-            <div className='flex flex-nowrap'>
+            <div className='flex flex-nowrap' dir='auto'>
                 <div className='flex-none'>
                     <TbServer2 size={25} />
                 </div>
                 <div className='flex-1 w-20'>
                     <Tooltip message={server.servers.join('\n')} position={'bottom'}>
-                        <p className={'font-medium'} >{server.names.eng}</p>
+                        <p className={'font-medium'} >{serverName}</p>
                     </Tooltip>
                 </div>
                 <div className={'flex flex-row gap-2'}>

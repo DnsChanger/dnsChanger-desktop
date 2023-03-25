@@ -10,7 +10,7 @@ import { ActivityContext } from '../../../interfaces/activty.interface';
 import { Server } from '../../../../shared/interfaces/server.interface';
 import { UrlsConstant } from '../../../../shared/constants/urls.constant';
 import { ServersContext } from '../../../interfaces/servers-context.interface';
-import { useTranslation } from 'react-multi-lang';
+import { useI18nContext } from '../../../../i18n/i18n-react';
 
 const cacheBuster = (url: string) => `${url}?cb=${Date.now()}`;
 
@@ -18,25 +18,26 @@ export function UpdateListItemComponent() {
     const serversContextData: ServersContext = useContext<ServersContext>(serversContext);
     const activityContextData = useContext<ActivityContext>(activityContext)
     const [isLoading, setIsLoading] = useState<boolean>(false)
-    const translate = useTranslation();
+    const { LL } = useI18nContext()
+
     async function updateHandler() {
         if (activityContextData.isWaiting)
-            return alert('please wait...'); //todo add toast
+            return alert(LL.waiting()); //todo add toast
         try {
             setIsLoading(true);
 
-            activityContextData.setStatus('Retrieving from repository...');
+            activityContextData.setStatus(LL.dialogs.fetching_data_from_repo());
             activityContextData.setIsWaiting(true);
 
             const response = await axios.get<Server[]>(cacheBuster(UrlsConstant.STORE));
             const servers = serversContextData.servers.concat(response.data);
             const uniqList: Server[] = _.uniqWith(servers, _.isEqual);
-            
+
             serversContextData.setServers(uniqList);
-            
+
             await window.ipc.reloadServerList(uniqList);
         } catch (error) {
-            window.ipc.dialogError('fetching error', "Error in receiving data from the repository");
+            window.ipc.dialogError('fetching error', LL.errors.error_fetchig_data({ target: "repository" }));
         } finally {
             activityContextData.setIsWaiting(false);
             activityContextData.setStatus('');
@@ -48,7 +49,7 @@ export function UpdateListItemComponent() {
         <Dropdown.Item onClick={() => updateHandler()}>
             <RxUpdate
                 className={`mr-2 ${isLoading ? 'spinner' : ''}`} />
-            {translate("buttons.update")}
+            {LL.buttons.update()}
         </Dropdown.Item>
     )
 }

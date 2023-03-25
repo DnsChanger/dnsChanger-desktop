@@ -3,7 +3,7 @@ import { MdAddModerator } from 'react-icons/md';
 import { Button, Input, Modal } from 'react-daisyui';
 
 import { setState } from '../../interfaces/react.interface';
-import { useTranslation } from 'react-multi-lang';
+import { useI18nContext } from '../../../i18n/i18n-react';
 
 interface Props {
     isOpen: boolean
@@ -15,6 +15,7 @@ export function AddDnsModalComponent(props: Props) {
     const [serverName, setServerName] = useState<string>('');
     const [nameServer1, setNameServer1] = useState<string>('');
     const [nameServer2, setNameServer2] = useState<string>('');
+    const { LL } = useI18nContext()
 
     async function addHandler() {
         if (!serverName || !nameServer1)
@@ -37,12 +38,11 @@ export function AddDnsModalComponent(props: Props) {
         } else
             window.ipc.notif(resp.message)
     }
-    const translate = useTranslation();
     return (
         <React.Fragment>
             <Modal open={props.isOpen}>
                 <Modal.Header className='font-bold'>
-                    {translate("buttons.favDnsServer")}
+                    {LL.buttons.favDnsServer()}
                 </Modal.Header>
                 <Button
                     size='sm'
@@ -56,7 +56,7 @@ export function AddDnsModalComponent(props: Props) {
                     <div className={'grid'}>
                         <div>
                             <div className='label'>
-                                <span className='label-text text-lg'>{translate("pages.addfavDnspage.NameOfServer")}</span>
+                                <span className='label-text text-lg'>{LL.pages.addfavDnspage.NameOfServer()}</span>
                             </div>
                             <Input type={'text'} className={'w-full max-w-xs'} placeholder={'custom server...'}
                                 dir={'auto'} name={'dns_name'}
@@ -66,7 +66,7 @@ export function AddDnsModalComponent(props: Props) {
                         </div>
                         <div className={''}>
                             <div className='label'>
-                                <span className='label-text text-lg'>{translate("pages.addfavDnspage.ipserivce")}</span>
+                                <span className='label-text text-lg'>{LL.pages.addfavDnspage.ipserivce()}</span>
                             </div>
                             <div className={'gap-2 grid grid-cols-1'} dir={'ltr'}>
                                 <div>
@@ -90,7 +90,7 @@ export function AddDnsModalComponent(props: Props) {
                 <Modal.Actions className='float-right'>
                     <Button onClick={() => addHandler()} color={'success'}>
                         <MdAddModerator className='mr-2' />
-                        {translate("buttons.add")}
+                        {LL.buttons.add()}
                     </Button>
                 </Modal.Actions>
             </Modal>

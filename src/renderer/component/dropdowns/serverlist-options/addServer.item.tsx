@@ -1,18 +1,19 @@
 import React from 'react';
 import { Dropdown } from 'react-daisyui';
 import { MdOutlineAddModerator } from 'react-icons/md';
-import { useTranslation } from 'react-multi-lang';
+import { useI18nContext } from '../../../../i18n/i18n-react';
 
 interface Prop {
     onClick: React.MouseEventHandler<HTMLAnchorElement>
 }
 
 export function AddCustomServerItem(prop: Prop) {
-    const translate = useTranslation();
+    const { LL } = useI18nContext()
+
     return (
         <Dropdown.Item onClick={prop.onClick}>
             <MdOutlineAddModerator />
-            {translate("buttons.favDnsServer")}
+            {LL.buttons.favDnsServer()}
         </Dropdown.Item>
     )
 }
