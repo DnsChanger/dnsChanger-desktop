@@ -1,12 +1,14 @@
-import { useEffect, useState } from 'react';
-import { PageWrapper } from '../Wrappers/pages.wrapper';
-import { serversContext } from '../context/servers.context';
-import { activityContext } from '../context/activty.context';
-import { ServersComponent } from '../component/servers/servers';
-import { Server } from '../../shared/interfaces/server.interface';
-import { ServerListOptionsDropDownComponent } from '../component/dropdowns/serverlist-options/serverlist-options.component';
-import { useI18nContext } from '../../i18n/i18n-react';
-import { HiOutlineShieldCheck } from 'react-icons/hi';
+import {useEffect, useState} from 'react';
+import {PageWrapper} from '../Wrappers/pages.wrapper';
+import {serversContext} from '../context/servers.context';
+import {activityContext} from '../context/activty.context';
+import {ServersComponent} from '../component/servers/servers';
+import {Server} from '../../shared/interfaces/server.interface';
+import {
+    ServerListOptionsDropDownComponent
+} from '../component/dropdowns/serverlist-options/serverlist-options.component';
+import {useI18nContext} from '../../i18n/i18n-react';
+import {HiOutlineShieldCheck} from 'react-icons/hi';
 
 export function HomePage() {
     const [currentActive, setCurrentActive] = useState<Server | null>(null);
@@ -14,7 +16,7 @@ export function HomePage() {
     const [status, setStatus] = useState<string>('');
     const [serversState, setServers] = useState<Server[]>([]);
 
-    const { LL, locale } = useI18nContext()
+    const {LL, locale} = useI18nContext()
 
     const values = {
         isWaiting,
@@ -37,6 +39,7 @@ export function HomePage() {
             if (response.success)
                 setCurrentActive(response.server);
         }
+
         getCurrentActive()
     }, [])
     return (
@@ -48,34 +51,36 @@ export function HomePage() {
                         <div className='max-w-full sm:pt-[100px] sm:pb-[100px] sm:pr-[30px] sm:pl-[30px] p-1'>
                             <div className={'grid justify-center mb-10'} dir='auto'>
                                 <h1 className='text-3xl font-bold mb-2'>
-                                    {LL.pages.home.hometitle()}
+                                    {LL.pages.home.homeTitle()}
                                 </h1>
 
                                 <div className='gap-2 items-center h-2'>
                                     {
                                         currentActive &&
-                                        <div className='text-green-500 flex flex-row gap-1 justify-center' >
-                                            <HiOutlineShieldCheck style={{ display: 'inline' }} />
+                                        <div className='text-green-500 flex flex-row gap-1 justify-center'>
+                                            <HiOutlineShieldCheck style={{display: 'inline'}}/>
                                             {
                                                 currentActive.key == 'unknown'
-                                                    ? <span> {LL.pages.home.annonumos()}</span>
-                                                    : <p dangerouslySetInnerHTML={{ __html: LL.pages.home.connected({ currentActive: currentActive.names.eng }) }}></p>
+                                                    ? <span> {LL.pages.home.unknownServer()}</span>
+                                                    :
+                                                    <p dangerouslySetInnerHTML={{__html: LL.pages.home.connected({currentActive: currentActive.names.eng})}}></p>
                                             }
                                         </div>
                                     }
                                 </div>
                             </div>
 
-                            <serversContext.Provider value={{ servers: serversState, setServers }}>
+                            <serversContext.Provider value={{servers: serversState, setServers}}>
 
                                 <div className={'border border-y-gray-500 border-x-0 rounded-2xl  shadow-2xl'}>
                                     <div className=' mt-2 flex flex-grow gap-2 ml-2 mb-0 top-1'>
-                                        <ServerListOptionsDropDownComponent />
+                                        <ServerListOptionsDropDownComponent/>
                                     </div>
                                     <div className={'card items-center card-body'}>
                                         <div className={'overflow-y-auto'}>
                                             <div className={'grid h-[200px] w-[350px] p-2 '}>
-                                                <ServersComponent currentActive={currentActive} setCurrentActive={setCurrentActive} />
+                                                <ServersComponent currentActive={currentActive}
+                                                                  setCurrentActive={setCurrentActive}/>
                                             </div>
                                         </div>
                                         <div>

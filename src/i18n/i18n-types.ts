@@ -19,7 +19,7 @@ type RootTranslation = {
 			/**
 			 * D​N​S​ ​C​h​a​n​g​e​r
 			 */
-			hometitle: string
+			homeTitle: string
 			/**
 			 * C​o​n​n​e​c​t​e​d​ ​t​o​ ​<​u​>​{​c​u​r​r​e​n​t​A​c​t​i​v​e​}​<​/​u​>
 			 * @param {unknown} currentActive
@@ -28,7 +28,7 @@ type RootTranslation = {
 			/**
 			 * Y​o​u​ ​a​r​e​ ​c​o​n​n​e​c​t​e​d​ ​t​o​ ​a​n​ ​u​n​k​n​o​w​n​ ​s​e​r​v​e​r​.
 			 */
-			annonumos: string
+			unknownServer: string
 		}
 		settings: {
 			/**
@@ -38,9 +38,9 @@ type RootTranslation = {
 			/**
 			 * A​u​t​o​m​a​t​i​c​ ​e​x​e​c​u​t​i​o​n​ ​o​f​ ​t​h​e​ ​p​r​o​g​r​a​m​ ​w​h​e​n​ ​t​h​e​ ​s​y​s​t​e​m​ ​i​s​ ​t​u​r​n​e​d​ ​o​n
 			 */
-			autorunningTitle: string
+			autoRunningTitle: string
 		}
-		addfavDnspage: {
+		addCustomDns: {
 			/**
 			 * S​e​r​v​e​r​ ​n​a​m​e
 			 */
@@ -48,7 +48,7 @@ type RootTranslation = {
 			/**
 			 * S​e​r​v​e​r​ ​a​d​d​r​e​s​s
 			 */
-			ipserivce: string
+			serverAddr: string
 		}
 	}
 	buttons: {
@@ -57,7 +57,7 @@ type RootTranslation = {
 		 */
 		update: string
 		/**
-		 * A​d​d​i​n​g​ ​a​ ​d​e​s​i​r​e​d​ ​(​D​N​S​)​ ​s​e​r​v​e​r
+		 * A​d​d​i​n​g​ ​a​ ​c​u​s​t​o​m​ ​(​D​N​S​)​ ​s​e​r​v​e​r
 		 */
 		favDnsServer: string
 		/**
@@ -69,18 +69,54 @@ type RootTranslation = {
 	 * P​l​e​a​s​e​ ​w​a​i​t​.​.​.
 	 */
 	waiting: string
+	/**
+	 * d​i​s​c​o​n​n​e​c​t​i​n​g​.​.​.
+	 */
+	disconnecting: string
+	/**
+	 * c​o​n​n​e​c​t​i​n​g​.​.​.
+	 */
+	connecting: string
+	/**
+	 * s​u​c​c​e​s​s​f​u​l
+	 */
+	successful: string
 	dialogs: {
 		/**
 		 * f​e​t​c​h​i​n​g​ ​d​a​t​a​ ​f​r​o​m​ ​r​e​p​o​s​i​t​o​r​y​.​.​.
 		 */
 		fetching_data_from_repo: string
+		/**
+		 * {​s​e​r​v​e​r​N​a​m​e​}​ ​w​a​s​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​r​e​m​o​v​e​d​ ​f​r​o​m​ ​t​h​e​ ​l​i​s​t​.
+		 * @param {unknown} serverName
+		 */
+		removed_server: RequiredParams<'serverName'>
+		/**
+		 * S​e​r​v​e​r​ ​{​s​e​r​v​e​r​N​a​m​e​}​ ​s​u​c​c​e​s​s​f​u​l​l​y​ ​a​d​d​e​d​.
+		 * @param {unknown} serverName
+		 */
+		added_server: RequiredParams<'serverName'>
 	}
 	errors: {
 		/**
 		 * E​r​r​o​r​ ​i​n​ ​r​e​c​e​i​v​i​n​g​ ​d​a​t​a​ ​f​r​o​m​ ​t​h​e​ ​{​t​a​r​g​e​t​}
 		 * @param {unknown} target
 		 */
-		error_fetchig_data: RequiredParams<'target'>
+		error_fetching_data: RequiredParams<'target'>
+	}
+	validator: {
+		/**
+		 * D​N​S​ ​v​a​l​u​e​ ​1​ ​i​s​ ​n​o​t​ ​v​a​l​i​d​.
+		 */
+		invalid_dns1: string
+		/**
+		 * D​N​S​ ​v​a​l​u​e​ ​2​ ​i​s​ ​n​o​t​ ​v​a​l​i​d​.
+		 */
+		invalid_dns2: string
+		/**
+		 * D​N​S​ ​1​ ​a​n​d​ ​D​N​S​ ​2​ ​v​a​l​u​e​s​ ​m​u​s​t​ ​n​o​t​ ​b​e​ ​d​u​p​l​i​c​a​t​e​s​.
+		 */
+		dns1_dns2_duplicates: string
 	}
 }
 
@@ -90,7 +126,7 @@ export type TranslationFunctions = {
 			/**
 			 * DNS Changer
 			 */
-			hometitle: () => LocalizedString
+			homeTitle: () => LocalizedString
 			/**
 			 * Connected to <u>{currentActive}</u>
 			 */
@@ -98,7 +134,7 @@ export type TranslationFunctions = {
 			/**
 			 * You are connected to an unknown server.
 			 */
-			annonumos: () => LocalizedString
+			unknownServer: () => LocalizedString
 		}
 		settings: {
 			/**
@@ -108,9 +144,9 @@ export type TranslationFunctions = {
 			/**
 			 * Automatic execution of the program when the system is turned on
 			 */
-			autorunningTitle: () => LocalizedString
+			autoRunningTitle: () => LocalizedString
 		}
-		addfavDnspage: {
+		addCustomDns: {
 			/**
 			 * Server name
 			 */
@@ -118,7 +154,7 @@ export type TranslationFunctions = {
 			/**
 			 * Server address
 			 */
-			ipserivce: () => LocalizedString
+			serverAddr: () => LocalizedString
 		}
 	}
 	buttons: {
@@ -127,7 +163,7 @@ export type TranslationFunctions = {
 		 */
 		update: () => LocalizedString
 		/**
-		 * Adding a desired (DNS) server
+		 * Adding a custom (DNS) server
 		 */
 		favDnsServer: () => LocalizedString
 		/**
@@ -139,17 +175,51 @@ export type TranslationFunctions = {
 	 * Please wait...
 	 */
 	waiting: () => LocalizedString
+	/**
+	 * disconnecting...
+	 */
+	disconnecting: () => LocalizedString
+	/**
+	 * connecting...
+	 */
+	connecting: () => LocalizedString
+	/**
+	 * successful
+	 */
+	successful: () => LocalizedString
 	dialogs: {
 		/**
 		 * fetching data from repository...
 		 */
 		fetching_data_from_repo: () => LocalizedString
+		/**
+		 * {serverName} was successfully removed from the list.
+		 */
+		removed_server: (arg: { serverName: unknown }) => LocalizedString
+		/**
+		 * Server {serverName} successfully added.
+		 */
+		added_server: (arg: { serverName: unknown }) => LocalizedString
 	}
 	errors: {
 		/**
 		 * Error in receiving data from the {target}
 		 */
-		error_fetchig_data: (arg: { target: unknown }) => LocalizedString
+		error_fetching_data: (arg: { target: unknown }) => LocalizedString
+	}
+	validator: {
+		/**
+		 * DNS value 1 is not valid.
+		 */
+		invalid_dns1: () => LocalizedString
+		/**
+		 * DNS value 2 is not valid.
+		 */
+		invalid_dns2: () => LocalizedString
+		/**
+		 * DNS 1 and DNS 2 values must not be duplicates.
+		 */
+		dns1_dns2_duplicates: () => LocalizedString
 	}
 }
 

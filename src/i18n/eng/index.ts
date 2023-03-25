@@ -1,33 +1,43 @@
-import type { BaseTranslation } from '../i18n-types'
+import type {BaseTranslation} from '../i18n-types'
 
 const eng: BaseTranslation = {
-	pages: {
-		home: {
-			hometitle: "DNS Changer",
-			connected: 'Connected to <u>{currentActive}</u>',
-			annonumos: "You are connected to an unknown server.",
-		},
-		settings: {
-			title: "Settings",
-			autorunningTitle: "Automatic execution of the program when the system is turned on"
-		},
-		addfavDnspage: {
-			NameOfServer: "Server name",
-			ipserivce: "Server address"
-		}
-	},
-	buttons: {
-		update: "Update the list",
-		favDnsServer: "Adding a custom (DNS) server",
-		add: "Add"
-	},
-	waiting: "Please wait...",
-	dialogs: {
-		fetching_data_from_repo: "fetching data from repository..."
-	},
-	errors: {
-		error_fetchig_data: "Error in receiving data from the {target}"
-	}
+    pages: {
+        home: {
+            homeTitle: "DNS Changer",
+            connected: 'Connected to <u>{currentActive}</u>',
+            unknownServer: "You are connected to an unknown server.",
+        },
+        settings: {
+            title: "Settings",
+            autoRunningTitle: "Automatic execution of the program when the system is turned on"
+        },
+        addCustomDns: {
+            NameOfServer: "Server name",
+            serverAddr: "Server address"
+        }
+    },
+    buttons: {
+        update: "Update the list",
+        favDnsServer: "Adding a custom (DNS) server",
+        add: "Add"
+    },
+    waiting: "Please wait...",
+    disconnecting: "disconnecting...",
+    connecting: "connecting...",
+    successful: "successful",
+    dialogs: {
+        fetching_data_from_repo: "fetching data from repository...",
+        removed_server: "{serverName} was successfully removed from the list.",
+        added_server: "Server {serverName} successfully added."
+    },
+    errors: {
+        error_fetching_data: "Error in receiving data from the {target}"
+    },
+    validator: {
+        invalid_dns1: "DNS value 1 is not valid.",
+        invalid_dns2: "DNS value 2 is not valid.",
+        dns1_dns2_duplicates: "DNS 1 and DNS 2 values must not be duplicates."
+    }
 }
 
 export default eng

@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
-import { Form, Toggle } from 'react-daisyui';
+import {useState, useEffect} from 'react';
+import {Form, Toggle} from 'react-daisyui';
 
-import { PageWrapper } from '../Wrappers/pages.wrapper';
-import { Settings } from '../../shared/interfaces/settings.interface';
-import { useI18nContext } from '../../i18n/i18n-react';
+import {PageWrapper} from '../Wrappers/pages.wrapper';
+import {Settings} from '../../shared/interfaces/settings.interface';
+import {useI18nContext} from '../../i18n/i18n-react';
 
 export function SettingPage() {
     const [startUp, setStartUp] = useState<boolean>(false);
-    const { LL } = useI18nContext()
+    const {LL} = useI18nContext()
 
     useEffect(() => {
         async function getStartUpState() {
@@ -40,11 +40,11 @@ export function SettingPage() {
                 <div className={"mt-20"}>
                     <div className=" mt-2 flex flex-grow gap-2 ml-2 mb-0 top-1">
                         <Form className="bg-base-200 p-4 rounded-lg shadow">
-                            <Form.Label title={LL.pages.settings.autorunningTitle()}>
+                            <Form.Label title={LL.pages.settings.autoRunningTitle()}>
                                 <Toggle className="m-2" color='success'
-                                    defaultChecked={startUp}
-                                    checked={startUp}
-                                    onClick={() => toggleStartUp()} />
+                                        defaultChecked={startUp}
+                                        checked={startUp}
+                                        onClick={() => toggleStartUp()}/>
                             </Form.Label>
                         </Form>
                     </div>
