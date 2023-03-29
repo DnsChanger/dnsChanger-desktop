@@ -1,11 +1,13 @@
-import type {Translation} from '../i18n-types';
+import type { Translation } from '../i18n-types';
 
 const eng: Translation = {
     pages: {
         home: {
             homeTitle: "DNS Changer",
-            connected: 'Connected to <u>{currentActive}</u>',
-            unknownServer: "You are connected to an unknown server.",
+            connectedHTML: 'Connected to <u>{currentActive}</u>',
+            connected: "Connected to {currentActive}",
+            disconnected: "Disconnected",
+            unknownServer: "connected to an unknown server.",
         },
         settings: {
             title: "Settings",

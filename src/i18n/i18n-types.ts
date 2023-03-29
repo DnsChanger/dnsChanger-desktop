@@ -24,7 +24,16 @@ type RootTranslation = {
 			 * ش​م​ا​ ​ب​ه​ ​ ​<​u​>​{​c​u​r​r​e​n​t​A​c​t​i​v​e​}​<​/​u​>​ ​م​ت​ص​ل​ ​ش​د​ی​د
 			 * @param {unknown} currentActive
 			 */
+			connectedHTML: RequiredParams<'currentActive'>
+			/**
+			 * ش​م​ا​ ​ب​ه​ ​ ​{​c​u​r​r​e​n​t​A​c​t​i​v​e​}​ ​م​ت​ص​ل​ ​ش​د​ی​د
+			 * @param {unknown} currentActive
+			 */
 			connected: RequiredParams<'currentActive'>
+			/**
+			 * ق​ط​ع​ ​ش​د​.
+			 */
+			disconnected: string
 			/**
 			 * ب​ه​ ​ی​ک​ ​س​ر​و​ر​ ​ ​ن​ا​ش​ن​ا​خ​ت​ه​ ​م​ت​ص​ل​ ​ه​س​ت​ی​د​.
 			 */
@@ -134,7 +143,15 @@ export type TranslationFunctions = {
 			/**
 			 * شما به  <u>{currentActive}</u> متصل شدید
 			 */
+			connectedHTML: (arg: { currentActive: unknown }) => LocalizedString
+			/**
+			 * شما به  {currentActive} متصل شدید
+			 */
 			connected: (arg: { currentActive: unknown }) => LocalizedString
+			/**
+			 * قطع شد.
+			 */
+			disconnected: () => LocalizedString
 			/**
 			 * به یک سرور  ناشناخته متصل هستید.
 			 */

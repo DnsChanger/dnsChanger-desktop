@@ -54,6 +54,9 @@ export function ServerComponent(prop: Props) {
             if (!response.success)
                 throw response;
 
+
+            window.ipc.notif(response.message)
+
         } catch (e) {
             window.ipc.dialogError('Error', e.message);
         } finally {

@@ -1,10 +1,12 @@
-import {BaseTranslation} from "../i18n-types";
+import { BaseTranslation } from "../i18n-types";
 
 const fa: BaseTranslation = {
     pages: {
         home: {
             homeTitle: "بهترین های رفع تحریم",
-            connected: "شما به  <u>{currentActive}</u> متصل شدید",
+            connectedHTML: "شما به  <u>{currentActive}</u> متصل شدید",
+            connected: "شما به  {currentActive} متصل شدید",
+            disconnected: "قطع شد.",
             unknownServer: "به یک سرور  ناشناخته متصل هستید.",
         },
         settings: {

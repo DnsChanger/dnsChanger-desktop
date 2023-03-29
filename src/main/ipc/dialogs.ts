@@ -9,14 +9,16 @@ import { Server } from '../../shared/interfaces/server.interface';
 import { Settings } from '../../shared/interfaces/settings.interface';
 import { EventsKeys } from '../../shared/constants/eventsKeys.constant';
 import { isValidDnsAddress } from '../../shared/validators/dns.validator';
-
+import LN from "../../i18n/i18n-node"
+import { Locales } from '../../i18n/i18n-types';
 // todo Refactoring
 
 
 ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
     try {
         await dnsService.setDns(server.servers);
-        return { server, success: true };
+        const currentLng = LN[getCurrentLng()]
+        return { server, success: true, message: currentLng.pages.home.connected({ currentActive: server.names.eng }) };
     } catch (e) {
         return { server, ...errorHandling(e) };
     }
@@ -25,7 +27,8 @@ ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
 ipcMain.handle(EventsKeys.CLEAR_DNS, async (event, server: Server) => {
     try {
         await dnsService.clearDns();
-        return { server, success: true, message: 'SUCCESSFUL' };
+        const currentLng = LN[getCurrentLng()]
+        return { server, success: true, message: currentLng.pages.home.disconnected() };
     } catch (e) {
         return { server, ...errorHandling(e) };
     }
@@ -36,14 +39,16 @@ ipcMain.handle(EventsKeys.ADD_DNS, async (event, data) => {
     const nameServer1 = data.nameServers[0];
     const nameServer2 = data.nameServers[1];
 
+    const currentLng = LN[getCurrentLng()]
+
     if (!isValidDnsAddress(nameServer1))
-        return { success: false, message: 'invalid_dns1' };
+        return { success: false, message: currentLng.validator.invalid_dns1 };
 
     if (nameServer2 && !isValidDnsAddress(nameServer2))
-        return { success: false, message: 'invalid_dns2' };
+        return { success: false, message: currentLng.validator.invalid_dns2 };
 
     if (nameServer1.toString() == nameServer2.toString())
-        return { success: false, message: 'dns1_dns2_duplicates' };
+        return { success: false, message: currentLng.validator.dns1_dns2_duplicates };
 
     const newServer: Server = {
         key: uuid(),
@@ -157,4 +162,7 @@ function errorHandling(e: { message: string | number; }) {
     return { success: false, message: msg || 'unknown error' };
 }
 
+function getCurrentLng(): Locales {
+    return store.get('settings').lng
+}
 

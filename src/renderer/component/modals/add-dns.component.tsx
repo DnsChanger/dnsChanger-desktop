@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import {MdAddModerator} from 'react-icons/md';
-import {Button, Input, Modal} from 'react-daisyui';
+import React, { useState } from 'react';
+import { MdAddModerator } from 'react-icons/md';
+import { Button, Input, Modal } from 'react-daisyui';
 
-import {setState} from '../../interfaces/react.interface';
-import {useI18nContext} from '../../../i18n/i18n-react';
+import { setState } from '../../interfaces/react.interface';
+import { useI18nContext } from '../../../i18n/i18n-react';
 
 interface Props {
     isOpen: boolean
@@ -15,7 +15,7 @@ export function AddDnsModalComponent(props: Props) {
     const [serverName, setServerName] = useState<string>('');
     const [nameServer1, setNameServer1] = useState<string>('');
     const [nameServer2, setNameServer2] = useState<string>('');
-    const {LL} = useI18nContext()
+    const { LL } = useI18nContext()
 
     async function addHandler() {
         if (!serverName || !nameServer1)
@@ -27,7 +27,7 @@ export function AddDnsModalComponent(props: Props) {
         })
 
         if (resp.success) {
-            window.ipc.notif(LL.dialogs.added_server({serverName: serverName}));
+            window.ipc.notif(LL.dialogs.added_server({ serverName: serverName }));
 
             setNameServer1('');
             setNameServer2('');
@@ -36,9 +36,7 @@ export function AddDnsModalComponent(props: Props) {
             props.setIsOpen(false);
             props.cb(resp.server);
         } else {
-            // @ts-ignore
-            const message = LL.validator[resp.message] ? LL.validator[resp.message]() : "unknown error"
-            window.ipc.notif(message)
+            window.ipc.notif(resp.message)
         }
     }
 
@@ -63,9 +61,9 @@ export function AddDnsModalComponent(props: Props) {
                                 <span className='label-text text-lg'>{LL.pages.addCustomDns.NameOfServer()}</span>
                             </div>
                             <Input type={'text'} className={'w-full max-w-xs'} placeholder={'custom server...'}
-                                   dir={'auto'} name={'dns_name'}
-                                   value={serverName}
-                                   onChange={(e) => setServerName(e.target.value)}
+                                dir={'auto'} name={'dns_name'}
+                                value={serverName}
+                                onChange={(e) => setServerName(e.target.value)}
                             />
                         </div>
                         <div className={''}>
@@ -75,16 +73,16 @@ export function AddDnsModalComponent(props: Props) {
                             <div className={'gap-2 grid grid-cols-1'} dir={'ltr'}>
                                 <div>
                                     <Input type={'text'} className={''} placeholder={'name server 1 ...'}
-                                           name={'first_server'}
-                                           value={nameServer1}
-                                           onChange={(e) => setNameServer1(e.target.value)}
+                                        name={'first_server'}
+                                        value={nameServer1}
+                                        onChange={(e) => setNameServer1(e.target.value)}
                                     />
                                 </div>
                                 <div>
                                     <Input type={'text'} className={''} placeholder={'name server 2 ...'}
-                                           name={'sec_server'}
-                                           value={nameServer2}
-                                           onChange={(e) => setNameServer2(e.target.value)}
+                                        name={'sec_server'}
+                                        value={nameServer2}
+                                        onChange={(e) => setNameServer2(e.target.value)}
                                     />
                                 </div>
                             </div>
@@ -93,7 +91,7 @@ export function AddDnsModalComponent(props: Props) {
                 </Modal.Body>
                 <Modal.Actions className='float-right'>
                     <Button onClick={() => addHandler()} color={'success'}>
-                        <MdAddModerator className='mr-2'/>
+                        <MdAddModerator className='mr-2' />
                         {LL.buttons.add()}
                     </Button>
                 </Modal.Actions>

@@ -8,7 +8,7 @@ interface Props {
 
 export function PageWrapper(prop: Props) {
     const [currentPage] = useState('/')
-    
+
     return (
         <div>
             <NavbarComponent />
