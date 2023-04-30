@@ -1,5 +1,5 @@
 import { CgSun } from 'react-icons/cg';
-import { BsGithub } from 'react-icons/bs';
+import { BsDiscord, BsGithub } from 'react-icons/bs';
 import { GiMoonBats } from 'react-icons/gi';
 import { useEffect, useState } from 'react';
 import { Button, Navbar } from 'react-daisyui';
@@ -23,12 +23,16 @@ export function NavbarComponent() {
                 <Navbar.Start></Navbar.Start>
                 <Navbar.End>
                     <Button className={'btn gap-2 normal-case btn-ghost'}
-                            onClick={() => setCurrentTheme(currentTheme == 'dark' ? 'light' : 'dark')}>
-                        {currentTheme == 'dark' ? <CgSun /> : <GiMoonBats />}
+                        onClick={() => window.ipc.openBrowser('https://discord.gg/p9TZzEV39e')}>
+                        <BsDiscord />
                     </Button>
                     <Button className={'btn gap-2 normal-case btn-ghost'}
-                            onClick={() => window.ipc.openBrowser('https://github.com/DnsChanger/dnsChanger-desktop')}>
+                        onClick={() => window.ipc.openBrowser('https://github.com/DnsChanger/dnsChanger-desktop')}>
                         <BsGithub />
+                    </Button>
+                    <Button className={'btn gap-2 normal-case btn-ghost'}
+                        onClick={() => setCurrentTheme(currentTheme == 'dark' ? 'light' : 'dark')}>
+                        {currentTheme == 'dark' ? <CgSun /> : <GiMoonBats />}
                     </Button>
                 </Navbar.End>
             </Navbar>
