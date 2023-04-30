@@ -58,12 +58,12 @@ export function HomePage() {
                                     {
                                         currentActive &&
                                         <div className='text-green-500 flex flex-row gap-1 justify-center'>
-                                            <HiOutlineShieldCheck style={{ display: 'inline' }} />
+                                            <HiOutlineShieldCheck style={{ display: 'inline' }} className='mt-1' />
                                             {
                                                 currentActive.key == 'unknown'
                                                     ? <span> {LL.pages.home.unknownServer()}</span>
                                                     :
-                                                    <p dangerouslySetInnerHTML={{ __html: LL.pages.home.connected({ currentActive: currentActive.names.eng }) }}></p>
+                                                    <p dangerouslySetInnerHTML={{ __html: LL.pages.home.connectedHTML({ currentActive: currentActive.names.eng }) }}></p>
                                             }
                                         </div>
                                     }
