@@ -95,7 +95,8 @@ body {
 
 /* scrolbar */
 ::-webkit-scrollbar {
-    width: 0.2em;
+    width: 0.3em;
+    background-color: #1d1d1d5b;
 }
 
 /* scrolbar backgrond with theme  */
@@ -105,7 +106,8 @@ html[data-theme="dark"]::-webkit-scrollbar {
 
 /* scrolbar thumb */
 ::-webkit-scrollbar-thumb {
-    background-color: #dfba55a1;
+    background-color: #1d1c1cbe;
+    border-radius: 40px;
 }
 
 /* scrolbar thumb on hover */
