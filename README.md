@@ -19,6 +19,8 @@
 ## 📥 دانلود
 برای دانلود به قسمت [releases](https://github.com/DnsChanger/dnsChanger-desktop/releases) مراجعه کنید.
 
+## 🦠 نتیجه آنتی ویروس 
+https://www.virustotal.com/gui/file/a2540db91518e784b9b0f55172487aaaedb50abd8089644cca7f820ccd2d5fb8/detection
 ## 🖼️ تصاویر
 
 <p align="center">
