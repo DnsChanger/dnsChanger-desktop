@@ -1,17 +1,43 @@
 name: Release
 on:
-   push:
-    branches: ["develop"]
+    push: 
+        branches: ["develop"]
 jobs:
-  create_issue:
+  publish_on_linux:
     runs-on: ubuntu-latest
-    permissions:
-      issues: write
     steps:
-      - name: Create issue using REST API
-        run: |
-          curl --request GET \
-          --url https://api.github.com/user \
-          --header 'authorization: Bearer ${{ secrets.TOKEN }}' \
-          --header 'content-type: application/json' \
-          --fail
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Node v18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        run: npm run publish
+  publish_on_win:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Node v18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        run: npm run publish
