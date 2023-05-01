@@ -1,7 +1,6 @@
 import React from 'react';
-import { TbServer2 } from 'react-icons/tb';
 import { Button, Tooltip } from 'react-daisyui';
-import { AiOutlinePoweroff } from 'react-icons/ai';
+import { AiOutlinePoweroff, AiOutlineCloudServer } from 'react-icons/ai';
 import { BsFillStopCircleFill } from 'react-icons/bs';
 
 import { setState } from '../../interfaces/react.interface';
@@ -67,10 +66,10 @@ export function ServerComponent(prop: Props) {
 
 
     return (
-        <div dir='ltr' className='mb-2 p-2 border rounded border-gray-500 border-dashed'>
+        <div dir='ltr' className={`mb-2 p-2 border rounded border-gray-500 border-dashed shadow-lg ${isConnect ? "border-r-teal-400 border-l-teal-400" : ""}`}>
             <div className='flex flex-nowrap' dir='auto'>
                 <div className='flex-none'>
-                    <TbServer2 size={25} />
+                    <AiOutlineCloudServer size={25} />
                 </div>
                 <div className='flex-1 w-20'>
                     <Tooltip message={server.servers.join('\n')} position={'bottom'}>
