@@ -85,9 +85,10 @@ export function HomePage() {
                                             </div>
                                         </div>
                                         <div dir='auto'>
-                                            <p className='text-red-400 absolute bottom-[10px] right-2'>
+                                            {status && <p className='text-red-400 absolute bottom-[10px] right-2 animate-pulse'>
                                                 {status}
                                             </p>
+                                            }
                                         </div>
                                     </div>
                                 </div>
