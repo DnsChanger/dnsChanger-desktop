@@ -12,6 +12,6 @@ jobs:
         run: |
           curl --request GET \
           --url https://api.github.com/user \
-          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'authorization: Bearer ${{ secrets.TOKEN }}' \
           --header 'content-type: application/json' \
           --fail
