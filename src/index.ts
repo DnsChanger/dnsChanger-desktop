@@ -2,6 +2,7 @@ import updateElectron from 'update-electron-app';
 import { app, BrowserWindow, autoUpdater } from 'electron';
 import ms from "ms"
 import { getIconPath } from './main/shared/getIconPath';
+import { setTimeout } from 'timers/promises';
 
 updateElectron({
     logger: require('electron-log'),
@@ -22,35 +23,64 @@ setInterval(() => {
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
+declare const LOADING_WINDOW_WEBPACK_ENTRY: string;
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
     app.quit();
 }
 
-const createWindow = (): void => {
+const createWindow = (options?: Electron.BrowserWindowConstructorOptions): BrowserWindow => {
+    return new BrowserWindow(options);
+};
+
+
+app.whenReady().then(() => {
     const icon = getIconPath();
-    // Create the browser window.
-    const mainWindow = new BrowserWindow({
+    const isDev = !!process.env.ENV
+    const mainWindow = createWindow({
         height: 600,
         width: 500,
         webPreferences: {
             preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+            devTools: false,
+            images: true,
         },
         darkTheme: true,
         resizable: false,
+        center: true,
         icon
-    });
+    })
 
-    mainWindow.setMenu(null);
+    const loadingWindow = createWindow({
+        parent: mainWindow,
+        width: 400,
+        height: 400,
+        resizable: false,
+        icon: icon,
+        autoHideMenuBar: true,
+        title: "loading",
+        center: true,
+        movable: isDev,
+        titleBarStyle: "hidden",
+        webPreferences: {
+            images: true,
+            devTools: isDev,
+        }
+    })
+
+    loadingWindow.loadURL(LOADING_WINDOW_WEBPACK_ENTRY)
 
     mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-    // Open the DevTools.
-    if (process.env.ENV)
+    mainWindow.setMenu(null);
+
+    mainWindow.on("ready-to-show", async () => {
+        await setTimeout(ms("3s"))
+        loadingWindow.hide()
+    })
+
+    if (isDev)
         mainWindow.webContents.openDevTools();
-};
-
-
-app.whenReady().then(createWindow);
+});
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
@@ -61,6 +91,7 @@ app.on('window-all-closed', () => {
 import './main/ipc/ui';
 import './main/ipc/notif';
 import './main/ipc/dialogs';
+
 
 app.on('activate', () => {
     // On OS X it's common to re-create a window in the app when the

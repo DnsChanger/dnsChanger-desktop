@@ -6,6 +6,7 @@ import { SettingPage } from './pages/setting.page';
 import { loadLocaleAsync } from '../i18n/i18n-util.async';
 import TypesafeI18n from '../i18n/i18n-react';
 import { Settings } from '../shared/interfaces/settings.interface';
+import { PageWrapper } from './Wrappers/pages.wrapper';
 
 export let settingStore: Settings = {
     lng: "fa",
@@ -50,7 +51,9 @@ export function App() {
     return (
         <div>
             <TypesafeI18n locale={settingStore.lng}>
-                {currentPage.element}
+                <PageWrapper>
+                    {currentPage.element}
+                </PageWrapper>
             </TypesafeI18n>
             <BottomNavigation size='xs' className='mb-2'>
                 <div className={`${currentPath == '/' ? 'active' : ''}`} onClick={() => setCurrentPath('/')}><TbCloudDataConnection size={30} /></div>

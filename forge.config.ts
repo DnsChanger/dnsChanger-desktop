@@ -28,6 +28,11 @@ const plugins: any[] = [
                         js: './src/preload.ts',
                     },
                 },
+                {
+                    name: "loading_window",
+                    html: './src/renderer/loading_window/loading.html',
+                    js: "./src/renderer/loading_window/renderer.ts",
+                }
             ],
         },
     }),

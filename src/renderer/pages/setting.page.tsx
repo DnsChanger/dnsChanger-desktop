@@ -25,27 +25,25 @@ export function SettingPage() {
     }
 
     return (
-        <PageWrapper>
-            <div className="hero flex flex-col justify-center items-center">
-                <div className="max-w-[400px] text-center mb-8">
-                    <h1 className="text-3xl font-bold">{LL.pages.settings.title()}</h1>
-                </div>
-                <div className="flex flex-col items-start gap-4" dir={"auto"}>
-                    <Form className="bg-base-200 p-4 rounded-lg shadow w-96">
-                        <Form.Label title={LL.pages.settings.autoRunningTitle()}>
-                            <Toggle
-                                className="m-2"
-                                color="success"
-                                defaultChecked={startUp}
-                                checked={startUp}
-                                onClick={() => toggleStartUp()}
-                            />
-                        </Form.Label>
-                    </Form>
-                    <LanguageSwitcher cb={() => saveSetting()} />
-                </div>
+        <div className="hero flex flex-col justify-center items-center">
+            <div className="max-w-[400px] text-center mb-8">
+                <h1 className="text-3xl font-bold">{LL.pages.settings.title()}</h1>
             </div>
-        </PageWrapper>
+            <div className="flex flex-col items-start gap-4" dir={"auto"}>
+                <Form className="bg-base-200 p-4 rounded-lg shadow w-96">
+                    <Form.Label title={LL.pages.settings.autoRunningTitle()}>
+                        <Toggle
+                            className="m-2"
+                            color="success"
+                            defaultChecked={startUp}
+                            checked={startUp}
+                            onClick={() => toggleStartUp()}
+                        />
+                    </Form.Label>
+                </Form>
+                <LanguageSwitcher cb={() => saveSetting()} />
+            </div>
+        </div>
     )
 }
 
