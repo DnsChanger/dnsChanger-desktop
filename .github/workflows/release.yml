@@ -2,6 +2,8 @@ name: Release
 on:
     push: 
         branches: ["develop"]
+        paths-ignore:
+            - "README.md"
 jobs:
   publish_on_linux:
     runs-on: ubuntu-latest
