@@ -9,7 +9,44 @@ import { WebpackPlugin } from '@electron-forge/plugin-webpack';
 import { mainConfig } from './_config/webpack.main.config';
 import { rendererConfig } from './_config/webpack.renderer.config';
 
+const plugins: any[] = [
+    new WebpackPlugin({
+        mainConfig,
+        devContentSecurityPolicy: [
+            'default-src \'self\' \'unsafe-inline\' data:;',
+            'script-src \'self\' \'unsafe-eval\' \'unsafe-inline\' data:;',
+            'img-src \'self\' blob: data: https://via.placeholder.com',
+        ].join(' '),
+        renderer: {
+            config: rendererConfig,
+            entryPoints: [
+                {
+                    html: './src/renderer/index.html',
+                    js: './src/renderer.ts',
+                    name: 'main_window',
+                    preload: {
+                        js: './src/preload.ts',
+                    },
+                },
+            ],
+        },
+    }),
+]
 dotenv.config();
+if (!process.env.ENV) {
+    plugins.push({
+        name: '@electron-forge/plugin-auto-unpack-natives',
+        config: {
+
+        }
+    },
+        {
+            name: '@electron-forge/plugin-electronegativity',
+            config: {
+                isSarif: true
+            }
+        },)
+}
 
 const config: ForgeConfig = {
     packagerConfig: {
@@ -26,29 +63,7 @@ const config: ForgeConfig = {
         new MakerDeb({}),
         new MakerRpm({})
     ],
-    plugins: [
-        new WebpackPlugin({
-            mainConfig,
-            devContentSecurityPolicy: "connect-src 'self' * 'unsafe-eval'",
-            renderer: {
-                config: rendererConfig,
-                entryPoints: [
-                    {
-                        html: './src/renderer/index.html',
-                        js: './src/renderer.ts',
-                        name: 'main_window',
-                        preload: {
-                            js: './src/preload.ts',
-                        },
-                    },
-                ],
-            },
-        }),
-        {
-            name: '@electron-forge/plugin-auto-unpack-natives',
-            config: {}
-        }
-    ],
+    plugins,
     publishers: [
         {
             name: '@electron-forge/publisher-github',
