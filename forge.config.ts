@@ -17,7 +17,8 @@ const config: ForgeConfig = {
             'requested-execution-level': 'requireAdministrator',
             OriginalFilename: 'dnsChanger'
         },
-        icon: './assets/icon'
+        icon: './assets/icon',
+        asar: true
     },
     rebuildConfig: {},
     makers: [
@@ -43,6 +44,10 @@ const config: ForgeConfig = {
                 ],
             },
         }),
+        {
+            name: '@electron-forge/plugin-auto-unpack-natives',
+            config: {}
+        }
     ],
     publishers: [
         {
