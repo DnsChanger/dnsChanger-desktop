@@ -1,6 +1,6 @@
 import { CgSun } from 'react-icons/cg';
 import { BsDiscord, BsGithub } from 'react-icons/bs';
-import { GiMoonBats } from 'react-icons/gi';
+import { TbMoonStars } from 'react-icons/tb';
 import { useEffect, useState } from 'react';
 import { Button, Navbar } from 'react-daisyui';
 
@@ -32,7 +32,7 @@ export function NavbarComponent() {
                     </Button>
                     <Button className={'btn gap-2 normal-case btn-ghost'}
                         onClick={() => setCurrentTheme(currentTheme == 'dark' ? 'light' : 'dark')}>
-                        {currentTheme == 'dark' ? <CgSun /> : <GiMoonBats />}
+                        {currentTheme == 'dark' ? <CgSun /> : <TbMoonStars />}
                     </Button>
                 </Navbar.End>
             </Navbar>
