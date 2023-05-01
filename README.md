@@ -24,16 +24,16 @@ https://www.virustotal.com/gui/file/a2540db91518e784b9b0f55172487aaaedb50abd8089
 ## 🖼️ تصاویر
 
 <p align="center">
-    <img src="github/scr1.png" alt="dnsChanger screenshot 1" width="600">
+    <img src=".github/scr1.png" alt="dnsChanger screenshot 1" width="600">
 </p>
 <p align="center">
-    <img src="github/scr2.png" alt="dnsChanger screenshot 3" width="600">
+    <img src=".github/scr2.png" alt="dnsChanger screenshot 3" width="600">
 </p>
 <p align="center">
-    <img src="github/scr3.png" alt="dnsChanger screenshot 2" width="600">
+    <img src=".github/scr3.png" alt="dnsChanger screenshot 2" width="600">
 </p>
 <p align="center">
-    <img src="github/scr4.png" alt="dnsChanger screenshot 2" width="600">
+    <img src=".github/scr4.png" alt="dnsChanger screenshot 2" width="600">
 </p>
 
 # 🗓️ لیست  تسک ها
