@@ -60,7 +60,7 @@ const config: ForgeConfig = {
             OriginalFilename: 'dnsChanger'
         },
         icon: './assets/icon',
-        asar: true
+        asar: !!!process.env.ENV
     },
     rebuildConfig: {},
     makers: [

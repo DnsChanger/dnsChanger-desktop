@@ -10,6 +10,7 @@ import {
 import { useI18nContext } from '../../i18n/i18n-react';
 import { HiOutlineShieldCheck } from 'react-icons/hi';
 
+
 export function HomePage() {
     const [currentActive, setCurrentActive] = useState<Server | null>(null);
     const [isWaiting, setIsWaiting] = useState<boolean>(false);
@@ -46,10 +47,10 @@ export function HomePage() {
         <activityContext.Provider value={values}>
             <div className='hero'>
                 <div
-                    className='px-0 sm:p-4 hero-content text-center max-w-[400px]   mb-1 '>
+                    className='px-0 sm:p-4 hero-content text-center max-w-[500px]   mb-1 '>
                     <div className='max-w-full sm:pt-[100px] sm:pb-[100px] sm:pr-[30px] sm:pl-[30px] p-1'>
-                        <div className={'grid justify-center mb-10'} dir='auto'>
-                            <h1 className='text-3xl font-bold mb-2'>
+                        <div className={'grid justify-center mb-10'} dir={`${locale == "fa" ? "rtl" : "ltr"}`}>
+                            <h1 className='text-4xl font-bold mb-2'>
                                 {LL.pages.home.homeTitle()}
                             </h1>
 
@@ -62,7 +63,7 @@ export function HomePage() {
                                             currentActive.key == 'unknown'
                                                 ? <span> {LL.pages.home.unknownServer()}</span>
                                                 :
-                                                <p dangerouslySetInnerHTML={{ __html: LL.pages.home.connectedHTML({ currentActive: currentActive.names.eng }) }}></p>
+                                                <p dangerouslySetInnerHTML={{ __html: LL.pages.home.connectedHTML({ currentActive: currentActive.names[locale] }) }}></p>
                                         }
                                     </div>
                                 }
@@ -73,17 +74,20 @@ export function HomePage() {
 
                             <div className={'border border-y-gray-500 border-x-0 rounded-2xl  shadow-2xl px-1'}>
                                 <div className='mt-2 flex flex-grow gap-2 mb-0 top-1'
-                                    dir={"auto"}>
+                                >
                                     <ServerListOptionsDropDownComponent />
+                                    {/* <Badge className='text-emerald-600 gap-3'>
+                                        <BsWifi2 />
+                                        اینترنت شما وصل است</Badge> */}
                                 </div>
                                 <div className={'card items-center card-body'}>
-                                    <div className={'overflow-y-auto'}>
-                                        <div className={'grid h-[200px] w-[350px] p-2 '}>
+                                    <div className={'overflow-y-auto h-[200px] w-[350px]'}>
+                                        <div className={'grid grid-cols-1  p-2 gap-2'}>
                                             <ServersComponent currentActive={currentActive}
                                                 setCurrentActive={setCurrentActive} />
                                         </div>
                                     </div>
-                                    <div dir='auto'>
+                                    <div>
                                         {status && <p className='text-red-400 absolute bottom-[10px] right-2 animate-pulse'>
                                             {status}
                                         </p>

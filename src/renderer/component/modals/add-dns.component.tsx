@@ -18,25 +18,29 @@ export function AddDnsModalComponent(props: Props) {
     const { LL } = useI18nContext()
 
     async function addHandler() {
-        if (!serverName || !nameServer1)
-            return;
+        try {
+            if (!serverName || !nameServer1)
+                return;
 
-        const resp = await window.ipc.addDns({
-            name: serverName,
-            nameServers: [nameServer1, nameServer2]
-        })
+            const resp = await window.ipc.addDns({
+                name: serverName,
+                nameServers: [nameServer1, nameServer2]
+            })
 
-        if (resp.success) {
-            window.ipc.notif(LL.dialogs.added_server({ serverName: serverName }));
+            if (resp.success) {
+                window.ipc.notif(LL.dialogs.added_server({ serverName: serverName }));
 
-            setNameServer1('');
-            setNameServer2('');
-            setServerName('');
+                setNameServer1('');
+                setNameServer2('');
+                setServerName('');
 
-            props.setIsOpen(false);
-            props.cb(resp.server);
-        } else {
-            window.ipc.notif(resp.message)
+                props.setIsOpen(false);
+                props.cb(resp.server);
+            } else {
+                window.ipc.notif(resp.message)
+            }
+        } catch (e) {
+
         }
     }
 

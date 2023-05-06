@@ -36,6 +36,8 @@ const fa: BaseTranslation = {
     disconnecting: "قطع شدن...",
     waiting: "کمی صبر کنید...",
     successful: "موفقیت آمیز",
+    help_connect: "برای اتصال کلیک کنید",
+    help_disconnect: "برای قطع اتصال کلیک کنید",
     validator: {
         invalid_dns1: "آدرس سرور 1 نامعتبر است.",
         invalid_dns2: "آدرس سرور 2 نامعتبر است.",

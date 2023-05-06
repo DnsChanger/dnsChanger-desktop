@@ -28,6 +28,8 @@ const eng: Translation = {
     disconnecting: "disconnecting...",
     connecting: "connecting...",
     successful: "successful",
+    help_connect: "Click to connect",
+    help_disconnect: "Click to disconnect",
     dialogs: {
         fetching_data_from_repo: "fetching data from repository...",
         removed_server: "{serverName} was successfully removed from the list.",

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, Tooltip } from 'react-daisyui';
 import { AiOutlinePoweroff, AiOutlineCloudServer } from 'react-icons/ai';
-import { BsFillStopCircleFill } from 'react-icons/bs';
 
 import { setState } from '../../interfaces/react.interface';
 import { activityContext } from '../../context/activty.context';
@@ -9,6 +8,7 @@ import { ActivityContext } from '../../interfaces/activty.interface';
 import { Server } from '../../../shared/interfaces/server.interface';
 import { ServerOptionsComponent } from '../dropdowns/server-options/server-options.component';
 import { useI18nContext } from "../../../i18n/i18n-react";
+import { useState } from 'react';
 
 interface Props {
     server: Server
@@ -18,14 +18,15 @@ interface Props {
 
 export function ServerComponent(prop: Props) {
 
-    const { LL } = useI18nContext()
+    const { LL, locale } = useI18nContext()
     const server = prop.server;
     const isConnect = server.key == prop.currentActive?.key;
     const activityContextData = React.useContext<ActivityContext>(activityContext);
     const setCurrentActive: setState<Server | null> = prop.setCurrentActive
+    const [connecting, setConnecting] = useState<boolean>(false)
     // @ts-ignore
-    const serverName = server.names.eng
-
+    const serverName = server.names[locale]
+    const wait = (ms: number) => new Promise((res) => setTimeout(res, ms))
     async function clickHandler() {
         try {
             if (activityContextData.isWaiting) {
@@ -42,7 +43,9 @@ export function ServerComponent(prop: Props) {
 
                 response = await window.ipc.clearDns();
                 response.success && setCurrentActive(null);
+
             } else {
+                setConnecting(true)
                 activityContextData.setStatus(LL.connecting());
 
                 response = await window.ipc.setDns(server);
@@ -54,6 +57,8 @@ export function ServerComponent(prop: Props) {
                 throw response;
 
 
+
+            setConnecting(false)
             window.ipc.notif(response.message)
 
         } catch (e) {
@@ -61,33 +66,37 @@ export function ServerComponent(prop: Props) {
         } finally {
             activityContextData.setIsWaiting(false);
             activityContextData.setStatus('');
+            setConnecting(false)
         }
     }
 
 
     return (
-        <div dir='ltr' className={`mb-2 p-2 border rounded border-gray-500 border-dashed shadow-lg ${isConnect ? "border-r-teal-400 border-l-teal-400" : ""}`}>
-            <div className='flex flex-nowrap' dir='auto'>
-                <div className='flex-none'>
-                    <AiOutlineCloudServer size={25} />
-                </div>
-                <div className='flex-1 w-20'>
-                    <Tooltip message={server.servers.join('\n')} position={'bottom'}>
-                        <p className={'font-medium'}>{serverName}</p>
-                    </Tooltip>
-                </div>
-                <div className={'flex flex-row gap-2'}>
+        <div>
+            <div
+                className={`py-5  rounded-lg shadow-lg  mb-2 mt-1
+               border-l-2 border-r-2 border-sky-100
+                ${isConnect ? "bg-emerald-700 text-white  hover:bg-rose-500" : "hover:bg-emerald-500 text-accent-content"}
+                ${activityContextData.isWaiting && isConnect ? "bg-red-400 animate-pulse" : ""}
+                ${activityContextData.isWaiting && connecting ? "bg-green-400 animate-pulse" : ""}
+            `}
 
-                    <div>
-                        <Button shape='circle' size='xs' color={isConnect ? 'success' : 'warning'}
-                            disabled={activityContextData.isWaiting}
-                            onClick={() => clickHandler.apply(activityContextData, [server, prop.setCurrentActive, isConnect])}
-                        >
-                            {isConnect ? <BsFillStopCircleFill /> : <AiOutlinePoweroff />}
-                        </Button>
+            >
+                <div className='flex flex-nowrap'>
+                    <div className='flex-none ml-2'
+                        onClick={() => !activityContextData.isWaiting && clickHandler()}
+                    >
+                        <AiOutlineCloudServer size={25} />
                     </div>
-                    <div>
-                        <ServerOptionsComponent server={server} />
+                    <div className='flex-1 w-20 cursor-pointer' onClick={() => !activityContextData.isWaiting && clickHandler()}>
+                        <Tooltip message={isConnect ? LL.help_disconnect() : LL.help_connect()} position={'bottom'}>
+                            <p className={'font-medium'}>{serverName}</p>
+                        </Tooltip>
+                    </div>
+                    <div className='flex-none w-14'>
+                        <div>
+                            <ServerOptionsComponent server={server} />
+                        </div>
                     </div>
                 </div>
             </div>

@@ -117,6 +117,14 @@ type RootTranslation = {
 	 * م​و​ف​ق​ی​ت​ ​آ​م​ی​ز
 	 */
 	successful: string
+	/**
+	 * ب​ر​ا​ی​ ​ا​ت​ص​ا​ل​ ​ک​ل​ی​ک​ ​ک​ن​ی​د
+	 */
+	help_connect: string
+	/**
+	 * ب​ر​ا​ی​ ​ق​ط​ع​ ​ا​ت​ص​ا​ل​ ​ک​ل​ی​ک​ ​ک​ن​ی​د
+	 */
+	help_disconnect: string
 	validator: {
 		/**
 		 * آ​د​ر​س​ ​س​ر​و​ر​ ​1​ ​ن​ا​م​ع​ت​ب​ر​ ​ا​س​ت​.
@@ -232,6 +240,14 @@ export type TranslationFunctions = {
 	 * موفقیت آمیز
 	 */
 	successful: () => LocalizedString
+	/**
+	 * برای اتصال کلیک کنید
+	 */
+	help_connect: () => LocalizedString
+	/**
+	 * برای قطع اتصال کلیک کنید
+	 */
+	help_disconnect: () => LocalizedString
 	validator: {
 		/**
 		 * آدرس سرور 1 نامعتبر است.

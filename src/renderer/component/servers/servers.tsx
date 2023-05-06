@@ -14,7 +14,7 @@ interface Props {
 
 export function ServersComponent(props: Props) {
     const serversContextData = useContext<ServersContext>(serversContext);
-    
+
     return (
         <div>
             {

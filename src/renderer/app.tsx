@@ -54,11 +54,11 @@ export function App() {
                 <PageWrapper>
                     {currentPage.element}
                 </PageWrapper>
+                <BottomNavigation size='xs' className='mb-2' dir={settingStore.lng == "fa" ? "rtl" : "ltr"}>
+                    <div className={`${currentPath == '/' ? 'active' : ''}`} onClick={() => setCurrentPath('/')}><TbCloudDataConnection size={30} /></div>
+                    <div className={`${currentPath == '/setting' ? 'active' : ''}`} onClick={() => setCurrentPath('/setting')}> <TbSettings2 size={30} /></div>
+                </BottomNavigation>
             </TypesafeI18n>
-            <BottomNavigation size='xs' className='mb-2'>
-                <div className={`${currentPath == '/' ? 'active' : ''}`} onClick={() => setCurrentPath('/')}><TbCloudDataConnection size={30} /></div>
-                <div className={`${currentPath == '/setting' ? 'active' : ''}`} onClick={() => setCurrentPath('/setting')}> <TbSettings2 size={30} /></div>
-            </BottomNavigation>
         </div>
     )
 }
