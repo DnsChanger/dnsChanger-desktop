@@ -53,6 +53,7 @@ export function AddDnsModalComponent(props: Props) {
                 <Button
                     size='sm'
                     shape='circle'
+                    color='ghost'
                     className='absolute right-2 top-2'
                     onClick={() => props.setIsOpen(false)}
                 >
