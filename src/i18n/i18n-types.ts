@@ -81,6 +81,10 @@ type RootTranslation = {
 		 * پ​ا​ک​س​ا​ز​ی​ ​(​F​l​u​s​h​)
 		 */
 		flushDns: string
+		/**
+		 * پ​ی​ـ​ن​گ​ ​س​ر​و​ر​ه​ا
+		 */
+		ping: string
 	}
 	dialogs: {
 		/**
@@ -219,6 +223,10 @@ export type TranslationFunctions = {
 		 * پاکسازی (Flush)
 		 */
 		flushDns: () => LocalizedString
+		/**
+		 * پیـنگ سرورها
+		 */
+		ping: () => LocalizedString
 	}
 	dialogs: {
 		/**

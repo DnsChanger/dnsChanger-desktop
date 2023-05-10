@@ -14,5 +14,6 @@ export enum EventsKeys {
     SAVE_SETTINGS = 'dialogs:save_settings',
     TOGGLE_START_UP = 'dialogs:toggleStartUp',
     FLUSHDNS = "dialogs:flushDns",
+    PING = "dialogs:ping"
 }
 

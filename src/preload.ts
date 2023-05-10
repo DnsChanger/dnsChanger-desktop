@@ -20,7 +20,8 @@ const ipc = {
     getSettings: () => ipcRenderer.invoke(EventsKeys.GET_SETTINGS),
     toggleStartUP: () => ipcRenderer.invoke(EventsKeys.TOGGLE_START_UP),
     flushDns: () => ipcRenderer.invoke(EventsKeys.FLUSHDNS),
-    saveSettings: (settings: SettingInStore) => ipcRenderer.invoke(EventsKeys.SAVE_SETTINGS, settings)
+    saveSettings: (settings: SettingInStore) => ipcRenderer.invoke(EventsKeys.SAVE_SETTINGS, settings),
+    ping: (server: Server) => ipcRenderer.invoke(EventsKeys.PING, server)
 }
 
 contextBridge.exposeInMainWorld('ipc', ipc);

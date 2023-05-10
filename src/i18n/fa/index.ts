@@ -23,7 +23,8 @@ const fa: BaseTranslation = {
         update: "بروز رسانی لیست",
         favDnsServer: "افزودن سرور (DNS) دلخواه",
         add: "افزودن",
-        flushDns: "پاکسازی (Flush)"
+        flushDns: "پاکسازی (Flush)",
+        ping: "پیـنگ سرورها"
     },
     dialogs: {
         fetching_data_from_repo: "درحال دریافت دیتا از مخزن",

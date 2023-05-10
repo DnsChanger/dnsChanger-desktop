@@ -11,6 +11,9 @@ import { EventsKeys } from '../../shared/constants/eventsKeys.constant';
 import { isValidDnsAddress } from '../../shared/validators/dns.validator';
 import LN from "../../i18n/i18n-node"
 import { Locales } from '../../i18n/i18n-types';
+import pingLib from "ping"
+
+
 // todo Refactoring
 
 
@@ -166,6 +169,25 @@ ipcMain.handle(EventsKeys.FLUSHDNS, async function (evet, _: any) {
     }
 })
 
+
+ipcMain.handle(EventsKeys.PING, async function (event, server: Server) {
+    try {
+        const result = await pingLib.promise.probe(server.servers[0], {
+            timeout: 10,
+        })
+        return {
+            success: true,
+            data: {
+                alive: result.alive,
+                time: result.time
+            }
+        }
+    } catch {
+        return {
+            success: false
+        }
+    }
+})
 
 function errorHandling(e: { message: string | number; }) {
     // @ts-ignore

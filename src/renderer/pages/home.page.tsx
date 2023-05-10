@@ -15,6 +15,7 @@ export function HomePage() {
     const [currentActive, setCurrentActive] = useState<Server | null>(null);
     const [isWaiting, setIsWaiting] = useState<boolean>(false);
     const [status, setStatus] = useState<string>('');
+    const [reqPing, setReqPing] = useState<boolean | null>(null);
     const [serversState, setServers] = useState<Server[]>([]);
 
     const { LL, locale } = useI18nContext()
@@ -23,7 +24,9 @@ export function HomePage() {
         isWaiting,
         setIsWaiting,
         status,
-        setStatus
+        setStatus,
+        reqPing,
+        setReqPing
     }
 
     useEffect(() => {

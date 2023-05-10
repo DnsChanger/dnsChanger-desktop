@@ -23,7 +23,8 @@ const eng: Translation = {
         update: "Update the list",
         favDnsServer: "Adding a custom (DNS) server",
         add: "Add",
-        flushDns: "Flush"
+        flushDns: "Flush",
+        ping: "Ping"
     },
     waiting: "Please wait...",
     disconnecting: "disconnecting...",

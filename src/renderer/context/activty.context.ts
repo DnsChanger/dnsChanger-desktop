@@ -5,8 +5,10 @@ import { ActivityContext } from '../interfaces/activty.interface';
 export const activityContext = React.createContext<ActivityContext>({
     isWaiting: false,
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    setIsWaiting: () => {},
+    setIsWaiting: () => { },
     status: '',
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    setStatus: () => {}
+    setStatus: () => { },
+    reqPing: null,
+    setReqPing: () => { }
 })
