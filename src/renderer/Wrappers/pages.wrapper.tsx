@@ -13,8 +13,8 @@ export function PageWrapper(prop: Props) {
     return (
         <div dir={locale == "fa" ? "rtl" : "ltr"}>
             <NavbarComponent />
-            <div className='lg:flex-row dark:bg-zinc-500/95'>
-                <main className=' rounded-3xl dark:bg-zinc-900/95'>
+            <div className='lg:flex-row '>
+                <main className=' rounded-3xl '>
                     {React.cloneElement(prop.children, { currentPage })}
                 </main>
             </div>

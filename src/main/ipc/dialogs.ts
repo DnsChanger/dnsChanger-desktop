@@ -70,6 +70,19 @@ ipcMain.handle(EventsKeys.ADD_DNS, async (event, data) => {
     return { success: true, server: newServer };
 })
 
+ipcMain.handle(EventsKeys.DELETE_DNS, (ev: any, server: Server) => {
+    const dnsList = store.get('dnsList');
+
+    _.remove(dnsList, dns => dns.key === server.key);
+
+    store.set('dnsList', dnsList);
+
+    return {
+        success: true,
+        servers: dnsList
+    };
+})
+
 ipcMain.handle(EventsKeys.RELOAD_SERVER_LIST, async (event, servers: Server[]) => {
     store.set('dnsList', servers);
     return { success: true };
@@ -142,18 +155,7 @@ ipcMain.on(EventsKeys.DIALOG_ERROR, (ev: any, title: string, message: string) =>
     dialog.showErrorBox(title, message);
 })
 
-ipcMain.handle(EventsKeys.DELETE_DNS, (ev: any, server: Server) => {
-    const dnsList = store.get('dnsList');
 
-    _.remove(dnsList, dns => dns.key === server.key);
-
-    store.set('dnsList', dnsList);
-
-    return {
-        success: true,
-        servers: dnsList
-    };
-})
 ipcMain.handle(EventsKeys.SAVE_SETTINGS, function (event, data: Settings) {
     store.set("settings", data)
     return { success: true }

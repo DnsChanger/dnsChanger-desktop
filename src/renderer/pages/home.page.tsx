@@ -75,7 +75,7 @@ export function HomePage() {
 
                         <serversContext.Provider value={{ servers: serversState, setServers, currentActive, setCurrentActive }}>
 
-                            <div className={'border border-y-gray-500 border-x-0 rounded-2xl  shadow-2xl px-1'}>
+                            <div className={'border dark:border-gray-500 border-x-0 rounded-2xl  shadow-2xl px-1'}>
                                 <div className='mt-2 flex flex-grow gap-2 mb-0 top-1'
                                 >
                                     <ServerListOptionsDropDownComponent />

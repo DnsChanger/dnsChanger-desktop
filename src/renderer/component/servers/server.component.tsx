@@ -22,6 +22,7 @@ export function ServerComponent(prop: Props) {
     const isConnect = server.key == prop.currentActive?.key;
     const activityContextData = React.useContext<ActivityContext>(activityContext);
     const setCurrentActive: setState<Server | null> = prop.setCurrentActive
+    const currentActive: Server = prop.currentActive
     const [connecting, setConnecting] = useState<boolean>(false)
     const [currentPing, setPing] = useState<number>(0)
 
@@ -84,24 +85,38 @@ export function ServerComponent(prop: Props) {
     return (
         <div>
             <div
-                className={`py-5 rounded-lg shadow-lg mb-2 mt-1 border-l-2 border-r-2 
+                className={`py-5 border-l-2 border-r-2 rounded-lg shadow-md mb-2 mt-1  ${isConnect ? "dark:shadow-emerald-500/20 shadow-teal-300/20" : "drop-shadow-lg"}
              border-gray-400 dark:border-gray-600
                 ${isConnect ? "bg-emerald-700 text-white  hover:bg-rose-500" : "hover:bg-emerald-500 text-accent-content"}
                 ${activityContextData.isWaiting && isConnect ? "bg-red-400 animate-pulse" : ""}
                 ${activityContextData.isWaiting && connecting ? "bg-green-400 animate-pulse" : ""}
+                overflow-hidden
             `}
 
             >
-                <div className='flex flex-nowrap'>
-                    <div className='flex-none ml-2'
+                <div className='flex flex-nowrap '>
+                    <div className='flex-none ml-2 relative'
                         onClick={() => !activityContextData.isWaiting && clickHandler()}
                     >
+
                         {
                             typeof activityContextData.reqPing == "boolean" && Number(currentPing) ? (
-                                <Badge color='ghost'>
-                                    <code className={getColor(currentPing)}>{currentPing}</code>
-                                </Badge>
-                            ) : <AiOutlineCloudServer size={25} />
+                                <div
+                                    className={`absolute top-1/2 text-left -translate-y-1/2 -right-10 border-1 w-20 h-10 rounded-3xl bg-opacity-80 ${getColor(currentPing)}`}>
+                                    <div className='w-1/2 grid place-items-center ml-auto' style={{ "textAlign": "initial" }}>
+                                        <code className={`leading-10 `}>{currentPing > 500 ? "+500" : currentPing}</code>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div
+                                    className={`absolute top-1/2 text-left -translate-y-1/2 -right-10 border-1 w-20 h-10 rounded-3xl bg-opacity-80 ${getColor(currentPing)}`}>
+                                    <div className='w-1/2 grid place-items-center ml-auto' style={{ "textAlign": "initial" }}>
+                                        <AiOutlineCloudServer size={25} className={`leading-10 mt-2 mr-5`} />
+                                    </div>
+                                </div>
+                            )
+
+
                         }
                     </div>
                     <div className='flex-1 w-20 cursor-pointer' onClick={() => !activityContextData.isWaiting && clickHandler()}>
@@ -123,11 +138,11 @@ export function ServerComponent(prop: Props) {
 function getColor(ping: number): string {
     switch (true) {
         case (ping <= 100):
-            return "text-teal-500"
+            return "bg-emerald-900/50"
         case (ping <= 180):
-            return "text-yellow-400"
+            return "bg-yellow-900/40"
         default:
-            return "text-rose-500"
+            return "bg-rose-900/40"
     }
 }
 

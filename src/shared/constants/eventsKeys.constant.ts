@@ -16,4 +16,3 @@ export enum EventsKeys {
     FLUSHDNS = "dialogs:flushDns",
     PING = "dialogs:ping"
 }
-

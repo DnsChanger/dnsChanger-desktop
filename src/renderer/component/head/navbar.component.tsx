@@ -42,8 +42,9 @@ export function NavbarComponent() {
 
 
 function themeChanger(theme: string) {
-    document.querySelector('html').setAttribute('data-theme', theme);
-    console.log(theme);
+    const doc = document.querySelector('html')
+    doc.classList.forEach((c) => doc.classList.remove(c))
+    document.querySelector('html').classList.add(theme);
     window.ui.toggleTheme(theme);
 }
 
