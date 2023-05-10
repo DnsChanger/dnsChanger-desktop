@@ -155,6 +155,18 @@ ipcMain.handle(EventsKeys.SAVE_SETTINGS, function (event, data: Settings) {
     store.set("settings", data)
     return { success: true }
 })
+
+
+ipcMain.handle(EventsKeys.FLUSHDNS, async function (evet, _: any) {
+    try {
+        await dnsService.flushDns()
+        return { success: true }
+    } catch {
+        return { success: false }
+    }
+})
+
+
 function errorHandling(e: { message: string | number; }) {
     // @ts-ignore
     const msg = ResponseMessage[e.message]

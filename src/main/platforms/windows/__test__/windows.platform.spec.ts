@@ -1,5 +1,6 @@
-import {WindowsPlatform} from "../windows.platform";
-import {Interface} from "../interfaces/interface";
+import { WindowsPlatform } from "../windows.platform";
+import { Interface } from "../interfaces/interface";
+import sudo from 'sudo-prompt';
 
 describe('WinPlatform()', function () {
     let windowsPlatform: WindowsPlatform;
@@ -69,5 +70,35 @@ describe('WinPlatform()', function () {
             expect(WindowsPlatform.prototype.execCmd).toHaveBeenCalledTimes(1)
         });
 
+    });
+
+    describe('flushDns()', function () {
+        let windowsPlatform: WindowsPlatform;
+
+        beforeEach(() => {
+            windowsPlatform = new WindowsPlatform()
+        })
+
+        it('should execute ipconfig /flushdns command', async function () {
+            jest.spyOn(sudo, 'exec').mockImplementation((command, options, callback) => {
+                expect(command).toBe('ipconfig /flushdns');
+                expect(options).toEqual({ name: 'DnsChanger' });
+                callback(null);
+            });
+
+            await windowsPlatform.flushDns();
+
+            expect(sudo.exec).toHaveBeenCalledTimes(1);
+        });
+
+        it('should reject with error message if command execution fails', async function () {
+            const errorMessage = 'Failed to execute command';
+            jest.spyOn(sudo, 'exec').mockImplementation((command, options, callback) => {
+                callback(new Error(errorMessage));
+            });
+
+            await expect(windowsPlatform.flushDns()).rejects.toThrow(errorMessage);
+            expect(sudo.exec).toHaveBeenCalledTimes(1);
+        });
     });
 });

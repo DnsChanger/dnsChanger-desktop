@@ -1,7 +1,7 @@
 import { Platform } from '../platforms/platform';
 
 export class DnsService {
-    constructor(private platform: Platform) {}
+    constructor(private platform: Platform) { }
 
     async setDns(nameServers: Array<string>) {
         return this.platform.setDns(nameServers);
@@ -17,5 +17,9 @@ export class DnsService {
 
     async getInterfacesList() {
         return this.platform.getInterfacesList();
+    }
+
+    async flushDns() {
+        return this.platform.flushDns();
     }
 }

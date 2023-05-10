@@ -77,6 +77,10 @@ type RootTranslation = {
 		 * ا​ف​ز​و​د​ن
 		 */
 		add: string
+		/**
+		 * پ​ا​ک​س​ا​ز​ی​ ​(​F​l​u​s​h​)
+		 */
+		flushDns: string
 	}
 	dialogs: {
 		/**
@@ -93,6 +97,14 @@ type RootTranslation = {
 		 * @param {unknown} serverName
 		 */
 		removed_server: RequiredParams<'serverName'>
+		/**
+		 * پ​ا​ک​س​ا​ز​ی​ ​ب​ا​ ​م​و​ف​ق​ی​ت​ ​ا​ن​ج​ا​م​ ​ش​د​.
+		 */
+		flush_successful: string
+		/**
+		 * پ​ا​ک​س​ا​ز​ی​ ​ن​ا​م​و​ف​ق​ ​ب​و​د​.
+		 */
+		flush_failure: string
 	}
 	errors: {
 		/**
@@ -203,6 +215,10 @@ export type TranslationFunctions = {
 		 * افزودن
 		 */
 		add: () => LocalizedString
+		/**
+		 * پاکسازی (Flush)
+		 */
+		flushDns: () => LocalizedString
 	}
 	dialogs: {
 		/**
@@ -217,6 +233,14 @@ export type TranslationFunctions = {
 		 * سرور {serverName} با موفقیت حذف شد.
 		 */
 		removed_server: (arg: { serverName: unknown }) => LocalizedString
+		/**
+		 * پاکسازی با موفقیت انجام شد.
+		 */
+		flush_successful: () => LocalizedString
+		/**
+		 * پاکسازی ناموفق بود.
+		 */
+		flush_failure: () => LocalizedString
 	}
 	errors: {
 		/**

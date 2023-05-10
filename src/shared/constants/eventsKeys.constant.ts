@@ -12,6 +12,7 @@ export enum EventsKeys {
     TOGGLE_THEME = 'ui:toggleTheme',
     GET_SETTINGS = 'dialogs:get_settings',
     SAVE_SETTINGS = 'dialogs:save_settings',
-    TOGGLE_START_UP = 'dialogs:toggleStartUp '
+    TOGGLE_START_UP = 'dialogs:toggleStartUp',
+    FLUSHDNS = "dialogs:flushDns",
 }
 

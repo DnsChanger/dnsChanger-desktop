@@ -22,7 +22,8 @@ const eng: Translation = {
     buttons: {
         update: "Update the list",
         favDnsServer: "Adding a custom (DNS) server",
-        add: "Add"
+        add: "Add",
+        flushDns: "Flush"
     },
     waiting: "Please wait...",
     disconnecting: "disconnecting...",
@@ -33,7 +34,9 @@ const eng: Translation = {
     dialogs: {
         fetching_data_from_repo: "fetching data from repository...",
         removed_server: "{serverName} was successfully removed from the list.",
-        added_server: "Server {serverName} successfully added."
+        added_server: "Server {serverName} successfully added.",
+        flush_successful: "The flush was successful.",
+        flush_failure: "The flush failed.",
     },
     errors: {
         error_fetching_data: "Error in receiving data from the {target}"

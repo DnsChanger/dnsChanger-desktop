@@ -19,6 +19,7 @@ const ipc = {
     getCurrentActive: () => ipcRenderer.invoke(EventsKeys.GET_CURRENT_ACTIVE),
     getSettings: () => ipcRenderer.invoke(EventsKeys.GET_SETTINGS),
     toggleStartUP: () => ipcRenderer.invoke(EventsKeys.TOGGLE_START_UP),
+    flushDns: () => ipcRenderer.invoke(EventsKeys.FLUSHDNS),
     saveSettings: (settings: SettingInStore) => ipcRenderer.invoke(EventsKeys.SAVE_SETTINGS, settings)
 }
 

@@ -8,8 +8,7 @@ import { Server } from '../../../shared/interfaces/server.interface';
 import { ServersContext } from '../../interfaces/servers-context.interface';
 
 interface Props {
-    currentActive: Server
-    setCurrentActive: setState<Server>
+
 }
 
 export function ServersComponent(props: Props) {
@@ -20,8 +19,8 @@ export function ServersComponent(props: Props) {
             {
                 serversContextData.servers.map((server) =>
                     <ServerComponent
-                        server={server} currentActive={props.currentActive}
-                        setCurrentActive={props.setCurrentActive}
+                        server={server} currentActive={serversContextData.currentActive}
+                        setCurrentActive={serversContextData.setCurrentActive}
                         key={server.key}
                     />
                 )

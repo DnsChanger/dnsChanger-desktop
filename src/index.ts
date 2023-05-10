@@ -3,7 +3,6 @@ import { app, BrowserWindow, autoUpdater } from 'electron';
 import ms from "ms"
 import { getIconPath } from './main/shared/getIconPath';
 import { setTimeout } from 'timers/promises';
-
 updateElectron({
     logger: require('electron-log'),
     notifyUser: true
@@ -100,4 +99,3 @@ app.on('activate', () => {
         createWindow();
     }
 });
-

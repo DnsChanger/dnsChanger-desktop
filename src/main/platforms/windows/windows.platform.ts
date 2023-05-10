@@ -83,5 +83,19 @@ export class WindowsPlatform extends Platform {
 
         return [matches[1].trim(), matches[2].trim()]
     }
-    //ChatGpt
+
+    public async flushDns(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            sudo.exec(`ipconfig /flushdns`, {
+                name: 'DnsChanger'
+            }, (error) => {
+                if (error) {
+                    reject(error);
+                    return;
+                }
+                resolve();
+            });
+        });
+    }
+
 }

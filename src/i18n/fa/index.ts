@@ -22,12 +22,16 @@ const fa: BaseTranslation = {
     buttons: {
         update: "بروز رسانی لیست",
         favDnsServer: "افزودن سرور (DNS) دلخواه",
-        add: "افزودن"
+        add: "افزودن",
+        flushDns: "پاکسازی (Flush)"
     },
     dialogs: {
         fetching_data_from_repo: "درحال دریافت دیتا از مخزن",
         added_server: "سرور {serverName} با موفقیت اضافه شد.",
-        removed_server: "سرور {serverName} با موفقیت حذف شد."
+        removed_server: "سرور {serverName} با موفقیت حذف شد.",
+        flush_successful: "پاکسازی با موفقیت انجام شد.",
+        flush_failure: "پاکسازی ناموفق بود."
+
     },
     errors: {
         error_fetching_data: "خطا در دریافت دیتا از {target}",

@@ -9,9 +9,11 @@ export abstract class Platform {
 
     public abstract getInterfacesList(): Promise<any>
 
+    public abstract flushDns(): Promise<void>
+
     protected execCmd(cmd: string): Promise<string | Buffer> {
         return new Promise((resolve, reject) => {
-            sudo.exec(cmd, {name: 'dnsChanger'}, (error, stdout) => {
+            sudo.exec(cmd, { name: 'dnsChanger' }, (error, stdout) => {
                 if (error) {
                     reject(error);
                     return;

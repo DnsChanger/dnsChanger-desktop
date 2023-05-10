@@ -42,5 +42,14 @@ export class LinuxPlatform extends Platform {
             throw e;
         }
     }
+
+    public async flushDns(): Promise<void> {
+        try {
+            await this.execCmd('systemd-resolve --flush-caches');
+        } catch (e) {
+            throw e;
+        }
+    }
+
 }
 // Powered by ChatGpt 
