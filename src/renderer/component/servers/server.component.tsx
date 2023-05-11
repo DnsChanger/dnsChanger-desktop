@@ -85,12 +85,12 @@ export function ServerComponent(prop: Props) {
     return (
         <div>
             <div
-                className={`py-5 border-l-2 border-r-2 rounded-lg shadow-md mb-2 mt-1  ${isConnect ? "dark:shadow-emerald-500/20 shadow-teal-300/20" : "drop-shadow-lg"}
+                className={`py-6 border-l-2 border-r-2 rounded-lg shadow-md mb-2 mt-1  ${isConnect ? "dark:shadow-emerald-500/20 shadow-teal-300/20" : "drop-shadow-lg"}
              border-gray-400 dark:border-gray-600
                 ${isConnect ? "bg-emerald-700 text-white  hover:bg-rose-500" : "hover:bg-emerald-500 text-accent-content"}
                 ${activityContextData.isWaiting && isConnect ? "bg-red-400 animate-pulse" : ""}
                 ${activityContextData.isWaiting && connecting ? "bg-green-400 animate-pulse" : ""}
-                overflow-hidden
+                overflow-y-hidden
             `}
 
             >
@@ -140,7 +140,7 @@ function getColor(ping: number): string {
         case (ping <= 100):
             return "bg-emerald-900/50"
         case (ping <= 180):
-            return "bg-yellow-900/40"
+            return "bg-yellow-300/50"
         default:
             return "bg-rose-900/40"
     }

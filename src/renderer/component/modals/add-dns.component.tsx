@@ -68,6 +68,7 @@ export function AddDnsModalComponent(props: Props) {
                             <Input type={'text'} className={'w-full max-w-xs'} placeholder={'custom server...'}
                                 dir={'auto'} name={'dns_name'}
                                 value={serverName}
+                                maxLength={10}
                                 onChange={(e) => setServerName(e.target.value)}
                             />
                         </div>
