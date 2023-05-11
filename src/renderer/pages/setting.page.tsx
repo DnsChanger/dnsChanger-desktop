@@ -4,7 +4,7 @@ import { Form, Toggle } from 'react-daisyui';
 import { useI18nContext } from '../../i18n/i18n-react';
 import { loadLocaleAsync } from "../../i18n/i18n-util.async";
 import { settingStore } from '../app';
-import { Select, Option } from "@material-tailwind/react";
+import { Select, Option, Switch } from "@material-tailwind/react";
 import { getThemeSystem, themeChanger } from '../utils/theme.util';
 
 export function SettingPage() {
@@ -46,13 +46,7 @@ export function SettingPage() {
 
                         <div className=''>
                             <Form.Label title={LL.pages.settings.autoRunningTitle()}>
-                                <Toggle
-                                    className="m-2"
-                                    color="success"
-                                    defaultChecked={startUp}
-                                    checked={startUp}
-                                    onClick={() => toggleStartUp()}
-                                />
+                                <Switch defaultChecked={startUp} checked={startUp} onClick={() => toggleStartUp()} />
                             </Form.Label>
                         </div>
                     </div>
@@ -107,7 +101,7 @@ const LanguageSwitcher = (prop: Prop) => {
                 onChange={(target) => handleLanguageChange(target)}
             >
                 {languages.map(({ name, svg, value }) => (
-                    <Option key={name} value={value} className="flex items-center gap-2">
+                    <Option key={name} value={value} className={`flex items-center gap-2 hover:bg-slate-400 hover:text-gray-600 ${language == value && "bg-slate-400 text-gray-600 "}`}>
                         <img
                             src={svg}
                             alt={name}
@@ -148,8 +142,8 @@ const ThemeChanger = () => {
             value={currentTheme}
             onChange={(value) => setCurrentTheme(value)}
         >
-            <Option value='dark'>{LL.themeChanger.dark()}</Option>
-            <Option value="light">{LL.themeChanger.light()}</Option>
+            <Option value='dark' className={`hover:bg-slate-400 hover:text-gray-600 ${currentTheme == "dark" && "bg-slate-400 text-gray-600 "}`}>{LL.themeChanger.dark()}</Option>
+            <Option value="light" className={`hover:bg-slate-400 hover:text-gray-600 ${currentTheme == "light" && "bg-slate-400 text-gray-600 "}`}>{LL.themeChanger.light()}</Option>
         </Select>
     )
 }
