@@ -87,7 +87,7 @@ export function ServerComponent(prop: Props) {
             <div
                 className={`py-6 border-l-2 border-r-2 rounded-lg shadow-md mb-2 mt-1  ${isConnect ? "dark:shadow-green-500/20 shadow-teal-300/20" : "drop-shadow-lg"}
              border-gray-400 dark:border-gray-600
-                ${isConnect ? "bg-green-500 text-white  hover:bg-red-500" : "hover:bg-green-500 text-accent-content"}
+                ${isConnect ? "bg-green-500 text-white  hover:bg-red-500 hover:shadow-none" : "hover:bg-green-500 text-accent-content"}
                 ${activityContextData.isWaiting && isConnect ? "bg-red-400 animate-pulse shadow-none" : ""}
                 ${activityContextData.isWaiting && connecting ? "bg-green-400 animate-pulse" : ""}
                 overflow-y-hidden
