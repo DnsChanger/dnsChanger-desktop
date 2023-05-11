@@ -7,7 +7,6 @@ import { UpdateListItemComponent } from './updatelist.item';
 import { serversContext } from '../../../context/servers.context';
 import { AddDnsModalComponent } from '../../modals/add-dns.component';
 import { ServersContext } from '../../../interfaces/servers-context.interface';
-import { FlushDnsItem } from './flushdns.item';
 import { FetchPingItem } from './fetchPing.item';
 
 export function ServerListOptionsDropDownComponent() {
@@ -27,7 +26,6 @@ export function ServerListOptionsDropDownComponent() {
                 <UpdateListItemComponent />
                 <AddCustomServerItem onClick={toggleOpenModal} />
                 <FetchPingItem />
-                <FlushDnsItem />
             </Dropdown.Menu>
             <AddDnsModalComponent isOpen={isOpenModal} setIsOpen={setIsOpenModal}
                 cb={(va) => {

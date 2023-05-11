@@ -119,7 +119,7 @@ const LanguageSwitcher = (prop: Prop) => {
 
 const ThemeChanger = () => {
     const [currentTheme, setCurrentTheme] = useState(
-        localStorage.getItem('theme') || 'system'
+        localStorage.getItem('theme') || getThemeSystem()
     );
     const { LL } = useI18nContext()
 
