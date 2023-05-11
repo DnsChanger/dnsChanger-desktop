@@ -12,12 +12,17 @@ const fa: BaseTranslation = {
         settings: {
             title: "تنظیمات",
             autoRunningTitle: "اجرا شدن خودکار برنامه با روشن شدن سیستم",
-            langChanger: "تغییر زبـان"
+            langChanger: "تغییر زبـان",
+            themeChanger: "تغییر پوسته"
         },
         addCustomDns: {
             NameOfServer: "نام سرور",
             serverAddr: "آدرس سرور"
         }
+    },
+    themeChanger: {
+        dark: "تاریک",
+        light: "روشـن"
     },
     buttons: {
         update: "بروز رسانی لیست",

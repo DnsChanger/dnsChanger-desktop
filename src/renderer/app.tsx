@@ -7,6 +7,7 @@ import { loadLocaleAsync } from '../i18n/i18n-util.async';
 import TypesafeI18n from '../i18n/i18n-react';
 import { Settings } from '../shared/interfaces/settings.interface';
 import { PageWrapper } from './Wrappers/pages.wrapper';
+import { themeChanger } from './utils/theme.util';
 
 export let settingStore: Settings = {
     lng: "fa",
@@ -44,6 +45,8 @@ export function App() {
         getSetting().then(() => {
             loadLocaleAsync(settingStore.lng).then(() => setWasLoaded(true))
         })
+
+        themeChanger(localStorage.getItem('theme') || 'system')
     }, [])
 
     if (!wasLoaded) return null

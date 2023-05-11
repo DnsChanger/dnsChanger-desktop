@@ -32,6 +32,7 @@
     "@electron-forge/plugin-electronegativity": "^6.1.1",
     "@electron-forge/plugin-vite": "^6.1.1",
     "@electron-forge/plugin-webpack": "^6.0.5",
+    "@heroicons/react": "^2.0.18",
     "@jest/globals": "^29.5.0",
     "@types/auto-launch": "^5.0.2",
     "@types/dotenv": "^8.2.0",
@@ -77,6 +78,7 @@
   },
   "dependencies": {
     "@electron-forge/publisher-github": "^6.0.5",
+    "@material-tailwind/react": "^2.0.0",
     "dotenv": "^16.0.3",
     "electron-log": "^5.0.0-beta.16",
     "electron-squirrel-startup": "^1.0.0",

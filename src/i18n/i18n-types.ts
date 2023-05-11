@@ -52,6 +52,10 @@ type RootTranslation = {
 			 * ت​غ​ی​ی​ر​ ​ز​ب​ـ​ا​ن
 			 */
 			langChanger: string
+			/**
+			 * ت​غ​ی​ی​ر​ ​پ​و​س​ت​ه
+			 */
+			themeChanger: string
 		}
 		addCustomDns: {
 			/**
@@ -63,6 +67,16 @@ type RootTranslation = {
 			 */
 			serverAddr: string
 		}
+	}
+	themeChanger: {
+		/**
+		 * ت​ا​ر​ی​ک
+		 */
+		dark: string
+		/**
+		 * ر​و​ش​ـ​ن
+		 */
+		light: string
 	}
 	buttons: {
 		/**
@@ -194,6 +208,10 @@ export type TranslationFunctions = {
 			 * تغییر زبـان
 			 */
 			langChanger: () => LocalizedString
+			/**
+			 * تغییر پوسته
+			 */
+			themeChanger: () => LocalizedString
 		}
 		addCustomDns: {
 			/**
@@ -205,6 +223,16 @@ export type TranslationFunctions = {
 			 */
 			serverAddr: () => LocalizedString
 		}
+	}
+	themeChanger: {
+		/**
+		 * تاریک
+		 */
+		dark: () => LocalizedString
+		/**
+		 * روشـن
+		 */
+		light: () => LocalizedString
 	}
 	buttons: {
 		/**

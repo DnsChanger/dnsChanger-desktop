@@ -12,12 +12,17 @@ const eng: Translation = {
         settings: {
             title: "Settings",
             autoRunningTitle: "Automatic execution of the program when the system is turned on",
-            langChanger: "Language Changer"
+            langChanger: "Language Changer",
+            themeChanger: "Theme"
         },
         addCustomDns: {
             NameOfServer: "Server name",
             serverAddr: "Server address"
         }
+    },
+    themeChanger: {
+        dark: "dark",
+        light: "light"
     },
     buttons: {
         update: "Update the list",
