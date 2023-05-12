@@ -1,7 +1,7 @@
 import updateElectron from 'update-electron-app';
 import { app, BrowserWindow, autoUpdater } from 'electron';
 import ms from "ms"
-import { getIconPath } from './main/shared/getIconPath';
+import { getIconPath } from './shared/getIconPath';
 import { setTimeout } from 'timers/promises';
 updateElectron({
     logger: require('electron-log'),
@@ -87,9 +87,9 @@ app.on('window-all-closed', () => {
     }
 });
 
-import './main/ipc/ui';
-import './main/ipc/notif';
-import './main/ipc/dialogs';
+import './ipc/ui';
+import './ipc/notif';
+import './ipc/dialogs';
 
 
 app.on('activate', () => {

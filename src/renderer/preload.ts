@@ -2,9 +2,9 @@
 // https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
 import { contextBridge, ipcRenderer } from 'electron';
 
-import { Server } from './shared/interfaces/server.interface';
-import { EventsKeys } from './shared/constants/eventsKeys.constant';
-import { SettingInStore } from './shared/interfaces/settings.interface';
+import { Server } from '../shared/interfaces/server.interface';
+import { EventsKeys } from '../shared/constants/eventsKeys.constant';
+import { SettingInStore } from '../shared/interfaces/settings.interface';
 
 const ipc = {
     setDns: (server: Server) => ipcRenderer.invoke(EventsKeys.SET_DNS, server),

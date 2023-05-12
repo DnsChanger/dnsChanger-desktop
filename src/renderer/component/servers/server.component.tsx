@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Badge, Button, Tooltip } from 'react-daisyui';
+import { Tooltip } from 'react-daisyui';
 import { AiOutlineCloudServer } from 'react-icons/ai';
 
 import { setState } from '../../interfaces/react.interface';
@@ -28,7 +28,6 @@ export function ServerComponent(prop: Props) {
 
     // @ts-ignore
     const serverName = server.names[locale]
-    const wait = (ms: number) => new Promise((res) => setTimeout(res, ms))
     async function clickHandler() {
         try {
             if (activityContextData.isWaiting) {
