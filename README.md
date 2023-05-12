@@ -7,6 +7,10 @@
 </p>
 
 <p align="center">
+    <a href="https://discord.gg/p9TZzEV39e" target="_blank">
+         <img src="https://discordapp.com/api/guilds/1088561568272367777/widget.png?style=banner2" alt="total" >
+    </a>
+<br/>
     <img src="https://img.shields.io/github/languages/top/DnsChanger/dnsChanger-desktop" alt="languages" >
     <img src="https://img.shields.io/github/stars/dnsChanger/dnsChanger-desktop">
     <img src="https://img.shields.io/github/downloads/DnsChanger/dnsChanger-desktop/total.svg" alt="total" >
