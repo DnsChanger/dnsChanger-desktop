@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Toggle } from 'react-daisyui';
+import { Form } from 'react-daisyui';
 
 import { useI18nContext } from '../../i18n/i18n-react';
 import { loadLocaleAsync } from "../../i18n/i18n-util.async";
 import { settingStore } from '../app';
 import { Select, Option, Switch } from "@material-tailwind/react";
 import { getThemeSystem, themeChanger } from '../utils/theme.util';
+
+
+
 
 export function SettingPage() {
     const [startUp, setStartUp] = useState<boolean>(false);
@@ -36,13 +39,9 @@ export function SettingPage() {
 
                     <div className='flex flex-col justify-center gap-3'>
 
-                        <div className=''>
-                            <LanguageSwitcher cb={() => saveSetting()} />
-                        </div>
+                        <LanguageSwitcher cb={() => saveSetting()} />
 
-                        <div className='' >
-                            <ThemeChanger />
-                        </div>
+                        <ThemeChanger />
 
                         <div className=''>
                             <Form.Label title={LL.pages.settings.autoRunningTitle()}>
@@ -53,7 +52,6 @@ export function SettingPage() {
 
 
                 </div>
-                {/* <LanguageSwitcher cb={() => saveSetting()} /> */}
             </div>
         </div>
     )
@@ -78,12 +76,12 @@ const LanguageSwitcher = (prop: Prop) => {
     const languages = [{
         name: "فارسی",
         value: "fa",
-        svg: "/assets/flags/iran.svg"
+        svg: `../assets/flags/iran.svg`
 
     }, {
         name: "English",
         value: "eng",
-        svg: "/assets/flags/usa.svg"
+        svg: `../assets/flags/usa.svg`
     }]
     return (
 
@@ -132,19 +130,21 @@ const ThemeChanger = () => {
     }, [currentTheme]);
 
     return (
-        <Select
+        <div>
+            <Select
 
-            label={LL.pages.settings.themeChanger()}
-            animate={{
-                mount: { y: 0 },
-                unmount: { y: 25 },
-            }}
-            value={currentTheme}
-            onChange={(value) => setCurrentTheme(value)}
-        >
-            <Option value='dark' className={`hover:bg-slate-400 hover:text-gray-600 ${currentTheme == "dark" && "bg-slate-400 text-gray-600 "}`}>{LL.themeChanger.dark()}</Option>
-            <Option value="light" className={`hover:bg-slate-400 hover:text-gray-600 ${currentTheme == "light" && "bg-slate-400 text-gray-600 "}`}>{LL.themeChanger.light()}</Option>
-        </Select>
+                label={LL.pages.settings.themeChanger()}
+                animate={{
+                    mount: { y: 0 },
+                    unmount: { y: 25 },
+                }}
+                value={currentTheme}
+                onChange={(value) => setCurrentTheme(value)}
+            >
+                <Option value='dark' className={`hover:bg-slate-400 hover:text-gray-600 ${currentTheme == "dark" && "bg-slate-400 text-gray-600 "}`}>{LL.themeChanger.dark()}</Option>
+                <Option value="light" className={`hover:bg-slate-400 hover:text-gray-600 ${currentTheme == "light" && "bg-slate-400 text-gray-600 "}`}>{LL.themeChanger.light()}</Option>
+            </Select>
+        </div>
     )
 }
 
