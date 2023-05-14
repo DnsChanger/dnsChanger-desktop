@@ -3,17 +3,15 @@
 @tailwind utilities;
 
 
-
-
 @font-face {
     font-family: Vazir;
 
     src: url("../../assets/fonts/vazir/Vazir-Bold.eot");
 
     src: url("../../assets/fonts/vazir/Vazir-Bold.eot?#iefix") format("embedded-opentype"),
-        url("../../assets/fonts/vazir/Vazir-Bold.woff2") format("woff2"),
-        url("../../assets/fonts/vazir/Vazir-Bold.woff") format("woff"),
-        url("../../assets/fonts/vazir/Vazir-Bold.ttf") format("truetype");
+    url("../../assets/fonts/vazir/Vazir-Bold.woff2") format("woff2"),
+    url("../../assets/fonts/vazir/Vazir-Bold.woff") format("woff"),
+    url("../../assets/fonts/vazir/Vazir-Bold.ttf") format("truetype");
 
     font-weight: bold;
 
@@ -26,15 +24,14 @@
     src: url("../../assets/fonts/vazir/Vazir-Black.eot");
 
     src: url("../../assets/fonts/vazir/Vazir-Black.eot?#iefix") format("embedded-opentype"),
-        url("../../assets/fonts/vazir/Vazir-Black.woff2") format("woff2"),
-        url("../../assets/fonts/vazir/Vazir-Black.woff") format("woff"),
-        url("../../assets/fonts/vazir/Vazir-Black.ttf") format("truetype");
+    url("../../assets/fonts/vazir/Vazir-Black.woff2") format("woff2"),
+    url("../../assets/fonts/vazir/Vazir-Black.woff") format("woff"),
+    url("../../assets/fonts/vazir/Vazir-Black.ttf") format("truetype");
 
     font-weight: 900;
 
     font-style: normal;
 }
-
 
 
 body {

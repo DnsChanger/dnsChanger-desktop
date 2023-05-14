@@ -1,204 +1,219 @@
-import _ from 'lodash';
-import { v4 as uuid } from 'uuid';
-import { store } from '../store/store';
-import { ipcMain, shell, dialog } from 'electron';
+import _ from "lodash";
+import { v4 as uuid } from "uuid";
+import { store } from "../store/store";
+import { ipcMain, shell, dialog } from "electron";
 
-import { autoLauncher, dnsService } from '../config';
-import { ResponseMessage } from '../constant/messages.constant';
-import { Server } from '../../shared/interfaces/server.interface';
-import { Settings } from '../../shared/interfaces/settings.interface';
-import { EventsKeys } from '../../shared/constants/eventsKeys.constant';
-import { isValidDnsAddress } from '../../shared/validators/dns.validator';
-import LN from "../../i18n/i18n-node"
-import { Locales } from '../../i18n/i18n-types';
-import pingLib from "ping"
-
+import { autoLauncher, dnsService } from "../config";
+import { ResponseMessage } from "../constant/messages.constant";
+import { Server } from "../../shared/interfaces/server.interface";
+import { Settings } from "../../shared/interfaces/settings.interface";
+import { EventsKeys } from "../../shared/constants/eventsKeys.constant";
+import { isValidDnsAddress } from "../../shared/validators/dns.validator";
+import LN from "../../i18n/i18n-node";
+import { Locales } from "../../i18n/i18n-types";
+import pingLib from "ping";
 
 // todo Refactoring
 
-
 ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
-    try {
-        await dnsService.setDns(server.servers);
-        const currentLng = LN[getCurrentLng()]
-        return { server, success: true, message: currentLng.pages.home.connected({ currentActive: server.names.eng }) };
-    } catch (e) {
-        return { server, ...errorHandling(e) };
-    }
-})
+  try {
+    await dnsService.setDns(server.servers);
+    const currentLng = LN[getCurrentLng()];
+    return {
+      server,
+      success: true,
+      message: currentLng.pages.home.connected({
+        currentActive: server.names.eng,
+      }),
+    };
+  } catch (e) {
+    return { server, ...errorHandling(e) };
+  }
+});
 
 ipcMain.handle(EventsKeys.CLEAR_DNS, async (event, server: Server) => {
-    try {
-        await dnsService.clearDns();
-        const currentLng = LN[getCurrentLng()]
-        return { server, success: true, message: currentLng.pages.home.disconnected() };
-    } catch (e) {
-        return { server, ...errorHandling(e) };
-    }
-})
+  try {
+    await dnsService.clearDns();
+    const currentLng = LN[getCurrentLng()];
+    return {
+      server,
+      success: true,
+      message: currentLng.pages.home.disconnected(),
+    };
+  } catch (e) {
+    return { server, ...errorHandling(e) };
+  }
+});
 
 ipcMain.handle(EventsKeys.ADD_DNS, async (event, data) => {
-    // validators ..
-    const nameServer1 = data.nameServers[0];
-    const nameServer2 = data.nameServers[1];
+  // validators ..
+  const nameServer1 = data.nameServers[0];
+  const nameServer2 = data.nameServers[1];
 
-    const currentLng = LN[getCurrentLng()]
+  const currentLng = LN[getCurrentLng()];
 
-    if (!isValidDnsAddress(nameServer1))
-        return { success: false, message: currentLng.validator.invalid_dns1 };
+  if (!isValidDnsAddress(nameServer1))
+    return { success: false, message: currentLng.validator.invalid_dns1 };
 
-    if (nameServer2 && !isValidDnsAddress(nameServer2))
-        return { success: false, message: currentLng.validator.invalid_dns2 };
+  if (nameServer2 && !isValidDnsAddress(nameServer2))
+    return { success: false, message: currentLng.validator.invalid_dns2 };
 
-    if (nameServer1.toString() == nameServer2.toString())
-        return { success: false, message: currentLng.validator.dns1_dns2_duplicates };
+  if (nameServer1.toString() == nameServer2.toString())
+    return {
+      success: false,
+      message: currentLng.validator.dns1_dns2_duplicates,
+    };
 
-    const newServer: Server = {
-        key: uuid(),
-        names: {
-            eng: data.name,
-            fa: data.name
-        },
-        avatar: '',
-        servers: data.nameServers
-    }
+  const newServer: Server = {
+    key: uuid(),
+    names: {
+      eng: data.name,
+      fa: data.name,
+    },
+    avatar: "",
+    servers: data.nameServers,
+  };
 
-    const list: Server[] = store.get('dnsList') || [];
-    list.push(newServer);
+  const list: Server[] = store.get("dnsList") || [];
+  list.push(newServer);
 
-    store.set('dnsList', list);
-    return { success: true, server: newServer };
-})
+  store.set("dnsList", list);
+  return { success: true, server: newServer };
+});
 
 ipcMain.handle(EventsKeys.DELETE_DNS, (ev: any, server: Server) => {
-    const dnsList = store.get('dnsList');
+  const dnsList = store.get("dnsList");
 
-    _.remove(dnsList, dns => dns.key === server.key);
+  _.remove(dnsList, (dns) => dns.key === server.key);
 
-    store.set('dnsList', dnsList);
+  store.set("dnsList", dnsList);
 
-    return {
-        success: true,
-        servers: dnsList
-    };
-})
+  return {
+    success: true,
+    servers: dnsList,
+  };
+});
 
-ipcMain.handle(EventsKeys.RELOAD_SERVER_LIST, async (event, servers: Server[]) => {
-    store.set('dnsList', servers);
+ipcMain.handle(
+  EventsKeys.RELOAD_SERVER_LIST,
+  async (event, servers: Server[]) => {
+    store.set("dnsList", servers);
     return { success: true };
-})
+  }
+);
 
 ipcMain.handle(EventsKeys.FETCH_DNS_LIST, () => {
-    const servers = store.get('dnsList') || [];
-    return { success: true, servers: servers };
-})
+  const servers = store.get("dnsList") || [];
+  return { success: true, servers: servers };
+});
 
 ipcMain.handle(EventsKeys.GET_CURRENT_ACTIVE, async (): Promise<any> => {
-    try {
-        const dns: string[] = await dnsService.getActiveDns();
+  try {
+    const dns: string[] = await dnsService.getActiveDns();
 
-        if (!dns.length)
-            return { success: false, server: null };
+    if (!dns.length) return { success: false, server: null };
 
-        const servers = store.get('dnsList') || [];
-        const server: Server | null = servers.find((server) => server.servers.toString() == dns.toString());
+    const servers = store.get("dnsList") || [];
+    const server: Server | null = servers.find(
+      (server) => server.servers.toString() == dns.toString()
+    );
 
-        if (!server)
-            return {
-                success: true, server: {
-                    key: 'unknown',
-                    servers: dns,
-                    names: {
-                        eng: 'unknown',
-                        fa: 'unknown'
-                    },
-                    avatar: ''
-                }
-            }
-        else {
-            return { success: true, server }
-        }
-    } catch (error) {
-        return errorHandling(error)
+    if (!server)
+      return {
+        success: true,
+        server: {
+          key: "unknown",
+          servers: dns,
+          names: {
+            eng: "unknown",
+            fa: "unknown",
+          },
+          avatar: "",
+        },
+      };
+    else {
+      return { success: true, server };
     }
-})
+  } catch (error) {
+    return errorHandling(error);
+  }
+});
 
 ipcMain.handle(EventsKeys.GET_SETTINGS, async () => {
-    const settings: Settings = {
-        startUp: false,
-        lng: store.get("settings").lng
-    }
+  const settings: Settings = {
+    startUp: false,
+    lng: store.get("settings").lng,
+  };
 
-    settings.startUp = await autoLauncher.isEnabled()
-    return settings
-})
+  settings.startUp = await autoLauncher.isEnabled();
+  return settings;
+});
 
 ipcMain.handle(EventsKeys.TOGGLE_START_UP, async () => {
-    let startUp = await autoLauncher.isEnabled();
+  let startUp = await autoLauncher.isEnabled();
 
-    if (startUp) {
-        await autoLauncher.disable();
-        startUp = false;
-    } else {
-        await autoLauncher.enable();
-        startUp = true;
-    }
+  if (startUp) {
+    await autoLauncher.disable();
+    startUp = false;
+  } else {
+    await autoLauncher.enable();
+    startUp = true;
+  }
 
-    return startUp;
-})
+  return startUp;
+});
 
 ipcMain.on(EventsKeys.OPEN_BROWSER, (ev, url) => {
-    shell.openExternal(url);
-})
+  shell.openExternal(url);
+});
 
-ipcMain.on(EventsKeys.DIALOG_ERROR, (ev: any, title: string, message: string) => {
+ipcMain.on(
+  EventsKeys.DIALOG_ERROR,
+  (ev: any, title: string, message: string) => {
     dialog.showErrorBox(title, message);
-})
-
+  }
+);
 
 ipcMain.handle(EventsKeys.SAVE_SETTINGS, function (event, data: Settings) {
-    store.set("settings", data)
-    return { success: true }
-})
-
+  store.set("settings", data);
+  return { success: true };
+});
 
 ipcMain.handle(EventsKeys.FLUSHDNS, async function (evet, _: any) {
-    try {
-        await dnsService.flushDns()
-        return { success: true }
-    } catch {
-        return { success: false }
-    }
-})
-
+  try {
+    await dnsService.flushDns();
+    return { success: true };
+  } catch {
+    return { success: false };
+  }
+});
 
 ipcMain.handle(EventsKeys.PING, async function (event, server: Server) {
-    try {
-        const result = await pingLib.promise.probe(server.servers[0], {
-            timeout: 10,
-        })
-        return {
-            success: true,
-            data: {
-                alive: result.alive,
-                time: result.time
-            }
-        }
-    } catch {
-        return {
-            success: false
-        }
-    }
-})
+  try {
+    const result = await pingLib.promise.probe(server.servers[0], {
+      timeout: 10,
+    });
+    return {
+      success: true,
+      data: {
+        alive: result.alive,
+        time: result.time,
+      },
+    };
+  } catch {
+    return {
+      success: false,
+    };
+  }
+});
 
-function errorHandling(e: { message: string | number; }) {
-    // @ts-ignore
-    const msg = ResponseMessage[e.message]
+function errorHandling(e: { message: string | number }) {
+  // @ts-ignore
+  const msg = ResponseMessage[e.message];
 
-    return { success: false, message: msg || 'unknown error' };
+  return { success: false, message: msg || "unknown error" };
 }
 
 function getCurrentLng(): Locales {
-    return store.get('settings').lng
+  return store.get("settings").lng;
 }
-

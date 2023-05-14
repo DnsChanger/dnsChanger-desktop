@@ -64,6 +64,7 @@
     "node-sass": "^8.0.0",
     "postcss": "^8.4.21",
     "postcss-loader": "^7.0.2",
+    "prettier": "^2.8.8",
     "react": "^18.2.0",
     "react-daisyui": "^3.0.2",
     "react-dom": "^18.2.0",
