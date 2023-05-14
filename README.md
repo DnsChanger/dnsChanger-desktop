@@ -7,6 +7,10 @@
 </p>
 
 <p align="center">
+    <a href="https://discord.gg/p9TZzEV39e" target="_blank">
+         <img src="https://discordapp.com/api/guilds/1088561568272367777/widget.png?style=banner2" alt="total" >
+    </a>
+<br/>
     <img src="https://img.shields.io/github/languages/top/DnsChanger/dnsChanger-desktop" alt="languages" >
     <img src="https://img.shields.io/github/stars/dnsChanger/dnsChanger-desktop" alt="stars">
     <img src="https://img.shields.io/github/downloads/DnsChanger/dnsChanger-desktop/total.svg" alt="total" >
@@ -33,11 +37,6 @@
 https://www.virustotal.com/gui/file/a2540db91518e784b9b0f55172487aaaedb50abd8089644cca7f820ccd2d5fb8/detection
 ## 🖼️ تصاویر
 
-| ![connect](https://user-images.githubusercontent.com/66132114/236648741-24f511f7-f603-490e-a7cb-a12b074e5985.gif) | ![disconnect](https://user-images.githubusercontent.com/66132114/236648742-8ce12fc6-2975-4c67-82b5-04c6ef307b00.gif) |
-| ----------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| اتصال                                                                                                             | قطع اتصال                                                                                                            |
-
-
 <p align="center">
     <img src=".github/scr1.png" alt="dnsChanger screenshot 1" width="496">
 </p>
@@ -47,10 +46,6 @@ https://www.virustotal.com/gui/file/a2540db91518e784b9b0f55172487aaaedb50abd8089
 <p align="center">
     <img src=".github/scr3.png" alt="dnsChanger screenshot 2" width="496">
 </p>
-<p align="center">
-    <img src=".github/scr4.png" alt="dnsChanger screenshot 2" width="496">
-</p>
-
 
 ## 📝 لاگ تغییرات
 
