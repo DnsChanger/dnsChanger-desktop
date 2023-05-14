@@ -52,6 +52,10 @@ type RootTranslation = {
 			 * ت​غ​ی​ی​ر​ ​ز​ب​ـ​ا​ن
 			 */
 			langChanger: string
+			/**
+			 * ت​غ​ی​ی​ر​ ​پ​و​س​ت​ه
+			 */
+			themeChanger: string
 		}
 		addCustomDns: {
 			/**
@@ -63,6 +67,16 @@ type RootTranslation = {
 			 */
 			serverAddr: string
 		}
+	}
+	themeChanger: {
+		/**
+		 * ت​ا​ر​ی​ک
+		 */
+		dark: string
+		/**
+		 * ر​و​ش​ـ​ن
+		 */
+		light: string
 	}
 	buttons: {
 		/**
@@ -77,6 +91,14 @@ type RootTranslation = {
 		 * ا​ف​ز​و​د​ن
 		 */
 		add: string
+		/**
+		 * پ​ا​ک​س​ا​ز​ی​ ​(​F​l​u​s​h​)
+		 */
+		flushDns: string
+		/**
+		 * پ​ی​ـ​ن​گ​ ​س​ر​و​ر​ه​ا
+		 */
+		ping: string
 	}
 	dialogs: {
 		/**
@@ -93,6 +115,14 @@ type RootTranslation = {
 		 * @param {unknown} serverName
 		 */
 		removed_server: RequiredParams<'serverName'>
+		/**
+		 * پ​ا​ک​س​ا​ز​ی​ ​ب​ا​ ​م​و​ف​ق​ی​ت​ ​ا​ن​ج​ا​م​ ​ش​د​.
+		 */
+		flush_successful: string
+		/**
+		 * پ​ا​ک​س​ا​ز​ی​ ​ن​ا​م​و​ف​ق​ ​ب​و​د​.
+		 */
+		flush_failure: string
 	}
 	errors: {
 		/**
@@ -178,6 +208,10 @@ export type TranslationFunctions = {
 			 * تغییر زبـان
 			 */
 			langChanger: () => LocalizedString
+			/**
+			 * تغییر پوسته
+			 */
+			themeChanger: () => LocalizedString
 		}
 		addCustomDns: {
 			/**
@@ -189,6 +223,16 @@ export type TranslationFunctions = {
 			 */
 			serverAddr: () => LocalizedString
 		}
+	}
+	themeChanger: {
+		/**
+		 * تاریک
+		 */
+		dark: () => LocalizedString
+		/**
+		 * روشـن
+		 */
+		light: () => LocalizedString
 	}
 	buttons: {
 		/**
@@ -203,6 +247,14 @@ export type TranslationFunctions = {
 		 * افزودن
 		 */
 		add: () => LocalizedString
+		/**
+		 * پاکسازی (Flush)
+		 */
+		flushDns: () => LocalizedString
+		/**
+		 * پیـنگ سرورها
+		 */
+		ping: () => LocalizedString
 	}
 	dialogs: {
 		/**
@@ -217,6 +269,14 @@ export type TranslationFunctions = {
 		 * سرور {serverName} با موفقیت حذف شد.
 		 */
 		removed_server: (arg: { serverName: unknown }) => LocalizedString
+		/**
+		 * پاکسازی با موفقیت انجام شد.
+		 */
+		flush_successful: () => LocalizedString
+		/**
+		 * پاکسازی ناموفق بود.
+		 */
+		flush_failure: () => LocalizedString
 	}
 	errors: {
 		/**

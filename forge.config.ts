@@ -22,10 +22,10 @@ const plugins: any[] = [
             entryPoints: [
                 {
                     html: './src/renderer/index.html',
-                    js: './src/renderer.ts',
+                    js: './src/renderer/renderer.ts',
                     name: 'main_window',
                     preload: {
-                        js: './src/preload.ts',
+                        js: './src/renderer/preload.ts',
                     },
                 },
                 {

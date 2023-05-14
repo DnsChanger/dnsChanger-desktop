@@ -1,19 +1,18 @@
-import electronStore from 'electron-store';
+import electronStore from "electron-store";
 
-import { Server } from '../../shared/interfaces/server.interface';
-import { serversConstant } from '../../shared/constants/servers.cosntant';
-import { SettingInStore } from '../../shared/interfaces/settings.interface';
+import { Server } from "../../shared/interfaces/server.interface";
+import { serversConstant } from "../../shared/constants/servers.cosntant";
+import { SettingInStore } from "../../shared/interfaces/settings.interface";
 
 export const store = new electronStore<{
-    dnsList: Server[],
-    settings: SettingInStore
+  dnsList: Server[];
+  settings: SettingInStore;
 }>({
-    defaults: {
-        dnsList: serversConstant,
-        settings: {
-            lng: "fa"
-        }
+  defaults: {
+    dnsList: serversConstant,
+    settings: {
+      lng: "fa",
     },
-    name: 'dnsChangerStore'
-}
-)
+  },
+  name: "dnsChangerStore",
+});
