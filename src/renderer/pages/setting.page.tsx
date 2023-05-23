@@ -6,6 +6,7 @@ import { loadLocaleAsync } from "../../i18n/i18n-util.async";
 import { settingStore } from "../app";
 import { Select, Option, Switch } from "@material-tailwind/react";
 import { getThemeSystem, themeChanger } from "../utils/theme.util";
+import { languages } from "../../shared/constants/languages.constant";
 
 export function SettingPage() {
   const [startUp, setStartUp] = useState<boolean>(false);
@@ -66,23 +67,13 @@ const LanguageSwitcher = (prop: Prop) => {
     setLanguage(lng);
 
     await loadLocaleAsync(lng);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     setLocale(lng);
     settingStore.lng = lng;
     prop.cb();
   };
-  const languages = [
-    {
-      name: "فارسی",
-      value: "fa",
-      svg: `../assets/flags/iran.svg`,
-    },
-    {
-      name: "English",
-      value: "eng",
-      svg: `../assets/flags/usa.svg`,
-    },
-  ];
+
   return (
     <div>
       <Select
