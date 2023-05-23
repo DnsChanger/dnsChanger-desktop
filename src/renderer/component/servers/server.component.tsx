@@ -28,7 +28,7 @@ export function ServerComponent(prop: Props) {
   const [currentPing, setPing] = useState<number>(0);
 
   // @ts-ignore
-  const serverName = server.names[locale];
+  const serverName = server.names[locale] || server.names.eng;
 
   async function clickHandler() {
     try {
