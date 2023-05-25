@@ -3,9 +3,11 @@ import { BottomNavigation } from "react-daisyui";
 import { TbCloudDataConnection, TbSettings2 } from "react-icons/tb";
 import { HomePage } from "./pages/home.page";
 import { SettingPage } from "./pages/setting.page";
-import { loadLocaleAsync } from "../i18n/i18n-util.async";
+// eslint-disable-next-line import/no-unresolved
+import { loadLocaleAsync } from "@/i18n/i18n-util.async";
 import TypesafeI18n from "../i18n/i18n-react";
-import { Settings } from "../shared/interfaces/settings.interface";
+// eslint-disable-next-line import/no-unresolved
+import { Settings } from "@/shared/interfaces/settings.interface";
 import { PageWrapper } from "./Wrappers/pages.wrapper";
 import { themeChanger } from "./utils/theme.util";
 
@@ -20,7 +22,6 @@ interface Page {
 }
 
 export function App() {
-  const detectedLocale = "fa";
   const [wasLoaded, setWasLoaded] = useState(false);
 
   const pages: Array<Page> = [

@@ -5,16 +5,16 @@ export function getIconPath(): string {
 
   switch (process.platform) {
     case "win32":
-      icon = path.resolve(__dirname, "assets", "icon.ico");
+      icon = path.resolve( "assets", "icon.ico");
       break;
     case "darwin":
-      icon = path.resolve(__dirname, "assets", "icon.ico");
+      icon = path.resolve("assets", "icon.ico");
       break;
     case "linux":
-      icon = path.resolve(__dirname, "assets", "icon.png");
+      icon = path.resolve( "assets", "icon.png");
       break;
     default:
-      icon = path.resolve(__dirname, "assets", "icon.png");
+      icon = path.resolve( "assets", "icon.png");
       break;
   }
   return icon;

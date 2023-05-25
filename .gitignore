@@ -90,3 +90,8 @@ out/
 .idea
 
 ./store
+
+dist-electron
+release
+dist
+

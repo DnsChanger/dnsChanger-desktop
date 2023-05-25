@@ -3,18 +3,22 @@
   "productName": "dnschanger",
   "version": "1.7.0",
   "description": "Dns Changer for Windows, Mac and Linux operating systems",
-  "main": ".webpack/main",
+  "main": "dist-electron/main/index.js",
   "repository": {
     "url": "https://github.com/DnsChanger/dnsChanger-desktop"
   },
+  "debug": {
+    "env": {
+      "VITE_DEV_SERVER_URL": "http://127.0.0.1:7777/"
+    }
+  },
   "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish",
-    "lint": "eslint --ext .ts,.tsx .",
-    "test": "jest",
-    "i18n": "typesafe-i18n"
+    "i18n": "typesafe-i18n",
+    "dev": "vite",
+    "build": "tsc && vite build && electron-builder",
+    "preview": "vite preview",
+    "pree2e": "vite build --mode=test",
+    "e2e": "playwright test"
   },
   "keywords": [],
   "author": {
@@ -23,15 +27,6 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@electron-forge/cli": "^6.0.5",
-    "@electron-forge/maker-deb": "^6.0.5",
-    "@electron-forge/maker-rpm": "^6.0.5",
-    "@electron-forge/maker-squirrel": "^6.0.5",
-    "@electron-forge/maker-zip": "^6.0.5",
-    "@electron-forge/plugin-auto-unpack-natives": "^6.1.1",
-    "@electron-forge/plugin-electronegativity": "^6.1.1",
-    "@electron-forge/plugin-vite": "^6.1.1",
-    "@electron-forge/plugin-webpack": "^6.0.5",
     "@heroicons/react": "^2.0.18",
     "@jest/globals": "^29.5.0",
     "@material-tailwind/react": "^2.0.0",
@@ -46,14 +41,13 @@
     "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
-    "@vercel/webpack-asset-relocator-loader": "^1.7.3",
-    "copy-webpack-plugin": "^11.0.0",
+    "@vitejs/plugin-react": "^4.0.0",
     "css-loader": "^6.7.3",
     "daisyui": "^2.50.2",
     "electron": "23.1.0",
+    "electron-builder": "^23.6.0",
     "eslint": "^8.34.0",
     "eslint-plugin-import": "^2.27.5",
-    "fork-ts-checker-webpack-plugin": "^7.3.0",
     "jest": "^29.5.0",
     "node-loader": "^2.0.0",
     "node-sass": "^8.0.0",
@@ -65,11 +59,15 @@
     "ts-jest": "^29.0.5",
     "ts-loader": "^9.4.2",
     "ts-node": "^10.9.1",
-    "typescript": "~4.5.4"
+    "typescript": "~4.5.4",
+    "vite": "^4.3.8",
+    "vite-plugin-electron": "^0.11.2",
+    "vite-plugin-electron-renderer": "^0.14.5"
   },
   "dependencies": {
     "@electron-forge/publisher-github": "^6.0.5",
     "auto-launch": "^5.0.5",
+    "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
     "dotenv": "^16.0.3",
     "electron-log": "^5.0.0-beta.16",

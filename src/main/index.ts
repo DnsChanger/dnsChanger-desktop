@@ -1,92 +1,101 @@
-import updateElectron from "update-electron-app";
-import { app, BrowserWindow, autoUpdater } from "electron";
-import ms from "ms";
+import { app, BrowserWindow, shell, ipcMain } from "electron";
+import { release } from "node:os";
+import { join } from "node:path";
 import { getIconPath } from "./shared/getIconPath";
-import { setTimeout } from "timers/promises";
-updateElectron({
-  logger: require("electron-log"),
-  notifyUser: true,
-});
 
-const server = "https://update.electronjs.org";
-const feed = `${server}/DnsChanger/dnsChanger-desktop/${process.platform}-${
-  process.arch
-}/${app.getVersion()}`;
+process.env.DIST_ELECTRON = join(__dirname, "../");
+process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
+process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
+  ? join(process.env.DIST_ELECTRON, "../public")
+  : process.env.DIST;
 
-autoUpdater.setFeedURL({
-  url: feed,
-  serverType: "default",
-});
+if (release().startsWith("6.1")) app.disableHardwareAcceleration();
 
-setInterval(() => {
-  autoUpdater.checkForUpdates();
-}, ms("1h"));
+if (process.platform === "win32") app.setAppUserModelId(app.getName());
 
-declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
-declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
-declare const LOADING_WINDOW_WEBPACK_ENTRY: string;
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (require("electron-squirrel-startup")) {
+if (!app.requestSingleInstanceLock()) {
   app.quit();
+  process.exit(0);
 }
 
-const createWindow = (
-  options?: Electron.BrowserWindowConstructorOptions
-): BrowserWindow => {
-  return new BrowserWindow(options);
-};
+let win: BrowserWindow | null = null;
+const preload = join(__dirname, "../preload/index.js");
+const url = process.env.VITE_DEV_SERVER_URL;
+const indexHtml = join(process.env.DIST, "index.html");
+console.log(process.env.PUBLIC);
+async function createWindow() {
+  win = new BrowserWindow({
+    title: "Main window",
+    icon: getIconPath(),
 
-app.whenReady().then(async () => {
-  const icon = getIconPath();
-  const isDev = !!process.env.ENV;
-  const mainWindow = createWindow({
     height: 600,
     width: 500,
     webPreferences: {
-      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
-      devTools: isDev,
-      images: true,
+      preload,
+      nodeIntegration: true,
+      contextIsolation: true,
     },
     darkTheme: true,
     resizable: false,
     center: true,
-    show: false,
-    icon,
+    show: true,
   });
-  const loadingWindow = createWindow({
-    parent: mainWindow,
-    width: 400,
-    height: 400,
-    resizable: false,
-    icon: icon,
-    autoHideMenuBar: true,
-    title: "loading",
-    center: true,
-    movable: true,
-    titleBarStyle: "hidden",
+  win.setMenu(null);
+  if (url) {
+    await win.loadURL(url);
+    win.webContents.openDevTools();
+  } else {
+    await win.loadFile(indexHtml);
+  }
+
+  win.webContents.on("did-finish-load", () => {
+    win?.webContents.send("main-process-message", new Date().toLocaleString());
+  });
+
+  win.webContents.setWindowOpenHandler(({ url }) => {
+    if (url.startsWith("https:")) shell.openExternal(url);
+    return { action: "deny" };
+  });
+}
+
+app.whenReady().then(createWindow);
+
+app.on("window-all-closed", () => {
+  win = null;
+  if (process.platform !== "darwin") app.quit();
+});
+
+app.on("second-instance", () => {
+  if (win) {
+    // Focus on the main window if the user tried to open another
+    if (win.isMinimized()) win.restore();
+    win.focus();
+  }
+});
+
+app.on("activate", () => {
+  const allWindows = BrowserWindow.getAllWindows();
+  if (allWindows.length) {
+    allWindows[0].focus();
+  } else {
+    createWindow();
+  }
+});
+
+// New window example arg: new windows url
+ipcMain.handle("open-win", (_, arg) => {
+  const childWindow = new BrowserWindow({
     webPreferences: {
-      images: true,
-      devTools: isDev,
+      preload,
+      nodeIntegration: true,
+      contextIsolation: false,
     },
   });
 
-  loadingWindow.loadURL(LOADING_WINDOW_WEBPACK_ENTRY);
-
-  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-  mainWindow.setMenu(null);
-  mainWindow.show();
-
-  mainWindow.on("ready-to-show", async () => {
-    await setTimeout(ms("3s"));
-    loadingWindow.hide();
-  });
-
-  if (isDev) mainWindow.webContents.openDevTools();
-});
-
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
+  if (process.env.VITE_DEV_SERVER_URL) {
+    childWindow.loadURL(`${url}#${arg}`);
+  } else {
+    childWindow.loadFile(indexHtml, { hash: arg });
   }
 });
 
@@ -94,10 +103,4 @@ import "./ipc/ui";
 import "./ipc/notif";
 import "./ipc/dialogs";
 
-app.on("activate", () => {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
-  }
-});
+import path from "path";
