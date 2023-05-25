@@ -60,7 +60,7 @@ export function App() {
         <PageWrapper>{currentPage.element}</PageWrapper>
         <BottomNavigation
           size="xs"
-          className="mb-2"
+          className="mb-2 -bottom-2 h-14"
           dir={settingStore.lng == "fa" ? "rtl" : "ltr"}
         >
           <div onClick={() => setCurrentPath("/")}>

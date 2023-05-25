@@ -25,15 +25,15 @@ const indexHtml = join(process.env.DIST, "index.html");
 console.log(process.env.PUBLIC);
 async function createWindow() {
   win = new BrowserWindow({
-    title: "Main window",
+    title: "DNS Changer",
     icon: getIconPath(),
-
     height: 483,
     width: 743,
     webPreferences: {
       preload,
       nodeIntegration: true,
       contextIsolation: true,
+      devTools: true,
     },
     darkTheme: true,
     resizable: false,
@@ -41,9 +41,9 @@ async function createWindow() {
     show: true,
   });
   win.setMenu(null);
+  win.webContents.openDevTools();
   if (url) {
     await win.loadURL(url);
-    win.webContents.openDevTools();
   } else {
     await win.loadFile(indexHtml);
   }
