@@ -8,5 +8,10 @@ export const serversContext = React.createContext<ServersContext>({
   setServers: () => {},
 
   currentActive: null,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   setCurrentActive: () => {},
+
+  selected: null,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  setSelected: () => {},
 });
