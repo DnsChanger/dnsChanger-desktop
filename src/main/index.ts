@@ -28,8 +28,8 @@ async function createWindow() {
     title: "Main window",
     icon: getIconPath(),
 
-    height: 600,
-    width: 500,
+    height: 483,
+    width: 743,
     webPreferences: {
       preload,
       nodeIntegration: true,

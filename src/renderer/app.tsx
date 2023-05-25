@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { BottomNavigation } from "react-daisyui";
-import { TbCloudDataConnection, TbSettings2 } from "react-icons/tb";
+import { Badge, BottomNavigation } from "react-daisyui";
+import { TbSettings, TbSmartHome } from "react-icons/tb";
 import { HomePage } from "./pages/home.page";
 import { SettingPage } from "./pages/setting.page";
 // eslint-disable-next-line import/no-unresolved
@@ -50,6 +50,9 @@ export function App() {
   }, []);
 
   if (!wasLoaded) return null;
+  function InPath(target: string): boolean {
+    return currentPath == target;
+  }
 
   return (
     <div>
@@ -60,17 +63,23 @@ export function App() {
           className="mb-2"
           dir={settingStore.lng == "fa" ? "rtl" : "ltr"}
         >
-          <div
-            className={`${currentPath == "/" ? "active" : ""}`}
-            onClick={() => setCurrentPath("/")}
-          >
-            <TbCloudDataConnection size={30} />
+          <div onClick={() => setCurrentPath("/")}>
+            <TbSmartHome
+              size={30}
+              className={`${InPath("/") ? "text-[#658DCA]" : ""}`}
+            />
+            {InPath("/") && (
+              <Badge size={"xs"} className={"bg-[#658DCA]"}></Badge>
+            )}
           </div>
-          <div
-            className={`${currentPath == "/setting" ? "active" : ""}`}
-            onClick={() => setCurrentPath("/setting")}
-          >
-            <TbSettings2 size={30} />
+          <div onClick={() => setCurrentPath("/setting")}>
+            <TbSettings
+              size={30}
+              className={`${InPath("/setting") ? "text-[#658DCA]" : ""}`}
+            />
+            {InPath("/setting") && (
+              <Badge size={"xs"} className={"bg-[#658DCA]"}></Badge>
+            )}
           </div>
         </BottomNavigation>
       </TypesafeI18n>
