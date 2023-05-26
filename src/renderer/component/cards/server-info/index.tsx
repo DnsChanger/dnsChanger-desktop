@@ -1,23 +1,25 @@
 import {
-  MdOutlineAddModerator,
   MdOutlineSignalCellularAlt,
   MdOutlineSignalCellularAlt1Bar,
   MdOutlineSignalCellularAlt2Bar,
 } from "react-icons/md";
-import { Avatar, Button } from "react-daisyui";
-import { TfiReload } from "react-icons/tfi";
+import { Avatar, Badge, Button } from "react-daisyui";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FiCopy } from "react-icons/fi";
 import { useContext, useEffect, useState } from "react";
 import { serversContext } from "@/renderer/context/servers.context";
 import { Server } from "@/shared/interfaces/server.interface";
-import { UpdateListBtnComponent } from "@/renderer/component/buttons/updateList-btn.component";
-import { AddCustomBtnComponent } from "@/renderer/component/buttons/add-custom-btn-component";
+
 import { useI18nContext } from "@/i18n/i18n-react";
 
-export function ServerInfoCardComponent() {
+interface Prop {
+  loadingCurrentActive: boolean;
+}
+
+export function ServerInfoCardComponent(prop: Prop) {
   const serversStateContext = useContext(serversContext);
   const [selectedServer, setSelectedServer] = useState<Server | null>(null);
-  const [ping, setPing] = useState<number>(0);
+  const [ping, setPing] = useState<number>();
   const { LL } = useI18nContext();
   useEffect(() => {
     if (serversStateContext.selected) {
@@ -25,26 +27,43 @@ export function ServerInfoCardComponent() {
       window.ipc
         .ping(serversStateContext.selected)
         .then((res) => res.success && setPing(res.data.time));
-    }
+    } else setSelectedServer(null);
   }, [serversStateContext.selected]);
 
   if (!selectedServer) {
     return (
       <div className={"bg-[#262626] h-[189px] w-[362px] mt-5 rounded-[23px]"}>
-        <div
-          className={"absolute left-[120px] top-[140px] flex flex-row gap-2"}
-        >
-          <Avatar src={"assets/icon.png"} size={"xs"} className={"mb-2"} />
-          <h1 className={"text-1xl mt-1"}>{LL.pages.home.homeTitle()}</h1>
+        <div className={"absolute left-[90px] top-[110px] flex flex-col gap-2"}>
+          <div className={"flex flex-rows gap-2"}>
+            <Avatar src={"assets/icon.png"} size={"xs"} className={"mb-2"} />
+            <h1 className={"text-2xl mt-1 font-[balooTamma] text-[#7487FF]"}>
+              {LL.pages.home.homeTitle()}
+            </h1>
+          </div>
+          <hr className={"border-t-2  border-[#323232]"} />
+          <div className={"flex flex-rows gap-2 justify-center"}>
+            {prop.loadingCurrentActive ? (
+              <div className={"flex flex-rows gap-2"}>
+                <AiOutlineLoading3Quarters className={"spinner mt-1"} />
+                <span className={"text-[#7B7B7B]"}>fetch curren active...</span>
+              </div>
+            ) : (
+              <span></span>
+            )}
+          </div>
+          <span className={"text-gray-500 text-sm"}>version 1.7.0</span>
         </div>
       </div>
     );
   }
+
+  const isConnect =
+    serversStateContext.currentActive?.key == selectedServer.key;
   return (
     <div className="bg-[#262626] h-[189px] w-[362px] mt-5 rounded-[23px]">
       <div className={"grid grid-cols-2 gap-4 mt-5"}>
         <div className={"flex flex-col gap-2"}>
-          <h3 className={"font-bold"}>Name</h3>
+          <h3 className={"font-bold tracking-widest"}>Name</h3>
 
           <div
             className={"w-100 text-center flex flex-row gap-2 justify-center"}
@@ -66,7 +85,7 @@ export function ServerInfoCardComponent() {
           </div>
         </div>
         <div className={"flex flex-col gap-2 text-center  justify-center"}>
-          <h3 className={"font-bold"}>Ping</h3>
+          <h3 className={"font-bold tracking-widest"}>Ping</h3>
 
           <div
             className={"w-100 flex flex-row gap-1   justify-center text-center"}
@@ -80,8 +99,7 @@ export function ServerInfoCardComponent() {
           </div>
         </div>
         <div className={"flex flex-col gap-2 text-center  justify-center"}>
-          <h3 className={"font-bold"}>Address</h3>
-
+          <h3 className={"font-bold tracking-widest"}>Address</h3>
           <div
             className={"w-100 flex flex-row gap-2   justify-center text-center"}
           >
@@ -104,14 +122,27 @@ export function ServerInfoCardComponent() {
             </Button>
           </div>
         </div>
+        <div className={"flex flex-col gap-2 text-center  justify-center"}>
+          <h3 className={"font-bold tracking-widest"}>Status</h3>
+
+          <div
+            className={"w-100 flex flex-row gap-1   justify-center text-center"}
+          >
+            {
+              <Badge
+                className={"mt-1"}
+                color={isConnect ? "success" : "error"}
+                size={"xs"}
+              ></Badge>
+            }
+            <span className="ml-1 inline-flex items-baseline text-sm">
+              <span className="font-medium text-slate-900 dark:text-slate-200">
+                {isConnect ? "Connected" : "Disconnect"}
+              </span>
+            </span>
+          </div>
+        </div>
       </div>
-      {/*<div className={"absolute top-[220px] ml-5 flex flex-row gap-1"}>*/}
-      {/*  <UpdateListBtnComponent*/}
-      {/*    servers={serversStateContext.servers}*/}
-      {/*    setServers={serversStateContext.setServers}*/}
-      {/*  />*/}
-      {/*  <AddCustomBtnComponent />*/}
-      {/*</div>*/}
     </div>
   );
 }

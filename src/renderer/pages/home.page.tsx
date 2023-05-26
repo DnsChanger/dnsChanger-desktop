@@ -19,7 +19,8 @@ export function HomePage() {
   const [serversState, setServers] = useState<Server[]>([]);
   const [currentActive, setCurrentActive] = useState<Server | null>(null);
   const [selectedServer, setSelectedServer] = useState<Server | null>(null);
-
+  const [loadingCurrentActive, setLoadingCurrentActive] =
+    useState<boolean>(true);
   useEffect(() => {
     async function fetchDnsList() {
       const response = await window.ipc.fetchDnsList();
@@ -27,6 +28,22 @@ export function HomePage() {
     }
 
     fetchDnsList();
+  }, []);
+
+  useEffect(() => {
+    async function getCurrentActive() {
+      try {
+        const response = await window.ipc.getCurrentActive();
+        if (response.success) {
+          setCurrentActive(response.server);
+          setSelectedServer(response.server);
+        }
+      } finally {
+        setLoadingCurrentActive(false);
+      }
+    }
+
+    getCurrentActive();
   }, []);
 
   return (
@@ -65,7 +82,9 @@ export function HomePage() {
                   <div className={"flex-none"}>
                     <ServersListSelectComponent />
                   </div>
-                  <ServerInfoCardComponent />
+                  <ServerInfoCardComponent
+                    loadingCurrentActive={loadingCurrentActive}
+                  />
                 </div>
               </div>
             </div>

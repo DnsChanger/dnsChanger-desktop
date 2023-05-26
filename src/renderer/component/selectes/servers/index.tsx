@@ -22,6 +22,7 @@ export function ServersListSelectComponent() {
   return (
     <Select
       className={"w-[350px] bg-[#262626]"}
+      disabled={!!serversStateContext.currentActive}
       onChange={(data) => setSelectedKey(data.target.value)}
     >
       <Select.Option value={"default"} disabled={true} selected={true}>
@@ -30,7 +31,12 @@ export function ServersListSelectComponent() {
 
       {serversStateContext.servers.map((server: Server) => {
         return (
-          <Select.Option value={server.key}>{server.names.eng}</Select.Option>
+          <Select.Option
+            value={server.key}
+            selected={server.key == serversStateContext.currentActive?.key}
+          >
+            {server.names.eng}
+          </Select.Option>
         );
       })}
     </Select>
