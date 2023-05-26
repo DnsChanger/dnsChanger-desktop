@@ -46,7 +46,7 @@ export function UpdateListBtnComponent(prop: Props) {
     <Button
       shape={"circle"}
       size={"sm"}
-      className={"bg-[#383838] border-none text-center"}
+      className={"bg-[#B3B3B3] dark:bg-[#383838] border-none text-center"}
       onClick={() => updateHandler()}
     >
       <TfiReload className={` ${isLoading ? "spinner" : ""}`} />

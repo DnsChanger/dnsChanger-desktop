@@ -18,7 +18,7 @@ export function AddCustomBtnComponent() {
         shape={"circle"}
         size={"sm"}
         onClick={toggleOpenModal}
-        className={"bg-[#383838] border-none text-center"}
+        className={"bg-[#B3B3B3] dark:bg-[#383838] border-none text-center"}
       >
         <MdOutlineAddModerator />
       </Button>

@@ -51,7 +51,11 @@ export function ConnectButtonComponent() {
               className={"absolute spinner bottom-20 left-9"}
             />
           </div>
-          <div className={"mt-5 font-[balooTamma] text-1xl "}>
+          <div
+            className={
+              "mt-5 font-[balooTamma] text-1xl dark:text-white text-[#6B6A6A]"
+            }
+          >
             Disconnecting...
           </div>
         </div>
@@ -69,7 +73,11 @@ export function ConnectButtonComponent() {
               className={"absolute spinner bottom-20 left-9"}
             />
           </div>
-          <div className={"mt-5 font-[balooTamma] text-1xl "}>
+          <div
+            className={
+              "mt-5 font-[balooTamma] text-1xl dark:text-white text-[#6B6A6A]"
+            }
+          >
             Connecting...
           </div>
         </div>
@@ -83,12 +91,18 @@ export function ConnectButtonComponent() {
           <Button
             onClick={() => clickHandler(statusStep.CONNECTED)}
             shape={"circle"}
-            className="bg-[#378C40]  outline -outline-offset-2 outline-8 outline-[#378c4040] hover:bg-[#297030]"
+            className="bg-[#378C40] border-none  outline -outline-offset-2 outline-8 outline-[#378c4040] hover:bg-[#297030]"
             style={{ width: 130, height: 130 }}
           >
             <CiPower size={60} />
           </Button>
-          <div className={"mt-5 font-[balooTamma] text-2xl "}>Connected</div>
+          <div
+            className={
+              "mt-5 font-[balooTamma] text-2xl dark:text-white text-[#6B6A6A]"
+            }
+          >
+            Connected
+          </div>
         </div>
       );
     } else {
@@ -98,13 +112,19 @@ export function ConnectButtonComponent() {
           <Button
             onClick={() => clickHandler(statusStep.DISCONNECT)}
             shape={"circle"}
-            className="relative disconnectedBtn  bg-white  outline -outline-offset-2 outline-8 outline-[#cfcfcf1a] hover:bg-[#D6D6D6] "
+            className="relative disconnectedBtn border-none dark:bg-white bg-[#AFAFAF] border-none  outline -outline-offset-2 outline-8 outline-[#cfcfcf1a] hover:bg-[#D6D6D6] "
             style={{ width: 130, height: 130 }}
           >
             <span className="absolute inset-0 outline-[#cfcfcf1a] outline-8 "></span>
             <CiPower size={60} style={{ transform: "rotate(180deg)" }} />
           </Button>
-          <div className={"mt-5 font-[balooTamma] text-2xl "}>Disconnect</div>
+          <div
+            className={
+              "mt-5 font-[balooTamma] text-2xl dark:text-white text-[#6B6A6A]"
+            }
+          >
+            Disconnect
+          </div>
         </div>
       );
     }

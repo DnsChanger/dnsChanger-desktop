@@ -49,9 +49,6 @@
 
 
 
-*[dir="rtl"] {
-    font-family: Vazir, serif;
-}
 body {
     font-family: Inter, serif
 }
@@ -104,6 +101,9 @@ html[data-theme="dark"]::-webkit-scrollbar {
 }
 html.dark {
     background-color: #212121
+}
+html.light {
+    background-color: #E6E6E6
 }
 html.dark .btm-nav  {
     background-color: #262626;

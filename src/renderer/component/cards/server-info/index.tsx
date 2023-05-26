@@ -24,6 +24,7 @@ export function ServerInfoCardComponent(prop: Prop) {
   useEffect(() => {
     if (serversStateContext.selected) {
       setSelectedServer(serversStateContext.selected);
+      setPing(0);
       window.ipc
         .ping(serversStateContext.selected)
         .then((res) => res.success && setPing(res.data.time));
@@ -32,7 +33,11 @@ export function ServerInfoCardComponent(prop: Prop) {
 
   if (!selectedServer) {
     return (
-      <div className={"bg-[#262626] h-[189px] w-[362px] mt-5 rounded-[23px]"}>
+      <div
+        className={
+          "dark:bg-[#262626] bg-base-200 h-[189px] w-[362px] mt-5 rounded-[23px]"
+        }
+      >
         <div className={"absolute left-[90px] top-[110px] flex flex-col gap-2"}>
           <div className={"flex flex-rows gap-2"}>
             <Avatar src={"assets/icon.png"} size={"xs"} className={"mb-2"} />
@@ -40,7 +45,7 @@ export function ServerInfoCardComponent(prop: Prop) {
               {LL.pages.home.homeTitle()}
             </h1>
           </div>
-          <hr className={"border-t-2  border-[#323232]"} />
+          <hr className={"border-t-2 border-[#A8A8A8] dark:border-[#323232]"} />
           <div className={"flex flex-rows gap-2 justify-center"}>
             {prop.loadingCurrentActive ? (
               <div className={"flex flex-rows gap-2"}>
@@ -51,7 +56,9 @@ export function ServerInfoCardComponent(prop: Prop) {
               <span></span>
             )}
           </div>
-          <span className={"text-gray-500 text-sm"}>version 1.7.0</span>
+          <span className={"text-[#787878] text-sm"}>
+            {LL.version()} {import.meta.env.VITE_VERSION}
+          </span>
         </div>
       </div>
     );
@@ -60,10 +67,14 @@ export function ServerInfoCardComponent(prop: Prop) {
   const isConnect =
     serversStateContext.currentActive?.key == selectedServer.key;
   return (
-    <div className="bg-[#262626] h-[189px] w-[362px] mt-5 rounded-[23px]">
-      <div className={"grid grid-cols-2 gap-4 mt-5"}>
+    <div className="dark:bg-[#262626] bg-base-200 h-[189px] w-[362px] mt-5 rounded-[23px]">
+      <div
+        className={
+          "grid grid-cols-2 gap-4 mt-5 text-[#434343] dark:text-[#A6A6A6]"
+        }
+      >
         <div className={"flex flex-col gap-2"}>
-          <h3 className={"font-bold tracking-widest"}>Name</h3>
+          <h3 className={"font-semibold text-gray-500"}>Name</h3>
 
           <div
             className={"w-100 text-center flex flex-row gap-2 justify-center"}
@@ -85,12 +96,12 @@ export function ServerInfoCardComponent(prop: Prop) {
           </div>
         </div>
         <div className={"flex flex-col gap-2 text-center  justify-center"}>
-          <h3 className={"font-bold tracking-widest"}>Ping</h3>
+          <h3 className={"font-semibold text-gray-500"}>Ping</h3>
 
           <div
             className={"w-100 flex flex-row gap-1   justify-center text-center"}
           >
-            {ping && getPingIcon(ping)}
+            {ping > 0 && getPingIcon(ping)}
             <span className="ml-1 inline-flex items-baseline text-sm">
               <span className="font-medium text-slate-900 dark:text-slate-200">
                 {ping}
@@ -99,7 +110,7 @@ export function ServerInfoCardComponent(prop: Prop) {
           </div>
         </div>
         <div className={"flex flex-col gap-2 text-center  justify-center"}>
-          <h3 className={"font-bold tracking-widest"}>Address</h3>
+          <h3 className={"font-semibold text-gray-500"}>Address</h3>
           <div
             className={"w-100 flex flex-row gap-2   justify-center text-center"}
           >
@@ -112,7 +123,7 @@ export function ServerInfoCardComponent(prop: Prop) {
               shape={"circle"}
               size={"xs"}
               className={
-                "bg-gray-800 hover:bg-gray-900 active:bg-green-400  border-none"
+                "bg-[#434343] dark:bg-[#fffff] dark:bg-gray-800  hover:bg-gray-900 active:bg-green-400  border-none"
               }
               onClick={() =>
                 navigator.clipboard.writeText(selectedServer.servers.join(","))
@@ -123,7 +134,7 @@ export function ServerInfoCardComponent(prop: Prop) {
           </div>
         </div>
         <div className={"flex flex-col gap-2 text-center  justify-center"}>
-          <h3 className={"font-bold tracking-widest"}>Status</h3>
+          <h3 className={"font-semibold  text-gray-500"}>Status</h3>
 
           <div
             className={"w-100 flex flex-row gap-1   justify-center text-center"}

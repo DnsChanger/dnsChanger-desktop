@@ -1,6 +1,6 @@
-import { BaseTranslation } from "../i18n-types";
+import { BaseTranslation, Translation } from "../i18n-types";
 
-const ru: BaseTranslation = {
+const ru: Translation = {
   pages: {
     home: {
       homeTitle: "Лучшее снятие санкций",
@@ -11,7 +11,8 @@ const ru: BaseTranslation = {
     },
     settings: {
       title: "Настройки",
-      autoRunningTitle: "Автоматическое выполнение программы при включении системы",
+      autoRunningTitle:
+        "Автоматическое выполнение программы при включении системы",
       langChanger: "Изменить язык",
       themeChanger: "менять тему",
     },
@@ -52,6 +53,7 @@ const ru: BaseTranslation = {
     invalid_dns2: "DNS-значение 2 недопустимо.",
     dns1_dns2_duplicates: "Значения DNS 1 и DNS 2 не должны совпадать.",
   },
+  version: "версия",
 };
 
 export default ru;

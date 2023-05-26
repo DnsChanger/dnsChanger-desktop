@@ -2,16 +2,16 @@
   "name": "dnschanger",
   "productName": "dnschanger",
   "version": "1.7.0",
+  "debug": {
+    "env": {
+      "VITE_VERSION": "edit env file",
+      "VITE_DEV_SERVER_URL": "http://127.0.0.1:7777/"
+    }
+  },
   "description": "Dns Changer for Windows, Mac and Linux operating systems",
   "main": "dist-electron/main/index.js",
   "repository": {
     "url": "https://github.com/DnsChanger/dnsChanger-desktop"
-  },
-  "debug": {
-    "env": {
-      "VITE_DEV_SERVER_URL": "http://127.0.0.1:7777/",
-      "version": "1.7.0"
-    }
   },
   "scripts": {
     "i18n": "typesafe-i18n",

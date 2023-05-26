@@ -60,25 +60,33 @@ export function App() {
         <PageWrapper>{currentPage.element}</PageWrapper>
         <BottomNavigation
           size="xs"
-          className="mb-2 -bottom-2 h-14"
+          className="mb-2 -bottom-2 h-14 bg-[#CCCCCC]"
           dir={settingStore.lng == "fa" ? "rtl" : "ltr"}
         >
           <div onClick={() => setCurrentPath("/")}>
             <TbSmartHome
               size={30}
-              className={`${InPath("/") ? "text-[#658DCA]" : ""}`}
+              className={`${InPath("/") ? "text-[#658DCA]" : "text-[#8D8D8D]"}`}
             />
             {InPath("/") && (
-              <Badge size={"xs"} className={"bg-[#658DCA]"}></Badge>
+              <Badge
+                size={"xs"}
+                className={"bg-[#658DCA] border-[#658DCA]"}
+              ></Badge>
             )}
           </div>
           <div onClick={() => setCurrentPath("/setting")}>
             <TbSettings
               size={30}
-              className={`${InPath("/setting") ? "text-[#658DCA]" : ""}`}
+              className={`${
+                InPath("/setting") ? "text-[#658DCA]" : "text-[#8D8D8D]"
+              }`}
             />
             {InPath("/setting") && (
-              <Badge size={"xs"} className={"bg-[#658DCA]"}></Badge>
+              <Badge
+                size={"xs"}
+                className={"bg-[#658DCA] border-[#658DCA]"}
+              ></Badge>
             )}
           </div>
         </BottomNavigation>

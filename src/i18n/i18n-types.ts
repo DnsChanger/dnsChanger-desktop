@@ -170,6 +170,10 @@ type RootTranslation = {
 		 */
 		dns1_dns2_duplicates: string
 	}
+	/**
+	 * ن​س​خ​ه
+	 */
+	version: string
 }
 
 export type TranslationFunctions = {
@@ -323,6 +327,10 @@ export type TranslationFunctions = {
 		 */
 		dns1_dns2_duplicates: () => LocalizedString
 	}
+	/**
+	 * نسخه
+	 */
+	version: () => LocalizedString
 }
 
 export type Formatters = {}
