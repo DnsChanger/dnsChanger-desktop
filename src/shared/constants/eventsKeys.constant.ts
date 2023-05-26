@@ -10,9 +10,9 @@ export enum EventsKeys {
   GET_CURRENT_ACTIVE = "dialogs:get_current_active",
   DELETE_DNS = "DELETE_DNS",
   TOGGLE_THEME = "ui:toggleTheme",
-  GET_SETTINGS = "dialogs:get_settings",
-  SAVE_SETTINGS = "dialogs:save_settings",
-  TOGGLE_START_UP = "dialogs:toggleStartUp",
+  GET_SETTINGS = "setting:get",
+  SAVE_SETTINGS = "setting:save",
+  TOGGLE_START_UP = "setting:toggleStartUp",
   FLUSHDNS = "dialogs:flushDns",
   PING = "dialogs:ping",
 }

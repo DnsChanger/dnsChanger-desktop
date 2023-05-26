@@ -139,30 +139,6 @@ ipcMain.handle(EventsKeys.GET_CURRENT_ACTIVE, async (): Promise<any> => {
   }
 });
 
-ipcMain.handle(EventsKeys.GET_SETTINGS, async () => {
-  const settings: Settings = {
-    startUp: false,
-    lng: store.get("settings").lng,
-  };
-
-  settings.startUp = await autoLauncher.isEnabled();
-  return settings;
-});
-
-ipcMain.handle(EventsKeys.TOGGLE_START_UP, async () => {
-  let startUp = await autoLauncher.isEnabled();
-
-  if (startUp) {
-    await autoLauncher.disable();
-    startUp = false;
-  } else {
-    await autoLauncher.enable();
-    startUp = true;
-  }
-
-  return startUp;
-});
-
 ipcMain.on(EventsKeys.OPEN_BROWSER, (ev, url) => {
   shell.openExternal(url);
 });
@@ -173,11 +149,6 @@ ipcMain.on(
     dialog.showErrorBox(title, message);
   }
 );
-
-ipcMain.handle(EventsKeys.SAVE_SETTINGS, function (event, data: Settings) {
-  store.set("settings", data);
-  return { success: true };
-});
 
 ipcMain.handle(EventsKeys.FLUSHDNS, async function (evet, _: any) {
   try {

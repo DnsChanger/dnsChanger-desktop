@@ -12,8 +12,9 @@ import { PageWrapper } from "./Wrappers/pages.wrapper";
 import { themeChanger } from "./utils/theme.util";
 
 export let settingStore: Settings = {
-  lng: "fa",
+  lng: "eng",
   startUp: false,
+  autoUpdate: false,
 };
 
 interface Page {
@@ -46,7 +47,7 @@ export function App() {
       loadLocaleAsync(settingStore.lng).then(() => setWasLoaded(true));
     });
 
-    themeChanger(localStorage.getItem("theme") || "system");
+    themeChanger(localStorage.getItem("theme") || "dark");
   }, []);
 
   if (!wasLoaded) return null;

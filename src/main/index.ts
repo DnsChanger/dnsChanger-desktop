@@ -99,8 +99,7 @@ ipcMain.handle("open-win", (_, arg) => {
   }
 });
 
+import "./ipc/setting";
 import "./ipc/ui";
 import "./ipc/notif";
 import "./ipc/dialogs";
-
-import path from "path";
