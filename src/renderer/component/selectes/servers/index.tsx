@@ -5,6 +5,7 @@ import { Server } from "@/shared/interfaces/server.interface";
 import { useContext, useEffect, useState } from "react";
 // eslint-disable-next-line import/no-unresolved
 import { serversContext } from "@/renderer/context/servers.context";
+import { ServersContext } from "@/renderer/interfaces/servers-context.interface";
 
 export function ServersListSelectComponent() {
   const serversStateContext = useContext(serversContext);
@@ -32,21 +33,24 @@ export function ServersListSelectComponent() {
       <Select.Option value={"default"} disabled={true} defaultValue={"default"}>
         Pick your favorite Server
       </Select.Option>
-
-      {serversStateContext.servers.map((server: Server) => {
-        return (
-          <Select.Option
-            value={server.key}
-            defaultValue={
-              server.key == serversStateContext.currentActive?.key
-                ? server.key
-                : null
-            }
-          >
-            {server.names.eng}
-          </Select.Option>
-        );
-      })}
+      {servers(serversStateContext)}
     </Select>
   );
+}
+
+function servers(serversStateContext: ServersContext): any {
+  return serversStateContext.servers.map((server: Server) => {
+    return (
+      <Select.Option
+        value={server.key}
+        defaultValue={
+          server.key == serversStateContext.currentActive?.key
+            ? server.key
+            : null
+        }
+      >
+        {server.names.eng}
+      </Select.Option>
+    );
+  });
 }

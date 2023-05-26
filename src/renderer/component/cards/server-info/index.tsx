@@ -11,7 +11,9 @@ import { serversContext } from "@/renderer/context/servers.context";
 import { Server } from "@/shared/interfaces/server.interface";
 
 import { useI18nContext } from "@/i18n/i18n-react";
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// eslint-disable-next-line import/no-unresolved
+import icon from "../../../../../assets/icon.png";
 interface Prop {
   loadingCurrentActive: boolean;
 }
@@ -40,7 +42,7 @@ export function ServerInfoCardComponent(prop: Prop) {
       >
         <div className={"absolute left-[90px] top-[110px] flex flex-col gap-2"}>
           <div className={"flex flex-rows gap-2"}>
-            <Avatar src={"assets/icon.png"} size={"xs"} className={"mb-2"} />
+            <Avatar src={icon} size={"xs"} className={"mb-2"} />
             <h1 className={"text-2xl mt-1 font-[balooTamma] text-[#7487FF]"}>
               {LL.pages.home.homeTitle()}
             </h1>
@@ -57,7 +59,7 @@ export function ServerInfoCardComponent(prop: Prop) {
             )}
           </div>
           <span className={"text-[#787878] text-sm"}>
-            {LL.version()} {import.meta.env.VITE_VERSION}
+            {LL.version()} {import.meta.env.PACKAGE_VERSION}
           </span>
         </div>
       </div>
@@ -80,12 +82,12 @@ export function ServerInfoCardComponent(prop: Prop) {
             className={"w-100 text-center flex flex-row gap-2 justify-center"}
           >
             <img
-              src={`/assets/servers-icon/${selectedServer.avatar}`}
+              src={`./servers-icon/${selectedServer.avatar}`}
               alt=""
               className="self-center w-5 h-5 rounded-full mr-1"
               onError={({ currentTarget }) => {
                 currentTarget.onerror = null; // prevents looping
-                currentTarget.src = "/assets/servers-icon/def.png";
+                currentTarget.src = "./servers-icon/def.png";
               }}
             />
             <span className="ml-1 inline-flex items-baseline text-sm">

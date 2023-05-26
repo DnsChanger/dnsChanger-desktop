@@ -2,7 +2,15 @@ import { app, BrowserWindow, shell, ipcMain } from "electron";
 import { release } from "node:os";
 import { join } from "node:path";
 import { getIconPath } from "./shared/getIconPath";
-
+import { update } from "./update";
+import { config } from "dotenv";
+config();
+if (process.env.ENV)
+  Object.defineProperty(app, "isPackaged", {
+    get() {
+      return true;
+    },
+  });
 process.env.DIST_ELECTRON = join(__dirname, "../");
 process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
 process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
@@ -22,7 +30,6 @@ let win: BrowserWindow | null = null;
 const preload = join(__dirname, "../preload/index.js");
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
-console.log(process.env.PUBLIC);
 async function createWindow() {
   win = new BrowserWindow({
     title: "DNS Changer",
@@ -40,7 +47,7 @@ async function createWindow() {
     center: true,
     show: true,
   });
-  win.setMenu(null);
+  //win.setMenu(null);
   win.webContents.openDevTools();
   if (url) {
     await win.loadURL(url);
@@ -56,6 +63,8 @@ async function createWindow() {
     if (url.startsWith("https:")) shell.openExternal(url);
     return { action: "deny" };
   });
+
+  update(win, app);
 }
 
 app.whenReady().then(createWindow);
