@@ -2,8 +2,6 @@ appId: dnschanger.github.io
 productName: DNS Changer (OpenSource)
 artifactName: "${productName}-${os}-${arch}-${version}.${ext}"
 files:
-  - "dist-electron"
-  - "dist"
   - "**/*"
   - "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme,test,__tests__,tests,powered-test,example,examples}"
   - "!**/node_modules/.bin"
