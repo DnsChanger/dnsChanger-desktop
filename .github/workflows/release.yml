@@ -1,7 +1,7 @@
 name: Release
 on:
-    push: 
-        branches: ["main"]
+    push:
+        branches: ["main","new-ui"]
         paths-ignore:
             - "README.md"
 jobs:
@@ -22,8 +22,8 @@ jobs:
 
       - name: Publish
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        run: npm run publish
+          GH_TOKEN: ${{ secrets.TOKEN }}
+        run: electron-builder --linux -p always
   publish_on_win:
     runs-on: windows-latest
     steps:
@@ -41,5 +41,5 @@ jobs:
 
       - name: Publish
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        run: npm run publish
+          GH_TOKEN: ${{ secrets.TOKEN }}
+        run: electron-builder --linux -p always
