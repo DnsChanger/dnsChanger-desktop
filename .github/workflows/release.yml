@@ -20,6 +20,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install electron-builder
+        run: npm i electron-builder -g
+
       - name: Publish
         env:
           GH_TOKEN: ${{ secrets.TOKEN }}
@@ -38,6 +41,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Install electron-builder
+        run: npm i electron-builder -g
 
       - name: Publish
         env:
