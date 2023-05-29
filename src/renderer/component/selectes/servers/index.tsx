@@ -30,7 +30,12 @@ export function ServersListSelectComponent() {
       borderOffset={true}
       onChange={(data) => setSelectedKey(data.target.value)}
     >
-      <Select.Option value={"default"} disabled={true} defaultValue={"default"}>
+      <Select.Option
+        value={"default"}
+        selected={true}
+        disabled={true}
+        defaultValue={"default"}
+      >
         Pick your favorite Server
       </Select.Option>
       {servers(serversStateContext)}
@@ -48,6 +53,7 @@ function servers(serversStateContext: ServersContext): any {
             ? server.key
             : null
         }
+        selected={server.key == serversStateContext.currentActive?.key}
       >
         {server.names.eng}
       </Select.Option>
