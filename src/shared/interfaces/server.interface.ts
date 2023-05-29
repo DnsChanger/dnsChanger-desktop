@@ -4,4 +4,5 @@ export interface Server {
   servers: string[];
   avatar: string;
   rate: number;
+  tags: string[];
 }

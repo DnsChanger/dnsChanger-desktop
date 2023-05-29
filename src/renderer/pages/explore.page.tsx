@@ -1,19 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
-import {
-  Avatar,
-  Chip,
-  IconButton,
-  Tooltip,
-  Typography,
-} from "@material-tailwind/react";
+import { Avatar } from "@material-tailwind/react";
 import axios from "axios";
 import { Server } from "@/shared/interfaces/server.interface";
 import { UrlsConstant } from "@/shared/constants/urls.constant";
-import { Button } from "react-daisyui";
+import { Badge, Button, Tooltip } from "react-daisyui";
 import { getPingIcon } from "@/renderer/utils/icons.util";
+const cacheBuster = (url: string) => `${url}?cb=${Date.now()}`;
 
 export function ExplorePage() {
-  const TABLE_HEAD = ["Name", "Address", "Ping", "-"];
+  const TABLE_HEAD = ["Name", "Address", "Tags", "Ping", "options"];
   const [TABLE_ROWS, SetTableRow] = useState<Server[]>([]);
   const [storeServers, setStoreServers] = useState<Server[]>([]);
 
@@ -25,7 +20,9 @@ export function ExplorePage() {
 
     async function updateHandler() {
       try {
-        const response = await axios.get<Server[]>(UrlsConstant.STORE);
+        const response = await axios.get<Server[]>(
+          cacheBuster(UrlsConstant.STORE)
+        );
         const servers = response.data.sort((a, b) => b.rate - a.rate);
         SetTableRow(servers);
       } catch (error) {}
@@ -38,7 +35,7 @@ export function ExplorePage() {
       <h1 className={"font-[balooTamma] text-4xl"}>Explore</h1>
       <div className="flex flex-col items-start gap-4 py-0 ">
         <div className="dark:bg-[#262626] bg-base-200 p-4 rounded-lg shadow w-[670px] h-[250px] overflow-auto overflow-y-auto">
-          <table className="mt-4 w-full min-w-max table-auto  text-left">
+          <table className="mt-4 w-full min-w-max table-auto  text-left ">
             <thead>
               <tr>
                 {TABLE_HEAD.map((head) => (
@@ -77,8 +74,9 @@ interface Prop {
   storeServers: Server[];
   setStoreServer: any;
 }
+
 function ServerTrComponent(prop: Prop) {
-  const { avatar, name, key, servers } = prop.server;
+  const { avatar, name, key, servers, tags } = prop.server;
   const storeServers = prop.storeServers;
   const [ping, setPing] = useState<number>(0);
   useEffect(() => {
@@ -123,9 +121,28 @@ function ServerTrComponent(prop: Prop) {
       </td>
       <td className={prop.classes}>
         <div className="flex flex-col">
-          <p className="font-normal font-light text-sm dark:text-white truncate w-52 opacity-70">
-            {servers.join(" , ")}
-          </p>
+          <Tooltip message={servers.join(",")}>
+            <p className="font-normal font-light text-[10px] dark:text-white truncate w-20 opacity-70">
+              {servers.join(" , ")}
+            </p>
+          </Tooltip>
+        </div>
+      </td>
+      <td className={prop.classes}>
+        <div className={"grid grid-cols-1 gap-2 h-10 overflow-auto"}>
+          {tags.map((tag) => {
+            return (
+              <Badge
+                size={"xs"}
+                className={
+                  "text-xs border-amber-300 border-[#7E7B5B] dark:text-white truncate  opacity-70"
+                }
+                variant={"outline"}
+              >
+                {tag}
+              </Badge>
+            );
+          })}
         </div>
       </td>
       <td className={prop.classes}>

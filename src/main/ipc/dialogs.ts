@@ -70,6 +70,7 @@ ipcMain.handle(EventsKeys.ADD_DNS, async (event, data: Partial<Server>) => {
     avatar: data.avatar,
     servers: data.servers,
     rate: data.rate || 0,
+    tags: data.tags || [],
   };
 
   const list: Server[] = store.get("dnsList") || [];
