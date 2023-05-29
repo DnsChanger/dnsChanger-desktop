@@ -27,8 +27,11 @@ export const ipcPreload = {
   saveSettings: (settings: SettingInStore) =>
     ipcRenderer.invoke(EventsKeys.SAVE_SETTINGS, settings),
   ping: (server: Server) => ipcRenderer.invoke(EventsKeys.PING, server),
+  checkUpdate: () => ipcRenderer.invoke(EventsKeys.CHECK_UPDATE),
+  startUpdate: () => ipcRenderer.invoke(EventsKeys.START_UPDATE),
+  on: (string: string, cb: any) => ipcRenderer.on(string, cb),
+  off: (string: string, cb: any) => ipcRenderer.on(string, cb),
 };
-
 
 export const uiPreload = {
   toggleTheme: (newTheme: string) =>
@@ -37,4 +40,3 @@ export const uiPreload = {
 
 contextBridge.exposeInMainWorld("ui", uiPreload);
 contextBridge.exposeInMainWorld("ipc", ipcPreload);
-

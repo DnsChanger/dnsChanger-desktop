@@ -4,13 +4,16 @@ import { join } from "node:path";
 import { getIconPath } from "./shared/getIconPath";
 import { update } from "./update";
 import { config } from "dotenv";
+import isDev from "electron-is-dev";
+
 config();
-if (process.env.ENV)
+if (isDev)
   Object.defineProperty(app, "isPackaged", {
     get() {
       return true;
     },
   });
+
 process.env.DIST_ELECTRON = join(__dirname, "../");
 process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
 process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
@@ -40,20 +43,21 @@ async function createWindow() {
       preload,
       nodeIntegration: true,
       contextIsolation: true,
-      devTools: true,
+      devTools: isDev,
     },
     darkTheme: true,
     resizable: false,
-    center: true,
+    center: !isDev, // => false
     show: true,
+    alwaysOnTop: isDev,
   });
-  //win.setMenu(null);
-  win.webContents.openDevTools();
+  win.setMenu(null);
   if (url) {
     await win.loadURL(url);
   } else {
     await win.loadFile(indexHtml);
   }
+  if (isDev) win.webContents.openDevTools();
 
   win.webContents.on("did-finish-load", () => {
     win?.webContents.send("main-process-message", new Date().toLocaleString());

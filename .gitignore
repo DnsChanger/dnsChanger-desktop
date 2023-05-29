@@ -95,3 +95,4 @@ dist-electron
 release
 dist
 .env
+dev-app-update.yml

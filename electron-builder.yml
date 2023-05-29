@@ -29,5 +29,5 @@ nodeGypRebuild: false
 
 publish:
   provider: github
-  owner: "sajjadmrx"
-  repo: "test-electron-updater"
+  owner: "DnsChanger"
+  repo: "dnsChanger-desktop"

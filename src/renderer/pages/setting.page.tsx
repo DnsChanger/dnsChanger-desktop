@@ -4,7 +4,7 @@ import { useI18nContext } from "../../i18n/i18n-react";
 import { settingStore } from "../app";
 import { Select, Option, Switch, Typography } from "@material-tailwind/react";
 import { getThemeSystem, themeChanger } from "../utils/theme.util";
-import { Button } from "react-daisyui";
+import { UpdateBtnComponent } from "@/renderer/component/buttons/update-btn.component";
 
 export function SettingPage() {
   const [startUp, setStartUp] = useState<boolean>(false);
@@ -96,13 +96,7 @@ export function SettingPage() {
             />
             <hr className={"border-gray-500"} />
             <div className={"flex flex-row"}>
-              <Button
-                size={"sm"}
-                className={"normal-case text-sm font-light"}
-                color={"ghost"}
-              >
-                check updates
-              </Button>
+              <UpdateBtnComponent />
             </div>
           </div>
         </div>

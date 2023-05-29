@@ -15,4 +15,8 @@ export enum EventsKeys {
   TOGGLE_START_UP = "setting:toggleStartUp",
   FLUSHDNS = "dialogs:flushDns",
   PING = "dialogs:ping",
+  CHECK_UPDATE = "CHECK_UPDATE",
+  START_UPDATE = "START_UPDATE",
+  UPDATE_PROGRESS = "UPDATE_PROGRESS",
+  UPDATE_ERROR = "UPDATE_ERROR",
 }
