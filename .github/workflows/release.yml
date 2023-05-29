@@ -1,9 +1,9 @@
 name: Release
 on:
-    push:
-        branches: ["main","new-ui"]
-        paths-ignore:
-            - "README.md"
+  push:
+    branches: ["main","new-ui"]
+    paths-ignore:
+      - "README.md"
 jobs:
   publish_on_linux:
     runs-on: ubuntu-latest
@@ -26,7 +26,7 @@ jobs:
       - name: Publish
         env:
           GH_TOKEN: ${{ secrets.TOKEN }}
-        run: electron-builder --linux -p always
+        run:  npm run publish:linux
   publish_on_win:
     runs-on: windows-latest
     steps:
@@ -48,4 +48,4 @@ jobs:
       - name: Publish
         env:
           GH_TOKEN: ${{ secrets.TOKEN }}
-        run: electron-builder --linux -p always
+        run: npm run publish:win

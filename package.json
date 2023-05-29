@@ -20,7 +20,8 @@
     "preview": "vite preview",
     "pree2e": "vite build --mode=test",
     "e2e": "playwright test",
-    "publish": "electron-builder --win -p always"
+    "publish:linux": "tsc && vite build && electron-builder --linux -p always",
+    "publish:win": "tsc && vite build && electron-builder --win -p always"
   },
   "keywords": [],
   "author": {
