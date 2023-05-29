@@ -47,6 +47,7 @@ function servers(serversStateContext: ServersContext): any {
   return serversStateContext.servers.map((server: Server) => {
     return (
       <Select.Option
+        key={server.key}
         value={server.key}
         defaultValue={
           server.key == serversStateContext.currentActive?.key
