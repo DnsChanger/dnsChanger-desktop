@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Badge, BottomNavigation } from "react-daisyui";
 import { TbSettings, TbSmartHome } from "react-icons/tb";
+import { MdOutlineExplore } from "react-icons/md";
 import { HomePage } from "./pages/home.page";
 import { SettingPage } from "./pages/setting.page";
 // eslint-disable-next-line import/no-unresolved
@@ -10,6 +11,8 @@ import TypesafeI18n from "../i18n/i18n-react";
 import { Settings } from "@/shared/interfaces/settings.interface";
 import { PageWrapper } from "./Wrappers/pages.wrapper";
 import { themeChanger } from "./utils/theme.util";
+import { IconType } from "react-icons";
+import { ExplorePage } from "@/renderer/pages/explore.page";
 
 export let settingStore: Settings = {
   lng: "eng",
@@ -20,14 +23,16 @@ export let settingStore: Settings = {
 interface Page {
   key: string;
   element: JSX.Element;
+  icon: IconType;
 }
 
 export function App() {
   const [wasLoaded, setWasLoaded] = useState(false);
 
   const pages: Array<Page> = [
-    { key: "/", element: <HomePage /> },
-    { key: "/setting", element: <SettingPage /> },
+    { key: "/", element: <ExplorePage />, icon: TbSmartHome },
+    { key: "/explore", element: <ExplorePage />, icon: MdOutlineExplore },
+    { key: "/setting", element: <SettingPage />, icon: TbSettings },
   ];
   const [currentPage, setCurrentPage] = useState<Page>(pages[0]);
   const [currentPath, setCurrentPath] = useState<string>("/");
@@ -64,32 +69,24 @@ export function App() {
           className="mb-2 -bottom-2 h-14 bg-[#CCCCCC]"
           dir={settingStore.lng == "fa" ? "rtl" : "ltr"}
         >
-          <div onClick={() => setCurrentPath("/")}>
-            <TbSmartHome
-              size={30}
-              className={`${InPath("/") ? "text-[#658DCA]" : "text-[#8D8D8D]"}`}
-            />
-            {InPath("/") && (
-              <Badge
-                size={"xs"}
-                className={"bg-[#658DCA] border-[#658DCA]"}
-              ></Badge>
-            )}
-          </div>
-          <div onClick={() => setCurrentPath("/setting")}>
-            <TbSettings
-              size={30}
-              className={`${
-                InPath("/setting") ? "text-[#658DCA]" : "text-[#8D8D8D]"
-              }`}
-            />
-            {InPath("/setting") && (
-              <Badge
-                size={"xs"}
-                className={"bg-[#658DCA] border-[#658DCA]"}
-              ></Badge>
-            )}
-          </div>
+          {pages.map((page) => {
+            return (
+              <div onClick={() => setCurrentPath(page.key)} key={page.key}>
+                {React.createElement(page.icon, {
+                  className: `${
+                    InPath(page.key) ? "text-[#658DCA]" : "text-[#8D8D8D]"
+                  }`,
+                  size: 30,
+                })}
+                {InPath(page.key) && (
+                  <Badge
+                    size={"xs"}
+                    className={"bg-[#658DCA] border-[#658DCA]"}
+                  ></Badge>
+                )}
+              </div>
+            );
+          })}
         </BottomNavigation>
       </TypesafeI18n>
     </div>
