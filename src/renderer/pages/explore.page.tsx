@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Avatar } from "@material-tailwind/react";
 import axios from "axios";
 import { Server } from "@/shared/interfaces/server.interface";
@@ -165,9 +165,7 @@ function ServerTrComponent(prop: Prop) {
         ) : (
           <Button
             size={"xs"}
-            className={
-              "normal-case bg-[#3fa67573] hover:bg-[#2d9d67d1] hover:text-white text-[#63C873] border-none"
-            }
+            className="normal-case bg-[#3fa67573] hover:bg-[#2d9d67d1] hover:text-white border-none"
             onClick={AddToListHandler}
           >
             Add to list
