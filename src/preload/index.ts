@@ -14,7 +14,8 @@ export const ipcPreload = {
   dialogError: (title: string, message: string) =>
     ipcRenderer.send(EventsKeys.DIALOG_ERROR, title, message),
   openBrowser: (url: string) => ipcRenderer.send(EventsKeys.OPEN_BROWSER, url),
-  addDns: (data: unknown) => ipcRenderer.invoke(EventsKeys.ADD_DNS, data),
+  addDns: (data: Partial<Server>) =>
+    ipcRenderer.invoke(EventsKeys.ADD_DNS, data),
   deleteDns: (server: Server) =>
     ipcRenderer.invoke(EventsKeys.DELETE_DNS, server),
   reloadServerList: (servers: Array<Server>) =>

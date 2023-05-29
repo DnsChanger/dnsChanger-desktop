@@ -45,10 +45,10 @@ ipcMain.handle(EventsKeys.CLEAR_DNS, async (event, server: Server) => {
   }
 });
 
-ipcMain.handle(EventsKeys.ADD_DNS, async (event, data) => {
+ipcMain.handle(EventsKeys.ADD_DNS, async (event, data: Partial<Server>) => {
   // validators ..
-  const nameServer1 = data.nameServers[0];
-  const nameServer2 = data.nameServers[1];
+  const nameServer1 = data.servers[0];
+  const nameServer2 = data.servers[1];
 
   const currentLng = LN[getCurrentLng()];
 
@@ -65,18 +65,21 @@ ipcMain.handle(EventsKeys.ADD_DNS, async (event, data) => {
     };
 
   const newServer: Server = {
-    key: uuid(),
+    key: data.key || uuid(),
     name: data.name,
-    avatar: "",
-    servers: data.nameServers,
-    rate: 0,
+    avatar: data.avatar,
+    servers: data.servers,
+    rate: data.rate || 0,
   };
 
   const list: Server[] = store.get("dnsList") || [];
+  const isDupKey = list.find((s) => s.key == newServer.key);
+  if (isDupKey) newServer.key = uuid();
+
   list.push(newServer);
 
   store.set("dnsList", list);
-  return { success: true, server: newServer };
+  return { success: true, server: newServer, servers: list };
 });
 
 ipcMain.handle(EventsKeys.DELETE_DNS, (ev: any, server: Server) => {

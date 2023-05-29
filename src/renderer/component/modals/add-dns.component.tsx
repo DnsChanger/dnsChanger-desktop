@@ -22,7 +22,7 @@ export function AddDnsModalComponent(props: Props) {
       if (!serverName || !nameServer1) return;
       const resp = await window.ipc.addDns({
         name: serverName,
-        nameServers: [nameServer1, nameServer2],
+        servers: [nameServer1, nameServer2],
       });
 
       if (resp.success) {

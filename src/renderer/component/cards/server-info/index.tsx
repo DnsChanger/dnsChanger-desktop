@@ -14,6 +14,7 @@ import { useI18nContext } from "@/i18n/i18n-react";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // eslint-disable-next-line import/no-unresolved
 import icon from "../../../../../assets/icon.png";
+import { getPingIcon } from "@/renderer/utils/icons.util";
 interface Prop {
   loadingCurrentActive: boolean;
 }
@@ -92,7 +93,7 @@ export function ServerInfoCardComponent(prop: Prop) {
             />
             <span className="ml-1 inline-flex items-baseline text-sm">
               <span className="font-medium text-slate-900 dark:text-slate-200 text-center">
-                {selectedServer.name}
+                {selectedServer.name || "Unknown"}
               </span>
             </span>
           </div>
@@ -158,19 +159,4 @@ export function ServerInfoCardComponent(prop: Prop) {
       </div>
     </div>
   );
-}
-
-function getPingIcon(ping: number): JSX.Element {
-  switch (true) {
-    case ping <= 100:
-      return <MdOutlineSignalCellularAlt className={"mt-0.5 text-[#40CF4E]"} />;
-    case ping <= 180:
-      return (
-        <MdOutlineSignalCellularAlt2Bar className={"mt-0.5 text-[#A6893F]"} />
-      );
-    default:
-      return (
-        <MdOutlineSignalCellularAlt1Bar className={"mt-0.5 text-[#A63F3F]"} />
-      );
-  }
 }
