@@ -16,6 +16,16 @@ directories:
 win:
   icon: "assets/icon.ico"
   requestedExecutionLevel: "highestAvailable"
+  publish:
+    - github
+linux:
+  icon: "assets/icon.png"
+  target:
+    - rpm
+    - deb
+  category: Utils
+  publish:
+    - github
 nsis:
   perMachine: true
   oneClick: true
