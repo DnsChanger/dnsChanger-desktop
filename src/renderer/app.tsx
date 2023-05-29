@@ -30,7 +30,7 @@ export function App() {
   const [wasLoaded, setWasLoaded] = useState(false);
 
   const pages: Array<Page> = [
-    { key: "/", element: <ExplorePage />, icon: TbSmartHome },
+    { key: "/", element: <HomePage />, icon: TbSmartHome },
     { key: "/explore", element: <ExplorePage />, icon: MdOutlineExplore },
     { key: "/setting", element: <SettingPage />, icon: TbSettings },
   ];

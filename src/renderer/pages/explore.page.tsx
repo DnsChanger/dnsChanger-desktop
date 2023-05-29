@@ -30,7 +30,7 @@ export function ExplorePage() {
 
   return (
     <div className="hero flex flex-col justify-center items-center">
-      <h1 className={"font-[balooTamma] text-4xl"}>Explorer</h1>
+      <h1 className={"font-[balooTamma] text-4xl"}>Explore</h1>
       <div className="flex flex-col items-start gap-4 py-0 ">
         <div className="dark:bg-[#262626] bg-base-200 p-4 rounded-lg shadow w-[670px] h-[250px] overflow-auto overflow-y-auto">
           <table className="mt-4 w-full min-w-max table-auto  text-left">
@@ -50,7 +50,7 @@ export function ExplorePage() {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(({ names, key, avatar, servers }, index) => {
+              {TABLE_ROWS.map(({ name, key, avatar, servers }, index) => {
                 const isLast = index === TABLE_ROWS.length - 1;
                 const classes = isLast
                   ? "p-4"
@@ -62,7 +62,7 @@ export function ExplorePage() {
                       <div className="flex items-center gap-3">
                         <Avatar
                           src={`./servers-icon/${avatar}`}
-                          alt={names.eng}
+                          alt={name}
                           size="sm"
                           onError={({ currentTarget }) => {
                             currentTarget.onerror = null; // prevents looping
@@ -75,7 +75,7 @@ export function ExplorePage() {
                             color="white"
                             className="font-normal"
                           >
-                            {names.eng}
+                            {name}
                           </Typography>
                         </div>
                       </div>

@@ -20,9 +20,7 @@ export function DeleteItemComponent(props: Props) {
     const response = await window.ipc.deleteDns(server);
 
     if (response.success) {
-      window.ipc.notif(
-        LL.dialogs.removed_server({ serverName: server.names.eng })
-      );
+      window.ipc.notif(LL.dialogs.removed_server({ serverName: server.name }));
       serversContextData.setServers(response.servers);
     } else {
       window.ipc.notif(response.message);

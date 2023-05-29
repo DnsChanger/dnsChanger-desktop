@@ -23,7 +23,7 @@ ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
       server,
       success: true,
       message: currentLng.pages.home.connected({
-        currentActive: server.names.eng,
+        currentActive: server.name,
       }),
     };
   } catch (e) {
@@ -66,12 +66,10 @@ ipcMain.handle(EventsKeys.ADD_DNS, async (event, data) => {
 
   const newServer: Server = {
     key: uuid(),
-    names: {
-      eng: data.name,
-      fa: data.name,
-    },
+    name: data.name,
     avatar: "",
     servers: data.nameServers,
+    rate: 0,
   };
 
   const list: Server[] = store.get("dnsList") || [];

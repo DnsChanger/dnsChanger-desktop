@@ -56,7 +56,7 @@ function servers(serversStateContext: ServersContext): any {
         }
         selected={server.key == serversStateContext.currentActive?.key}
       >
-        {server.names.eng}
+        {server.name}
       </Select.Option>
     );
   });

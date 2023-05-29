@@ -1,9 +1,7 @@
 export interface Server {
   key: string;
-  names: {
-    eng: string;
-    fa: string;
-  };
+  name: string;
   servers: string[];
   avatar: string;
+  rate: number;
 }

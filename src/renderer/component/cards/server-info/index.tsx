@@ -92,7 +92,7 @@ export function ServerInfoCardComponent(prop: Prop) {
             />
             <span className="ml-1 inline-flex items-baseline text-sm">
               <span className="font-medium text-slate-900 dark:text-slate-200 text-center">
-                {selectedServer.names.eng}
+                {selectedServer.name}
               </span>
             </span>
           </div>
