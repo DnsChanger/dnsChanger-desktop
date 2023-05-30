@@ -3,15 +3,14 @@ import { v4 as uuid } from "uuid";
 import { store } from "../store/store";
 import { ipcMain, shell, dialog } from "electron";
 
-import { autoLauncher, dnsService } from "../config";
-import { ResponseMessage } from "../constant/messages.constant";
+import { dnsService } from "../config";
 import { Server } from "../../shared/interfaces/server.interface";
-import { Settings } from "../../shared/interfaces/settings.interface";
 import { EventsKeys } from "../../shared/constants/eventsKeys.constant";
 import { isValidDnsAddress } from "../../shared/validators/dns.validator";
 import LN from "../../i18n/i18n-node";
 import { Locales } from "../../i18n/i18n-types";
 import pingLib from "ping";
+import { userLogger } from "../shared/logger";
 
 // todo Refactoring
 
@@ -26,8 +25,13 @@ ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
         currentActive: server.name,
       }),
     };
-  } catch (e) {
-    return { server, ...errorHandling(e) };
+  } catch (e: any) {
+    userLogger.error(e.stack, e.message);
+    return {
+      server,
+      success: false,
+      message: "Unknown error while connecting",
+    };
   }
 });
 
@@ -40,8 +44,9 @@ ipcMain.handle(EventsKeys.CLEAR_DNS, async (event, server: Server) => {
       success: true,
       message: currentLng.pages.home.disconnected(),
     };
-  } catch (e) {
-    return { server, ...errorHandling(e) };
+  } catch (e: any) {
+    userLogger.error(e.stack, e.message);
+    return { server, success: false, message: "Unknown error while clear DNS" };
   }
 });
 
@@ -136,8 +141,9 @@ ipcMain.handle(EventsKeys.GET_CURRENT_ACTIVE, async (): Promise<any> => {
     else {
       return { success: true, server };
     }
-  } catch (error) {
-    return errorHandling(error);
+  } catch (e: any) {
+    userLogger.error(e.stack, e.message);
+    return { success: false, message: "Unknown error while clear DNS" };
   }
 });
 
@@ -179,13 +185,6 @@ ipcMain.handle(EventsKeys.PING, async function (event, server: Server) {
     };
   }
 });
-
-function errorHandling(e: { message: string | number }) {
-  // @ts-ignore
-  const msg = ResponseMessage[e.message];
-
-  return { success: false, message: msg || "unknown error" };
-}
 
 function getCurrentLng(): Locales {
   return store.get("settings").lng;
