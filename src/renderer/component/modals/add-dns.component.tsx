@@ -20,10 +20,9 @@ export function AddDnsModalComponent(props: Props) {
   async function addHandler() {
     try {
       if (!serverName || !nameServer1) return;
-
       const resp = await window.ipc.addDns({
         name: serverName,
-        nameServers: [nameServer1, nameServer2],
+        servers: [nameServer1, nameServer2],
       });
 
       if (resp.success) {
@@ -43,10 +42,7 @@ export function AddDnsModalComponent(props: Props) {
 
   return (
     <React.Fragment>
-      <Modal open={props.isOpen}>
-        <Modal.Header className="font-bold">
-          {LL.buttons.favDnsServer()}
-        </Modal.Header>
+      <Modal open={props.isOpen} className={"px-10"}>
         <Button
           size="sm"
           shape="circle"

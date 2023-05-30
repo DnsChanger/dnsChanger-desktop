@@ -2,12 +2,10 @@ import { Dropdown } from "react-daisyui";
 import { useState, useContext } from "react";
 import { IoEllipsisVertical } from "react-icons/io5";
 
-import { AddCustomServerItem } from "./addServer.item";
 import { UpdateListItemComponent } from "./updatelist.item";
 import { serversContext } from "../../../context/servers.context";
 import { AddDnsModalComponent } from "../../modals/add-dns.component";
 import { ServersContext } from "../../../interfaces/servers-context.interface";
-import { FetchPingItem } from "./fetchPing.item";
 
 export function ServerListOptionsDropDownComponent() {
   const [isOpenModal, setIsOpenModal] = useState<boolean>();
@@ -25,8 +23,6 @@ export function ServerListOptionsDropDownComponent() {
       </Dropdown.Toggle>
       <Dropdown.Menu className={"absolute w-80"} dir={"auto"}>
         <UpdateListItemComponent />
-        <AddCustomServerItem onClick={toggleOpenModal} />
-        <FetchPingItem />
       </Dropdown.Menu>
       <AddDnsModalComponent
         isOpen={isOpenModal}

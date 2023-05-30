@@ -23,7 +23,7 @@ ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
       server,
       success: true,
       message: currentLng.pages.home.connected({
-        currentActive: server.names.eng,
+        currentActive: server.name,
       }),
     };
   } catch (e) {
@@ -45,10 +45,10 @@ ipcMain.handle(EventsKeys.CLEAR_DNS, async (event, server: Server) => {
   }
 });
 
-ipcMain.handle(EventsKeys.ADD_DNS, async (event, data) => {
+ipcMain.handle(EventsKeys.ADD_DNS, async (event, data: Partial<Server>) => {
   // validators ..
-  const nameServer1 = data.nameServers[0];
-  const nameServer2 = data.nameServers[1];
+  const nameServer1 = data.servers[0];
+  const nameServer2 = data.servers[1];
 
   const currentLng = LN[getCurrentLng()];
 
@@ -65,20 +65,22 @@ ipcMain.handle(EventsKeys.ADD_DNS, async (event, data) => {
     };
 
   const newServer: Server = {
-    key: uuid(),
-    names: {
-      eng: data.name,
-      fa: data.name,
-    },
-    avatar: "",
-    servers: data.nameServers,
+    key: data.key || uuid(),
+    name: data.name,
+    avatar: data.avatar,
+    servers: data.servers,
+    rate: data.rate || 0,
+    tags: data.tags || [],
   };
 
   const list: Server[] = store.get("dnsList") || [];
+  const isDupKey = list.find((s) => s.key == newServer.key);
+  if (isDupKey) newServer.key = uuid();
+
   list.push(newServer);
 
   store.set("dnsList", list);
-  return { success: true, server: newServer };
+  return { success: true, server: newServer, servers: list };
 });
 
 ipcMain.handle(EventsKeys.DELETE_DNS, (ev: any, server: Server) => {
@@ -139,30 +141,6 @@ ipcMain.handle(EventsKeys.GET_CURRENT_ACTIVE, async (): Promise<any> => {
   }
 });
 
-ipcMain.handle(EventsKeys.GET_SETTINGS, async () => {
-  const settings: Settings = {
-    startUp: false,
-    lng: store.get("settings").lng,
-  };
-
-  settings.startUp = await autoLauncher.isEnabled();
-  return settings;
-});
-
-ipcMain.handle(EventsKeys.TOGGLE_START_UP, async () => {
-  let startUp = await autoLauncher.isEnabled();
-
-  if (startUp) {
-    await autoLauncher.disable();
-    startUp = false;
-  } else {
-    await autoLauncher.enable();
-    startUp = true;
-  }
-
-  return startUp;
-});
-
 ipcMain.on(EventsKeys.OPEN_BROWSER, (ev, url) => {
   shell.openExternal(url);
 });
@@ -173,11 +151,6 @@ ipcMain.on(
     dialog.showErrorBox(title, message);
   }
 );
-
-ipcMain.handle(EventsKeys.SAVE_SETTINGS, function (event, data: Settings) {
-  store.set("settings", data);
-  return { success: true };
-});
 
 ipcMain.handle(EventsKeys.FLUSHDNS, async function (evet, _: any) {
   try {

@@ -5,4 +5,7 @@ export interface ServersContext {
   setServers: any;
   currentActive: Server | null;
   setCurrentActive: any;
+
+  selected: Server | null;
+  setSelected: any;
 }

@@ -1,25 +1,27 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "allowJs": true,
-    "module": "commonjs",
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": false,
     "skipLibCheck": true,
-    "esModuleInterop": true,
-    "noImplicitAny": true,
-    "sourceMap": true,
-    "baseUrl": ".",
-    "outDir": "dist",
-    "moduleResolution": "node",
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": "./",
     "paths": {
-      "*": [
-        "node_modules/*"
+      "@/*": [
+        "src/*"
       ]
     },
-    "experimentalDecorators": true,
-    "jsx": "react-jsx"
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src", "electron"],
+  "references": [{ "path": "./tsconfig.node.json"}]
 }

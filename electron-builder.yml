@@ -1,0 +1,43 @@
+appId: dnschanger.github.io
+productName: DNS Changer (OpenSource)
+artifactName: "${productName}-${os}-${arch}-${version}.${ext}"
+files:
+  - "**/*"
+  - "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme,test,__tests__,tests,powered-test,example,examples}"
+  - "!**/node_modules/.bin"
+  - "!**/*.{o,hprof,orig,pyc,pyo,rbc}"
+  - "!**/._*"
+  - "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,__pycache__,thumbs.db,.gitignore,.gitattributes,.editorconfig,.flowconfig,.yarn-metadata.json,.idea,appveyor.yml,.travis.yml,circle.yml,npm-debug.log,.nyc_output,yarn.lock,.yarn-integrity}"
+  - "!**/node_modules/search-index/si${/*}"
+asar: true
+compression: maximum
+directories:
+  output: "release/${version}"
+win:
+  icon: "assets/icon.ico"
+  requestedExecutionLevel: "highestAvailable"
+  publish:
+    - github
+linux:
+  icon: "assets/icon.png"
+  target:
+    - rpm
+    - deb
+  category: Utils
+  publish:
+    - github
+nsis:
+  perMachine: true
+  oneClick: true
+  installerIcon: "assets/icon.ico"
+  deleteAppDataOnUninstall: true
+  runAfterFinish: true
+  createDesktopShortcut: true
+  shortcutName: "DNS Changer"
+npmRebuild: true
+nodeGypRebuild: false
+
+publish:
+  provider: github
+  owner: "DnsChanger"
+  repo: "dnsChanger-desktop"

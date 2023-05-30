@@ -53,6 +53,7 @@ const eng: Translation = {
     invalid_dns2: "DNS value 2 is not valid.",
     dns1_dns2_duplicates: "DNS 1 and DNS 2 values must not be duplicates.",
   },
+  version: "version",
 };
 
 export default eng;

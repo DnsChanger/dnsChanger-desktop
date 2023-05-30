@@ -6,7 +6,7 @@ import { Server } from "../shared/interfaces/server.interface";
 import { EventsKeys } from "../shared/constants/eventsKeys.constant";
 import { SettingInStore } from "../shared/interfaces/settings.interface";
 
-const ipc = {
+export const ipcPreload = {
   setDns: (server: Server) => ipcRenderer.invoke(EventsKeys.SET_DNS, server),
   clearDns: () => ipcRenderer.invoke(EventsKeys.CLEAR_DNS),
   notif: (message: string) =>
@@ -14,7 +14,8 @@ const ipc = {
   dialogError: (title: string, message: string) =>
     ipcRenderer.send(EventsKeys.DIALOG_ERROR, title, message),
   openBrowser: (url: string) => ipcRenderer.send(EventsKeys.OPEN_BROWSER, url),
-  addDns: (data: unknown) => ipcRenderer.invoke(EventsKeys.ADD_DNS, data),
+  addDns: (data: Partial<Server>) =>
+    ipcRenderer.invoke(EventsKeys.ADD_DNS, data),
   deleteDns: (server: Server) =>
     ipcRenderer.invoke(EventsKeys.DELETE_DNS, server),
   reloadServerList: (servers: Array<Server>) =>
@@ -27,20 +28,16 @@ const ipc = {
   saveSettings: (settings: SettingInStore) =>
     ipcRenderer.invoke(EventsKeys.SAVE_SETTINGS, settings),
   ping: (server: Server) => ipcRenderer.invoke(EventsKeys.PING, server),
+  checkUpdate: () => ipcRenderer.invoke(EventsKeys.CHECK_UPDATE),
+  startUpdate: () => ipcRenderer.invoke(EventsKeys.START_UPDATE),
+  on: (string: string, cb: any) => ipcRenderer.on(string, cb),
+  off: (string: string, cb: any) => ipcRenderer.on(string, cb),
 };
 
-contextBridge.exposeInMainWorld("ipc", ipc);
-
-const ui = {
+export const uiPreload = {
   toggleTheme: (newTheme: string) =>
     ipcRenderer.send(EventsKeys.TOGGLE_THEME, newTheme),
 };
 
-contextBridge.exposeInMainWorld("ui", ui);
-
-declare global {
-  interface Window {
-    ipc: typeof ipc;
-    ui: typeof ui;
-  }
-}
+contextBridge.exposeInMainWorld("ui", uiPreload);
+contextBridge.exposeInMainWorld("ipc", ipcPreload);

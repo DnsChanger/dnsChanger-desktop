@@ -11,8 +11,9 @@ export const store = new electronStore<{
   defaults: {
     dnsList: serversConstant,
     settings: {
-      lng: "fa",
+      lng: "eng",
+      autoUpdate: true,
     },
   },
-  name: "dnsChangerStore",
+  name: "dnsChangerStore_1.8.0",
 });

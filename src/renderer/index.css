@@ -33,9 +33,24 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: Inter;
+
+    src: url("../../assets/fonts/inter/Inter-Medium.ttf");
+
+}
+
+@font-face {
+    font-family: balooTamma;
+
+    src: url("../../assets/fonts/BalooTamma/BalooTamma2-Bold.ttf");
+
+}
+
+
 
 body {
-    font-family: Vazir;
+    font-family: Inter, serif
 }
 
 /* scrolbar */
@@ -82,5 +97,41 @@ html[data-theme="dark"]::-webkit-scrollbar {
     100% {
         -webkit-transform: rotate(360deg);
         transform: rotate(360deg);
+    }
+}
+html.dark {
+    background-color: #212121
+}
+html.light {
+    background-color: #E6E6E6
+}
+html.dark .btm-nav  {
+    background-color: #262626;
+}
+
+
+.disconnectedBtn.relative::before  {
+    content: "";
+    border: 1px solid;
+    border-radius: 90px;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    bottom: -8px;
+    left: -8px;
+    animation: pulse 3s infinite;
+}
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
     }
 }

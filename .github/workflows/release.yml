@@ -1,9 +1,9 @@
 name: Release
 on:
-    push: 
-        branches: ["main"]
-        paths-ignore:
-            - "README.md"
+  push:
+    branches: ["main","new-ui"]
+    paths-ignore:
+      - "README.md"
 jobs:
   publish_on_linux:
     runs-on: ubuntu-latest
@@ -20,10 +20,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install electron-builder
+        run: npm i electron-builder -g
+
       - name: Publish
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        run: npm run publish
+          GH_TOKEN: ${{ secrets.TOKEN }}
+        run:  npm run publish:linux
   publish_on_win:
     runs-on: windows-latest
     steps:
@@ -39,7 +42,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install electron-builder
+        run: npm i electron-builder -g
+
       - name: Publish
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        run: npm run publish
+          GH_TOKEN: ${{ secrets.TOKEN }}
+        run: npm run publish:win

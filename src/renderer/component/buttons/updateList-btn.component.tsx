@@ -10,6 +10,7 @@ import { ActivityContext } from "../../interfaces/activty.interface";
 import { Server } from "../../../shared/interfaces/server.interface";
 import { useI18nContext } from "../../../i18n/i18n-react";
 import { UrlsConstant } from "../../../shared/constants/urls.constant";
+import { TfiReload } from "react-icons/tfi";
 
 const cacheBuster = (url: string) => `${url}?cb=${Date.now()}`;
 
@@ -24,13 +25,9 @@ export function UpdateListBtnComponent(prop: Props) {
   const { LL } = useI18nContext();
 
   async function updateHandler() {
-    if (activityContextData.isWaiting) return; //todo add toast
+    if (isLoading) return alert(LL.waiting()); //todo add toast
     try {
       setIsLoading(true);
-
-      activityContextData.setStatus(LL.dialogs.fetching_data_from_repo());
-
-      activityContextData.setIsWaiting(true);
 
       const response = await axios.get<Server[]>(
         cacheBuster(UrlsConstant.STORE)
@@ -41,21 +38,18 @@ export function UpdateListBtnComponent(prop: Props) {
       prop.setServers(uniqList);
     } catch (error) {
     } finally {
-      activityContextData.setIsWaiting(false);
-      activityContextData.setStatus("");
       setIsLoading(false);
     }
   }
 
   return (
     <Button
-      color="error"
-      className="text-white"
-      size="xs"
+      shape={"circle"}
+      size={"sm"}
+      className={"bg-[#B3B3B3] dark:bg-[#383838] border-none text-center"}
       onClick={() => updateHandler()}
     >
-      <FaRedoAlt className={`mr-2 ${isLoading ? "spinner" : ""}`} />
-      {LL.buttons.update()}
+      <TfiReload className={` ${isLoading ? "spinner" : ""}`} />
     </Button>
   );
 }

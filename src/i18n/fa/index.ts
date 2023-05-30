@@ -52,6 +52,7 @@ const fa: BaseTranslation = {
     invalid_dns2: "آدرس سرور 2 نامعتبر است.",
     dns1_dns2_duplicates: "آدرس سرورهای 1 و 2 نباید تکراری باشند.",
   },
+  version: "نسخه",
 };
 
 export default fa;

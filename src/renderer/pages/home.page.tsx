@@ -1,31 +1,26 @@
-import { useEffect, useState } from "react";
+import { Button } from "react-daisyui";
+import {
+  MdOutlineSignalCellularAlt,
+  MdOutlineAddModerator,
+} from "react-icons/md";
+import { Server } from "@/shared/interfaces/server.interface";
+import { TfiReload } from "react-icons/tfi";
 import { serversContext } from "../context/servers.context";
-import { activityContext } from "../context/activty.context";
-import { ServersComponent } from "../component/servers/servers";
-import { Server } from "../../shared/interfaces/server.interface";
-import { ServerListOptionsDropDownComponent } from "../component/dropdowns/serverlist-options/serverlist-options.component";
-import { useI18nContext } from "../../i18n/i18n-react";
-import { HiOutlineShieldCheck } from "react-icons/hi";
-import { Link } from "react-daisyui";
+import { useEffect, useState } from "react";
+// eslint-disable-next-line import/no-unresolved
+import { ConnectButtonComponent } from "@/renderer/component/buttons/connect-btn.component";
+// eslint-disable-next-line import/no-unresolved
+import { ServersListSelectComponent } from "@/renderer/component/selectes/servers";
+import { ServerInfoCardComponent } from "@/renderer/component/cards/server-info";
+import { UpdateListBtnComponent } from "@/renderer/component/buttons/updateList-btn.component";
+import { AddCustomBtnComponent } from "@/renderer/component/buttons/add-custom-btn-component";
 
 export function HomePage() {
-  const [currentActive, setCurrentActive] = useState<Server | null>(null);
-  const [isWaiting, setIsWaiting] = useState<boolean>(false);
-  const [status, setStatus] = useState<string>("");
-  const [reqPing, setReqPing] = useState<boolean | null>(null);
   const [serversState, setServers] = useState<Server[]>([]);
-
-  const { LL, locale } = useI18nContext();
-
-  const values = {
-    isWaiting,
-    setIsWaiting,
-    status,
-    setStatus,
-    reqPing,
-    setReqPing,
-  };
-
+  const [currentActive, setCurrentActive] = useState<Server | null>(null);
+  const [selectedServer, setSelectedServer] = useState<Server | null>(null);
+  const [loadingCurrentActive, setLoadingCurrentActive] =
+      useState<boolean>(true);
   useEffect(() => {
     async function fetchDnsList() {
       const response = await window.ipc.fetchDnsList();
@@ -34,102 +29,68 @@ export function HomePage() {
 
     fetchDnsList();
   }, []);
+
   useEffect(() => {
     async function getCurrentActive() {
-      const response = await window.ipc.getCurrentActive();
-      if (response.success) setCurrentActive(response.server);
+      try {
+        const response = await window.ipc.getCurrentActive();
+        if (response.success) {
+          setCurrentActive(response.server);
+          setSelectedServer(response.server);
+        }
+      } finally {
+        setLoadingCurrentActive(false);
+      }
     }
 
     getCurrentActive();
   }, []);
-  return (
-    <activityContext.Provider value={values}>
-      <div className="hero">
-        <div className="px-0 sm:p-4 hero-content text-center max-w-[500px]   mb-1 ">
-          <div className="max-w-full sm:pt-[100px] sm:pb-[100px] sm:pr-[30px] sm:pl-[30px] p-1">
-            <div
-              className={"grid justify-center mb-10"}
-              dir={`${locale == "fa" ? "rtl" : "ltr"}`}
-            >
-              <h1 className="text-4xl font-bold mb-2">
-                {LL.pages.home.homeTitle()}
-              </h1>
-              <span>
-                آخرین ورژن رو{"    "}
-                <u
-                  className={"text-info hover:cursor-pointer"}
-                  onClick={() =>
-                    window.ipc.openBrowser(
-                      "https://github.com/DnsChanger/dnsChanger-desktop/releases/latest"
-                    )
-                  }
-                >
-                  دانلود {"    "}
-                </u>
-                کنید
-              </span>
 
-              <div className="gap-2 items-center h-2">
-                {currentActive && (
-                  <div className="text-green-500 flex flex-row gap-1 justify-center">
-                    <HiOutlineShieldCheck
-                      style={{ display: "inline" }}
-                      className="mt-1"
-                    />
-                    {currentActive.key == "unknown" ? (
-                      <span> {LL.pages.home.unknownServer()}</span>
-                    ) : (
-                      <p
-                        dangerouslySetInnerHTML={{
-                          __html: LL.pages.home.connectedHTML({
-                            currentActive: currentActive.names.eng,
-                          }),
-                        }}
-                      ></p>
-                    )}
+  return (
+      <div className="container">
+        <serversContext.Provider
+            value={{
+              servers: serversState,
+              setServers: setServers,
+              currentActive: currentActive,
+              setCurrentActive,
+              selected: selectedServer,
+              setSelected: setSelectedServer,
+            }}
+        >
+          <div className="px-0 sm:p-4 hero-content text-center max-w-[500px]   mb-1 ">
+            <div className="max-w-full sm:pt-[100px] sm:pb-[100px] sm:pr-[30px] sm:pl-[30px] p-1">
+              <div className={"flex flex-row gap-10"}>
+                <div className={"absolute right-[550px] flex-grow-0"}>
+                  <div className={"flex flex-col"}>
+                    <ConnectButtonComponent />
                   </div>
-                )}
+                </div>
+                <div className={"absolute right-[50px] top-[100px]"}>
+                  <div className={"flex flex-col"}>
+                    <div
+                        className={
+                          "absolute bottom-[217px] right-12 flex flex-row gap-1"
+                        }
+                    >
+                      <UpdateListBtnComponent
+                          servers={serversState}
+                          setServers={setServers}
+                      />
+                      <AddCustomBtnComponent />
+                    </div>
+                    <div className={"flex-none"}>
+                      <ServersListSelectComponent />
+                    </div>
+                    <ServerInfoCardComponent
+                        loadingCurrentActive={loadingCurrentActive}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
-
-            <serversContext.Provider
-              value={{
-                servers: serversState,
-                setServers,
-                currentActive,
-                setCurrentActive,
-              }}
-            >
-              <div
-                className={
-                  "border dark:border-gray-500 border-x-0 rounded-2xl  shadow-2xl px-1"
-                }
-              >
-                <div className="mt-2 flex flex-grow gap-2 mb-0 top-1">
-                  <ServerListOptionsDropDownComponent />
-                  {/* <Badge className='text-emerald-600 gap-3'>
-                                        <BsWifi2 />
-                                        اینترنت شما وصل است</Badge> */}
-                </div>
-                <div className={"card items-center card-body"}>
-                  <div className={"overflow-y-auto h-[200px] w-[350px]"}>
-                    <div className={"grid grid-cols-1  p-2 gap-2"}>
-                      <ServersComponent />
-                    </div>
-                  </div>
-                  <div>
-                    {status && (
-                      <p className="text-red-400 absolute bottom-[10px] right-2 animate-pulse">
-                        {status}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </serversContext.Provider>
           </div>
-        </div>
+        </serversContext.Provider>
       </div>
-    </activityContext.Provider>
   );
 }
