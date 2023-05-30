@@ -6,6 +6,7 @@ import { Server } from "../../shared/interfaces/server.interface";
 import { ServerListOptionsDropDownComponent } from "../component/dropdowns/serverlist-options/serverlist-options.component";
 import { useI18nContext } from "../../i18n/i18n-react";
 import { HiOutlineShieldCheck } from "react-icons/hi";
+import { Link } from "react-daisyui";
 
 export function HomePage() {
   const [currentActive, setCurrentActive] = useState<Server | null>(null);
@@ -53,6 +54,20 @@ export function HomePage() {
               <h1 className="text-4xl font-bold mb-2">
                 {LL.pages.home.homeTitle()}
               </h1>
+              <span>
+                آخرین ورژن رو{"    "}
+                <u
+                  className={"text-info hover:cursor-pointer"}
+                  onClick={() =>
+                    window.ipc.openBrowser(
+                      "https://github.com/DnsChanger/dnsChanger-desktop/releases/latest"
+                    )
+                  }
+                >
+                  دانلود {"    "}
+                </u>
+                کنید
+              </span>
 
               <div className="gap-2 items-center h-2">
                 {currentActive && (

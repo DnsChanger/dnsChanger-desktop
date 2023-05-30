@@ -1,7 +1,7 @@
 {
   "name": "dnschanger",
   "productName": "dnschanger",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "Dns Changer for Windows, Mac and Linux operating systems",
   "main": ".webpack/main",
   "repository": {
