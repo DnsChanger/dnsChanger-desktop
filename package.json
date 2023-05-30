@@ -45,6 +45,7 @@
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
     "@vercel/webpack-asset-relocator-loader": "^1.7.3",
+    "@vitejs/plugin-react": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.3",
     "daisyui": "^2.50.2",
@@ -69,7 +70,6 @@
     "vite-plugin-electron-renderer": "^0.14.5"
   },
   "dependencies": {
-    "@electron-forge/publisher-github": "^6.0.5",
     "auto-launch": "^5.0.5",
     "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
