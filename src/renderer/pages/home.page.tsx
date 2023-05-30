@@ -82,7 +82,7 @@ export function HomePage() {
                       <p
                         dangerouslySetInnerHTML={{
                           __html: LL.pages.home.connectedHTML({
-                            currentActive: currentActive.names[locale],
+                            currentActive: currentActive.names.eng,
                           }),
                         }}
                       ></p>
