@@ -49,11 +49,6 @@ function servers(serversStateContext: ServersContext): any {
       <Select.Option
         key={server.key}
         value={server.key}
-        defaultValue={
-          server.key == serversStateContext.currentActive?.key
-            ? server.key
-            : null
-        }
         selected={server.key == serversStateContext.currentActive?.key}
       >
         {server.name}
