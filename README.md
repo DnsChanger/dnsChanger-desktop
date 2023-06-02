@@ -1,4 +1,5 @@
 
+
 # ✍️ معرفی
 
 
@@ -47,6 +48,9 @@ https://www.virustotal.com/gui/file/a2540db91518e784b9b0f55172487aaaedb50abd8089
 شما میتونید [لاگ تغییرات](changelog.md) رو برای اطلاعات بیشتر و تغییرات اخیر مشاهده کنید
 
 ## 🛠️ همکاری
+folder structure:
+- [ui](https://github.com/DnsChanger/dnsChanger-desktop/tree/main/src/renderer)
+- [main](https://github.com/DnsChanger/dnsChanger-desktop/tree/main/src/main)
 
 1.
 
