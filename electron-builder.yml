@@ -23,7 +23,15 @@ linux:
   target:
     - rpm
     - deb
-  category: Utils
+  category: Utilities
+  publish:
+    - github
+mac:
+  icon: "assets/icon.png"
+  target:
+    - dmg
+    - zip
+  category: Utilities
   publish:
     - github
 nsis:
