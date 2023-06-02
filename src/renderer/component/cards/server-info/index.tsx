@@ -52,7 +52,7 @@ export function ServerInfoCardComponent(prop: Prop) {
           <div className={"flex flex-rows gap-2 justify-center"}>
             {prop.loadingCurrentActive ? (
               <div className={"flex flex-rows gap-2"}>
-                <AiOutlineLoading3Quarters className={"spinner mt-1"} />
+                <span className="loading loading-ring loading-xs"></span>
                 <span className={"text-[#7B7B7B]"}>
                   fetch current active...
                 </span>

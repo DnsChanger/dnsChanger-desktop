@@ -48,7 +48,7 @@
     "@vitejs/plugin-react": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.3",
-    "daisyui": "^2.50.2",
+    "daisyui": "^3.0.1",
     "electron": "23.1.0",
     "electron-builder": "^23.6.0",
     "eslint": "^8.34.0",
