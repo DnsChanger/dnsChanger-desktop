@@ -18,7 +18,7 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --force
 
       - name: Install electron-builder
         run: npm i electron-builder -g
@@ -40,7 +40,7 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --force
 
       - name: Install electron-builder
         run: npm i electron-builder -g
@@ -62,7 +62,7 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --force
 
       - name: Install electron-builder
         run: npm i electron-builder -g
