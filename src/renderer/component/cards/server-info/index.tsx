@@ -53,7 +53,9 @@ export function ServerInfoCardComponent(prop: Prop) {
             {prop.loadingCurrentActive ? (
               <div className={"flex flex-rows gap-2"}>
                 <AiOutlineLoading3Quarters className={"spinner mt-1"} />
-                <span className={"text-[#7B7B7B]"}>fetch curren active...</span>
+                <span className={"text-[#7B7B7B]"}>
+                  fetch current active...
+                </span>
               </div>
             ) : (
               <span></span>

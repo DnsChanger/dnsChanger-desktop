@@ -9,15 +9,16 @@ import { ServersContext } from "@/renderer/interfaces/servers-context.interface"
 
 export function ServersListSelectComponent() {
   const serversStateContext = useContext(serversContext);
-  const [selectedKey, setSelectedKey] = useState<string | undefined>(undefined);
+  const [selectedKey, setSelectedKey] = useState<string | undefined>("default");
   useEffect(() => {
-    if (selectedKey && serversStateContext.servers.length) {
+    if (selectedKey != "default" && serversStateContext.servers.length) {
       const server = serversStateContext.servers.find(
         (ser) => ser.key == selectedKey
       );
       if (server) {
         serversStateContext.setSelected(server);
       }
+    } else {
     }
   }, [selectedKey]);
 
@@ -32,9 +33,8 @@ export function ServersListSelectComponent() {
     >
       <Select.Option
         value={"default"}
-        selected={true}
+        selected={selectedKey == "default"}
         disabled={true}
-        defaultValue={"default"}
       >
         Pick your favorite Server
       </Select.Option>
@@ -49,7 +49,7 @@ function servers(serversStateContext: ServersContext): any {
       <Select.Option
         key={server.key}
         value={server.key}
-        selected={server.key == serversStateContext.currentActive?.key}
+        selected={server.key == serversStateContext.selected?.key}
       >
         {server.name}
       </Select.Option>

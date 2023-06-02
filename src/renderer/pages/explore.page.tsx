@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Avatar } from "@material-tailwind/react";
+import {
+  Avatar,
+  List,
+  ListItem,
+  ListItemPrefix,
+  Popover,
+  PopoverContent,
+  PopoverHandler,
+  Rating,
+} from "@material-tailwind/react";
 import axios from "axios";
 import { Server } from "@/shared/interfaces/server.interface";
 import { UrlsConstant } from "@/shared/constants/urls.constant";
 import { Badge, Button, Tooltip } from "react-daisyui";
 import { getPingIcon } from "@/renderer/utils/icons.util";
+import { FiCopy } from "react-icons/fi";
 const cacheBuster = (url: string) => `${url}?cb=${Date.now()}`;
 
 export function ExplorePage() {
@@ -32,7 +42,7 @@ export function ExplorePage() {
 
   return (
     <div className="hero flex flex-col justify-center items-center">
-      <h1 className={"font-[balooTamma] text-4xl"}>Explore</h1>
+      <h1 className={"font-[balooTamma] text-4xl mb-2"}>Explore</h1>
       <div className="flex flex-col items-start gap-4 py-0 ">
         <div className="dark:bg-[#262626] bg-base-200 p-4 rounded-lg shadow w-[670px] h-[250px] overflow-auto overflow-y-auto">
           <table className="mt-4 w-full min-w-max table-auto  text-left ">
@@ -50,7 +60,9 @@ export function ExplorePage() {
             <tbody>
               {TABLE_ROWS.map((server, index) => {
                 const isLast = index === TABLE_ROWS.length - 1;
-                const classes = isLast ? "p-4" : "p-4 border-b border-gray-800";
+                const classes = isLast
+                  ? "p-4"
+                  : "p-4 border-b border-gray-400 rounded dark:border-gray-800";
                 return (
                   <ServerTrComponent
                     server={server}
@@ -76,9 +88,10 @@ interface Prop {
 }
 
 function ServerTrComponent(prop: Prop) {
-  const { avatar, name, key, servers, tags } = prop.server;
+  const { avatar, name, key, servers, tags, rate } = prop.server;
   const storeServers = prop.storeServers;
   const [ping, setPing] = useState<number>(0);
+  const ratingValue: number = Number((rate / 2).toFixed());
   useEffect(() => {
     window.ipc
       .ping(prop.server)
@@ -113,7 +126,7 @@ function ServerTrComponent(prop: Prop) {
             }}
           />
           <div className="flex flex-col">
-            <p className="font-normal font-light text-sm dark:text-white truncate w-32">
+            <p className="font-normal font-light text-sm dark:text-white truncate w-32 opacity-70">
               {name}
             </p>
           </div>
@@ -121,11 +134,47 @@ function ServerTrComponent(prop: Prop) {
       </td>
       <td className={prop.classes}>
         <div className="flex flex-col">
-          <Tooltip message={servers.join(",")}>
-            <p className="font-normal font-light text-[10px] dark:text-white truncate w-20 opacity-70">
-              {servers.join(" , ")}
-            </p>
-          </Tooltip>
+          {/*<Tooltip message={servers.join(",")}>*/}
+          <Popover placement="right-start">
+            <PopoverHandler>
+              <u className="font-normal font-light text-[10px] dark:text-white truncate w-20 opacity-70 cursor-pointer">
+                {servers.join(" , ")}
+              </u>
+            </PopoverHandler>
+            <PopoverContent className="w-72 dark:bg-[#272727] dark:border-gray-700 shadow-lg">
+              <List className="p-0 dark:text-gray-400">
+                <a href="#" className="text-initial w-60">
+                  <ListItem
+                    className={"text-xs"}
+                    onClick={(event) =>
+                      navigator.clipboard.writeText(servers.join(","))
+                    }
+                  >
+                    <ListItemPrefix>
+                      <FiCopy />
+                    </ListItemPrefix>
+                    {servers.join(" , ")}
+                  </ListItem>
+                </a>
+                <a href="#" className="text-initial w-60">
+                  <ListItem
+                    className={"text-xs cursor-default"}
+                    onClick={(event) =>
+                      navigator.clipboard.writeText(servers.join(","))
+                    }
+                  >
+                    <ListItemPrefix>Rate</ListItemPrefix>
+                    <Rating
+                      className={"cursor-default"}
+                      value={ratingValue}
+                      readonly={true}
+                    />
+                  </ListItem>
+                </a>
+              </List>
+            </PopoverContent>
+          </Popover>
+          {/*</Tooltip>*/}
         </div>
       </td>
       <td className={prop.classes}>
@@ -134,9 +183,8 @@ function ServerTrComponent(prop: Prop) {
             return (
               <Badge
                 size={"xs"}
-                className={
-                  "text-xs border-amber-300 border-[#7E7B5B] dark:text-white truncate  opacity-70"
-                }
+                className="text-xs border-amber-300 text-gray-600 dark:text-gray-500 truncate p-2
+                border-gray-500"
                 variant={"outline"}
               >
                 {tag}
@@ -156,19 +204,19 @@ function ServerTrComponent(prop: Prop) {
           <Button
             size={"xs"}
             className={
-              "normal-case bg-[#a5242485] hover:bg-[#891717d1] border-none"
+              "normal-case bg-[#a5242485] hover:bg-[#891717d1] border-none font-light"
             }
             onClick={DeleteHandler}
           >
-            Remove
+            remove
           </Button>
         ) : (
           <Button
             size={"xs"}
-            className="normal-case bg-[#3fa67573] hover:bg-[#2d9d67d1] hover:text-white border-none"
+            className="normal-case bg-[#3fa67573] hover:bg-[#2d9d67d1] hover:text-white font-light text-gray-100 dark:text-gray-400 border-none text-opacity-80"
             onClick={AddToListHandler}
           >
-            Add to list
+            add to favorite
           </Button>
         )}
       </td>
