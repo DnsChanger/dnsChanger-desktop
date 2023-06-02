@@ -2,9 +2,8 @@
 
 # ✍️ معرفی
 
-
 <p align="center">
-    <img src="https://media.discordapp.net/attachments/1061003400159952948/1080814684481011762/dns-4.png" alt="dnsChanger screenshot 1" width="600">
+    <img src=".github/banner.png" alt="dnsChanger banner" width="600">
 </p>
 
 <p align="center">
@@ -16,6 +15,7 @@
     <img src="https://img.shields.io/github/stars/dnsChanger/dnsChanger-desktop" alt="stars">
     <img src="https://img.shields.io/github/downloads/DnsChanger/dnsChanger-desktop/total.svg" alt="total" >
     <img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square" alt="prettier" >
+    <img src="https://img.shields.io/badge/antivirus-PASS-green" alt="antivirus" >
 </p>
 
 
