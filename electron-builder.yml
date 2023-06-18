@@ -1,5 +1,5 @@
 appId: dnschanger.github.io
-productName: DNS Changer (OpenSource)
+productName: DNS Changer
 artifactName: "${productName}-${os}-${arch}-${version}.${ext}"
 files:
   - "**/*"
