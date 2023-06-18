@@ -50,7 +50,10 @@
 
 
 body {
-    font-family: Inter, serif
+    font-family: Inter, serif;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
 
 /* scrolbar */
