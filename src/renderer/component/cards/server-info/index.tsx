@@ -128,7 +128,7 @@ export function ServerInfoCardComponent(prop: Prop) {
               shape={"circle"}
               size={"xs"}
               className={
-                "bg-[#434343] dark:bg-[#fffff] dark:bg-gray-800  hover:bg-gray-900 active:bg-green-400  border-none"
+                "bg-[#c4c0c0] dark:bg-[#fffff] dark:bg-gray-800  hover:bg-gray-900 active:bg-green-400  border-none"
               }
               onClick={() =>
                 navigator.clipboard.writeText(selectedServer.servers.join(","))
@@ -147,7 +147,9 @@ export function ServerInfoCardComponent(prop: Prop) {
             {
               <Badge
                 className={`mt-1 border-2 ${
-                  isConnect ? "border-[#2c462bd9]" : "border-[#462b2bd9]"
+                  isConnect
+                    ? "dark:border-[#2c462bd9]"
+                    : "border-[#f1bfbf] dark:border-[#462b2bd9]"
                 }`}
                 color={isConnect ? "success" : "error"}
                 size={"xs"}

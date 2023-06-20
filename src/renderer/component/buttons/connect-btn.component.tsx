@@ -102,7 +102,7 @@ export function ConnectButtonComponent() {
             className="bg-[#378C40] border-none  outline -outline-offset-2 outline-8 outline-[#378c4040] hover:bg-[#297030]"
             style={{ width: 130, height: 130 }}
           >
-            <CiPower size={60} />
+            <CiPower size={60} className={"text-gray-300 dark:text-gray-500"} />
           </Button>
           <div
             className={
@@ -120,11 +120,16 @@ export function ConnectButtonComponent() {
           <Button
             onClick={() => clickHandler(statusStep.DISCONNECT)}
             shape={"circle"}
-            className="relative disconnectedBtn border-none dark:bg-white bg-[#AFAFAF] border-none  outline -outline-offset-2 outline-8 outline-[#cfcfcf1a] hover:bg-[#D6D6D6] "
+            className="relative disconnectedBtn border-none dark:bg-white bg-[#AFAFAF] border-none
+             outline -outline-offset-2 outline-8 outline-[#cfcfcf1a] hover:bg-[#AAA9A9] dark:hover:bg-gray-300 "
             style={{ width: 130, height: 130 }}
           >
             <span className="absolute inset-0 outline-[#cfcfcf1a] outline-8 "></span>
-            <CiPower size={60} style={{ transform: "rotate(180deg)" }} />
+            <CiPower
+              size={60}
+              style={{ transform: "rotate(180deg)" }}
+              className={"text-gray-300 dark:text-gray-500"}
+            />
           </Button>
           <div
             className={

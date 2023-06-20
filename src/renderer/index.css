@@ -114,6 +114,7 @@ html.dark .btm-nav  {
 
 
 .disconnectedBtn.relative::before  {
+    color: #b3b3b3b5;
     content: "";
     border: 1px solid;
     border-radius: 90px;

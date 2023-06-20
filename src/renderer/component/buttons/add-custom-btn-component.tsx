@@ -20,7 +20,7 @@ export function AddCustomBtnComponent() {
         onClick={toggleOpenModal}
         className={"bg-[#B3B3B3] dark:bg-[#383838] border-none text-center"}
       >
-        <MdOutlineAddModerator />
+        <MdOutlineAddModerator className={"text-gray-700"} />
       </Button>
       <AddDnsModalComponent
         isOpen={isOpenModal}
