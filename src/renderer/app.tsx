@@ -66,7 +66,7 @@ export function App() {
         <PageWrapper>{currentPage.element}</PageWrapper>
         <BottomNavigation
           size="xs"
-          className="mb-2 -bottom-2 h-14 bg-[#CCCCCC]"
+          className="mb-2 -bottom-2 h-20 bg-[#CCCCCC]"
           dir={settingStore.lng == "fa" ? "rtl" : "ltr"}
         >
           {pages.map((page) => {
