@@ -13,6 +13,7 @@ import { PageWrapper } from "./Wrappers/pages.wrapper";
 import { themeChanger } from "./utils/theme.util";
 import { IconType } from "react-icons";
 import { ExplorePage } from "@/renderer/pages/explore.page";
+import { Toaster } from "react-hot-toast";
 
 export let settingStore: Settings = {
   lng: "eng",
@@ -88,6 +89,7 @@ export function App() {
             );
           })}
         </BottomNavigation>
+        <Toaster />
       </TypesafeI18n>
     </div>
   );

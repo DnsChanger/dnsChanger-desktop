@@ -3,6 +3,7 @@ import { CiPower } from "react-icons/ci";
 import { useContext, useState } from "react";
 import { serversContext } from "@/renderer/context/servers.context";
 import { AiOutlineLoading } from "react-icons/ai";
+import { errorNotif } from "@/renderer/notifications/error.notif";
 
 enum statusStep {
   CONNECTED,
@@ -11,9 +12,16 @@ enum statusStep {
 
 export function ConnectButtonComponent() {
   const serversStateContext = useContext(serversContext);
+
   const [loading, setLoading] = useState<boolean>(false);
   async function clickHandler(step: statusStep) {
     if (loading) return;
+
+    if (!serversStateContext.selected) {
+      errorNotif("Error", "please first pick your favorite server");
+      return;
+    }
+
     setLoading(true);
     if (step == statusStep.CONNECTED) {
       // req disconnect
@@ -22,7 +30,7 @@ export function ConnectButtonComponent() {
         serversStateContext.setCurrentActive(null);
         window.ipc.notif(response.message);
       } else window.ipc.dialogError("Error", response.message);
-    } else if (step == statusStep.DISCONNECT && serversStateContext.selected) {
+    } else if (step == statusStep.DISCONNECT) {
       // req connect
       const response = await window.ipc.setDns(serversStateContext.selected);
       if (response.success) {
