@@ -38,7 +38,11 @@ export function ConnectButtonComponent() {
 
   //loading buttons
   if (loading) {
-    if (serversStateContext.currentActive) {
+    if (
+      serversStateContext.currentActive &&
+      serversStateContext.currentActive?.key ==
+        serversStateContext.selected?.key
+    ) {
       //disconnecting
       return (
         <div>
@@ -84,7 +88,11 @@ export function ConnectButtonComponent() {
       );
     }
   } else {
-    if (serversStateContext.currentActive) {
+    if (
+      serversStateContext.currentActive &&
+      serversStateContext.currentActive?.key ==
+        serversStateContext.selected?.key
+    ) {
       //isConnect
       return (
         <div>

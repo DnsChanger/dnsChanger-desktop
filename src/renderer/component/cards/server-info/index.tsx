@@ -146,7 +146,9 @@ export function ServerInfoCardComponent(prop: Prop) {
           >
             {
               <Badge
-                className={"mt-1"}
+                className={`mt-1 border-2 ${
+                  isConnect ? "border-[#2c462bd9]" : "border-[#462b2bd9]"
+                }`}
                 color={isConnect ? "success" : "error"}
                 size={"xs"}
               ></Badge>
