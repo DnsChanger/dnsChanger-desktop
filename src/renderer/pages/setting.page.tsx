@@ -220,6 +220,7 @@ const ThemeChanger = () => {
         onChange={(value) => setCurrentTheme(value)}
         className={"dark:bg-[#262626] bg-base-200 text-[#6B6A6A] font-[Inter]"}
       >
+        <Option value="system">System</Option>
         <Option value="dark">{LL.themeChanger.dark()}</Option>
         <Option value="light">{LL.themeChanger.light()}</Option>
       </Select>
