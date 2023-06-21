@@ -19,6 +19,7 @@ export let settingStore: Settings = {
   lng: "eng",
   startUp: false,
   autoUpdate: false,
+  minimize_tray: false,
 };
 
 interface Page {
@@ -31,7 +32,7 @@ export function App() {
   const [wasLoaded, setWasLoaded] = useState(false);
 
   const pages: Array<Page> = [
-    { key: "/", element: <HomePage />, icon: TbSmartHome },
+    { key: "/", element: <SettingPage />, icon: TbSmartHome },
     { key: "/explore", element: <ExplorePage />, icon: MdOutlineExplore },
     { key: "/setting", element: <SettingPage />, icon: TbSettings },
   ];
@@ -67,7 +68,7 @@ export function App() {
         <PageWrapper>{currentPage.element}</PageWrapper>
         <BottomNavigation
           size="xs"
-          className="mb-2 -bottom-2 h-20 bg-[#CCCCCC]"
+          className="mb-2 -bottom-2 h-16 bg-[#CCCCCC]"
           dir={settingStore.lng == "fa" ? "rtl" : "ltr"}
         >
           {pages.map((page) => {

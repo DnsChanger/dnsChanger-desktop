@@ -13,6 +13,7 @@ export const store = new electronStore<{
     settings: {
       lng: "eng",
       autoUpdate: true,
+      minimize_tray: false,
     },
   },
   name: "dnsChangerStore_1.8.0",

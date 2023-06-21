@@ -1,10 +1,11 @@
-import { app, BrowserWindow, shell, ipcMain } from "electron";
+import { app, BrowserWindow, shell, ipcMain, Tray, Menu } from "electron";
 import { release } from "node:os";
 import { join } from "node:path";
 import { getIconPath } from "./shared/getIconPath";
 import { update } from "./update";
 import { config } from "dotenv";
 import isDev from "electron-is-dev";
+import { store } from "./store/store";
 
 config();
 if (isDev)
@@ -68,6 +69,16 @@ async function createWindow() {
     return { action: "deny" };
   });
 
+  let tray = null;
+  win.on("close", function (event) {
+    if (!store.get("settings").minimize_tray) return;
+    event.preventDefault();
+    win.setSkipTaskbar(false);
+    if (!tray) tray = createTray();
+    win.hide();
+  });
+
+  return win;
   update(win, app);
 }
 
@@ -116,3 +127,28 @@ import "./ipc/setting";
 import "./ipc/ui";
 import "./ipc/notif";
 import "./ipc/dialogs";
+
+function createTray() {
+  let appIcon = new Tray(getIconPath());
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: "Show",
+      click: function () {
+        win.show();
+      },
+    },
+    {
+      label: "Exit",
+      click: function () {
+        app.quit();
+      },
+    },
+  ]);
+
+  appIcon.on("double-click", function (event) {
+    win.show();
+  });
+  appIcon.setToolTip("DNS Changer");
+  appIcon.setContextMenu(contextMenu);
+  return appIcon;
+}
