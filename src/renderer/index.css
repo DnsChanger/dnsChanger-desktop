@@ -50,7 +50,10 @@
 
 
 body {
-    font-family: Inter, serif
+    font-family: Inter, serif;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
 
 /* scrolbar */
@@ -111,6 +114,7 @@ html.dark .btm-nav  {
 
 
 .disconnectedBtn.relative::before  {
+    color: #b3b3b3b5;
     content: "";
     border: 1px solid;
     border-radius: 90px;

@@ -1,10 +1,19 @@
-import { app, BrowserWindow, shell, ipcMain } from "electron";
+import {
+  app,
+  BrowserWindow,
+  shell,
+  ipcMain,
+  Tray,
+  Menu,
+  nativeImage,
+} from "electron";
 import { release } from "node:os";
-import { join } from "node:path";
+import path, { join } from "node:path";
 import { getIconPath } from "./shared/getIconPath";
 import { update } from "./update";
 import { config } from "dotenv";
 import isDev from "electron-is-dev";
+import { store } from "./store/store";
 
 config();
 if (isDev)
@@ -33,10 +42,12 @@ let win: BrowserWindow | null = null;
 const preload = join(__dirname, "../preload/index.js");
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
+const icon = nativeImage.createFromPath(getIconPath());
+
 async function createWindow() {
   win = new BrowserWindow({
     title: "DNS Changer",
-    icon: getIconPath(),
+    icon: icon,
     height: 483,
     width: 743,
     webPreferences: {
@@ -68,6 +79,16 @@ async function createWindow() {
     return { action: "deny" };
   });
 
+  let tray = null;
+  win.on("close", function (event) {
+    if (!store.get("settings").minimize_tray) return app.exit(0);
+    event.preventDefault();
+    win.setSkipTaskbar(false);
+    if (!tray) tray = createTray();
+    win.hide();
+  });
+
+  return win;
   update(win, app);
 }
 
@@ -116,3 +137,28 @@ import "./ipc/setting";
 import "./ipc/ui";
 import "./ipc/notif";
 import "./ipc/dialogs";
+
+function createTray() {
+  let appIcon = new Tray(icon);
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: "Show",
+      click: function () {
+        win.show();
+      },
+    },
+    {
+      label: "Exit",
+      click: function () {
+        app.exit(1);
+      },
+    },
+  ]);
+
+  appIcon.on("double-click", function (event) {
+    win.show();
+  });
+  appIcon.setToolTip("DNS Changer");
+  appIcon.setContextMenu(contextMenu);
+  return appIcon;
+}

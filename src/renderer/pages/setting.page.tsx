@@ -9,11 +9,13 @@ import { UpdateBtnComponent } from "@/renderer/component/buttons/update-btn.comp
 export function SettingPage() {
   const [startUp, setStartUp] = useState<boolean>(false);
   const [autoUpdate, setAutoUpdate] = useState<boolean>(false);
+  const [miniTry, setMiniTry] = useState<boolean>(false);
   const { LL, locale } = useI18nContext();
 
   useEffect(() => {
     setStartUp(settingStore.startUp);
     setAutoUpdate(settingStore.autoUpdate);
+    setMiniTry(settingStore.minimize_tray);
   }, []);
 
   function toggleStartUp() {
@@ -26,74 +28,109 @@ export function SettingPage() {
     saveSetting();
   }
 
+  function toggleMinimize_tray() {
+    settingStore.minimize_tray = !miniTry;
+    setMiniTry(settingStore.minimize_tray);
+    saveSetting();
+  }
+
   async function saveSetting() {
     await window.ipc.saveSettings(settingStore);
   }
 
   return (
     <div
-      className="hero flex flex-col justify-center items-center"
+      className="hero flex flex-col justify-center items-center "
       dir={locale == "fa" ? "rtl" : "ltr"}
     >
-      <div className="flex flex-col items-start gap-4">
-        <div className="dark:bg-[#262626] bg-base-200 p-4 rounded-lg shadow w-96">
-          <div className="flex flex-col justify-center gap-3 ">
+      <div className="flex flex-col items-start gap-4 ">
+        <div className="dark:bg-[#262626] bg-base-200 p-4 rounded-lg shadow w-[600px] h-[300px] ">
+          <div className="flex flex-col justify-center gap-2 ">
             {/*<LanguageSwitcher cb={() => saveSetting()} />*/}
 
-            <ThemeChanger />
+            <div className={"grid grid-cols-2 gap-5 "}>
+              <ThemeChanger />
+              <div></div>
+              <Switch
+                id={"startUp"}
+                label={
+                  <div>
+                    <Typography
+                      color="blue-gray"
+                      className="font-medium  dark:text-white font-[Inter] "
+                    >
+                      Start up
+                    </Typography>
+                    <Typography
+                      variant="paragraph"
+                      color="gray"
+                      className="font-normal  dark:text-gray-600 font-[Inter] text-sm "
+                    >
+                      {LL.pages.settings.autoRunningTitle()}
+                    </Typography>
+                  </div>
+                }
+                containerProps={{
+                  className: "-mt-5 mr-5",
+                }}
+                onChange={toggleStartUp}
+                defaultChecked={startUp}
+                checked={startUp}
+              />
+              <Switch
+                id={"autoUP"}
+                label={
+                  <div>
+                    <Typography
+                      color="blue-gray"
+                      className="font-medium  dark:text-white font-[Inter]"
+                    >
+                      Automatic Update
+                    </Typography>
+                    <Typography
+                      variant="paragraph"
+                      color="gray"
+                      className="font-normal  dark:text-gray-600 font-[Inter] text-sm "
+                    >
+                      Get updates automatically
+                    </Typography>
+                  </div>
+                }
+                containerProps={{
+                  className: "-mt-5 mr-2",
+                }}
+                onChange={toggleAutoUpdate}
+                defaultChecked={autoUpdate}
+                checked={autoUpdate}
+              />
+              <Switch
+                id={"Minimize"}
+                label={
+                  <div>
+                    <Typography
+                      color="blue-gray"
+                      className="font-medium  dark:text-white font-[Inter]"
+                    >
+                      Minimize to Tray
+                    </Typography>
+                    <Typography
+                      variant="paragraph"
+                      color="gray"
+                      className="font-medium  dark:text-gray-600 font-[Inter] text-sm "
+                    >
+                      The app move to try in background
+                    </Typography>
+                  </div>
+                }
+                containerProps={{
+                  className: "-mt-5 mr-2",
+                }}
+                onChange={toggleMinimize_tray}
+                defaultChecked={miniTry}
+                checked={miniTry}
+              />
+            </div>
 
-            <Switch
-              id={"startUp"}
-              label={
-                <div>
-                  <Typography
-                    color="blue-gray"
-                    className="font-medium  dark:text-white"
-                  >
-                    start up
-                  </Typography>
-                  <Typography
-                    variant="paragraph"
-                    color="gray"
-                    className="font-normal  dark:text-gray-600"
-                  >
-                    {LL.pages.settings.autoRunningTitle()}
-                  </Typography>
-                </div>
-              }
-              containerProps={{
-                className: "-mt-5 mr-5",
-              }}
-              onChange={toggleStartUp}
-              defaultChecked={startUp}
-              checked={startUp}
-            />
-            <Switch
-              id={"autoUP"}
-              label={
-                <div>
-                  <Typography
-                    color="blue-gray"
-                    className="font-medium  dark:text-white"
-                  >
-                    Automatic Update
-                  </Typography>
-                  <Typography
-                    variant="paragraph"
-                    color="gray"
-                    className="font-normal  dark:text-gray-600"
-                  >
-                    Get updates automatically
-                  </Typography>
-                </div>
-              }
-              containerProps={{
-                className: "-mt-5 mr-2",
-              }}
-              onChange={toggleAutoUpdate}
-              defaultChecked={autoUpdate}
-              checked={autoUpdate}
-            />
             <hr className={"border-gray-500"} />
             <div className={"flex flex-row"}>
               <UpdateBtnComponent />
@@ -181,8 +218,9 @@ const ThemeChanger = () => {
         }}
         value={currentTheme}
         onChange={(value) => setCurrentTheme(value)}
-        className={"dark:bg-[#262626] bg-base-200 text-[#6B6A6A]"}
+        className={"dark:bg-[#262626] bg-base-200 text-[#6B6A6A] font-[Inter]"}
       >
+        <Option value="system">System</Option>
         <Option value="dark">{LL.themeChanger.dark()}</Option>
         <Option value="light">{LL.themeChanger.light()}</Option>
       </Select>

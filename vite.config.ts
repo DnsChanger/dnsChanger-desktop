@@ -9,6 +9,9 @@ import renderer from "vite-plugin-electron-renderer";
 // @ts-ignore
 import pkg from "./package.json";
 
+process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
+  ? path.join(process.env.DIST_ELECTRON, "../public")
+  : process.env.DIST;
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
   rmSync("dist-electron", { recursive: true, force: true });

@@ -10,14 +10,17 @@ import TypesafeI18n from "../i18n/i18n-react";
 // eslint-disable-next-line import/no-unresolved
 import { Settings } from "@/shared/interfaces/settings.interface";
 import { PageWrapper } from "./Wrappers/pages.wrapper";
-import { themeChanger } from "./utils/theme.util";
+import { getThemeSystem, themeChanger } from "./utils/theme.util";
 import { IconType } from "react-icons";
 import { ExplorePage } from "@/renderer/pages/explore.page";
+import { Toaster } from "react-hot-toast";
+import { errorNotif } from "@/renderer/notifications/error.notif";
 
 export let settingStore: Settings = {
   lng: "eng",
   startUp: false,
   autoUpdate: false,
+  minimize_tray: false,
 };
 
 interface Page {
@@ -52,9 +55,28 @@ export function App() {
       loadLocaleAsync(settingStore.lng).then(() => setWasLoaded(true));
     });
 
-    themeChanger(localStorage.getItem("theme") || "dark");
-  }, []);
+    let theme = localStorage.getItem("theme") || "dark";
+    if (theme == "system") theme = getThemeSystem();
 
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", ({ matches }) => {
+        if (theme == "system") {
+          if (matches) {
+            themeChanger("dark");
+          } else {
+            themeChanger("light");
+          }
+        }
+      });
+
+    themeChanger(theme);
+    return () => {
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .removeEventListener("change", () => {});
+    };
+  }, []);
   if (!wasLoaded) return null;
   function InPath(target: string): boolean {
     return currentPath == target;
@@ -66,7 +88,7 @@ export function App() {
         <PageWrapper>{currentPage.element}</PageWrapper>
         <BottomNavigation
           size="xs"
-          className="mb-2 -bottom-2 h-14 bg-[#CCCCCC]"
+          className="mb-2 -bottom-2 h-16 bg-[#CCCCCC]"
           dir={settingStore.lng == "fa" ? "rtl" : "ltr"}
         >
           {pages.map((page) => {
@@ -88,6 +110,7 @@ export function App() {
             );
           })}
         </BottomNavigation>
+        <Toaster />
       </TypesafeI18n>
     </div>
   );

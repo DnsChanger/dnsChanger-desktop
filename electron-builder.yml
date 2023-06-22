@@ -1,5 +1,6 @@
 appId: dnschanger.github.io
-productName: DNS Changer (OpenSource)
+productName: DNS Changer
+afterPack: "removeLocales.js"
 artifactName: "${productName}-${os}-${arch}-${version}.${ext}"
 files:
   - "**/*"
@@ -14,12 +15,12 @@ compression: maximum
 directories:
   output: "release/${version}"
 win:
-  icon: "assets/icon.ico"
+  icon: "public/icons/icon.ico"
   requestedExecutionLevel: "highestAvailable"
   publish:
     - github
 linux:
-  icon: "assets/icon.png"
+  icon: "public/icons/icon.png"
   target:
     - rpm
     - deb
@@ -27,7 +28,7 @@ linux:
   publish:
     - github
 mac:
-  icon: "assets/icon.png"
+  icon: "public/icons/icon.png"
   target:
     - dmg
     - zip
@@ -37,7 +38,7 @@ mac:
 nsis:
   perMachine: true
   oneClick: true
-  installerIcon: "assets/icon.ico"
+  installerIcon: "public/icons/icon.ico"
   deleteAppDataOnUninstall: true
   runAfterFinish: true
   createDesktopShortcut: true

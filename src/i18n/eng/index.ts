@@ -22,8 +22,8 @@ const eng: Translation = {
     },
   },
   themeChanger: {
-    dark: "dark",
-    light: "light",
+    dark: "Dark",
+    light: "Light",
   },
   buttons: {
     update: "Update the list",

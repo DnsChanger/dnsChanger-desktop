@@ -3,6 +3,7 @@ import { CiPower } from "react-icons/ci";
 import { useContext, useState } from "react";
 import { serversContext } from "@/renderer/context/servers.context";
 import { AiOutlineLoading } from "react-icons/ai";
+import { errorNotif } from "@/renderer/notifications/error.notif";
 
 enum statusStep {
   CONNECTED,
@@ -11,9 +12,16 @@ enum statusStep {
 
 export function ConnectButtonComponent() {
   const serversStateContext = useContext(serversContext);
+
   const [loading, setLoading] = useState<boolean>(false);
   async function clickHandler(step: statusStep) {
     if (loading) return;
+
+    if (!serversStateContext.selected) {
+      errorNotif("Error", "please first pick your favorite server");
+      return;
+    }
+
     setLoading(true);
     if (step == statusStep.CONNECTED) {
       // req disconnect
@@ -22,7 +30,7 @@ export function ConnectButtonComponent() {
         serversStateContext.setCurrentActive(null);
         window.ipc.notif(response.message);
       } else window.ipc.dialogError("Error", response.message);
-    } else if (step == statusStep.DISCONNECT && serversStateContext.selected) {
+    } else if (step == statusStep.DISCONNECT) {
       // req connect
       const response = await window.ipc.setDns(serversStateContext.selected);
       if (response.success) {
@@ -38,7 +46,11 @@ export function ConnectButtonComponent() {
 
   //loading buttons
   if (loading) {
-    if (serversStateContext.currentActive) {
+    if (
+      serversStateContext.currentActive &&
+      serversStateContext.currentActive?.key ==
+        serversStateContext.selected?.key
+    ) {
       //disconnecting
       return (
         <div>
@@ -84,7 +96,11 @@ export function ConnectButtonComponent() {
       );
     }
   } else {
-    if (serversStateContext.currentActive) {
+    if (
+      serversStateContext.currentActive &&
+      serversStateContext.currentActive?.key ==
+        serversStateContext.selected?.key
+    ) {
       //isConnect
       return (
         <div>
@@ -94,7 +110,7 @@ export function ConnectButtonComponent() {
             className="bg-[#378C40] border-none  outline -outline-offset-2 outline-8 outline-[#378c4040] hover:bg-[#297030]"
             style={{ width: 130, height: 130 }}
           >
-            <CiPower size={60} />
+            <CiPower size={60} className={"text-gray-300 dark:text-gray-500"} />
           </Button>
           <div
             className={
@@ -112,11 +128,16 @@ export function ConnectButtonComponent() {
           <Button
             onClick={() => clickHandler(statusStep.DISCONNECT)}
             shape={"circle"}
-            className="relative disconnectedBtn border-none dark:bg-white bg-[#AFAFAF] border-none  outline -outline-offset-2 outline-8 outline-[#cfcfcf1a] hover:bg-[#D6D6D6] "
+            className="relative disconnectedBtn border-none dark:bg-white bg-[#AFAFAF] border-none
+             outline -outline-offset-2 outline-8 outline-[#cfcfcf1a] hover:bg-[#AAA9A9] dark:hover:bg-gray-300 "
             style={{ width: 130, height: 130 }}
           >
             <span className="absolute inset-0 outline-[#cfcfcf1a] outline-8 "></span>
-            <CiPower size={60} style={{ transform: "rotate(180deg)" }} />
+            <CiPower
+              size={60}
+              style={{ transform: "rotate(180deg)" }}
+              className={"text-gray-300 dark:text-gray-500"}
+            />
           </Button>
           <div
             className={

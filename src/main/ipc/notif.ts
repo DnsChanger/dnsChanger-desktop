@@ -1,9 +1,9 @@
-import { Notification, ipcMain } from "electron";
+import { Notification, ipcMain, nativeImage } from "electron";
 
 import { getIconPath } from "../shared/getIconPath";
 import { EventsKeys } from "../../shared/constants/eventsKeys.constant";
 
-const icon = getIconPath();
+const icon = nativeImage.createFromPath(getIconPath());
 ipcMain.on(EventsKeys.NOTIFICATION, (_event, data) => {
   // new Notification({ title: "DNS Changer", body: data, icon }).show();
   notfi("DNS Changer", data);

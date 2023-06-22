@@ -84,8 +84,8 @@ export class WindowsPlatform extends Platform {
 
   private extractDns(input: string): Array<string> {
     const regex = /Statically Configured DNS Servers:\s+([\d.]+)\s+([\d.]+)/gm;
-    const matches = regex.exec(input);
-
+    const matches = regex.exec(input) || [];
+    if (!matches.length) return [];
     return [matches[1].trim(), matches[2].trim()];
   }
 

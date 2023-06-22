@@ -13,7 +13,7 @@ import { Server } from "@/shared/interfaces/server.interface";
 import { useI18nContext } from "@/i18n/i18n-react";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // eslint-disable-next-line import/no-unresolved
-import icon from "../../../../../assets/icon.png";
+import icon from "../../../../../public/icons/icon.png";
 import { getPingIcon } from "@/renderer/utils/icons.util";
 interface Prop {
   loadingCurrentActive: boolean;
@@ -128,7 +128,7 @@ export function ServerInfoCardComponent(prop: Prop) {
               shape={"circle"}
               size={"xs"}
               className={
-                "bg-[#434343] dark:bg-[#fffff] dark:bg-gray-800  hover:bg-gray-900 active:bg-green-400  border-none"
+                "bg-[#c4c0c0] dark:bg-[#fffff] dark:bg-gray-800  hover:bg-gray-900 active:bg-green-400  border-none"
               }
               onClick={() =>
                 navigator.clipboard.writeText(selectedServer.servers.join(","))
@@ -146,7 +146,11 @@ export function ServerInfoCardComponent(prop: Prop) {
           >
             {
               <Badge
-                className={"mt-1"}
+                className={`mt-1 border-2 ${
+                  isConnect
+                    ? "dark:outline-[#2c462bd9] outline -outline-offset-2 outline-4 outline-[#84e7b8]"
+                    : "outline-[#f1bfbf] outline -outline-offset-2 outline-4 dark:outline-[#462b2bd9]"
+                }`}
                 color={isConnect ? "success" : "error"}
                 size={"xs"}
               ></Badge>

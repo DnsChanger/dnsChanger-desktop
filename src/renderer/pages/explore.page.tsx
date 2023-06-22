@@ -204,7 +204,7 @@ function ServerTrComponent(prop: Prop) {
           <Button
             size={"xs"}
             className={
-              "normal-case bg-[#a5242485] hover:bg-[#891717d1] border-none font-light"
+              "normal-case bg-[#a5242485] hover:bg-[#891717d1] text-gray-100 dark:text-gray-400 border-none font-light"
             }
             onClick={DeleteHandler}
           >
