@@ -1,6 +1,14 @@
-import { app, BrowserWindow, shell, ipcMain, Tray, Menu } from "electron";
+import {
+  app,
+  BrowserWindow,
+  shell,
+  ipcMain,
+  Tray,
+  Menu,
+  nativeImage,
+} from "electron";
 import { release } from "node:os";
-import { join } from "node:path";
+import path, { join } from "node:path";
 import { getIconPath } from "./shared/getIconPath";
 import { update } from "./update";
 import { config } from "dotenv";
@@ -34,10 +42,12 @@ let win: BrowserWindow | null = null;
 const preload = join(__dirname, "../preload/index.js");
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
+const icon = nativeImage.createFromPath(getIconPath());
+
 async function createWindow() {
   win = new BrowserWindow({
     title: "DNS Changer",
-    icon: getIconPath(),
+    icon: icon,
     height: 483,
     width: 743,
     webPreferences: {
@@ -71,7 +81,7 @@ async function createWindow() {
 
   let tray = null;
   win.on("close", function (event) {
-    if (!store.get("settings").minimize_tray) return;
+    if (!store.get("settings").minimize_tray) return app.exit(0);
     event.preventDefault();
     win.setSkipTaskbar(false);
     if (!tray) tray = createTray();
@@ -129,7 +139,7 @@ import "./ipc/notif";
 import "./ipc/dialogs";
 
 function createTray() {
-  let appIcon = new Tray(getIconPath());
+  let appIcon = new Tray(icon);
   const contextMenu = Menu.buildFromTemplate([
     {
       label: "Show",
@@ -140,7 +150,7 @@ function createTray() {
     {
       label: "Exit",
       click: function () {
-        app.quit();
+        app.exit(1);
       },
     },
   ]);

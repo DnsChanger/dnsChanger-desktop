@@ -13,7 +13,7 @@ import { Server } from "@/shared/interfaces/server.interface";
 import { useI18nContext } from "@/i18n/i18n-react";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // eslint-disable-next-line import/no-unresolved
-import icon from "../../../../../assets/icon.png";
+import icon from "../../../../../public/icons/icon.png";
 import { getPingIcon } from "@/renderer/utils/icons.util";
 interface Prop {
   loadingCurrentActive: boolean;
@@ -148,8 +148,8 @@ export function ServerInfoCardComponent(prop: Prop) {
               <Badge
                 className={`mt-1 border-2 ${
                   isConnect
-                    ? "dark:border-[#2c462bd9]"
-                    : "border-[#f1bfbf] dark:border-[#462b2bd9]"
+                    ? "dark:outline-[#2c462bd9] outline -outline-offset-2 outline-4 outline-[#84e7b8]"
+                    : "outline-[#f1bfbf] outline -outline-offset-2 outline-4 dark:outline-[#462b2bd9]"
                 }`}
                 color={isConnect ? "success" : "error"}
                 size={"xs"}
