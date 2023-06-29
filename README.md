@@ -1,6 +1,4 @@
-
-
-# ✍️ معرفی
+# ✍ Introduction
 
 <p align="center">
     <img src=".github/banner.png" alt="dnsChanger banner" width="600">
@@ -19,38 +17,37 @@
 </p>
 
 
-یک DNS Changer  اوپن سورس برای سیستم عامل های ویندوز ، مک و لینوکس که هدفش جمع آوری بهترین DNS ها در یک اپلیکیشن
-امن هستش
+This is an open-source DNS Changer for Windows, Mac, and Linux operating systems. Its goal is to gather the best DNS servers in a secure application.
 
-- [✍️ معرفی](#️-معرفی)
-  - [📥 دانلود](#-دانلود)
-  - [🦠 نتیجه آنتی ویروس](#-نتیجه-آنتی-ویروس)
-  - [🖼️ تصاویر](#️-تصاویر)
-  - [📝 لاگ تغییرات](#-لاگ-تغییرات)
-  - [🛠️ همکاری](#️-همکاری)
-- [🧪 تست ها (unit test)](#-تست-ها-unit-test)
+  - [📥 Download](#-download)
+  - [🦠 Antivirus Result](#-antivirus-result)
+  - [🖼️ Images](#-images)
+  - [📝 Changelog](#-changelog)
+  - [🛠️ Collaboration](#-collaboration)
 
 
-## 📥 دانلود
-برای دانلود به قسمت [releases](https://github.com/DnsChanger/dnsChanger-desktop/releases) مراجعه کنید.
+## 📥 Download
+To download, please visit the [releases](https://github.com/DnsChanger/dnsChanger-desktop/releases) section.
 
-## 🦠 نتیجه آنتی ویروس 
-https://www.virustotal.com/gui/file/a2540db91518e784b9b0f55172487aaaedb50abd8089644cca7f820ccd2d5fb8/detection
-## 🖼️ تصاویر
+## 🦠 Antivirus Result
+You can check the antivirus result [here](https://www.virustotal.com/gui/file/a2540db91518e784b9b0f55172487aaaedb50abd8089644cca7f820ccd2d5fb8/detection).
+
+## 🖼 Images
 
 <p align="center">
     <img src=".github/1.png?raw=true" alt="dnsChanger screenshot 1" width="496">
 </p>
 
+## 📝 Changelog
 
-## 📝 لاگ تغییرات
+You can view the [changelog](changelog.md) for more information and recent changes.
 
-شما میتونید [لاگ تغییرات](changelog.md) رو برای اطلاعات بیشتر و تغییرات اخیر مشاهده کنید
 
-## 🛠️ همکاری
-folder structure:
-- [ui](https://github.com/DnsChanger/dnsChanger-desktop/tree/main/src/renderer)
-- [main](https://github.com/DnsChanger/dnsChanger-desktop/tree/main/src/main)
+## 🛠 Collaboration
+
+Folder structure:
+- [UI](https://github.com/DnsChanger/dnsChanger-desktop/tree/main/src/renderer)
+- [Main](https://github.com/DnsChanger/dnsChanger-desktop/tree/main/src/main)
 
 1.
 
@@ -85,12 +82,4 @@ git push origin my-new-feature
 ```
 
 - Submit a pull request
-
-# 🧪 تست ها (unit test)
-
-برای اجرای تست ها میتونید از دستور زیر استفاده کنید.
-
-```shell
-npm run test
-```
 
