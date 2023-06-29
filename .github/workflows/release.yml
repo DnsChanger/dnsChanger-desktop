@@ -4,6 +4,7 @@ on:
     branches: ["main","new-ui"]
     paths-ignore:
       - "README.md"
+      - "README-*.md"
 jobs:
   publish_on_linux:
     runs-on: ubuntu-latest
