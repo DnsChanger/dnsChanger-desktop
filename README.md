@@ -27,7 +27,7 @@ This is an open-source DNS Changer for Windows, Mac, and Linux operating systems
 
 
 ## 📥 Download
-To download, please visit the [releases](https://github.com/DnsChanger/dnsChanger-desktop/releases) section.
+ Please visit the [releases](https://github.com/DnsChanger/dnsChanger-desktop/releases) section.
 
 ## 🦠 Antivirus Result
 You can check the antivirus result [here](https://www.virustotal.com/gui/file/a2540db91518e784b9b0f55172487aaaedb50abd8089644cca7f820ccd2d5fb8/detection).
