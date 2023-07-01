@@ -24,6 +24,9 @@ linux:
   target:
     - rpm
     - deb
+    - aur
+    - snap
+    - appimage
   category: Utilities
   publish:
     - github
