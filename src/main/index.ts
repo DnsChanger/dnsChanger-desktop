@@ -138,19 +138,34 @@ import "./ipc/setting";
 import "./ipc/ui";
 import "./ipc/notif";
 import "./ipc/dialogs";
+import { getPublicFilePath } from "./shared/file";
 
 function createTray() {
   let appIcon = new Tray(icon);
+  const showIcon = nativeImage.createFromPath(
+    getPublicFilePath("icons/show.png")
+  );
+  const powerIcon = nativeImage.createFromPath(
+    getPublicFilePath("icons/power.png")
+  );
+
   const contextMenu = Menu.buildFromTemplate([
     {
+      label: "DNS Changer",
+      enabled: false,
+      icon: icon.resize({ height: 19, width: 19 }),
+    },
+    {
       label: "Show",
+      icon: showIcon,
       click: function () {
         win.show();
         ipcMain.emit(EventsKeys.GET_CURRENT_ACTIVE);
       },
     },
     {
-      label: "Exit",
+      label: "Quit DNS Changer",
+      icon: powerIcon,
       click: function () {
         app.exit(1);
       },

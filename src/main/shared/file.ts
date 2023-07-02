@@ -18,5 +18,9 @@ export async function getOverlayIcon(server: Server): Promise<string> {
   // if (!isValidate) {
   //   filepath = join(process.env.PUBLIC, `icons/icon-connected.png`);
   // }
-  return join(process.env.PUBLIC, `icons/icon-connected.png`);
+  return getPublicFilePath(`icons/icon-connected.png`);
+}
+
+export function getPublicFilePath(filePath: string): string {
+  return join(process.env.PUBLIC, filePath);
 }
