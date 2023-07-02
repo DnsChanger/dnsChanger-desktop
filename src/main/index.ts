@@ -88,8 +88,8 @@ async function createWindow() {
     win.hide();
   });
 
-  return win;
   update(win, app);
+  return win;
 }
 
 app.whenReady().then(createWindow);
