@@ -8,12 +8,13 @@ import {
   nativeImage,
 } from "electron";
 import { release } from "node:os";
-import path, { join } from "node:path";
+import { join } from "node:path";
 import { getIconPath } from "./shared/getIconPath";
 import { update } from "./update";
 import { config } from "dotenv";
 import isDev from "electron-is-dev";
 import { store } from "./store/store";
+import { EventsKeys } from "../shared/constants/eventsKeys.constant";
 
 config();
 if (isDev)
@@ -58,7 +59,7 @@ async function createWindow() {
     },
     darkTheme: true,
     resizable: false,
-    center: !isDev, // => false
+    //center: !isDev, // => false
     show: true,
     alwaysOnTop: isDev,
   });
@@ -68,7 +69,7 @@ async function createWindow() {
   } else {
     await win.loadFile(indexHtml);
   }
-  if (isDev) win.webContents.openDevTools();
+  // if (isDev) win.webContents.openDevTools();
 
   win.webContents.on("did-finish-load", () => {
     win?.webContents.send("main-process-message", new Date().toLocaleString());
@@ -145,6 +146,7 @@ function createTray() {
       label: "Show",
       click: function () {
         win.show();
+        ipcMain.emit(EventsKeys.GET_CURRENT_ACTIVE);
       },
     },
     {
@@ -157,6 +159,7 @@ function createTray() {
 
   appIcon.on("double-click", function (event) {
     win.show();
+    ipcMain.emit(EventsKeys.GET_CURRENT_ACTIVE);
   });
   appIcon.setToolTip("DNS Changer");
   appIcon.setContextMenu(contextMenu);

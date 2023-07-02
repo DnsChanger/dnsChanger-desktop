@@ -1,20 +1,11 @@
-import {
-  MdOutlineSignalCellularAlt,
-  MdOutlineSignalCellularAlt1Bar,
-  MdOutlineSignalCellularAlt2Bar,
-} from "react-icons/md";
 import { Avatar, Badge, Button } from "react-daisyui";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FiCopy } from "react-icons/fi";
 import { useContext, useEffect, useState } from "react";
-import { serversContext } from "@/renderer/context/servers.context";
-import { Server } from "@/shared/interfaces/server.interface";
-
-import { useI18nContext } from "@/i18n/i18n-react";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// eslint-disable-next-line import/no-unresolved
+import { serversContext } from "../../../context/servers.context";
+import { Server } from "../../../../shared/interfaces/server.interface";
+import { useI18nContext } from "../../../../i18n/i18n-react";
 import icon from "../../../../../public/icons/icon.png";
-import { getPingIcon } from "@/renderer/utils/icons.util";
+import { getPingIcon } from "../../../utils/icons.util";
 interface Prop {
   loadingCurrentActive: boolean;
 }

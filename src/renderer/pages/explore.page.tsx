@@ -10,10 +10,10 @@ import {
   Rating,
 } from "@material-tailwind/react";
 import axios from "axios";
-import { Server } from "@/shared/interfaces/server.interface";
-import { UrlsConstant } from "@/shared/constants/urls.constant";
-import { Badge, Button, Tooltip } from "react-daisyui";
-import { getPingIcon } from "@/renderer/utils/icons.util";
+import { Server } from "../../shared/interfaces/server.interface";
+import { UrlsConstant } from "../../shared/constants/urls.constant";
+import { Badge, Button } from "react-daisyui";
+import { getPingIcon } from "../utils/icons.util";
 import { FiCopy } from "react-icons/fi";
 const cacheBuster = (url: string) => `${url}?cb=${Date.now()}`;
 

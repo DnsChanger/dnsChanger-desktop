@@ -1,8 +1,8 @@
 import { MdOutlineAddModerator } from "react-icons/md";
 import { Button } from "react-daisyui";
 import { useContext, useState } from "react";
-import { AddDnsModalComponent } from "@/renderer/component/modals/add-dns.component";
-import { serversContext } from "@/renderer/context/servers.context";
+import { AddDnsModalComponent } from "../modals/add-dns.component";
+import { serversContext } from "../../context/servers.context";
 
 export function AddCustomBtnComponent() {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);

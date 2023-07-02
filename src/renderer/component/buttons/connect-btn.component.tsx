@@ -1,9 +1,9 @@
 import { Button } from "react-daisyui";
 import { CiPower } from "react-icons/ci";
 import { useContext, useState } from "react";
-import { serversContext } from "@/renderer/context/servers.context";
+import { serversContext } from "../../context/servers.context";
 import { AiOutlineLoading } from "react-icons/ai";
-import { errorNotif } from "@/renderer/notifications/error.notif";
+import { errorNotif } from "../../notifications/error.notif";
 
 enum statusStep {
   CONNECTED,

@@ -11,7 +11,7 @@ import {
 import { CgSoftwareDownload } from "react-icons/cg";
 import { ProgressInfo } from "electron-builder";
 import { UpdateInfo } from "electron-updater";
-import { EventsKeys } from "@/shared/constants/eventsKeys.constant";
+import { EventsKeys } from "../../../shared/constants/eventsKeys.constant";
 export function UpdateBtnComponent() {
   const [checking, setChecking] = useState<boolean>(false);
   const [updateInfo, setUpdateInfo] = useState<UpdateInfo | null>(null);

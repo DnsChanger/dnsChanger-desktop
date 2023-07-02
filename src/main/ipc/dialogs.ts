@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { v4 as uuid } from "uuid";
 import { store } from "../store/store";
-import { ipcMain, shell, dialog } from "electron";
+import { ipcMain, shell, dialog, app, BrowserWindow } from "electron";
 
 import { dnsService } from "../config";
 import { Server } from "../../shared/interfaces/server.interface";
@@ -11,6 +11,8 @@ import LN from "../../i18n/i18n-node";
 import { Locales } from "../../i18n/i18n-types";
 import pingLib from "ping";
 import { userLogger } from "../shared/logger";
+import { getOverlayIcon } from "../shared/file";
+import { updateOverlayIcon } from "../shared/overlayIcon";
 
 // todo Refactoring
 
@@ -18,6 +20,9 @@ ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
   try {
     await dnsService.setDns(server.servers);
     const currentLng = LN[getCurrentLng()];
+    const win = BrowserWindow.getAllWindows()[0];
+    const filepath = await getOverlayIcon(server);
+    updateOverlayIcon(win, filepath, "connected");
     return {
       server,
       success: true,
@@ -39,6 +44,8 @@ ipcMain.handle(EventsKeys.CLEAR_DNS, async (event, server: Server) => {
   try {
     await dnsService.clearDns();
     const currentLng = LN[getCurrentLng()];
+    const win = BrowserWindow.getAllWindows()[0];
+    updateOverlayIcon(win, null, "disconnect");
     return {
       server,
       success: true,
@@ -114,38 +121,8 @@ ipcMain.handle(EventsKeys.FETCH_DNS_LIST, () => {
   return { success: true, servers: servers };
 });
 
-ipcMain.handle(EventsKeys.GET_CURRENT_ACTIVE, async (): Promise<any> => {
-  try {
-    const dns: string[] = await dnsService.getActiveDns();
-
-    if (!dns.length) return { success: false, server: null };
-
-    const servers = store.get("dnsList") || [];
-    const server: Server | null = servers.find(
-      (server) => server.servers.toString() == dns.toString()
-    );
-
-    if (!server)
-      return {
-        success: true,
-        server: {
-          key: "unknown",
-          servers: dns,
-          names: {
-            eng: "unknown",
-            fa: "unknown",
-          },
-          avatar: "",
-        },
-      };
-    else {
-      return { success: true, server };
-    }
-  } catch (e: any) {
-    userLogger.error(e.stack, e.message);
-    return { success: false, message: "Unknown error while clear DNS" };
-  }
-});
+ipcMain.on(EventsKeys.GET_CURRENT_ACTIVE, getCurrentActive);
+ipcMain.handle(EventsKeys.GET_CURRENT_ACTIVE, getCurrentActive);
 
 ipcMain.on(EventsKeys.OPEN_BROWSER, (ev, url) => {
   shell.openExternal(url);
@@ -188,4 +165,39 @@ ipcMain.handle(EventsKeys.PING, async function (event, server: Server) {
 
 function getCurrentLng(): Locales {
   return store.get("settings").lng;
+}
+async function getCurrentActive(): Promise<any> {
+  try {
+    const dns: string[] = await dnsService.getActiveDns();
+
+    if (!dns.length) return { success: false, server: null };
+
+    const servers = store.get("dnsList") || [];
+    const server: Server | null = servers.find(
+      (server) => server.servers.toString() == dns.toString()
+    );
+
+    if (!server)
+      return {
+        success: true,
+        server: {
+          key: "unknown",
+          servers: dns,
+          names: {
+            eng: "unknown",
+            fa: "unknown",
+          },
+          avatar: "",
+        },
+      };
+    else {
+      const win = BrowserWindow.getAllWindows()[0];
+      let filepath = await getOverlayIcon(server);
+      updateOverlayIcon(win, filepath, "connected");
+      return { success: true, server };
+    }
+  } catch (e: any) {
+    userLogger.error(e.stack, e.message);
+    return { success: false, message: "Unknown error while clear DNS" };
+  }
 }

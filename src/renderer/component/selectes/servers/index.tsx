@@ -1,11 +1,8 @@
-// eslint-disable-next-line import/no-unresolved
-import { Server } from "@/shared/interfaces/server.interface";
+import { Server } from "../../../../shared/interfaces/server.interface";
 import React, { useContext, useEffect, useState } from "react";
-// eslint-disable-next-line import/no-unresolved
-import { serversContext } from "@/renderer/context/servers.context";
-import { ServersContext } from "@/renderer/interfaces/servers-context.interface";
-import { Badge, Select } from "react-daisyui";
-import { render } from "react-dom";
+import { serversContext } from "../../../context/servers.context";
+import { ServersContext } from "../../../interfaces/servers-context.interface";
+import { Select } from "react-daisyui";
 
 export function ServersListSelectComponent() {
   const serversStateContext = useContext(serversContext);
