@@ -8,12 +8,13 @@ import {
   nativeImage,
 } from "electron";
 import { release } from "node:os";
-import path, { join } from "node:path";
+import { join } from "node:path";
 import { getIconPath } from "./shared/getIconPath";
 import { update } from "./update";
 import { config } from "dotenv";
 import isDev from "electron-is-dev";
 import { store } from "./store/store";
+import { EventsKeys } from "../shared/constants/eventsKeys.constant";
 
 config();
 if (isDev)
@@ -58,7 +59,7 @@ async function createWindow() {
     },
     darkTheme: true,
     resizable: false,
-    center: !isDev, // => false
+    //center: !isDev, // => false
     show: true,
     alwaysOnTop: isDev,
   });
@@ -68,7 +69,7 @@ async function createWindow() {
   } else {
     await win.loadFile(indexHtml);
   }
-  if (isDev) win.webContents.openDevTools();
+  // if (isDev) win.webContents.openDevTools();
 
   win.webContents.on("did-finish-load", () => {
     win?.webContents.send("main-process-message", new Date().toLocaleString());
@@ -88,8 +89,8 @@ async function createWindow() {
     win.hide();
   });
 
-  return win;
   update(win, app);
+  return win;
 }
 
 app.whenReady().then(createWindow);
@@ -137,18 +138,34 @@ import "./ipc/setting";
 import "./ipc/ui";
 import "./ipc/notif";
 import "./ipc/dialogs";
+import { getPublicFilePath } from "./shared/file";
 
 function createTray() {
   let appIcon = new Tray(icon);
+  const showIcon = nativeImage.createFromPath(
+    getPublicFilePath("icons/show.png")
+  );
+  const powerIcon = nativeImage.createFromPath(
+    getPublicFilePath("icons/power.png")
+  );
+
   const contextMenu = Menu.buildFromTemplate([
     {
+      label: "DNS Changer",
+      enabled: false,
+      icon: icon.resize({ height: 19, width: 19 }),
+    },
+    {
       label: "Show",
+      icon: showIcon,
       click: function () {
         win.show();
+        ipcMain.emit(EventsKeys.GET_CURRENT_ACTIVE);
       },
     },
     {
-      label: "Exit",
+      label: "Quit DNS Changer",
+      icon: powerIcon,
       click: function () {
         app.exit(1);
       },
@@ -157,6 +174,7 @@ function createTray() {
 
   appIcon.on("double-click", function (event) {
     win.show();
+    ipcMain.emit(EventsKeys.GET_CURRENT_ACTIVE);
   });
   appIcon.setToolTip("DNS Changer");
   appIcon.setContextMenu(contextMenu);

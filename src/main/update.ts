@@ -10,7 +10,7 @@ import * as path from "path";
 import isDev from "electron-is-dev";
 import { store } from "./store/store";
 import ms from "ms";
-export async function update(win: Electron.BrowserWindow, app: Electron.App) {
+export function update(win: Electron.BrowserWindow, app: Electron.App) {
   autoUpdater.autoDownload = store.get("settings").autoUpdate;
   autoUpdater.disableWebInstaller = false;
 

@@ -4,7 +4,7 @@ import { useI18nContext } from "../../i18n/i18n-react";
 import { settingStore } from "../app";
 import { Select, Option, Switch, Typography } from "@material-tailwind/react";
 import { getThemeSystem, themeChanger } from "../utils/theme.util";
-import { UpdateBtnComponent } from "@/renderer/component/buttons/update-btn.component";
+import { UpdateBtnComponent } from "../component/buttons/update-btn.component";
 
 export function SettingPage() {
   const [startUp, setStartUp] = useState<boolean>(false);

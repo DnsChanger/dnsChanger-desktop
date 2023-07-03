@@ -1,13 +1,13 @@
 {
   "name": "dnschanger",
   "productName": "dnschanger",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "debug": {
     "env": {
       "VITE_DEV_SERVER_URL": "http://127.0.0.1:7777/"
     }
   },
-  "description": "Dns Changer for Windows, Mac and Linux operating systems",
+  "description": "DNS Changer for Windows, Mac and Linux operating systems",
   "main": "dist-electron/main/index.js",
   "repository": {
     "url": "https://github.com/DnsChanger/dnsChanger-desktop"
@@ -80,6 +80,7 @@
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^8.1.0",
     "electron-updater": "^5.3.0",
+    "electron-windows-badge": "^1.1.0",
     "lodash": "^4.17.21",
     "ms": "^2.1.3",
     "network": "^0.6.1",

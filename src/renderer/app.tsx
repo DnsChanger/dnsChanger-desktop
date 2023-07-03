@@ -4,17 +4,14 @@ import { TbSettings, TbSmartHome } from "react-icons/tb";
 import { MdOutlineExplore } from "react-icons/md";
 import { HomePage } from "./pages/home.page";
 import { SettingPage } from "./pages/setting.page";
-// eslint-disable-next-line import/no-unresolved
-import { loadLocaleAsync } from "@/i18n/i18n-util.async";
+import { loadLocaleAsync } from "../i18n/i18n-util.async";
 import TypesafeI18n from "../i18n/i18n-react";
-// eslint-disable-next-line import/no-unresolved
-import { Settings } from "@/shared/interfaces/settings.interface";
+import { Settings } from "../shared/interfaces/settings.interface";
 import { PageWrapper } from "./Wrappers/pages.wrapper";
 import { getThemeSystem, themeChanger } from "./utils/theme.util";
 import { IconType } from "react-icons";
-import { ExplorePage } from "@/renderer/pages/explore.page";
+import { ExplorePage } from "./pages/explore.page";
 import { Toaster } from "react-hot-toast";
-import { errorNotif } from "@/renderer/notifications/error.notif";
 
 export let settingStore: Settings = {
   lng: "eng",

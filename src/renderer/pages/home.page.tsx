@@ -1,19 +1,11 @@
-import { Button } from "react-daisyui";
-import {
-  MdOutlineSignalCellularAlt,
-  MdOutlineAddModerator,
-} from "react-icons/md";
-import { Server } from "@/shared/interfaces/server.interface";
-import { TfiReload } from "react-icons/tfi";
+import { Server } from "../../shared/interfaces/server.interface";
 import { serversContext } from "../context/servers.context";
 import { useEffect, useState } from "react";
-// eslint-disable-next-line import/no-unresolved
-import { ConnectButtonComponent } from "@/renderer/component/buttons/connect-btn.component";
-// eslint-disable-next-line import/no-unresolved
-import { ServersListSelectComponent } from "@/renderer/component/selectes/servers";
-import { ServerInfoCardComponent } from "@/renderer/component/cards/server-info";
-import { UpdateListBtnComponent } from "@/renderer/component/buttons/updateList-btn.component";
-import { AddCustomBtnComponent } from "@/renderer/component/buttons/add-custom-btn-component";
+import { ConnectButtonComponent } from "../component/buttons/connect-btn.component";
+import { ServersListSelectComponent } from "../component/selectes/servers";
+import { ServerInfoCardComponent } from "../component/cards/server-info";
+
+import { AddCustomBtnComponent } from "../component/buttons/add-custom-btn-component";
 
 export function HomePage() {
   const [serversState, setServers] = useState<Server[]>([]);
