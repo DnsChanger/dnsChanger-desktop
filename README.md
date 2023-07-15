@@ -8,6 +8,8 @@
     <a href="https://discord.gg/p9TZzEV39e" target="_blank">
          <img src="https://discordapp.com/api/guilds/1088561568272367777/widget.png?style=banner2" alt="total" >
     </a>
+    <br/>
+<a href="https://coffeebede.com/dnschanger.github.io"><img  width=100 src="https://coffeebede.ir/DashboardTemplateV2/app-assets/images/banner/default-yellow.svg" /></a>
 <br/>
     <img src="https://img.shields.io/github/languages/top/DnsChanger/dnsChanger-desktop" alt="languages" >
     <img src="https://img.shields.io/github/stars/dnsChanger/dnsChanger-desktop" alt="stars">
