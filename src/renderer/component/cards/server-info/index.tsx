@@ -142,7 +142,7 @@ export function ServerInfoCardComponent(prop: Prop) {
                 color={isConnect ? "green" : "red"}
                 size="sm"
                 value={isConnect ? "Connected" : "Disconnect"}
-                className={isConnect ? "text-[#31BA47]" : "text-[#B43D3D]"}
+                className={isConnect ? "text-[#42A752]" : "text-[#B43D3D]"}
                 icon={
                   <span
                     className={`content-[''] block w-2 h-2 rounded-full mx-auto mt-1 ${
