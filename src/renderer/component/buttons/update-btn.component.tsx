@@ -20,7 +20,7 @@ export function UpdateBtnComponent() {
     try {
       setChecking(true);
       const { updateInfo, isError } = await window.ipc.checkUpdate();
-      if (isError) {
+      if (isError) { 
         window.ipc.notif("Unable to find any new updates");
         return;
       }

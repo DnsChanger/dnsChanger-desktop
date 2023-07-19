@@ -6,6 +6,7 @@ import { ServersListSelectComponent } from "../component/selectes/servers";
 import { ServerInfoCardComponent } from "../component/cards/server-info";
 
 import { AddCustomBtnComponent } from "../component/buttons/add-custom-btn-component";
+import { SelectInterfaceBtnComponent } from "../component/buttons/select-interface-btn-component";
 
 export function HomePage() {
   const [serversState, setServers] = useState<Server[]>([]);
@@ -58,21 +59,22 @@ export function HomePage() {
                   <ConnectButtonComponent />
                 </div>
               </div>
+
               <div className={"absolute right-[50px] top-[100px]"}>
                 <div className={"flex flex-col"}>
-                  <div
-                    className={
-                      "absolute bottom-[217px] right-12 flex flex-row gap-1"
-                    }
-                  >
-                    <AddCustomBtnComponent />
-                  </div>
                   <div className={"flex-none"}>
                     <ServersListSelectComponent />
                   </div>
                   <ServerInfoCardComponent
                     loadingCurrentActive={loadingCurrentActive}
                   />
+                </div>
+                <div
+                  className={
+                    "absolute bottom-[215px] -left-10 flex flex-col gap-0"
+                  }
+                >
+                  <AddCustomBtnComponent />
                 </div>
               </div>
             </div>

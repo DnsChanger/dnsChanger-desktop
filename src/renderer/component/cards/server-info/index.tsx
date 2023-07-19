@@ -66,7 +66,7 @@ export function ServerInfoCardComponent(prop: Prop) {
     <div className="dark:bg-[#262626] bg-base-200 h-[189px] w-[362px] mt-5 rounded-[23px]">
       <div
         className={
-          "grid grid-cols-2 gap-4 mt-5 text-[#434343] dark:text-[#A6A6A6]"
+          "grid grid-cols-2 gap-4 mt-5 text-[#434343] dark:text-[#A6A6A6] "
         }
       >
         <div className={"flex flex-col gap-2"}>
