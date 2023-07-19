@@ -6,6 +6,7 @@ import { Server } from "../../../../shared/interfaces/server.interface";
 import { useI18nContext } from "../../../../i18n/i18n-react";
 import icon from "../../../../../public/icons/icon.png";
 import { getPingIcon } from "../../../utils/icons.util";
+import { Chip } from "@material-tailwind/react";
 interface Prop {
   loadingCurrentActive: boolean;
 }
@@ -66,7 +67,7 @@ export function ServerInfoCardComponent(prop: Prop) {
     <div className="dark:bg-[#262626] bg-base-200 h-[189px] w-[362px] mt-5 rounded-[23px]">
       <div
         className={
-          "grid grid-cols-2 gap-4 mt-5 text-[#434343] dark:text-[#A6A6A6]"
+          "grid grid-cols-2 gap-4 mt-5 text-[#434343] dark:text-[#A6A6A6] "
         }
       >
         <div className={"flex flex-col gap-2"}>
@@ -136,21 +137,21 @@ export function ServerInfoCardComponent(prop: Prop) {
             className={"w-100 flex flex-row gap-1   justify-center text-center"}
           >
             {
-              <Badge
-                className={`mt-1 border-2 ${
-                  isConnect
-                    ? "dark:outline-[#2c462bd9] outline -outline-offset-2 outline-4 outline-[#84e7b8]"
-                    : "outline-[#f1bfbf] outline -outline-offset-2 outline-4 dark:outline-[#462b2bd9]"
-                }`}
-                color={isConnect ? "success" : "error"}
-                size={"xs"}
-              ></Badge>
+              <Chip
+                variant="ghost"
+                color={isConnect ? "green" : "red"}
+                size="sm"
+                value={isConnect ? "Connected" : "Disconnect"}
+                className={isConnect ? "text-[#42A752]" : "text-[#B43D3D]"}
+                icon={
+                  <span
+                    className={`content-[''] block w-2 h-2 rounded-full mx-auto mt-1 ${
+                      isConnect ? "bg-green-900" : "bg-red-900"
+                    }`}
+                  />
+                }
+              />
             }
-            <span className="ml-1 inline-flex items-baseline text-sm">
-              <span className="font-medium text-slate-900 dark:text-slate-200">
-                {isConnect ? "Connected" : "Disconnect"}
-              </span>
-            </span>
           </div>
         </div>
       </div>

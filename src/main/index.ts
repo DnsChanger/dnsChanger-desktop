@@ -69,7 +69,7 @@ async function createWindow() {
   } else {
     await win.loadFile(indexHtml);
   }
-  // if (isDev) win.webContents.openDevTools();
+  if (isDev) win.webContents.openDevTools();
 
   win.webContents.on("did-finish-load", () => {
     win?.webContents.send("main-process-message", new Date().toLocaleString());

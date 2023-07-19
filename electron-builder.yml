@@ -21,8 +21,10 @@ win:
     - github
 linux:
   icon: "public/icons/icon.png"
+  maintainer: "dnschanger.github.io"
   target:
     - rpm
+    - AppImage
     - deb
   category: Utilities
   publish:
