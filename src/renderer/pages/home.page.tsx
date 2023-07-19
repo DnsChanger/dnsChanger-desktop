@@ -7,6 +7,7 @@ import { ServerInfoCardComponent } from "../component/cards/server-info";
 
 import { AddCustomBtnComponent } from "../component/buttons/add-custom-btn-component";
 import { SelectInterfaceBtnComponent } from "../component/buttons/select-interface-btn-component";
+import { analytics } from "../utils/analytics";
 
 export function HomePage() {
   const [serversState, setServers] = useState<Server[]>([]);
@@ -22,6 +23,16 @@ export function HomePage() {
 
     fetchDnsList();
   }, []);
+
+  useEffect(() => {
+    if (currentActive) {
+      analytics.event({
+        category: "DNS",
+        action: "use DNS",
+        label: `${currentActive.name} - ${currentActive.servers[0]}`,
+      });
+    }
+  }, [currentActive]);
 
   useEffect(() => {
     async function getCurrentActive() {
