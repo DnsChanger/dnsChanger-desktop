@@ -1,7 +1,7 @@
 {
   "name": "dnschanger",
   "productName": "dnschanger",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "debug": {
     "env": {
       "VITE_DEV_SERVER_URL": "http://127.0.0.1:7777/"
