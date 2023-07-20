@@ -71,7 +71,7 @@ export function App() {
     analytics.event({
       category: "APP_VS",
       label: import.meta.env.PACKAGE_VERSION,
-      action: "check version",
+      action: `version ${import.meta.env.PACKAGE_VERSION}`,
     });
 
     themeChanger(theme);

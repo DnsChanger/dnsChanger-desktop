@@ -28,8 +28,8 @@ export function HomePage() {
     if (currentActive) {
       analytics.event({
         category: "DNS",
-        action: "use DNS",
-        label: `${currentActive.name} - ${currentActive.servers[0]}`,
+        action: `use ${currentActive.name} - ${currentActive.servers[0]}`,
+        label: "use DNS",
       });
     }
   }, [currentActive]);
