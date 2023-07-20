@@ -5,6 +5,8 @@ import { settingStore } from "../app";
 import { Select, Option, Switch, Typography } from "@material-tailwind/react";
 import { getThemeSystem, themeChanger } from "../utils/theme.util";
 import { UpdateBtnComponent } from "../component/buttons/update-btn.component";
+import { CgDarkMode } from "react-icons/cg";
+import { HiMoon, HiSun } from "react-icons/hi";
 
 export function SettingPage() {
   const [startUp, setStartUp] = useState<boolean>(false);
@@ -209,7 +211,7 @@ const ThemeChanger = () => {
   }, [currentTheme]);
 
   return (
-    <div>
+    <div className="select-material">
       <Select
         label={LL.pages.settings.themeChanger()}
         animate={{
@@ -217,12 +219,28 @@ const ThemeChanger = () => {
           unmount: { y: 25 },
         }}
         value={currentTheme}
+        color="indigo"
+        selected={(element) =>
+          element &&
+          React.cloneElement(element, {
+            className: "flex items-center px-0 gap-2 pointer-events-none",
+          })
+        }
         onChange={(value) => setCurrentTheme(value)}
         className={"dark:bg-[#262626] bg-base-200 text-[#6B6A6A] font-[Inter]"}
       >
-        <Option value="system">System</Option>
-        <Option value="dark">{LL.themeChanger.dark()}</Option>
-        <Option value="light">{LL.themeChanger.light()}</Option>
+        <Option value="system" className="flex items-center gap-2 font-[Inter]">
+          <CgDarkMode />
+          System
+        </Option>
+        <Option value="dark" className="flex items-center gap-2 font-[Inter]">
+          <HiMoon />
+          {LL.themeChanger.dark()}
+        </Option>
+        <Option value="light" className="flex items-center gap-2 font-[Inter]">
+          <HiSun />
+          {LL.themeChanger.light()}
+        </Option>
       </Select>
     </div>
   );

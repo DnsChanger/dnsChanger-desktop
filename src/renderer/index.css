@@ -2,140 +2,145 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @font-face {
-    font-family: Vazir;
+  font-family: Vazir;
 
-    src: url("../../assets/fonts/vazir/Vazir-Bold.eot");
+  src: url("../../assets/fonts/vazir/Vazir-Bold.eot");
 
-    src: url("../../assets/fonts/vazir/Vazir-Bold.eot?#iefix") format("embedded-opentype"),
+  src: url("../../assets/fonts/vazir/Vazir-Bold.eot?#iefix")
+      format("embedded-opentype"),
     url("../../assets/fonts/vazir/Vazir-Bold.woff2") format("woff2"),
     url("../../assets/fonts/vazir/Vazir-Bold.woff") format("woff"),
     url("../../assets/fonts/vazir/Vazir-Bold.ttf") format("truetype");
 
-    font-weight: bold;
+  font-weight: bold;
 
-    font-style: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: Vazir;
+  font-family: Vazir;
 
-    src: url("../../assets/fonts/vazir/Vazir-Black.eot");
+  src: url("../../assets/fonts/vazir/Vazir-Black.eot");
 
-    src: url("../../assets/fonts/vazir/Vazir-Black.eot?#iefix") format("embedded-opentype"),
+  src: url("../../assets/fonts/vazir/Vazir-Black.eot?#iefix")
+      format("embedded-opentype"),
     url("../../assets/fonts/vazir/Vazir-Black.woff2") format("woff2"),
     url("../../assets/fonts/vazir/Vazir-Black.woff") format("woff"),
     url("../../assets/fonts/vazir/Vazir-Black.ttf") format("truetype");
 
-    font-weight: 900;
+  font-weight: 900;
 
-    font-style: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: Inter;
+  font-family: Inter;
 
-    src: url("../../assets/fonts/inter/Inter-Medium.ttf");
-
+  src: url("../../assets/fonts/inter/Inter-Medium.ttf");
 }
 
 @font-face {
-    font-family: balooTamma;
+  font-family: balooTamma;
 
-    src: url("../../assets/fonts/BalooTamma/BalooTamma2-Bold.ttf");
-
+  src: url("../../assets/fonts/BalooTamma/BalooTamma2-Bold.ttf");
 }
-
-
 
 body {
-    font-family: Inter, serif;
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
+  font-family: Inter, serif;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 /* scrolbar */
 ::-webkit-scrollbar {
-    width: 0.3em;
-    background-color: #1d1d1d5b;
+  width: 0.3em;
+  background-color: #1d1d1d5b;
 }
 
 /* scrolbar backgrond with theme  */
 html[data-theme="dark"]::-webkit-scrollbar {
-    background-color: #1d1d1d;
+  background-color: #1d1d1d;
 }
 
 /* scrolbar thumb */
 ::-webkit-scrollbar-thumb {
-    background-color: #1d1c1cbe;
-    border-radius: 40px;
+  background-color: #1d1c1cbe;
+  border-radius: 40px;
 }
 
 /* scrolbar thumb on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #1d1d1d;
+  background-color: #1d1d1d;
 }
 
 .spinner {
-    -webkit-animation: spin 4s linear infinite;
-    -moz-animation: spin 4s linear infinite;
-    animation: spin 4s linear infinite;
+  -webkit-animation: spin 4s linear infinite;
+  -moz-animation: spin 4s linear infinite;
+  animation: spin 4s linear infinite;
 }
 
 @-moz-keyframes spin {
-    100% {
-        -moz-transform: rotate(360deg);
-    }
+  100% {
+    -moz-transform: rotate(360deg);
+  }
 }
 
 @-webkit-keyframes spin {
-    100% {
-        -webkit-transform: rotate(360deg);
-    }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
 }
 
 @keyframes spin {
-    100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 html.dark {
-    background-color: #212121
+  background-color: #212121;
 }
 html.light {
-    background-color: #E6E6E6
+  background-color: #e6e6e6;
 }
-html.dark .btm-nav  {
-    background-color: #262626;
+html.dark .btm-nav {
+  background-color: #262626;
 }
 
-
-.disconnectedBtn.relative::before  {
-    color: #b3b3b3b5;
-    content: "";
-    border: 1px solid;
-    border-radius: 90px;
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    bottom: -8px;
-    left: -8px;
-    animation: pulse 3s infinite;
+.disconnectedBtn.relative::before {
+  color: #b3b3b3b5;
+  content: "";
+  border: 1px solid;
+  border-radius: 90px;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  bottom: -8px;
+  left: -8px;
+  animation: pulse 3s infinite;
 }
 @keyframes pulse {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    50% {
-        transform: scale(1.2);
-        opacity: 0.5;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.dark .select-material ul {
+  background: #262626;
+  border: solid #353535;
+  box-shadow: none;
+}
+.dark .select-material ul li:hover {
+  background: #b7b3b3;
 }

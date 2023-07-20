@@ -141,7 +141,10 @@ function ServerTrComponent(prop: Prop) {
                 {servers.join(" , ")}
               </u>
             </PopoverHandler>
-            <PopoverContent className="w-72 dark:bg-[#272727] dark:border-gray-700 shadow-lg">
+            <PopoverContent
+              draggable={false}
+              className="w-72 dark:bg-[#272727] dark:border-gray-700 shadow-lg"
+            >
               <List className="p-0 dark:text-gray-400">
                 <a href="#" className="text-initial w-60">
                   <ListItem

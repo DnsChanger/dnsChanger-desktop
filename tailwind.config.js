@@ -8,7 +8,7 @@ module.exports = withMT({
     "node_modules/daisyui/dist/**/*.js",
     "node_modules/react-daisyui/dist/**/*.js",
   ],
-
+  darkMode: "class",
   theme: {
     extend: {
       colors: {},
