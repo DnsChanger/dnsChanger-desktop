@@ -52,41 +52,4 @@ You can view the [changelog](changelog.md) for more information and recent chang
 
 ## 🛠 Collaboration
 
-Folder structure:
-
-- [UI](https://github.com/DnsChanger/dnsChanger-desktop/tree/main/src/renderer)
-- [Main](https://github.com/DnsChanger/dnsChanger-desktop/tree/main/src/main)
-
-1.
-
-```bash
-git clone https://github.com/DnsChanger/dnsChanger-desktop.git
-```
-
-2.
-
-```bash
-git checkout -b "my-new-feature"
-```
-
-3.
-
-```bash
-npm install
-```
-
-- developing...
-
-4.
-
-```bash
- git commit -am 'Add some feature'
-```
-
-5.
-
-```bash
-git push origin my-new-feature
-```
-
-- Submit a pull request
+[CONTRIBUTING.md](./CONTRIBUTING.md)
