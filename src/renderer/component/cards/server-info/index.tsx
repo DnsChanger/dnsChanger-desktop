@@ -1,5 +1,6 @@
-import { Avatar, Badge, Button } from "react-daisyui";
+import { Avatar, Button } from "react-daisyui";
 import { FiCopy } from "react-icons/fi";
+import { TfiReload } from "react-icons/tfi";
 import { useContext, useEffect, useState } from "react";
 import { serversContext } from "../../../context/servers.context";
 import { Server } from "../../../../shared/interfaces/server.interface";
@@ -14,18 +15,30 @@ interface Prop {
 export function ServerInfoCardComponent(prop: Prop) {
   const serversStateContext = useContext(serversContext);
   const [selectedServer, setSelectedServer] = useState<Server | null>(null);
+  const [isCopyAdds, setIsCopyAdds] = useState<boolean>(true);
   const [ping, setPing] = useState<number>();
   const { LL } = useI18nContext();
+
+  useEffect(() => {
+    if (isCopyAdds) {
+      setTimeout(() => {
+        setIsCopyAdds(false);
+      }, 700);
+    }
+  }, [isCopyAdds]);
+
   useEffect(() => {
     if (serversStateContext.selected) {
       setSelectedServer(serversStateContext.selected);
-      setPing(0);
-      window.ipc
-        .ping(serversStateContext.selected)
-        .then((res) => res.success && setPing(res.data.time));
+      getPing();
     } else setSelectedServer(null);
   }, [serversStateContext.selected]);
-
+  function getPing() {
+    setPing(0);
+    window.ipc
+      .ping(serversStateContext.selected)
+      .then((res) => res.success && setPing(res.data.time));
+  }
   if (!selectedServer) {
     return (
       <div
@@ -98,12 +111,20 @@ export function ServerInfoCardComponent(prop: Prop) {
           <div
             className={"w-100 flex flex-row gap-1   justify-center text-center"}
           >
-            {ping > 0 && getPingIcon(ping)}
-            <span className="ml-1 inline-flex items-baseline text-sm">
-              <span className="font-medium text-slate-900 dark:text-slate-200">
-                {ping}
+            <Button
+              color="ghost"
+              size="sm"
+              className="flex items-center gap-3  border-1 border-gray-700"
+              onClick={getPing}
+            >
+              {ping > 0 && getPingIcon(ping)}
+              <span className="ml-1 inline-flex items-baseline text-sm">
+                <span className="font-medium text-slate-900 dark:text-slate-200">
+                  {ping}
+                </span>
               </span>
-            </span>
+              <TfiReload />
+            </Button>
           </div>
         </div>
         <div className={"flex flex-col gap-2 text-center  justify-center"}>
@@ -111,23 +132,38 @@ export function ServerInfoCardComponent(prop: Prop) {
           <div
             className={"w-100 flex flex-row gap-2   justify-center text-center"}
           >
-            <span className="ml-1 inline-flex items-baseline text-sm">
-              <span className="font-medium text-slate-900 dark:text-slate-200">
-                {selectedServer.servers[0] + "..."}
-              </span>
-            </span>
-            <Button
-              shape={"circle"}
-              size={"xs"}
-              className={
-                "bg-[#c4c0c0] dark:bg-[#fffff] dark:bg-gray-800  hover:bg-gray-900 active:bg-green-400  border-none"
-              }
-              onClick={() =>
-                navigator.clipboard.writeText(selectedServer.servers.join(","))
-              }
-            >
-              <FiCopy />
-            </Button>
+            {isCopyAdds ? (
+              <Button
+                color="success"
+                size="sm"
+                className="flex items-center gap-3 "
+              >
+                <span className="ml-1 inline-flex items-baseline text-sm">
+                  <span className="font-medium text-slate-900 dark:text-slate-200 normal-case">
+                    Copied!
+                  </span>
+                </span>
+              </Button>
+            ) : (
+              <Button
+                color="ghost"
+                size="sm"
+                className="flex items-center gap-3  border-1 border-gray-700"
+                onClick={() => {
+                  navigator.clipboard.writeText(
+                    selectedServer.servers.join(",")
+                  );
+                  setIsCopyAdds(true);
+                }}
+              >
+                <span className="ml-1 inline-flex items-baseline text-sm">
+                  <span className="font-medium text-slate-900 dark:text-slate-200">
+                    {selectedServer.servers[0].slice(0, 10) + "..."}
+                  </span>
+                </span>
+                <FiCopy />
+              </Button>
+            )}
           </div>
         </div>
         <div className={"flex flex-col gap-2 text-center  justify-center"}>

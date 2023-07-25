@@ -18,20 +18,26 @@
     <img src="https://img.shields.io/badge/antivirus-PASS-green" alt="antivirus" >
 </p>
 
-
 This is an open-source DNS Changer for Windows, Mac, and Linux operating systems. Its goal is to gather the best DNS servers in a secure application.
 
+- [✍ Introduction](#-introduction)
   - [📥 Download](#-download)
   - [🦠 Antivirus Result](#-antivirus-result)
-  - [🖼️ Images](#-images)
+  - [🖼 Images](#-images)
   - [📝 Changelog](#-changelog)
-  - [🛠️ Collaboration](#-collaboration)
-
+  - [🛠 Collaboration](#-collaboration)
 
 ## 📥 Download
- Please visit the [releases](https://github.com/DnsChanger/dnsChanger-desktop/releases) section.
+
+Please visit the [releases](https://github.com/DnsChanger/dnsChanger-desktop/releases) section.
+| Platform | Status |
+|----------|----------|
+| Windows | ✅ Stable|
+| MacOS | ✅ Stable |
+| Linux | ✅ Stable |
 
 ## 🦠 Antivirus Result
+
 You can check the antivirus result [here](https://www.virustotal.com/gui/file/a2540db91518e784b9b0f55172487aaaedb50abd8089644cca7f820ccd2d5fb8/detection).
 
 ## 🖼 Images
@@ -44,16 +50,16 @@ You can check the antivirus result [here](https://www.virustotal.com/gui/file/a2
 
 You can view the [changelog](changelog.md) for more information and recent changes.
 
-
 ## 🛠 Collaboration
 
 Folder structure:
+
 - [UI](https://github.com/DnsChanger/dnsChanger-desktop/tree/main/src/renderer)
 - [Main](https://github.com/DnsChanger/dnsChanger-desktop/tree/main/src/main)
 
 1.
 
-```bash 
+```bash
 git clone https://github.com/DnsChanger/dnsChanger-desktop.git
 ```
 
@@ -84,4 +90,3 @@ git push origin my-new-feature
 ```
 
 - Submit a pull request
-
