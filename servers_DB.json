@@ -83,17 +83,18 @@
     ]
   },
   {
-    "key": "xoko651",
-    "name": "Gaming 1",
-    "servers": [
-      "78.157.42.100",
-      "78.157.42.101"
-    ],
-    "avatar": "def.png",
-    "rate": 2,
+    "key":"GOOGLE",
+    "name":"Google",
+    "servers":[
+      "8.8.8.8",
+      "8.8.4.4"
+      ],
+    "avatar": "google.png",
+    "rate": 5,
     "tags": [
-      "Gaming"
-    ]
+       "Gaming",
+       "Downloading"
+     ]
   },
   {
     "key": "wea632",
