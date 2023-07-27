@@ -89,7 +89,7 @@
       "8.8.8.8",
       "8.8.4.4"
       ],
-    "avatar": "google.png",
+    "avatar": "https://raw.githubusercontent.com/DnsChanger/dnsChanger-desktop/store/assets/servers-icon/google.png",
     "rate": 5,
     "tags": [
        "Gaming",
