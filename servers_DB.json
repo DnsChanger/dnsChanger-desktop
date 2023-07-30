@@ -187,7 +187,7 @@
       "Gaming"
     ]
   },
-    {
+  {
     "key": "OPENDNS",
     "name": "OpenDNS",
     "servers": [
@@ -195,6 +195,19 @@
       "208.67.220.220"
     ],
     "avatar": "opendns.png",
+    "rate": 0,
+    "tags": [
+      "Web"
+    ]
+  },
+  {
+    "key": "QUAD9",
+    "name": "Quad9",
+    "servers": [
+      "9.9.9.9",
+      "149.112.112.112"
+    ],
+    "avatar": "quad9.png",
     "rate": 0,
     "tags": [
       "Web"
