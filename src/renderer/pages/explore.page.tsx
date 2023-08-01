@@ -14,11 +14,13 @@ import { Server } from "../../shared/interfaces/server.interface";
 import { UrlsConstant } from "../../shared/constants/urls.constant";
 import { Badge, Button } from "react-daisyui";
 import { getPingIcon } from "../utils/icons.util";
+import { CiCircleMore } from "react-icons/ci";
+import { IoRemoveCircleOutline, IoAddCircleOutline } from "react-icons/io5";
 import { FiCopy } from "react-icons/fi";
 const cacheBuster = (url: string) => `${url}?cb=${Date.now()}`;
 
 export function ExplorePage() {
-  const TABLE_HEAD = ["Name", "Address", "Tags", "Ping", "options"];
+  const TABLE_HEAD = ["Name", "Tags", "Ping", "options"];
   const [TABLE_ROWS, SetTableRow] = useState<Server[]>([]);
   const [storeServers, setStoreServers] = useState<Server[]>([]);
 
@@ -91,7 +93,7 @@ function ServerTrComponent(prop: Prop) {
   const { avatar, name, key, servers, tags, rate } = prop.server;
   const storeServers = prop.storeServers;
   const [ping, setPing] = useState<number>(0);
-  const ratingValue: number = Number((rate / 2).toFixed());
+  const ratingValue = Number((rate / 2).toFixed());
   useEffect(() => {
     window.ipc
       .ping(prop.server)
@@ -115,7 +117,7 @@ function ServerTrComponent(prop: Prop) {
   return (
     <tr>
       <td className={prop.classes}>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3  p-2  rounded-2xl dark:bg-gray-900 bg-gray-300">
           <Avatar
             src={`./servers-icon/${avatar}`}
             alt={name}
@@ -132,18 +134,65 @@ function ServerTrComponent(prop: Prop) {
           </div>
         </div>
       </td>
+
       <td className={prop.classes}>
-        <div className="flex flex-col">
-          {/*<Tooltip message={servers.join(",")}>*/}
-          <Popover placement="right-start">
+        <div className={"grid grid-cols-1 gap-2 h-10 overflow-auto"}>
+          {tags.map((tag) => {
+            return (
+              <Badge
+                size={"xs"}
+                className="text-xs  text-gray-600 dark:text-gray-500 truncate p-2
+                dark:border-gray-800 border-gray-300"
+                variant={"outline"}
+              >
+                {tag}
+              </Badge>
+            );
+          })}
+        </div>
+      </td>
+      <td className={prop.classes}>
+        <div className="w-max flex flex-row gap-2 opacity-70">
+          <span className={"mt-1"}>{getPingIcon(ping)}</span>
+          <p className="text-md"> {!Number(ping) ? 0 : ping}</p>
+        </div>
+      </td>
+      <td className={prop.classes}>
+        <div className="flex flex-row gap-2">
+          {storeServers.find((ser) => ser.key == key) ? (
+            <Button
+              size={"xs"}
+              shape="circle"
+              className={
+                "normal-case bg-[#a5242485] hover:bg-[#891717d1] text-gray-100 dark:text-gray-400 border-none font-light"
+              }
+              onClick={DeleteHandler}
+            >
+              <IoRemoveCircleOutline size={20} />
+            </Button>
+          ) : (
+            <Button
+              size={"xs"}
+              shape="circle"
+              className="normal-case bg-[#3fa67573] hover:bg-[#2d9d67d1] hover:text-white font-light text-gray-100 dark:text-gray-400 border-none text-opacity-80"
+              onClick={AddToListHandler}
+            >
+              <IoAddCircleOutline size={20} />
+            </Button>
+          )}
+          <Popover placement="top-start">
             <PopoverHandler>
-              <u className="font-normal font-light text-[10px] dark:text-white truncate w-20 opacity-70 cursor-pointer">
-                {servers.join(" , ")}
-              </u>
+              <Button
+                size={"xs"}
+                shape="circle"
+                className="normal-case bg-[#555b5873] hover:bg-[#36383773] hover:text-white font-light text-gray-100 dark:text-gray-400 border-none text-opacity-80"
+              >
+                <CiCircleMore size={20} />
+              </Button>
             </PopoverHandler>
             <PopoverContent
               draggable={false}
-              className="w-72 dark:bg-[#272727] dark:border-gray-700 shadow-lg"
+              className="w-72 dark:bg-[#272727] dark:border-gray-700 dark:shadow-md shadow-lg border-none"
             >
               <List className="p-0 dark:text-gray-400">
                 <a href="#" className="text-initial w-60">
@@ -177,51 +226,7 @@ function ServerTrComponent(prop: Prop) {
               </List>
             </PopoverContent>
           </Popover>
-          {/*</Tooltip>*/}
         </div>
-      </td>
-      <td className={prop.classes}>
-        <div className={"grid grid-cols-1 gap-2 h-10 overflow-auto"}>
-          {tags.map((tag) => {
-            return (
-              <Badge
-                size={"xs"}
-                className="text-xs border-amber-300 text-gray-600 dark:text-gray-500 truncate p-2
-                border-gray-500"
-                variant={"outline"}
-              >
-                {tag}
-              </Badge>
-            );
-          })}
-        </div>
-      </td>
-      <td className={prop.classes}>
-        <div className="w-max flex flex-row gap-2 opacity-70">
-          <span className={"mt-1"}>{getPingIcon(ping)}</span>
-          <p> {!Number(ping) ? 0 : ping}</p>
-        </div>
-      </td>
-      <td className={prop.classes}>
-        {storeServers.find((ser) => ser.key == key) ? (
-          <Button
-            size={"xs"}
-            className={
-              "normal-case bg-[#a5242485] hover:bg-[#891717d1] text-gray-100 dark:text-gray-400 border-none font-light"
-            }
-            onClick={DeleteHandler}
-          >
-            remove
-          </Button>
-        ) : (
-          <Button
-            size={"xs"}
-            className="normal-case bg-[#3fa67573] hover:bg-[#2d9d67d1] hover:text-white font-light text-gray-100 dark:text-gray-400 border-none text-opacity-80"
-            onClick={AddToListHandler}
-          >
-            add to favorite
-          </Button>
-        )}
       </td>
     </tr>
   );
