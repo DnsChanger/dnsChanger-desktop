@@ -38,7 +38,7 @@ Please visit the [releases](https://github.com/DnsChanger/dnsChanger-desktop/rel
 
 ## 🦠 Antivirus Result
 
-You can check the antivirus result [here](https://www.virustotal.com/gui/file/a2540db91518e784b9b0f55172487aaaedb50abd8089644cca7f820ccd2d5fb8/detection).
+You can check the antivirus result [here](https://www.virustotal.com/gui/file/775fc39a9fd6c375ea48bd8ea4d2958e246a55a94e0820cd84ecf2dc836b744e/detection).
 
 ## 🖼 Images
 
