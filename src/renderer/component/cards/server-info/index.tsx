@@ -89,20 +89,22 @@ export function ServerInfoCardComponent(prop: Prop) {
           <div
             className={"w-100 text-center flex flex-row gap-2 justify-center"}
           >
-            <img
-              src={`./servers-icon/${selectedServer.avatar}`}
-              alt=""
-              className="self-center w-5 h-5 rounded-full mr-1"
-              onError={({ currentTarget }) => {
-                currentTarget.onerror = null; // prevents looping
-                currentTarget.src = "./servers-icon/def.png";
-              }}
-            />
-            <span className="ml-1 inline-flex items-baseline text-sm">
-              <span className="font-medium text-slate-900 dark:text-slate-200 text-center">
-                {selectedServer.name || "Unknown"}
+            <div className="flex items-center gap-3 p-2 rounded-2xl dark:bg-gray-900 bg-gray-300">
+              <img
+                src={`./servers-icon/${selectedServer.avatar}`}
+                alt=""
+                className="self-center w-5 h-5 rounded-full mr-1"
+                onError={({ currentTarget }) => {
+                  currentTarget.onerror = null; // prevents looping
+                  currentTarget.src = "./servers-icon/def.png";
+                }}
+              />
+              <span className="ml-1 inline-flex items-baseline text-sm">
+                <span className="font-medium text-slate-900 dark:text-slate-200 text-center">
+                  {selectedServer.name || "Unknown"}
+                </span>
               </span>
-            </span>
+            </div>
           </div>
         </div>
         <div className={"flex flex-col gap-2 text-center  justify-center"}>
@@ -114,7 +116,7 @@ export function ServerInfoCardComponent(prop: Prop) {
             <Button
               color="ghost"
               size="sm"
-              className="flex items-center gap-3  border-1 border-gray-700"
+              className="flex items-center gap-3  border-1 border-gray-300 dark:border-gray-900 bg-gray-300 dark:bg-gray-900 dark:hover:bg-gray-800"
               onClick={getPing}
             >
               {ping > 0 && getPingIcon(ping)}
@@ -148,7 +150,7 @@ export function ServerInfoCardComponent(prop: Prop) {
               <Button
                 color="ghost"
                 size="sm"
-                className="flex items-center gap-3  border-1 border-gray-700"
+                className="flex items-center gap-3  border-1 border-gray-300 dark:border-gray-900 bg-gray-300 dark:bg-gray-900 dark:hover:bg-gray-800"
                 onClick={() => {
                   navigator.clipboard.writeText(
                     selectedServer.servers.join(",")
