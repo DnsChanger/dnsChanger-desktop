@@ -36,7 +36,7 @@ export const ipcPreload = {
 
 export const uiPreload = {
   toggleTheme: (newTheme: string) =>
-    ipcRenderer.send(EventsKeys.TOGGLE_THEME, newTheme),
+    ipcRenderer.invoke(EventsKeys.TOGGLE_THEME, newTheme),
 };
 
 contextBridge.exposeInMainWorld("ui", uiPreload);

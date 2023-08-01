@@ -74,7 +74,7 @@ export function App() {
       action: `version ${import.meta.env.PACKAGE_VERSION}`,
     });
 
-    themeChanger(theme);
+    themeChanger(theme as any);
     return () => {
       window
         .matchMedia("(prefers-color-scheme: dark)")

@@ -1,8 +1,10 @@
-export function themeChanger(theme: string): void {
+export async function themeChanger(theme: "dark" | "light" | "system"): Promise<void> {
+  const res = await window.ui.toggleTheme(theme);
+  theme = res ? "dark" : "light"
+
   const doc = document.querySelector("html");
   doc.classList.forEach((c) => doc.classList.remove(c));
   document.querySelector("html").classList.add(theme);
-  window.ui.toggleTheme(theme);
 }
 
 type returnTheme = "dark" | "light";

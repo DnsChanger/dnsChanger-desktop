@@ -205,8 +205,7 @@ const ThemeChanger = () => {
   const { LL } = useI18nContext();
 
   useEffect(() => {
-    if (currentTheme === "system") themeChanger(getThemeSystem());
-    else themeChanger(currentTheme);
+    themeChanger(currentTheme as any);
     localStorage.setItem("theme", currentTheme);
   }, [currentTheme]);
 
