@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Badge, BottomNavigation } from "react-daisyui";
+import { BottomNavigation, Tooltip } from "react-daisyui";
+
 import { TbSettings, TbSmartHome } from "react-icons/tb";
 import { MdOutlineExplore } from "react-icons/md";
 import { HomePage } from "./pages/home.page";
@@ -25,15 +26,26 @@ interface Page {
   key: string;
   element: JSX.Element;
   icon: IconType;
+  name: string;
 }
 
 export function App() {
   const [wasLoaded, setWasLoaded] = useState(false);
 
   const pages: Array<Page> = [
-    { key: "/", element: <HomePage />, icon: TbSmartHome },
-    { key: "/explore", element: <ExplorePage />, icon: MdOutlineExplore },
-    { key: "/setting", element: <SettingPage />, icon: TbSettings },
+    { key: "/", element: <HomePage />, icon: TbSmartHome, name: "Home" },
+    {
+      key: "/explore",
+      element: <ExplorePage />,
+      icon: MdOutlineExplore,
+      name: "Explore",
+    },
+    {
+      key: "/setting",
+      element: <SettingPage />,
+      icon: TbSettings,
+      name: "Setting",
+    },
   ];
   const [currentPage, setCurrentPage] = useState<Page>(pages[0]);
   const [currentPath, setCurrentPath] = useState<string>("/");
@@ -108,18 +120,22 @@ export function App() {
           {pages.map((page) => {
             return (
               <div onClick={() => setCurrentPath(page.key)} key={page.key}>
-                {React.createElement(page.icon, {
-                  className: `${
-                    InPath(page.key) ? "text-[#658DCA]" : "text-[#8D8D8D]"
-                  }`,
-                  size: 30,
-                })}
-                {InPath(page.key) && (
-                  <Badge
-                    size={"xs"}
-                    className={"bg-[#658DCA] border-[#658DCA]"}
-                  ></Badge>
-                )}
+                <Tooltip message={page.name}>
+                  <div
+                    className={`rounded-full p-2 ${
+                      InPath(page.key)
+                        ? "bg-[#7487FF1C]"
+                        : "hover:bg-[#7487ff09] hover:text-[#5B64A4]"
+                    }`}
+                  >
+                    {React.createElement(page.icon, {
+                      className: `${
+                        InPath(page.key) ? "text-[#5B64A4]" : "text-[#8D8D8D] "
+                      }`,
+                      size: 30,
+                    })}
+                  </div>
+                </Tooltip>
               </div>
             );
           })}
