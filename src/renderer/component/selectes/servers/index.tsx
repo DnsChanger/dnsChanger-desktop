@@ -22,7 +22,7 @@ export function ServersListSelectComponent() {
   return (
     <Select
       className={
-        "w-[350px] dark:bg-[#262626] bg-base-200 text-[#6B6A6A] border-none"
+        "w-[360px] dark:bg-[#262626] bg-base-200 text-[#6B6A6A] border-none rounded-[23px]"
       }
       // disabled={!!serversStateContext.currentActive}
       borderOffset={true}
