@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { v4 as uuid } from "uuid";
 import { store } from "../store/store";
-import { ipcMain, shell, dialog, app, BrowserWindow } from "electron";
+import { ipcMain, shell, dialog, BrowserWindow } from "electron";
 
 import { dnsService } from "../config";
 import { Server } from "../../shared/interfaces/server.interface";
@@ -163,6 +163,8 @@ ipcMain.handle(EventsKeys.PING, async function (event, server: Server) {
   }
 });
 
+
+
 function getCurrentLng(): Locales {
   return store.get("settings").lng;
 }
@@ -192,7 +194,7 @@ async function getCurrentActive(): Promise<any> {
       };
     else {
       const win = BrowserWindow.getAllWindows()[0];
-      let filepath = await getOverlayIcon(server);
+      const filepath = await getOverlayIcon(server);
       updateOverlayIcon(win, filepath, "connected");
       return { success: true, server };
     }

@@ -6,7 +6,6 @@ import { ServersListSelectComponent } from "../component/selectes/servers";
 import { ServerInfoCardComponent } from "../component/cards/server-info";
 
 import { AddCustomBtnComponent } from "../component/buttons/add-custom-btn-component";
-import { SelectInterfaceBtnComponent } from "../component/buttons/select-interface-btn-component";
 import { analytics } from "../utils/analytics";
 
 export function HomePage() {

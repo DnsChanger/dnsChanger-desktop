@@ -43,7 +43,7 @@ export function ExplorePage() {
   }, []);
 
   return (
-    <div className="hero flex flex-col justify-center items-center">
+    <div className="hero flex flex-col justify-center items-center p-5">
       <h1 className={"font-[balooTamma] text-4xl mb-2"}>Explore</h1>
       <div className="flex flex-col items-start gap-4 py-0 ">
         <div className="dark:bg-[#262626] bg-base-200 p-4 rounded-lg shadow w-[670px] h-[250px] overflow-auto overflow-y-auto">
@@ -128,7 +128,7 @@ function ServerTrComponent(prop: Prop) {
             }}
           />
           <div className="flex flex-col">
-            <p className="font-normal font-light text-sm dark:text-white truncate w-32 opacity-70">
+            <p className="font-normal text-sm dark:text-white truncate w-32 opacity-70">
               {name}
             </p>
           </div>

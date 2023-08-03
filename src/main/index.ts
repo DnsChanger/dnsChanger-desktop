@@ -62,6 +62,9 @@ async function createWindow() {
     //center: !isDev, // => false
     show: true,
     alwaysOnTop: isDev,
+    movable: true,
+    frame: false,
+    titleBarStyle: 'hidden'
   });
   win.setMenu(null);
   if (url) {
@@ -81,7 +84,7 @@ async function createWindow() {
   });
 
   let tray = null;
-  win.on("close", function (event) {
+  ipcMain.on("close", function (event) {
     if (!store.get("settings").minimize_tray) return app.exit(0);
     event.preventDefault();
     win.setSkipTaskbar(false);
@@ -92,6 +95,10 @@ async function createWindow() {
   update(win, app);
   return win;
 }
+ipcMain.on(EventsKeys.MINIMIZE, () => {
+  app.focus()
+  win.isMinimized() ? win.focus() : win.minimize()
+})
 
 app.whenReady().then(createWindow);
 
@@ -141,7 +148,7 @@ import "./ipc/dialogs";
 import { getPublicFilePath } from "./shared/file";
 
 function createTray() {
-  let appIcon = new Tray(icon);
+  const appIcon = new Tray(icon);
   const showIcon = nativeImage.createFromPath(
     getPublicFilePath("icons/show.png")
   );

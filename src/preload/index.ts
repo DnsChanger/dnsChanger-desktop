@@ -32,6 +32,8 @@ export const ipcPreload = {
   startUpdate: () => ipcRenderer.invoke(EventsKeys.START_UPDATE),
   on: (string: string, cb: any) => ipcRenderer.on(string, cb),
   off: (string: string, cb: any) => ipcRenderer.on(string, cb),
+  close: () => ipcRenderer.send(EventsKeys.CLOSE),
+  minimize: () => ipcRenderer.send(EventsKeys.MINIMIZE)
 };
 
 export const uiPreload = {

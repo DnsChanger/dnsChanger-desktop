@@ -42,7 +42,7 @@ export function SettingPage() {
 
   return (
     <div
-      className="hero flex flex-col justify-center items-center "
+      className="hero flex flex-col justify-center items-center p-5"
       dir={locale == "fa" ? "rtl" : "ltr"}
     >
       <div className="flex flex-col items-start gap-4 ">

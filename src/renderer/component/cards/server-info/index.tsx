@@ -76,6 +76,10 @@ export function ServerInfoCardComponent(prop: Prop) {
 
   const isConnect =
     serversStateContext.currentActive?.key == selectedServer.key;
+  const name =
+    selectedServer.name?.length > 14
+      ? selectedServer.name.slice(0, 12) + "..."
+      : selectedServer.name;
   return (
     <div className="dark:bg-[#262626] bg-base-200 h-[189px] w-[362px] mt-5 rounded-[23px]">
       <div
@@ -100,8 +104,8 @@ export function ServerInfoCardComponent(prop: Prop) {
                 }}
               />
               <span className="ml-1 inline-flex items-baseline text-sm">
-                <span className="font-medium text-slate-900 dark:text-slate-200 text-center">
-                  {selectedServer.name || "Unknown"}
+                <span className="font-medium text-slate-900 dark:text-slate-200 ">
+                  {name || "Unknown"}
                 </span>
               </span>
             </div>
@@ -116,7 +120,7 @@ export function ServerInfoCardComponent(prop: Prop) {
             <Button
               color="ghost"
               size="sm"
-              className="flex items-center gap-3  border-1 border-gray-300 dark:border-gray-900 bg-gray-300 dark:bg-gray-900 dark:hover:bg-gray-800"
+              className="flex items-center gap-3  border-1 border-gray-300 dark:border-gray-900 bg-gray-300 dark:bg-gray-900 dark:hover:bg-gray-800 dark:hover:border-none"
               onClick={getPing}
             >
               {ping > 0 && getPingIcon(ping)}
@@ -138,7 +142,7 @@ export function ServerInfoCardComponent(prop: Prop) {
               <Button
                 color="success"
                 size="sm"
-                className="flex items-center gap-3 "
+                className="flex items-center gap-3"
               >
                 <span className="ml-1 inline-flex items-baseline text-sm">
                   <span className="font-medium text-slate-900 dark:text-slate-200 normal-case">
@@ -150,7 +154,7 @@ export function ServerInfoCardComponent(prop: Prop) {
               <Button
                 color="ghost"
                 size="sm"
-                className="flex items-center gap-3  border-1 border-gray-300 dark:border-gray-900 bg-gray-300 dark:bg-gray-900 dark:hover:bg-gray-800"
+                className="flex items-center gap-3  border-1 border-gray-300 dark:border-gray-900 bg-gray-300 dark:bg-gray-900 dark:hover:bg-gray-800 dark:hover:border-none"
                 onClick={() => {
                   navigator.clipboard.writeText(
                     selectedServer.servers.join(",")
