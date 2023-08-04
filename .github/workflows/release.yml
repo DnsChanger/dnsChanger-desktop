@@ -1,13 +1,22 @@
 name: Release
+
 on:
   push:
-    branches: ["main"]
+    branches:
+      - "main"
+      - "new-ui"
     paths-ignore:
       - "README.md"
+      - "README-*.md"
       - ".github/ISSUE_TEMPLATE/*"
 jobs:
-  publish_on_linux:
-    runs-on: ubuntu-latest
+  publish:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -27,48 +36,4 @@ jobs:
       - name: Publish
         env:
           GH_TOKEN: ${{ secrets.TOKEN }}
-        run: npm run publish:linux
-  publish_on_win:
-    runs-on: windows-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Install Node v18
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Install electron-builder
-        run: npm i electron-builder -g
-
-      - name: Publish
-        env:
-          GH_TOKEN: ${{ secrets.TOKEN }}
-        run: npm run publish:win
-  publish_on_macos:
-    runs-on: macOS-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Install Node v18
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Install electron-builder
-        run: npm i electron-builder -g
-
-      - name: Publish
-        env:
-          GH_TOKEN: ${{ secrets.TOKEN }}
-        run: npm run publish:mac
+        run: npm run publish:${{ matrix.os }}
