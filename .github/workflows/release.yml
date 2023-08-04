@@ -36,4 +36,4 @@ jobs:
       - name: Publish
         env:
           GH_TOKEN: ${{ secrets.TOKEN }}
-        run: npm run publish:${{ matrix.os }}
+        run: npm run publish:auto
