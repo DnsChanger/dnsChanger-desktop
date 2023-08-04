@@ -11,14 +11,14 @@ body:
       - label: "I have searched the existing issues"
         required: true
 
-  - type: textarea
+- type: textarea
     validations:
       required: true
     attributes:
-      label: "Is your feature request related to a problem? Please describe it"
-      description: "A clear and concise description of what the problem is"
+      label: "🪄 describe your feature or idea"
+      description: "A clear and concise description of what you need to implement"
       placeholder: |
-        I have an issue when ...
+        I have an idea ...
 
   - type: checkboxes
     validations:
