@@ -5,52 +5,30 @@ labels: ["type: potential issue :broken_heart:"]
 body:
   - type: checkboxes
     attributes:
-      label: "Is there an existing issue for this?"
+      label: "🤔 Is there an existing issue for this?"
       description: "Please search [here](./?q=is%3Aissue) to see if an issue already exists for the bug you encountered"
       options:
-      - label: "I have searched the existing issues"
-        required: true
+        - label: "I have searched the existing issues"
+          required: true
 
   - type: textarea
     validations:
       required: true
     attributes:
-      label: "Current behavior"
-      description: "How the issue manifests?"
-
-  - type: textarea
-    attributes:
-      label: "Steps to reproduce"
+      label: "📝 Discription"
       description: |
-        How the issue manifests?
-        You could leave this blank if you alread write this in your reproduction code/repo
-      placeholder: |
-        1. `npm i`
-        2. `npm start:dev`
-        3. See error...
-
-  - type: textarea
-    validations:
-      required: true
-    attributes:
-      label: "Expected behavior"
-      description: "A clear and concise description of what you expected to happend (or code)"
+        **Tip:** You can attach images, recordings or log files by clicking this area to highlight it and then dragging files in
 
   - type: markdown
     attributes:
       value: |
         ---
 
-  - type: textarea
+  - type: checkboxes
     validations:
       required: true
     attributes:
-      label: "Package(s) version"
-      description: "Which version of `@DnsChanger/*` are you using? Just fulfill the ones related to your bug"
-
-  - type: checkboxes
-    attributes:
-      label: "In which operating systems have you tested?"
+      label: "💻 In which operating systems have you tested?"
       options:
         - label: macOS
         - label: Windows
@@ -60,7 +38,6 @@ body:
     attributes:
       value: |
         ---
-
   - type: textarea
     attributes:
       label: "Other"
