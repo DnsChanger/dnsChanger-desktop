@@ -8,7 +8,7 @@ on:
     paths-ignore:
       - "README.md"
       - "README-*.md"
-
+      - ".github/ISSUE_TEMPLATE/*"
 jobs:
   publish:
     runs-on: ${{ matrix.os }}
