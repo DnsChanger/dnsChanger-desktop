@@ -1,70 +1,35 @@
 name: Pull Request Workflow
+
 on:
-    pull_request:
-        types: 
-            - opened
-            - synchronize
-        paths-ignore: 
-          - "*.md"
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    paths-ignore:
+      - "*.md"
+
 jobs:
-    build_on_linux:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v3
-               
-            - name: Install Node v18
-              uses: actions/setup-node@v3
-              with:
-                 node-version: 18
-                 cache: npm
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
-            - name: Install dependencies
-              run: npm ci --force
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-            - name: Install electron-builder
-              run: npm i electron-builder -g
+      - name: Install Node v18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: npm
 
-            - name: Build
-              run: npm run build
-    build_on_win:
+      - name: Install dependencies
+        run: npm ci
 
-        runs-on: windows-latest
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v3
-               
-            - name: Install Node v18
-              uses: actions/setup-node@v3
-              with:
-                 node-version: 18
-                 cache: npm
+      - name: Install electron-builder
+        run: npm i electron-builder -g
 
-            - name: Install dependencies
-              run: npm ci --force
-
-            - name: Install electron-builder
-              run: npm i electron-builder -g
-
-            - name: Build
-              run: npm run build
-    build_on_mac:
-        runs-on: windows-latest
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v3
-               
-            - name: Install Node v18
-              uses: actions/setup-node@v3
-              with:
-                 node-version: 18
-                 cache: npm
-
-            - name: Install dependencies
-              run: npm ci --force
-
-            - name: Install electron-builder
-              run: npm i electron-builder -g
-
-            - name: Build
-              run: npm run build
+      - name: Build
+        run: npm run build

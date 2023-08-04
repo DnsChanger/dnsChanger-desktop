@@ -1,0 +1,46 @@
+name: "\U0001F41B Bug Report"
+description: "If something isn't working as expected \U0001F914"
+title: "[Bug]:"
+labels: ["type: potential issue :broken_heart:"]
+body:
+  - type: checkboxes
+    attributes:
+      label: "🤔 Is there an existing issue for this?"
+      description: "Please search [here](./?q=is%3Aissue) to see if an issue already exists for the bug you encountered"
+      options:
+        - label: "I have searched the existing issues"
+          required: true
+
+  - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: "📝 Discription"
+      description: |
+        **Tip:** You can attach images, recordings or log files by clicking this area to highlight it and then dragging files in
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+
+  - type: checkboxes
+    validations:
+      required: true
+    attributes:
+      label: "💻 In which operating systems have you tested?"
+      options:
+        - label: macOS
+        - label: Windows
+        - label: Linux
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+  - type: textarea
+    attributes:
+      label: "Other"
+      description: |
+        Anything else relevant? eg: Logs, OS version, IDE, package manager, etc.
+        **Tip:** You can attach images, recordings or log files by clicking this area to highlight it and then dragging files in
