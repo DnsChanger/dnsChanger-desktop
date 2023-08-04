@@ -8,10 +8,10 @@ body:
       label: "Is there an existing issue that is already proposing this?"
       description: "Please search [here](./?q=is%3Aissue) to see if an issue already exists for the feature you are requesting"
       options:
-      - label: "I have searched the existing issues"
-        required: true
+        - label: "I have searched the existing issues"
+          required: true
 
-- type: textarea
+  - type: textarea
     validations:
       required: true
     attributes:
