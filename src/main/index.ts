@@ -61,11 +61,14 @@ async function createWindow() {
     resizable: false,
     //center: !isDev, // => false
     show: true,
+
     alwaysOnTop: isDev,
     movable: true,
     frame: false,
-    titleBarStyle: 'hidden'
+    titleBarStyle: "hidden",
   });
+  // hides the traffic lights
+  win.setWindowButtonVisibility(false);
   win.setMenu(null);
   if (url) {
     await win.loadURL(url);
@@ -96,9 +99,9 @@ async function createWindow() {
   return win;
 }
 ipcMain.on(EventsKeys.MINIMIZE, () => {
-  app.focus()
-  win.isMinimized() ? win.focus() : win.minimize()
-})
+  app.focus();
+  win.isMinimized() ? win.focus() : win.minimize();
+});
 
 app.whenReady().then(createWindow);
 

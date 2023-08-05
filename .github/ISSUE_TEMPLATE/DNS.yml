@@ -5,7 +5,6 @@ labels: ["type: DNS :sob:"]
 body:
   - type: input
     attributes:
-      required: true
       label: "IP address of DNS"
       description: "example: 4.2.2.4, 8.8.8.8"
       placeholder: "your suggested DNS"
