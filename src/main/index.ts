@@ -15,6 +15,9 @@ import { config } from "dotenv";
 import isDev from "electron-is-dev";
 import { store } from "./store/store";
 import { EventsKeys } from "../shared/constants/eventsKeys.constant";
+import { getPublicFilePath } from "./shared/file";
+import os from 'os';
+
 
 config();
 if (isDev)
@@ -152,8 +155,7 @@ import "./ipc/setting";
 import "./ipc/ui";
 import "./ipc/notif";
 import "./ipc/dialogs";
-import { getPublicFilePath } from "./shared/file";
-import os from 'os';
+
 
 function createTray() {
   const appIcon = new Tray(icon);
