@@ -68,7 +68,11 @@ async function createWindow() {
     titleBarStyle: "hidden",
   });
   // hides the traffic lights
-  win.setWindowButtonVisibility(false);
+
+  if (os.platform() == "darwin")
+    win.setWindowButtonVisibility(false);
+
+
   win.setMenu(null);
   if (url) {
     await win.loadURL(url);
@@ -149,6 +153,7 @@ import "./ipc/ui";
 import "./ipc/notif";
 import "./ipc/dialogs";
 import { getPublicFilePath } from "./shared/file";
+import os from 'os';
 
 function createTray() {
   const appIcon = new Tray(icon);
