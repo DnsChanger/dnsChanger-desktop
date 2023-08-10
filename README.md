@@ -42,9 +42,8 @@ You can check the antivirus result [here](https://www.virustotal.com/gui/file/77
 
 ## 🖼 Images
 
-<p align="center">
-    <img src=".github/1.png?raw=true" alt="dnsChanger screenshot 1" width="496">
-</p>
+![dns changer](https://github.com/DnsChanger/dnsChanger-desktop/assets/66132114/957ba956-af75-4c6f-b3a1-b604c9853e42)
+
 
 ## 📝 Changelog
 
