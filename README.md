@@ -26,6 +26,7 @@ This is an open-source DNS Changer for Windows, Mac, and Linux operating systems
   - [🖼 Images](#-images)
   - [📝 Changelog](#-changelog)
   - [🛠 Collaboration](#-collaboration)
+  - [❤️ Donate](#-donate)
 
 ## 📥 Download
 
@@ -52,3 +53,6 @@ You can view the [changelog](changelog.md) for more information and recent chang
 ## 🛠 Collaboration
 
 [CONTRIBUTING.md](./CONTRIBUTING.md)
+
+## ❤️ Donate
+tether: `0x4BE63320940fe4190ea34d5D855E6261395ac836`
