@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { setState } from "../../interfaces/react.interface";
 import { useI18nContext } from "../../../i18n/i18n-react";
 import {
+  Badge,
   Button,
   Card,
   CardBody,
@@ -12,6 +13,9 @@ import {
   Input,
   Typography,
 } from "@material-tailwind/react";
+import { appNotif } from "../../notifications/appNotif";
+import { TbInfoHexagon } from "react-icons/tb";
+import { GoNumber } from "react-icons/go";
 
 interface Props {
   isOpen: boolean;
@@ -34,8 +38,11 @@ export function AddDnsModalComponent(props: Props) {
       });
 
       if (resp.success) {
-        window.ipc.notif(LL.dialogs.added_server({ serverName: serverName }));
-
+        appNotif(
+          "Success",
+          LL.dialogs.added_server({ serverName: serverName }),
+          "SUCCESS"
+        );
         setNameServer1("");
         setNameServer2("");
         setServerName("");
@@ -43,7 +50,7 @@ export function AddDnsModalComponent(props: Props) {
         props.setIsOpen(false);
         props.cb(resp.server);
       } else {
-        window.ipc.notif(resp.message);
+        appNotif("Error", resp.message, "ERROR");
       }
     } catch (e) {}
   }
@@ -52,7 +59,7 @@ export function AddDnsModalComponent(props: Props) {
       size="lg"
       open={props.isOpen}
       handler={handleOpen}
-      className="bg-transparent shadow-none font-[balooTamma]"
+      className="bg-transparent shadow-none "
     >
       <Card className="mx-auto w-80 dark:bg-[#282828]">
         <CardHeader className="bg-[#7487FF] mb-0 grid h-12 place-items-center ">
@@ -74,7 +81,8 @@ export function AddDnsModalComponent(props: Props) {
               </div>
               <Input
                 type={"text"}
-                className={"w-full max-w-xs dark:text-gray-400"}
+                color="indigo"
+                className={"w-full max-w-xs text-gray-400"}
                 dir={"auto"}
                 label={"custom server..."}
                 name={"dns_name"}
@@ -94,8 +102,9 @@ export function AddDnsModalComponent(props: Props) {
                 <div>
                   <Input
                     type={"text"}
+                    color="indigo"
                     className={"dark:text-gray-400"}
-                    label={"name server 1 ..."}
+                    label={"Preferred DNS server.."}
                     name={"first_server"}
                     value={nameServer1}
                     crossOrigin
@@ -106,7 +115,8 @@ export function AddDnsModalComponent(props: Props) {
                   <Input
                     type={"text"}
                     className={"dark:text-gray-400"}
-                    label={"name server 2 (optional)..."}
+                    color="indigo"
+                    label={"Alternate DNS server (optional)..."}
                     name={"sec_server"}
                     value={nameServer2}
                     crossOrigin
@@ -117,11 +127,22 @@ export function AddDnsModalComponent(props: Props) {
             </div>
           </div>
         </CardBody>
-        <CardFooter className="pt-0">
+        <CardFooter className="pt-0 flex flex-row gap-2">
           <Button
-            className="normal-case bg-[#7487FF] font-[balooTamma] text-xl "
+            variant="text"
+            className="normal-case font-[balooTamma] text-xl"
+            color="red"
+            onClick={handleOpen}
+          >
+            Close
+          </Button>
+          <Button
+            variant="gradient"
+            color={"green"}
+            className={
+              "flex-1  normal-case bg-[#7487FF] font-[balooTamma] text-xl "
+            }
             onClick={addHandler}
-            fullWidth
           >
             Add
           </Button>

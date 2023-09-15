@@ -23,7 +23,7 @@ export function DeleteButtonComponent() {
 
   const handleDelete = async () => {
     if (
-      server.key == serversStateContext.currentActive.key &&
+      server.key == serversStateContext.currentActive?.key &&
       server.name == server.name
     ) {
       setOpen(false);

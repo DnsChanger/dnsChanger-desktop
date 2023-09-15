@@ -55,6 +55,8 @@ export function SettingPage() {
               <div></div>
               <Switch
                 id={"startUp"}
+                crossOrigin
+                color={"green"}
                 label={
                   <div>
                     <Typography
@@ -81,6 +83,8 @@ export function SettingPage() {
               />
               <Switch
                 id={"autoUP"}
+                crossOrigin
+                color={"green"}
                 label={
                   <div>
                     <Typography
@@ -107,6 +111,8 @@ export function SettingPage() {
               />
               <Switch
                 id={"Minimize"}
+                crossOrigin
+                color={"green"}
                 label={
                   <div>
                     <Typography
