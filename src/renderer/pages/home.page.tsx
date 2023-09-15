@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { ConnectButtonComponent } from "../component/buttons/connect-btn.component";
 import { ServersListSelectComponent } from "../component/selectes/servers";
 import { ServerInfoCardComponent } from "../component/cards/server-info";
-
 import { AddCustomBtnComponent } from "../component/buttons/add-custom-btn-component";
 import { analytics } from "../utils/analytics";
+import { DeleteButtonComponent } from "../component/buttons/delete-btn.component";
 
 export function HomePage() {
   const [serversState, setServers] = useState<Server[]>([]);
@@ -86,6 +86,16 @@ export function HomePage() {
                 >
                   <AddCustomBtnComponent />
                 </div>
+                {selectedServer && selectedServer.key ? (
+                  <div
+                    className={
+                      "absolute bottom-[220px] right-10 flex flex-row-reverse gap-2"
+                    }
+                  >
+                    <DeleteButtonComponent />
+                    {/*<EditButtonComponent />*/}
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>

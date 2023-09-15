@@ -15,11 +15,11 @@ export function AddCustomBtnComponent() {
   return (
     <div>
       <Button
-        shape={"circle"}
+        shape={"square"}
         size={"sm"}
         onClick={toggleOpenModal}
         className={
-          "bg-[#B3B3B3] hover:bg-[#898989] dark:bg-[#383838] hover:dark:bg-[#323232] border-none text-center"
+          "bg-[#d8d8d8] hover:bg-[#c4c4c4] dark:bg-[#383838] hover:dark:bg-[#323232] border-none text-center"
         }
       >
         <MdOutlineAddModerator

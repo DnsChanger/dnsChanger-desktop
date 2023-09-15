@@ -163,8 +163,6 @@ ipcMain.handle(EventsKeys.PING, async function (event, server: Server) {
   }
 });
 
-
-
 function getCurrentLng(): Locales {
   return store.get("settings").lng;
 }

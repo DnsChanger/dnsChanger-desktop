@@ -80,6 +80,7 @@ export function AddDnsModalComponent(props: Props) {
                 name={"dns_name"}
                 value={serverName}
                 maxLength={10}
+                crossOrigin
                 onChange={(e) => setServerName(e.target.value)}
               />
             </div>
@@ -97,6 +98,7 @@ export function AddDnsModalComponent(props: Props) {
                     label={"name server 1 ..."}
                     name={"first_server"}
                     value={nameServer1}
+                    crossOrigin
                     onChange={(e) => setNameServer1(e.target.value)}
                   />
                 </div>
@@ -107,6 +109,7 @@ export function AddDnsModalComponent(props: Props) {
                     label={"name server 2 (optional)..."}
                     name={"sec_server"}
                     value={nameServer2}
+                    crossOrigin
                     onChange={(e) => setNameServer2(e.target.value)}
                   />
                 </div>

@@ -1,7 +1,12 @@
 import toast from "react-hot-toast";
 import { BiErrorAlt } from "react-icons/bi";
+import { TiInputChecked } from "react-icons/ti";
 
-export function errorNotif(title: string, msg: string) {
+export function appNotif(
+  title: string,
+  msg: string,
+  type: "SUCCESS" | "ERROR" = "ERROR"
+) {
   const audio = new Audio("./sounds/error-sound.mp3");
   audio.volume = 0.3;
   audio.play().catch();
@@ -15,7 +20,11 @@ export function errorNotif(title: string, msg: string) {
         <div className="flex-1 w-0 p-4">
           <div className="flex items-start">
             <div className="flex-shrink-0 pt-0.5">
-              <BiErrorAlt size={50} className={"text-red-500"} />
+              {type == "SUCCESS" ? (
+                <TiInputChecked size={50} className={"text-green-500"} />
+              ) : (
+                <BiErrorAlt size={50} className={"text-red-500"} />
+              )}
             </div>
             <div className="ml-3 flex-1">
               <p className="text-sm font-medium ">{title}</p>

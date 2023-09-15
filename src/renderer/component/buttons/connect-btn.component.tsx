@@ -3,7 +3,7 @@ import { CiPower } from "react-icons/ci";
 import { useContext, useState } from "react";
 import { serversContext } from "../../context/servers.context";
 import { AiOutlineLoading } from "react-icons/ai";
-import { errorNotif } from "../../notifications/error.notif";
+import { appNotif } from "../../notifications/appNotif";
 
 enum statusStep {
   CONNECTED,
@@ -18,7 +18,7 @@ export function ConnectButtonComponent() {
     if (loading) return;
 
     if (!serversStateContext.selected) {
-      errorNotif("Error", "please first pick your favorite server");
+      appNotif("Error", "please first pick your favorite server");
       return;
     }
 
