@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.1.8
+-  feat: delete favorite server
+-  added zip target #43
+-  fixed: custom server modal styles & add close button
+-  fixed: #44
+
 ## v2.1.7
 
 - رفع مشکل صفحه سفید در ویندوز
