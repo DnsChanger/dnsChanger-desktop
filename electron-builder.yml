@@ -19,8 +19,11 @@ win:
   requestedExecutionLevel: "highestAvailable"
   publish:
     - github
+  target:
+    - zip
+    - msi
 linux:
-  icon: "public/icons/icon.png"
+  icon: "public/icons/icon.icns"
   maintainer: "dnschanger.github.io"
   target:
     - rpm
