@@ -5,7 +5,6 @@ import { ConnectButtonComponent } from "../component/buttons/connect-btn.compone
 import { ServersListSelectComponent } from "../component/selectes/servers";
 import { ServerInfoCardComponent } from "../component/cards/server-info";
 import { AddCustomBtnComponent } from "../component/buttons/add-custom-btn-component";
-import { analytics } from "../utils/analytics";
 import { DeleteButtonComponent } from "../component/buttons/delete-btn.component";
 
 export function HomePage() {
@@ -22,16 +21,6 @@ export function HomePage() {
 
     fetchDnsList();
   }, []);
-
-  useEffect(() => {
-    if (currentActive) {
-      analytics.event({
-        category: "DNS",
-        action: `use ${currentActive.name} - ${currentActive.servers[0]}`,
-        label: "use DNS",
-      });
-    }
-  }, [currentActive]);
 
   useEffect(() => {
     async function getCurrentActive() {

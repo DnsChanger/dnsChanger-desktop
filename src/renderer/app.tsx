@@ -13,7 +13,6 @@ import { getThemeSystem, themeChanger } from "./utils/theme.util";
 import { IconType } from "react-icons";
 import { ExplorePage } from "./pages/explore.page";
 import { Toaster } from "react-hot-toast";
-import { analytics } from "./utils/analytics";
 
 export let settingStore: Settings = {
   lng: "eng",
@@ -80,12 +79,6 @@ export function App() {
         }
       });
 
-    analytics.event({
-      category: "APP_VS",
-      label: import.meta.env.PACKAGE_VERSION,
-      action: `version ${import.meta.env.PACKAGE_VERSION}`,
-    });
-
     themeChanger(theme as any);
     return () => {
       window
@@ -93,15 +86,6 @@ export function App() {
         .removeEventListener("change", () => {});
     };
   }, []);
-
-  useEffect(() => {
-    if (currentPage)
-      analytics.send({
-        hitType: "pageview",
-        page: currentPage.key,
-        title: currentPage.key,
-      });
-  }, [currentPage]);
 
   if (!wasLoaded) return null;
   function InPath(target: string): boolean {

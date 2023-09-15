@@ -72,6 +72,7 @@
     "vite-plugin-electron-renderer": "^0.14.5"
   },
   "dependencies": {
+    "@aptabase/electron": "^0.2.2",
     "auto-launch": "^5.0.5",
     "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
@@ -89,7 +90,6 @@
     "react": "^18.2.0",
     "react-daisyui": "^4.0.3",
     "react-dom": "^18.2.0",
-    "react-ga4": "^2.1.0",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^4.8.0",
     "style-loader": "^3.3.2",
