@@ -26,6 +26,7 @@ This is an open-source DNS Changer for Windows, Mac, and Linux operating systems
   - [🖼 Images](#-images)
   - [📝 Changelog](#-changelog)
   - [🛠 Collaboration](#-collaboration)
+  - [❤️ Donate](#-donate)
 
 ## 📥 Download
 
@@ -38,13 +39,12 @@ Please visit the [releases](https://github.com/DnsChanger/dnsChanger-desktop/rel
 
 ## 🦠 Antivirus Result
 
-You can check the antivirus result [here](https://www.virustotal.com/gui/file/775fc39a9fd6c375ea48bd8ea4d2958e246a55a94e0820cd84ecf2dc836b744e/detection).
+You can check the antivirus result [here](https://www.virustotal.com/gui/file/3d50c66394a4b620ce874b0520db73a5049ec42142f262c9460d6cdb72e74fe3?nocache=1).
 
 ## 🖼 Images
 
-<p align="center">
-    <img src=".github/1.png?raw=true" alt="dnsChanger screenshot 1" width="496">
-</p>
+![dns changer](https://github.com/DnsChanger/dnsChanger-desktop/assets/66132114/957ba956-af75-4c6f-b3a1-b604c9853e42)
+
 
 ## 📝 Changelog
 
@@ -53,3 +53,6 @@ You can view the [changelog](changelog.md) for more information and recent chang
 ## 🛠 Collaboration
 
 [CONTRIBUTING.md](./CONTRIBUTING.md)
+
+## ❤️ Donate
+tether: `0x4BE63320940fe4190ea34d5D855E6261395ac836`
