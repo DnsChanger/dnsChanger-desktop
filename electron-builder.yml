@@ -22,6 +22,7 @@ win:
   target:
     - zip
     - msi
+    - nsis
 linux:
   icon: "public/icons/icon.icns"
   maintainer: "dnschanger.github.io"
