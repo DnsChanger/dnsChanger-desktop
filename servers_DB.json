@@ -199,5 +199,35 @@
     "tags": [
       "Web"
     ]
+  },
+  {
+    "key": "Shatel",
+    "name": "Shatel",
+     "servers":[
+      "129.250.35.250",
+      "129.250.35.251"
+    ],
+    "avatar":"shatel.png",
+    "rate": 4,
+    "tags": [
+      "Iran",
+      "Gaming",
+      "Web"
+    ]
+  },
+  {
+    "key": "Irancell",
+    "name": "Irancell",
+     "servers":[
+      "74.82.42.42",
+      "0.0.0.0"
+    ],
+    "avatar":"irancell.png",
+    "rate": 4,
+    "tags": [
+      "Iran",
+      "Gaming",
+      "Web"
+    ]
   }
 ]
