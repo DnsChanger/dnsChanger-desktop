@@ -6,6 +6,7 @@ import { ServersListSelectComponent } from "../component/selectes/servers";
 import { ServerInfoCardComponent } from "../component/cards/server-info";
 import { AddCustomBtnComponent } from "../component/buttons/add-custom-btn-component";
 import { DeleteButtonComponent } from "../component/buttons/delete-btn.component";
+import { InterfacesDialogButtonComponent } from "../component/buttons/interfaces-dialog-btn-component";
 
 export function HomePage() {
   const [serversState, setServers] = useState<Server[]>([]);
@@ -13,6 +14,7 @@ export function HomePage() {
   const [selectedServer, setSelectedServer] = useState<Server | null>(null);
   const [loadingCurrentActive, setLoadingCurrentActive] =
     useState<boolean>(true);
+  const osType = window.os.os;
   useEffect(() => {
     async function fetchDnsList() {
       const response = await window.ipc.fetchDnsList();
@@ -70,21 +72,20 @@ export function HomePage() {
                 </div>
                 <div
                   className={
-                    "absolute bottom-[215px] -left-10 flex flex-col gap-0"
+                    "absolute bottom-[216px] right-10 flex flex-row-reverse gap-2"
                   }
                 >
                   <AddCustomBtnComponent />
+                  {osType == "win32" && <InterfacesDialogButtonComponent />}
                 </div>
-                {selectedServer && selectedServer.key ? (
-                  <div
-                    className={
-                      "absolute bottom-[220px] right-10 flex flex-row-reverse gap-2"
-                    }
-                  >
-                    <DeleteButtonComponent />
-                    {/*<EditButtonComponent />*/}
-                  </div>
-                ) : null}
+              </div>
+              <div
+                className={
+                  "absolute bottom-[260px] left-[290px] flex flex-col gap-2 h-10"
+                }
+              >
+                <DeleteButtonComponent />
+                {/*<EditButtonComponent />*/}
               </div>
             </div>
           </div>

@@ -40,20 +40,20 @@ export function DeleteButtonComponent() {
       serversStateContext.setSelected(serversStateContext.currentActive);
     }
   };
-
+  if (!server) return null;
   return (
     <>
       <ButtonDaisyui
         shape={"square"}
-        size={"xs"}
+        size={"sm"}
         className={
-          "bg-[#e2e2e2] hover:bg-[#d3d2d2] dark:bg-[#383838] hover:dark:bg-[#323232] border-none text-center"
+          "bg-[#d8d8d8] hover:bg-[#c4c4c4] dark:bg-[#383838] hover:dark:bg-[#323232] border-none text-center"
         }
         onClick={handleOpen}
       >
         <AiOutlineDelete
           className={"dark:text-gray-600 text-gray-800"}
-          size={15}
+          size={16}
         />
       </ButtonDaisyui>
       <Dialog

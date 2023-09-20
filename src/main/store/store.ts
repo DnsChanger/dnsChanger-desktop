@@ -14,7 +14,8 @@ export const store = new electronStore<{
       lng: "eng",
       autoUpdate: true,
       minimize_tray: false,
+      network_interface: "Auto",
     },
   },
-  name: "dnsChangerStore_1.8.0",
+  name: "dnsChangerStore_1.9.0",
 });

@@ -19,6 +19,7 @@ export let settingStore: Settings = {
   startUp: false,
   autoUpdate: false,
   minimize_tray: false,
+  network_interface: "Auto",
 };
 
 interface Page {

@@ -5,7 +5,7 @@ import { contextBridge, ipcRenderer } from "electron";
 import { Server } from "../shared/interfaces/server.interface";
 import { EventsKeys } from "../shared/constants/eventsKeys.constant";
 import { SettingInStore } from "../shared/interfaces/settings.interface";
-
+import os from "os";
 export const ipcPreload = {
   setDns: (server: Server) => ipcRenderer.invoke(EventsKeys.SET_DNS, server),
   clearDns: () => ipcRenderer.invoke(EventsKeys.CLEAR_DNS),
@@ -33,7 +33,11 @@ export const ipcPreload = {
   on: (string: string, cb: any) => ipcRenderer.on(string, cb),
   off: (string: string, cb: any) => ipcRenderer.on(string, cb),
   close: () => ipcRenderer.send(EventsKeys.CLOSE),
-  minimize: () => ipcRenderer.send(EventsKeys.MINIMIZE)
+  minimize: () => ipcRenderer.send(EventsKeys.MINIMIZE),
+  setNetworkInterface: (data: string | "Auto") =>
+    ipcRenderer.invoke(EventsKeys.SET_NETWORK_INTERFACE, data),
+  getNetworkInterface: () =>
+    ipcRenderer.invoke(EventsKeys.GET_NETWORK_INTERFACE),
 };
 
 export const uiPreload = {
@@ -41,5 +45,11 @@ export const uiPreload = {
     ipcRenderer.invoke(EventsKeys.TOGGLE_THEME, newTheme),
 };
 
+export const osItems = {
+  os: os.platform(),
+  getInterfaces: () => os.networkInterfaces(),
+};
+
 contextBridge.exposeInMainWorld("ui", uiPreload);
 contextBridge.exposeInMainWorld("ipc", ipcPreload);
+contextBridge.exposeInMainWorld("os", osItems);

@@ -5,6 +5,8 @@ import sudo from "sudo-prompt";
 
 import { Platform } from "../platform";
 import { Interface } from "./interfaces/interface";
+import os from "os";
+import { store } from "../../store/store";
 
 export class WindowsPlatform extends Platform {
   async clearDns(): Promise<void> {
@@ -33,11 +35,15 @@ export class WindowsPlatform extends Platform {
 
   async getActiveDns(): Promise<Array<string>> {
     try {
-      const activeInterface: Interface = await this.getValidateInterface();
-      const cmd = `netsh interface ip show dns "${activeInterface.name}"`;
+      let networkInterface = store.get("settings").network_interface;
+      if (networkInterface == "Auto")
+        networkInterface = (await this.getValidateInterface()).name;
+
+      const cmd = `netsh interface ip show dns "${networkInterface}"`;
       const text = (await this.execCmd(cmd)) as string;
 
-      return this.extractDns(text);
+      const x = this.extractDns(text);
+      return x;
     } catch (e) {
       throw e;
     }
@@ -54,13 +60,15 @@ export class WindowsPlatform extends Platform {
 
   async setDns(nameServers: Array<string>): Promise<void> {
     try {
-      const activeInterface: Interface = await this.getValidateInterface();
-      const cmdServer1 = `netsh interface ip set dns "${activeInterface.name}" static ${nameServers[0]}`;
+      let networkInterface = store.get("settings").network_interface;
+      if (networkInterface == "Auto")
+        networkInterface = (await this.getValidateInterface()).name;
+      const cmdServer1 = `netsh interface ip set dns "${networkInterface}" static ${nameServers[0]}`;
 
       await this.execCmd(cmdServer1);
 
       if (nameServers[1]) {
-        const cmdServer2 = `netsh interface ip add dns "${activeInterface.name}" ${nameServers[1]} index=2`;
+        const cmdServer2 = `netsh interface ip add dns "${networkInterface}" ${nameServers[1]} index=2`;
         await this.execCmd(cmdServer2);
       }
     } catch (e) {
