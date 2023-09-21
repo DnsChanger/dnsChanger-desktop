@@ -36,7 +36,6 @@ ipcMain.handle(EventsKeys.GET_SETTINGS, async () => {
 ipcMain.handle(EventsKeys.SET_NETWORK_INTERFACE, (event, data) => {
   const settings = store.get("settings");
   settings.network_interface = data;
-  console.log(settings.network_interface);
   store.set("settings", settings);
   return {
     success: true,

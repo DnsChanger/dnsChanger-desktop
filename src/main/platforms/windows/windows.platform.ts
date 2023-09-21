@@ -11,11 +11,13 @@ import { store } from "../../store/store";
 export class WindowsPlatform extends Platform {
   async clearDns(): Promise<void> {
     try {
-      const activeInterface: Interface = await this.getValidateInterface();
+      let networkInterface = store.get("settings").network_interface;
+      if (networkInterface == "Auto")
+        networkInterface = (await this.getValidateInterface()).name;
 
       return new Promise((resolve, reject) => {
         sudo.exec(
-          `netsh interface ip set dns "${activeInterface.name}" dhcp`,
+          `netsh interface ip set dns "${networkInterface}" dhcp`,
           {
             name: "DnsChanger",
           },
@@ -42,8 +44,7 @@ export class WindowsPlatform extends Platform {
       const cmd = `netsh interface ip show dns "${networkInterface}"`;
       const text = (await this.execCmd(cmd)) as string;
 
-      const x = this.extractDns(text);
-      return x;
+      return this.extractDns(text);
     } catch (e) {
       throw e;
     }

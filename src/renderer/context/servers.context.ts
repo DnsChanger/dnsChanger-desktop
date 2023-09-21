@@ -14,4 +14,7 @@ export const serversContext = React.createContext<ServersContext>({
   selected: null,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   setSelected: () => {},
+
+  network: "",
+  setNetwork: () => {},
 });

@@ -11,6 +11,7 @@ import { InterfacesDialogButtonComponent } from "../component/buttons/interfaces
 export function HomePage() {
   const [serversState, setServers] = useState<Server[]>([]);
   const [currentActive, setCurrentActive] = useState<Server | null>(null);
+  const [network, setNetwork] = useState<string>();
   const [selectedServer, setSelectedServer] = useState<Server | null>(null);
   const [loadingCurrentActive, setLoadingCurrentActive] =
     useState<boolean>(true);
@@ -28,17 +29,15 @@ export function HomePage() {
     async function getCurrentActive() {
       try {
         const response = await window.ipc.getCurrentActive();
-        if (response.success) {
-          setCurrentActive(response.server);
-          setSelectedServer(response.server);
-        }
+        setCurrentActive(response.server);
+        setSelectedServer(response.server);
       } finally {
         setLoadingCurrentActive(false);
       }
     }
 
     getCurrentActive();
-  }, []);
+  }, [network]);
 
   return (
     <div className="container">
@@ -50,6 +49,8 @@ export function HomePage() {
           setCurrentActive,
           selected: selectedServer,
           setSelected: setSelectedServer,
+          network: network,
+          setNetwork: setNetwork,
         }}
       >
         <div className="px-0 sm:p-4 hero-content text-center max-w-[500px]   mb-1 ">
@@ -61,7 +62,7 @@ export function HomePage() {
                 </div>
               </div>
 
-              <div className={"absolute right-[50px] top-[100px]"}>
+              <div className={"absolute right-[50px] top-[90px]"}>
                 <div className={"flex flex-col"}>
                   <div className={"flex-none"}>
                     <ServersListSelectComponent />

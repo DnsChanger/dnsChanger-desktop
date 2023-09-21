@@ -14,7 +14,6 @@ interface Prop {
 
 export function ServerInfoCardComponent(prop: Prop) {
   const serversStateContext = useContext(serversContext);
-  const [selectedServer, setSelectedServer] = useState<Server | null>(null);
   const [isCopyAdds, setIsCopyAdds] = useState<boolean>(true);
   const [ping, setPing] = useState<number>();
   const { LL } = useI18nContext();
@@ -28,18 +27,17 @@ export function ServerInfoCardComponent(prop: Prop) {
   }, [isCopyAdds]);
 
   useEffect(() => {
-    if (serversStateContext.selected) {
-      setSelectedServer(serversStateContext.selected);
-      getPing();
-    } else setSelectedServer(null);
-  }, [serversStateContext.selected]);
+    if (serversStateContext.selected) getPing();
+    console.log(serversStateContext.currentActive);
+  }, [serversStateContext.selected, serversStateContext.currentActive]);
+
   function getPing() {
     setPing(0);
     window.ipc
       .ping(serversStateContext.selected)
       .then((res) => res.success && setPing(res.data.time));
   }
-  if (!selectedServer) {
+  if (!serversStateContext.selected) {
     return (
       <div
         className={
@@ -73,13 +71,12 @@ export function ServerInfoCardComponent(prop: Prop) {
       </div>
     );
   }
-
   const isConnect =
-    serversStateContext.currentActive?.key == selectedServer.key;
+    serversStateContext.currentActive?.key == serversStateContext.selected.key;
   const name =
-    selectedServer.name?.length > 14
-      ? selectedServer.name.slice(0, 12) + "..."
-      : selectedServer.name;
+    serversStateContext.selected.name?.length > 14
+      ? serversStateContext.selected.name.slice(0, 12) + "..."
+      : serversStateContext.selected.name;
   return (
     <div className="dark:bg-[#262626] bg-base-200 h-[189px] w-[362px] mt-5 rounded-[23px]">
       <div
@@ -95,7 +92,7 @@ export function ServerInfoCardComponent(prop: Prop) {
           >
             <div className="flex items-center gap-3 p-2 rounded-2xl dark:bg-gray-900 bg-gray-300">
               <img
-                src={`./servers-icon/${selectedServer.avatar}`}
+                src={`./servers-icon/${serversStateContext.selected.avatar}`}
                 alt=""
                 className="self-center w-5 h-5 rounded-full mr-1"
                 onError={({ currentTarget }) => {
@@ -157,14 +154,15 @@ export function ServerInfoCardComponent(prop: Prop) {
                 className="flex items-center gap-3  border-1 border-gray-300 dark:border-gray-900 bg-gray-300 dark:bg-gray-900 dark:hover:bg-gray-800 dark:hover:border-none"
                 onClick={() => {
                   navigator.clipboard.writeText(
-                    selectedServer.servers.join(",")
+                    serversStateContext.selected.servers.join(",")
                   );
                   setIsCopyAdds(true);
                 }}
               >
                 <span className="ml-1 inline-flex items-baseline text-sm">
                   <span className="font-medium text-slate-900 dark:text-slate-200">
-                    {selectedServer.servers[0].slice(0, 10) + "..."}
+                    {serversStateContext.selected.servers[0].slice(0, 10) +
+                      "..."}
                   </span>
                 </span>
                 <FiCopy />

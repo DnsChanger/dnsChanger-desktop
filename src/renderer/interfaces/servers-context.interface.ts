@@ -8,4 +8,7 @@ export interface ServersContext {
 
   selected: Server | null;
   setSelected: any;
+
+  network: string;
+  setNetwork: any;
 }

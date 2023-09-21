@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { setState } from "../../interfaces/react.interface";
 import {
@@ -11,6 +11,8 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { Select } from "react-daisyui";
+import { ServersContext } from "../../interfaces/servers-context.interface";
+import { serversContext } from "../../context/servers.context";
 
 interface Props {
   isOpen: boolean;
@@ -19,15 +21,17 @@ interface Props {
 }
 
 export function NetworkOptionsModalComponent(props: Props) {
+  const { setNetwork } = useContext<ServersContext>(serversContext);
+
   const handleOpen = () => props.setIsOpen((cur) => !cur);
-  const [network, setNetwork] = useState<string>();
+  const [networkInterface, setNetworkInterfaceInterface] = useState<string>();
   const [networkAdapters, setNetworkAdapters] = useState<string[]>([]);
   const [currentNetwork, setCurrentNetwork] = useState<string>("Auto");
   useEffect(() => {
     if (props.isOpen) {
       window.ipc.getNetworkInterface().then((d) => {
         setCurrentNetwork(d);
-
+        setNetwork(d);
         const interfaces = window.os.getInterfaces();
         const networks = [...Object.keys(interfaces)];
         networks.unshift("Auto");
@@ -38,8 +42,11 @@ export function NetworkOptionsModalComponent(props: Props) {
   }, [props.isOpen]);
 
   useEffect(() => {
-    if (network) window.ipc.setNetworkInterface(network).catch();
-  }, [network]);
+    if (networkInterface) {
+      window.ipc.setNetworkInterface(networkInterface).catch();
+      setNetwork(networkInterface);
+    }
+  }, [networkInterface]);
 
   return (
     <Dialog
@@ -72,7 +79,11 @@ export function NetworkOptionsModalComponent(props: Props) {
               </div>
 
               <div>
-                <Select onChange={(value) => setNetwork(value.target.value)}>
+                <Select
+                  onChange={(value) =>
+                    setNetworkInterfaceInterface(value.target.value)
+                  }
+                >
                   {networkAdapters.map((item) => (
                     <Select.Option
                       value={item}
