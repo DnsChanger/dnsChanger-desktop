@@ -15,7 +15,7 @@ export function AddCustomBtnComponent() {
   return (
     <div>
       <Button
-        shape={"square"}
+        shape={"circle"}
         size={"sm"}
         onClick={toggleOpenModal}
         className={

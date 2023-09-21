@@ -4,8 +4,14 @@ import { contextBridge, ipcRenderer } from "electron";
 
 import { Server } from "../shared/interfaces/server.interface";
 import { EventsKeys } from "../shared/constants/eventsKeys.constant";
-import { SettingInStore } from "../shared/interfaces/settings.interface";
+import {
+  SettingInStore,
+  StoreKey,
+} from "../shared/interfaces/settings.interface";
 import os from "os";
+import { store } from "../main/store/store";
+
+console.log(store.get("settings"));
 export const ipcPreload = {
   setDns: (server: Server) => ipcRenderer.invoke(EventsKeys.SET_DNS, server),
   clearDns: () => ipcRenderer.invoke(EventsKeys.CLEAR_DNS),
@@ -50,6 +56,12 @@ export const osItems = {
   getInterfaces: () => os.networkInterfaces(),
 };
 
+// Todo use 'set' in client
+export const storePreload = {
+  get: <T extends keyof StoreKey>(key: T) => store.get<T>(key),
+};
+
 contextBridge.exposeInMainWorld("ui", uiPreload);
 contextBridge.exposeInMainWorld("ipc", ipcPreload);
 contextBridge.exposeInMainWorld("os", osItems);
+contextBridge.exposeInMainWorld("storePreload", storePreload);

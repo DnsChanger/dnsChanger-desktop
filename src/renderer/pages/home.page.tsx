@@ -28,9 +28,12 @@ export function HomePage() {
   useEffect(() => {
     async function getCurrentActive() {
       try {
+        setSelectedServer(null);
         const response = await window.ipc.getCurrentActive();
         setCurrentActive(response.server);
         setSelectedServer(response.server);
+        if (!network)
+          setNetwork(window.storePreload.get("settings").network_interface);
       } finally {
         setLoadingCurrentActive(false);
       }
@@ -82,7 +85,7 @@ export function HomePage() {
               </div>
               <div
                 className={
-                  "absolute bottom-[260px] left-[290px] flex flex-col gap-2 h-10"
+                  "absolute top-[330px] left-[360px] flex flex-col gap-2 h-10"
                 }
               >
                 <DeleteButtonComponent />

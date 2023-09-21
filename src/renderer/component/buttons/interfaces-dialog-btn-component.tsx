@@ -1,7 +1,5 @@
-import { MdOutlineAddModerator } from "react-icons/md";
 import { Button } from "react-daisyui";
 import { useContext, useState } from "react";
-import { AddDnsModalComponent } from "../modals/add-dns.component";
 import { serversContext } from "../../context/servers.context";
 import { BsHddNetwork } from "react-icons/bs";
 import { NetworkOptionsModalComponent } from "../modals/network-options.component";
@@ -17,7 +15,7 @@ export function InterfacesDialogButtonComponent() {
   return (
     <div>
       <Button
-        shape={"square"}
+        shape={"circle"}
         size={"sm"}
         onClick={toggleOpenModal}
         className={

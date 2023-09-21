@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-import { uiPreload, ipcPreload, osItems } from "../preload";
+import { uiPreload, ipcPreload, osItems, storePreload } from "../preload";
 
 interface ImportMetaEnv {
   readonly PACKAGE_VERSION: string;
@@ -14,5 +14,6 @@ declare global {
     ipc: typeof ipcPreload;
     ui: typeof uiPreload;
     os: typeof osItems;
+    storePreload: typeof storePreload;
   }
 }

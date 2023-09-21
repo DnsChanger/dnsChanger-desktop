@@ -16,7 +16,6 @@ export function ConnectButtonComponent() {
   const [loading, setLoading] = useState<boolean>(false);
   async function clickHandler(step: statusStep) {
     if (loading) return;
-
     if (!serversStateContext.selected) {
       appNotif("Error", "please first pick your favorite server");
       return;

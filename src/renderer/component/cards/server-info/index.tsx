@@ -3,7 +3,6 @@ import { FiCopy } from "react-icons/fi";
 import { TfiReload } from "react-icons/tfi";
 import { useContext, useEffect, useState } from "react";
 import { serversContext } from "../../../context/servers.context";
-import { Server } from "../../../../shared/interfaces/server.interface";
 import { useI18nContext } from "../../../../i18n/i18n-react";
 import icon from "../../../../../public/icons/icon.png";
 import { getPingIcon } from "../../../utils/icons.util";
@@ -28,7 +27,6 @@ export function ServerInfoCardComponent(prop: Prop) {
 
   useEffect(() => {
     if (serversStateContext.selected) getPing();
-    console.log(serversStateContext.currentActive);
   }, [serversStateContext.selected, serversStateContext.currentActive]);
 
   function getPing() {
@@ -77,6 +75,12 @@ export function ServerInfoCardComponent(prop: Prop) {
     serversStateContext.selected.name?.length > 14
       ? serversStateContext.selected.name.slice(0, 12) + "..."
       : serversStateContext.selected.name;
+
+  const network =
+    serversStateContext.network?.length > 14
+      ? serversStateContext.network.slice(0, 12) + "..."
+      : serversStateContext.network;
+
   return (
     <div className="dark:bg-[#262626] bg-base-200 h-[189px] w-[362px] mt-5 rounded-[23px]">
       <div
@@ -171,7 +175,7 @@ export function ServerInfoCardComponent(prop: Prop) {
           </div>
         </div>
         <div className={"flex flex-col gap-2 text-center  justify-center"}>
-          <h3 className={"font-semibold  text-gray-500"}>Status</h3>
+          <h3 className={"font-semibold  text-gray-500"}>Network</h3>
 
           <div
             className={"w-100 flex flex-row gap-1   justify-center text-center"}
@@ -181,7 +185,13 @@ export function ServerInfoCardComponent(prop: Prop) {
                 variant="ghost"
                 color={isConnect ? "green" : "red"}
                 size="sm"
-                value={isConnect ? "Connected" : "Disconnect"}
+                value={
+                  network == "Auto"
+                    ? isConnect
+                      ? "Connected"
+                      : "Disconnect"
+                    : network
+                }
                 className={`font-[0px]  ${
                   isConnect ? "text-[#42A752]" : "text-[#B43D3D]"
                 }`}

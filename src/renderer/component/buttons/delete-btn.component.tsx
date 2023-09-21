@@ -44,10 +44,10 @@ export function DeleteButtonComponent() {
   return (
     <>
       <ButtonDaisyui
-        shape={"square"}
+        shape={"circle"}
         size={"sm"}
         className={
-          "bg-[#d8d8d8] hover:bg-[#c4c4c4] dark:bg-[#383838] hover:dark:bg-[#323232] border-none text-center"
+          "dark:bg-[#262626] bg-base-200 hover:bg-[#c4c4c4] hover:dark:bg-[#323232] border-none text-center"
         }
         onClick={handleOpen}
       >

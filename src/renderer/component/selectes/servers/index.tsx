@@ -1,38 +1,27 @@
 import { Server } from "../../../../shared/interfaces/server.interface";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { serversContext } from "../../../context/servers.context";
 import { ServersContext } from "../../../interfaces/servers-context.interface";
 import { Select } from "react-daisyui";
 
 export function ServersListSelectComponent() {
   const serversStateContext = useContext(serversContext);
-  const [selectedKey, setSelectedKey] = useState<string | undefined>("default");
-  useEffect(() => {
-    if (selectedKey != "default" && serversStateContext.servers.length) {
-      const server = serversStateContext.servers.find(
-        (ser) => ser.key == selectedKey
-      );
-      if (server) {
-        serversStateContext.setSelected(server);
-      }
-    } else {
-    }
-  }, [selectedKey]);
-
+  const selectedDef =
+    serversStateContext.selected?.key == "unknown" ||
+    !serversStateContext.selected;
+  function onChange(key: string) {
+    const server = serversStateContext.servers.find((ser) => ser.key == key);
+    serversStateContext.setSelected(server);
+  }
   return (
     <Select
       className={
         "w-[360px] dark:bg-[#262626] bg-base-200 text-[#6B6A6A] border-none rounded-[23px]"
       }
-      // disabled={!!serversStateContext.currentActive}
       borderOffset={true}
-      onChange={(data) => setSelectedKey(data.target.value)}
+      onChange={(data) => onChange(data.target.value)}
     >
-      <Select.Option
-        value={"default"}
-        selected={selectedKey == "default"}
-        disabled={true}
-      >
+      <Select.Option value={"default"} selected={selectedDef} disabled={true}>
         Pick your favorite Server
       </Select.Option>
       {servers(serversStateContext)}

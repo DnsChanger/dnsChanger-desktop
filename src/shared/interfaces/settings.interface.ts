@@ -1,4 +1,5 @@
 import { Locales } from "../../i18n/i18n-types";
+import { Server } from "./server.interface";
 
 export interface Settings {
   startUp: boolean;
@@ -9,3 +10,8 @@ export interface Settings {
 }
 
 export interface SettingInStore extends Omit<Settings, "startUp"> {}
+
+export type StoreKey = {
+  dnsList: Server[];
+  settings: SettingInStore;
+};

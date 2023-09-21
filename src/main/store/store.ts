@@ -2,12 +2,12 @@ import electronStore from "electron-store";
 
 import { Server } from "../../shared/interfaces/server.interface";
 import { serversConstant } from "../../shared/constants/servers.cosntant";
-import { SettingInStore } from "../../shared/interfaces/settings.interface";
+import {
+  SettingInStore,
+  StoreKey,
+} from "../../shared/interfaces/settings.interface";
 
-export const store = new electronStore<{
-  dnsList: Server[];
-  settings: SettingInStore;
-}>({
+export const store = new electronStore<StoreKey>({
   defaults: {
     dnsList: serversConstant,
     settings: {

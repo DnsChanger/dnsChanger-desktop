@@ -74,7 +74,7 @@ export function NetworkOptionsModalComponent(props: Props) {
             <div>
               <div className="label">
                 <span className="label-text text-lg font-normal ">
-                  Network interface
+                  Network Interface
                 </span>
               </div>
 
