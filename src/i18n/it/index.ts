@@ -1,6 +1,6 @@
 import type { Translation } from "../i18n-types";
 
-const eng: Translation = {
+const it: Translation = {
   pages: {
     home: {
       homeTitle: "DNS Changer",
@@ -56,4 +56,4 @@ const eng: Translation = {
   version: "versione",
 };
 
-export default eng;
+export default it;
