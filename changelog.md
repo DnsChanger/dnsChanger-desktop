@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.1.9
+- feat: Ethernet for mac mini and mac studio [PR #123](https://github.com/DnsChanger/dnsChanger-desktop/pull/49)
+- feat: Change Network Interface [windows]
 ## v2.1.8
 -  feat: delete favorite server
 -  added zip target #43
