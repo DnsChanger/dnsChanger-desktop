@@ -7,6 +7,7 @@ export interface Settings {
   autoUpdate: boolean;
   minimize_tray: boolean;
   network_interface: string | "Auto";
+  use_analytic: boolean;
 }
 
 export interface SettingInStore extends Omit<Settings, "startUp"> {}

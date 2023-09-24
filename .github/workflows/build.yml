@@ -23,4 +23,4 @@ jobs:
         run: npm i electron-builder -g
 
       - name: Build
-        run: npm run build
+        run: npm run build:ts

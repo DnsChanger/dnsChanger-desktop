@@ -7,7 +7,7 @@ import { Settings } from "../../shared/interfaces/settings.interface";
 
 ipcMain.handle(EventsKeys.SAVE_SETTINGS, function (event, data: Settings) {
   store.set("settings", data);
-  return { success: true };
+  return { success: true, data };
 });
 ipcMain.handle(EventsKeys.TOGGLE_START_UP, async () => {
   let startUp = await autoLauncher.isEnabled();

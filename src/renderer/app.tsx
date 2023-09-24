@@ -7,21 +7,16 @@ import { HomePage } from "./pages/home.page";
 import { SettingPage } from "./pages/setting.page";
 import { loadLocaleAsync } from "../i18n/i18n-util.async";
 import TypesafeI18n from "../i18n/i18n-react";
-import { Settings } from "../shared/interfaces/settings.interface";
+import {
+  SettingInStore,
+  Settings,
+} from "../shared/interfaces/settings.interface";
 import { PageWrapper } from "./Wrappers/pages.wrapper";
 import { getThemeSystem, themeChanger } from "./utils/theme.util";
 import { IconType } from "react-icons";
 import { ExplorePage } from "./pages/explore.page";
 import { Toaster } from "react-hot-toast";
-
-export let settingStore: Settings = {
-  lng: "eng",
-  startUp: false,
-  autoUpdate: false,
-  minimize_tray: false,
-  network_interface: "Auto",
-};
-
+export let settingStore: SettingInStore = window.storePreload.get("settings");
 interface Page {
   key: string;
   element: JSX.Element;

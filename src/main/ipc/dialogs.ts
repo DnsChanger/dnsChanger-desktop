@@ -24,9 +24,11 @@ ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
     const win = BrowserWindow.getAllWindows()[0];
     const filepath = await getOverlayIcon(server);
     updateOverlayIcon(win, filepath, "connected");
-    trackEvent(`USE_DNS:${server.name}`, {
-      servers: server.servers.toString(),
-    }).catch();
+
+    if (store.get("settings").use_analytic)
+      trackEvent(`USE_DNS:${server.name}`, {
+        servers: server.servers.toString(),
+      }).catch();
     return {
       server,
       success: true,

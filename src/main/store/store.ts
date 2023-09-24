@@ -6,16 +6,12 @@ import {
   SettingInStore,
   StoreKey,
 } from "../../shared/interfaces/settings.interface";
+import { defaultSetting } from "../../shared/constants/default-setting.contant";
 
 export const store = new electronStore<StoreKey>({
   defaults: {
     dnsList: serversConstant,
-    settings: {
-      lng: "eng",
-      autoUpdate: true,
-      minimize_tray: false,
-      network_interface: "Auto",
-    },
+    settings: defaultSetting,
   },
   name: "dnsChangerStore_1.9.0",
 });

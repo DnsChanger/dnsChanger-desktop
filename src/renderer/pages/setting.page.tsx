@@ -1,44 +1,46 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useI18nContext } from "../../i18n/i18n-react";
-import { settingStore } from "../app";
-import { Select, Option, Switch, Typography } from "@material-tailwind/react";
+import { Option, Select, Switch, Typography } from "@material-tailwind/react";
 import { getThemeSystem, themeChanger } from "../utils/theme.util";
-import { UpdateBtnComponent } from "../component/buttons/update-btn.component";
 import { CgDarkMode } from "react-icons/cg";
 import { HiMoon, HiSun } from "react-icons/hi";
+import { SettingInStore } from "../../shared/interfaces/settings.interface";
 
 export function SettingPage() {
   const [startUp, setStartUp] = useState<boolean>(false);
-  const [autoUpdate, setAutoUpdate] = useState<boolean>(false);
-  const [miniTry, setMiniTry] = useState<boolean>(false);
   const { LL, locale } = useI18nContext();
-
-  useEffect(() => {
-    setStartUp(settingStore.startUp);
-    setAutoUpdate(settingStore.autoUpdate);
-    setMiniTry(settingStore.minimize_tray);
-  }, []);
+  const [settingState, setSettingState] = useState<SettingInStore>(
+    window.storePreload.get("settings")
+  );
 
   function toggleStartUp() {
     window.ipc.toggleStartUP().then((res) => setStartUp(res));
   }
   function toggleAutoUpdate() {
-    const auto = !autoUpdate;
-    settingStore.autoUpdate = auto;
-    setAutoUpdate(auto);
-    saveSetting();
+    setSettingState((prevState) => ({
+      ...prevState,
+      autoUpdate: !prevState.autoUpdate,
+    }));
   }
 
   function toggleMinimize_tray() {
-    settingStore.minimize_tray = !miniTry;
-    setMiniTry(settingStore.minimize_tray);
-    saveSetting();
+    setSettingState((prevState) => ({
+      ...prevState,
+      minimize_tray: !prevState.minimize_tray,
+    }));
   }
 
-  async function saveSetting() {
-    await window.ipc.saveSettings(settingStore);
+  function toggleAnalytic() {
+    setSettingState((prevState) => ({
+      ...prevState,
+      use_analytic: !prevState.use_analytic,
+    }));
   }
+
+  useEffect(() => {
+    window.ipc.saveSettings(settingState).catch();
+  }, [settingState]);
 
   return (
     <div
@@ -46,16 +48,15 @@ export function SettingPage() {
       dir={locale == "fa" ? "rtl" : "ltr"}
     >
       <div className="flex flex-col items-start gap-4 ">
-        <div className="dark:bg-[#262626] bg-base-200 p-4 rounded-lg shadow w-[600px] h-[300px] ">
-          <div className="flex flex-col justify-center gap-2 ">
+        <div className="dark:bg-[#262626] bg-base-200 p-4 rounded-lg shadow w-[600px] h-[300px]">
+          <div className="flex flex-col justify-center  gap-2  p-4">
             {/*<LanguageSwitcher cb={() => saveSetting()} />*/}
-
             <div className={"grid grid-cols-2 gap-5 "}>
               <ThemeChanger />
               <div></div>
               <Switch
                 id={"startUp"}
-                crossOrigin
+                crossOrigin={"true"}
                 color={"green"}
                 label={
                   <div>
@@ -79,11 +80,10 @@ export function SettingPage() {
                 }}
                 onChange={toggleStartUp}
                 defaultChecked={startUp}
-                checked={startUp}
               />
               <Switch
                 id={"autoUP"}
-                crossOrigin
+                crossOrigin={"true"}
                 color={"green"}
                 label={
                   <div>
@@ -106,12 +106,11 @@ export function SettingPage() {
                   className: "-mt-5 mr-2",
                 }}
                 onChange={toggleAutoUpdate}
-                defaultChecked={autoUpdate}
-                checked={autoUpdate}
+                defaultChecked={settingState.autoUpdate}
               />
               <Switch
                 id={"Minimize"}
-                crossOrigin
+                crossOrigin={"true"}
                 color={"green"}
                 label={
                   <div>
@@ -134,14 +133,35 @@ export function SettingPage() {
                   className: "-mt-5 mr-2",
                 }}
                 onChange={toggleMinimize_tray}
-                defaultChecked={miniTry}
-                checked={miniTry}
+                defaultChecked={settingState.minimize_tray}
               />
-            </div>
-
-            <hr className={"border-gray-500"} />
-            <div className={"flex flex-row"}>
-              <UpdateBtnComponent />
+              <Switch
+                id={"Analytic"}
+                crossOrigin={"true"}
+                color={"green"}
+                label={
+                  <div>
+                    <Typography
+                      color="blue-gray"
+                      className="font-medium  dark:text-white font-[Inter]"
+                    >
+                      Analytic
+                    </Typography>
+                    <Typography
+                      variant="paragraph"
+                      color="gray"
+                      className="font-medium  dark:text-gray-600 font-[Inter] text-sm "
+                    >
+                      The app move to try in background
+                    </Typography>
+                  </div>
+                }
+                containerProps={{
+                  className: "-mt-5 mr-2",
+                }}
+                onChange={toggleAnalytic}
+                defaultChecked={settingState.use_analytic}
+              />
             </div>
           </div>
         </div>
