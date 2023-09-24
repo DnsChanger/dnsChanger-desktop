@@ -12,7 +12,7 @@ export enum EventsKeys {
   TOGGLE_THEME = "ui:toggleTheme",
   GET_SETTINGS = "setting:get",
   SET_NETWORK_INTERFACE = "setting:set_network_interface",
-  GET_NETWORK_INTERFACE = "setting:get_network_interface",
+  GET_NETWORK_INTERFACE_LIST = "setting:get_network_interface_list",
   SAVE_SETTINGS = "setting:save",
   TOGGLE_START_UP = "setting:toggleStartUp",
   FLUSHDNS = "dialogs:flushDns",

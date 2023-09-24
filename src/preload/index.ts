@@ -49,7 +49,8 @@ export const uiPreload = {
 
 export const osItems = {
   os: os.platform(),
-  getInterfaces: () => os.networkInterfaces(),
+  getInterfaces: () =>
+    ipcRenderer.invoke(EventsKeys.GET_NETWORK_INTERFACE_LIST),
 };
 
 // Todo use 'set' in client

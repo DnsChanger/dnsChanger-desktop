@@ -169,6 +169,9 @@ ipcMain.handle(EventsKeys.PING, async function (event, server: Server) {
   }
 });
 
+ipcMain.handle(EventsKeys.GET_NETWORK_INTERFACE_LIST, () => {
+  return dnsService.getInterfacesList();
+});
 function getCurrentLng(): Locales {
   return store.get("settings").lng;
 }

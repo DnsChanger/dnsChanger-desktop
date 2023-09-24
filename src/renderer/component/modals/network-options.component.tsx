@@ -25,19 +25,27 @@ export function NetworkOptionsModalComponent(props: Props) {
   const { setNetwork, network } = useContext<ServersContext>(serversContext);
 
   const handleOpen = () => props.setIsOpen((cur) => !cur);
+
+  const [loading, setLoading] = useState<boolean>(true);
+
   const [networkInterface, setNetworkInterfaceInterface] = useState<string>();
+
   const [networkAdapters, setNetworkAdapters] = useState<string[]>([]);
-  // const [currentNetwork, setCurrentNetwork] = useState<string>("Auto");
+
   useEffect(() => {
     if (props.isOpen) {
       const current = window.storePreload.get("settings").network_interface;
-      //setCurrentNetwork(current);
-      setNetwork(current);
-      const interfaces = window.os.getInterfaces();
-      const networks = [...Object.keys(interfaces)];
-      networks.unshift("Auto");
 
-      setNetworkAdapters(networks);
+      setNetwork(current);
+
+      window.os
+        .getInterfaces()
+        .then((interfaces) => {
+          const networks = interfaces.map((d) => d.name);
+          networks.unshift("Auto");
+          setNetworkAdapters(networks);
+        })
+        .finally(() => setLoading(false));
     }
   }, [props.isOpen]);
 
@@ -45,6 +53,7 @@ export function NetworkOptionsModalComponent(props: Props) {
     if (networkInterface) {
       settingStore.network_interface = networkInterface;
       window.ipc.saveSettings(settingStore).catch();
+
       setNetwork(networkInterface);
     }
   }, [networkInterface]);
@@ -80,17 +89,24 @@ export function NetworkOptionsModalComponent(props: Props) {
               </div>
 
               <div>
-                <Select
-                  onChange={(value) =>
-                    setNetworkInterfaceInterface(value.target.value)
-                  }
-                >
-                  {networkAdapters.map((item) => (
-                    <Select.Option value={item} selected={item == network}>
-                      {item}
-                    </Select.Option>
-                  ))}
-                </Select>
+                {loading ? (
+                  <div className={"flex flex-row gap-2"}>
+                    <span className="loading loading-ring loading-xs"></span>
+                    fetching interfaces...
+                  </div>
+                ) : (
+                  <Select
+                    onChange={(value) =>
+                      setNetworkInterfaceInterface(value.target.value)
+                    }
+                  >
+                    {networkAdapters.map((item) => (
+                      <Select.Option value={item} selected={item == network}>
+                        {item}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                )}
               </div>
             </div>
           </div>
