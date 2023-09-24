@@ -86,7 +86,7 @@ export function SettingPage() {
                 crossOrigin={"true"}
                 color={"green"}
                 label={
-                  <div>
+                  <div className={"mb-4"}>
                     <Typography
                       color="blue-gray"
                       className="font-medium  dark:text-white font-[Inter]"
@@ -140,7 +140,7 @@ export function SettingPage() {
                 crossOrigin={"true"}
                 color={"green"}
                 label={
-                  <div>
+                  <div className="ml-2">
                     <Typography
                       color="blue-gray"
                       className="font-medium  dark:text-white font-[Inter]"
@@ -150,9 +150,9 @@ export function SettingPage() {
                     <Typography
                       variant="paragraph"
                       color="gray"
-                      className="font-medium  dark:text-gray-600 font-[Inter] text-sm "
+                      className="font-medium  dark:text-gray-600 font-[Inter] text-sm"
                     >
-                      The app move to try in background
+                      Enable/disable sending servers for analysis[name,address]
                     </Typography>
                   </div>
                 }
