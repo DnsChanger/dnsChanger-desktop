@@ -32,9 +32,3 @@ ipcMain.handle(EventsKeys.GET_SETTINGS, async () => {
   settings.startUp = await autoLauncher.isEnabled();
   return settings;
 });
-
-ipcMain.handle(EventsKeys.GET_NETWORK_INTERFACE, (event, data) => {
-  const settings = store.get("settings");
-
-  return settings.network_interface;
-});

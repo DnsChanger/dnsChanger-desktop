@@ -40,10 +40,6 @@ export const ipcPreload = {
   off: (string: string, cb: any) => ipcRenderer.on(string, cb),
   close: () => ipcRenderer.send(EventsKeys.CLOSE),
   minimize: () => ipcRenderer.send(EventsKeys.MINIMIZE),
-  setNetworkInterface: (data: string | "Auto") =>
-    ipcRenderer.invoke(EventsKeys.SET_NETWORK_INTERFACE, data),
-  getNetworkInterface: () =>
-    ipcRenderer.invoke(EventsKeys.GET_NETWORK_INTERFACE),
 };
 
 export const uiPreload = {

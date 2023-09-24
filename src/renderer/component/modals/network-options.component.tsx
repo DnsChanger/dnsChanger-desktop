@@ -22,23 +22,22 @@ interface Props {
 }
 
 export function NetworkOptionsModalComponent(props: Props) {
-  const { setNetwork } = useContext<ServersContext>(serversContext);
+  const { setNetwork, network } = useContext<ServersContext>(serversContext);
 
   const handleOpen = () => props.setIsOpen((cur) => !cur);
   const [networkInterface, setNetworkInterfaceInterface] = useState<string>();
   const [networkAdapters, setNetworkAdapters] = useState<string[]>([]);
-  const [currentNetwork, setCurrentNetwork] = useState<string>("Auto");
+  // const [currentNetwork, setCurrentNetwork] = useState<string>("Auto");
   useEffect(() => {
     if (props.isOpen) {
-      window.ipc.getNetworkInterface().then((d) => {
-        setCurrentNetwork(d);
-        setNetwork(d);
-        const interfaces = window.os.getInterfaces();
-        const networks = [...Object.keys(interfaces)];
-        networks.unshift("Auto");
+      const current = window.storePreload.get("settings").network_interface;
+      //setCurrentNetwork(current);
+      setNetwork(current);
+      const interfaces = window.os.getInterfaces();
+      const networks = [...Object.keys(interfaces)];
+      networks.unshift("Auto");
 
-        setNetworkAdapters(networks);
-      });
+      setNetworkAdapters(networks);
     }
   }, [props.isOpen]);
 
@@ -87,10 +86,7 @@ export function NetworkOptionsModalComponent(props: Props) {
                   }
                 >
                   {networkAdapters.map((item) => (
-                    <Select.Option
-                      value={item}
-                      selected={item == currentNetwork}
-                    >
+                    <Select.Option value={item} selected={item == network}>
                       {item}
                     </Select.Option>
                   ))}
