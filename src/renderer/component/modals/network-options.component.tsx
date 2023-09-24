@@ -13,6 +13,7 @@ import {
 import { Select } from "react-daisyui";
 import { ServersContext } from "../../interfaces/servers-context.interface";
 import { serversContext } from "../../context/servers.context";
+import { settingStore } from "../../app";
 
 interface Props {
   isOpen: boolean;
@@ -43,7 +44,8 @@ export function NetworkOptionsModalComponent(props: Props) {
 
   useEffect(() => {
     if (networkInterface) {
-      window.ipc.setNetworkInterface(networkInterface).catch();
+      settingStore.network_interface = networkInterface;
+      window.ipc.saveSettings(settingStore).catch();
       setNetwork(networkInterface);
     }
   }, [networkInterface]);

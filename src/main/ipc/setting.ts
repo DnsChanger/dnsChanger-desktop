@@ -33,14 +33,6 @@ ipcMain.handle(EventsKeys.GET_SETTINGS, async () => {
   return settings;
 });
 
-ipcMain.handle(EventsKeys.SET_NETWORK_INTERFACE, (event, data) => {
-  const settings = store.get("settings");
-  settings.network_interface = data;
-  store.set("settings", settings);
-  return {
-    success: true,
-  };
-});
 ipcMain.handle(EventsKeys.GET_NETWORK_INTERFACE, (event, data) => {
   const settings = store.get("settings");
 
