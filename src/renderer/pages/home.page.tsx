@@ -27,13 +27,15 @@ export function HomePage() {
 
   useEffect(() => {
     async function getCurrentActive() {
+      if (!network) {
+        setNetwork(window.storePreload.get("settings").network_interface);
+        return;
+      }
       try {
         setSelectedServer(null);
         const response = await window.ipc.getCurrentActive();
         setCurrentActive(response.server);
         setSelectedServer(response.server);
-        if (!network)
-          setNetwork(window.storePreload.get("settings").network_interface);
       } finally {
         setLoadingCurrentActive(false);
       }
@@ -88,8 +90,10 @@ export function HomePage() {
                   "absolute top-[330px] left-[360px] flex flex-col gap-2 h-10"
                 }
               >
-                <DeleteButtonComponent />
-                {/*<EditButtonComponent />*/}
+                <div className={"flx flex-row gap-10"}>
+                  <DeleteButtonComponent />
+                  {/*<EditButtonComponent />*/}
+                </div>
               </div>
             </div>
           </div>
