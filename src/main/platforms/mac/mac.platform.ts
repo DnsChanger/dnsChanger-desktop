@@ -37,7 +37,12 @@ export class MacPlatform extends Platform {
       const dnsServers = nameServers.join(" ");
 
       await execPromise(`networksetup -setdnsservers Wi-Fi ${dnsServers}`);
-      await execPromise(`networksetup -setdnsservers Ethernet ${dnsServers}`);
+
+      try{
+        await execPromise(`networksetup -setdnsservers Ethernet ${dnsServers}`);
+      }catch (e) {
+        // ignore if device don't have Ethernet
+      }
 
     } catch (e) {
       throw e;
