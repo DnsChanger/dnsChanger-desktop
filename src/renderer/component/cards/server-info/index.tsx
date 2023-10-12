@@ -94,7 +94,7 @@ export function ServerInfoCardComponent(prop: Prop) {
           <div
             className={"w-100 text-center flex flex-row gap-2 justify-center"}
           >
-            <div className="flex items-center gap-3 p-2 rounded-2xl dark:bg-gray-900 bg-gray-300">
+            <div className="flex items-center gap-3 p-2 rounded-[10px] dark:bg-gray-900 bg-gray-300">
               <img
                 src={`./servers-icon/${serversStateContext.selected.avatar}`}
                 alt=""
@@ -175,30 +175,65 @@ export function ServerInfoCardComponent(prop: Prop) {
           </div>
         </div>
         <div className={"flex flex-col gap-2 text-center  justify-center"}>
-          <h3 className={"font-semibold  text-gray-500"}>Network</h3>
+          {window.os.os == "win32" ? (
+            <>
+              <h3 className={"font-semi-bold  text-gray-500"}>Network</h3>
 
-          <div
-            className={"w-100 flex flex-row gap-1   justify-center text-center"}
-          >
-            {
-              <Chip
-                variant="ghost"
-                color={isConnect ? "green" : "red"}
-                size="sm"
-                value={network}
-                className={`font-[0px]  ${
-                  isConnect ? "text-[#42A752]" : "text-[#B43D3D]"
-                }`}
-                icon={
-                  <span
-                    className={`content-[''] block w-2 h-2 rounded-full mx-auto mt-1 ${
-                      isConnect ? "bg-green-900" : "bg-red-900"
+              <div
+                className={
+                  "w-100 flex flex-row gap-1   justify-center text-center"
+                }
+              >
+                {
+                  <Chip
+                    variant="ghost"
+                    color={isConnect ? "green" : "red"}
+                    size="sm"
+                    value={network}
+                    className={`font-[0px]  ${
+                      isConnect ? "text-[#42A752]" : "text-[#B43D3D]"
                     }`}
+                    icon={
+                      <span
+                        className={`content-[''] block w-2 h-2 rounded-full mx-auto mt-1 ${
+                          isConnect ? "bg-green-900" : "bg-red-900"
+                        }`}
+                      />
+                    }
                   />
                 }
-              />
-            }
-          </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <h3 className={"font-semibold  text-gray-500"}>Status</h3>
+
+              <div
+                className={
+                  "w-100 flex flex-row gap-1   justify-center text-center"
+                }
+              >
+                {
+                  <Chip
+                    variant="ghost"
+                    color={isConnect ? "green" : "red"}
+                    size="sm"
+                    value={isConnect ? "Connected" : "Disconnect"}
+                    className={`font-[0px]  ${
+                      isConnect ? "text-[#42A752]" : "text-[#B43D3D]"
+                    }`}
+                    icon={
+                      <span
+                        className={`content-[''] block w-2 h-2 rounded-full mx-auto mt-1 ${
+                          isConnect ? "bg-green-900" : "bg-red-900"
+                        }`}
+                      />
+                    }
+                  />
+                }
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

@@ -50,6 +50,8 @@ You can check the antivirus result [here](https://www.virustotal.com/gui/file/3d
 
 You can view the [changelog](changelog.md) for more information and recent changes.
 
+# 🛡️ Privacy
+This app has analytics that will track the number of users and servers only and nothing more.
 ## 🛠 Collaboration
 
 [CONTRIBUTING.md](./CONTRIBUTING.md)
