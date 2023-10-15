@@ -6,9 +6,7 @@ import {
   Card,
   CardBody,
   CardFooter,
-  CardHeader,
   Dialog,
-  Typography,
 } from "@material-tailwind/react";
 import { Select } from "react-daisyui";
 import { ServersContext } from "../../interfaces/servers-context.interface";
@@ -70,16 +68,10 @@ export function NetworkOptionsModalComponent(props: Props) {
       className="bg-transparent shadow-none "
     >
       <Card className="mx-auto w-80 dark:bg-[#282828]">
-        <CardHeader className="bg-[#7487FF] mb-0 grid h-12 place-items-center ">
-          <Typography
-            variant="h3"
-            color="white"
-            className={"font-[balooTamma]"}
-          >
-            Network Options
-          </Typography>
-        </CardHeader>
-        <CardBody className="flex flex-col gap-4">
+        <div className="mb-0 p-2 bg-[#f2f2f2] dark:bg-[#262626] dark:text-gray-400 rounded-t-2xl  place-items-center flex flex-row justify-between">
+          <div className="ml-3 font-[balooTamma] text-1xl">Network Options</div>
+        </div>
+        <CardBody className="flex flex-col">
           <div className={"grid"}>
             <div>
               <div className="label">

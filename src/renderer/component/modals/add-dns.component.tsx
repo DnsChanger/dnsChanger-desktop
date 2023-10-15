@@ -3,19 +3,14 @@ import React, { useState } from "react";
 import { setState } from "../../interfaces/react.interface";
 import { useI18nContext } from "../../../i18n/i18n-react";
 import {
-  Badge,
   Button,
   Card,
   CardBody,
   CardFooter,
-  CardHeader,
   Dialog,
   Input,
-  Typography,
 } from "@material-tailwind/react";
 import { appNotif } from "../../notifications/appNotif";
-import { TbInfoHexagon } from "react-icons/tb";
-import { GoNumber } from "react-icons/go";
 
 interface Props {
   isOpen: boolean;
@@ -62,15 +57,10 @@ export function AddDnsModalComponent(props: Props) {
       className="bg-transparent shadow-none "
     >
       <Card className="mx-auto w-80 dark:bg-[#282828]">
-        <CardHeader className="bg-[#7487FF] mb-0 grid h-12 place-items-center ">
-          <Typography
-            variant="h3"
-            color="white"
-            className={"font-[balooTamma]"}
-          >
-            Custom Server
-          </Typography>
-        </CardHeader>
+        <div className="mb-0 p-2 bg-[#f2f2f2] dark:bg-[#262626] dark:text-gray-400 rounded-t-2xl  place-items-center flex flex-row justify-between">
+          <div className="ml-3 font-[balooTamma] text-1xl">Custom Server</div>
+        </div>
+
         <CardBody className="flex flex-col gap-4">
           <div className={"grid"}>
             <div>
