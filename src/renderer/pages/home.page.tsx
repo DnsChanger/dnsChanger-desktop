@@ -1,4 +1,4 @@
-import { Server } from "../../shared/interfaces/server.interface";
+import { Server, ServerStore } from "../../shared/interfaces/server.interface";
 import { serversContext } from "../context/servers.context";
 import { useEffect, useState } from "react";
 import { ConnectButtonComponent } from "../component/buttons/connect-btn.component";
@@ -7,12 +7,15 @@ import { ServerInfoCardComponent } from "../component/cards/server-info";
 import { AddCustomBtnComponent } from "../component/buttons/add-custom-btn-component";
 import { DeleteButtonComponent } from "../component/buttons/delete-btn.component";
 import { InterfacesDialogButtonComponent } from "../component/buttons/interfaces-dialog-btn-component";
+import { ToggleButtonComponent } from "../component/buttons/togglePin-btn.component";
 
 export function HomePage() {
-  const [serversState, setServers] = useState<Server[]>([]);
-  const [currentActive, setCurrentActive] = useState<Server | null>(null);
+  const [serversState, setServers] = useState<ServerStore[]>([]);
+  const [currentActive, setCurrentActive] = useState<ServerStore | null>(null);
   const [network, setNetwork] = useState<string>();
-  const [selectedServer, setSelectedServer] = useState<Server | null>(null);
+  const [selectedServer, setSelectedServer] = useState<ServerStore | null>(
+    null
+  );
   const [loadingCurrentActive, setLoadingCurrentActive] =
     useState<boolean>(true);
   const osType = window.os.os;
@@ -87,13 +90,12 @@ export function HomePage() {
               </div>
               <div
                 className={
-                  "absolute top-[330px] left-[360px] flex flex-col gap-2 h-10"
+                  "absolute top-[330px] left-[360px] grid grid-cols-10 gap-10"
                 }
               >
-                <div className={"flx flex-row gap-10"}>
-                  <DeleteButtonComponent />
-                  {/*<EditButtonComponent />*/}
-                </div>
+                <DeleteButtonComponent />
+                <ToggleButtonComponent />
+                {/*<EditButtonComponent />*/}
               </div>
             </div>
           </div>

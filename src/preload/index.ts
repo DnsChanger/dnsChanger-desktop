@@ -2,7 +2,7 @@
 // https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
 import { contextBridge, ipcRenderer } from "electron";
 
-import { Server } from "../shared/interfaces/server.interface";
+import { Server, ServerStore } from "../shared/interfaces/server.interface";
 import { EventsKeys } from "../shared/constants/eventsKeys.constant";
 import {
   SettingInStore,
@@ -11,7 +11,6 @@ import {
 import os from "os";
 import { store } from "../main/store/store";
 
-console.log(store.get("settings"));
 export const ipcPreload = {
   setDns: (server: Server) => ipcRenderer.invoke(EventsKeys.SET_DNS, server),
   clearDns: () => ipcRenderer.invoke(EventsKeys.CLEAR_DNS),
@@ -40,6 +39,8 @@ export const ipcPreload = {
   off: (string: string, cb: any) => ipcRenderer.on(string, cb),
   close: () => ipcRenderer.send(EventsKeys.CLOSE),
   minimize: () => ipcRenderer.send(EventsKeys.MINIMIZE),
+  togglePinServer: (server: ServerStore) =>
+    ipcRenderer.invoke(EventsKeys.TOGGLE_PIN, server),
 };
 
 export const uiPreload = {
@@ -53,7 +54,6 @@ export const osItems = {
     ipcRenderer.invoke(EventsKeys.GET_NETWORK_INTERFACE_LIST),
 };
 
-// Todo use 'set' in client
 export const storePreload = {
   get: <T extends keyof StoreKey>(key: T) => store.get<T>(key),
 };

@@ -6,3 +6,6 @@ export interface Server {
   rate: number;
   tags: string[];
 }
+export interface ServerStore extends Server {
+  isPin: boolean;
+}

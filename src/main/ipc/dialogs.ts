@@ -4,7 +4,7 @@ import { store } from "../store/store";
 import { ipcMain, shell, dialog, BrowserWindow } from "electron";
 
 import { dnsService } from "../config";
-import { Server } from "../../shared/interfaces/server.interface";
+import { Server, ServerStore } from "../../shared/interfaces/server.interface";
 import { EventsKeys } from "../../shared/constants/eventsKeys.constant";
 import { isValidDnsAddress } from "../../shared/validators/dns.validator";
 import LN from "../../i18n/i18n-node";
@@ -82,13 +82,14 @@ ipcMain.handle(EventsKeys.ADD_DNS, async (event, data: Partial<Server>) => {
       message: currentLng.validator.dns1_dns2_duplicates,
     };
 
-  const newServer: Server = {
+  const newServer: ServerStore = {
     key: data.key || uuid(),
     name: data.name,
     avatar: data.avatar,
     servers: data.servers,
     rate: data.rate || 0,
     tags: data.tags || [],
+    isPin: false,
   };
 
   const list: Server[] = store.get("dnsList") || [];
@@ -168,6 +169,19 @@ ipcMain.handle(EventsKeys.PING, async function (event, server: Server) {
     };
   }
 });
+ipcMain.handle(EventsKeys.TOGGLE_PIN, async function (event, server: Server) {
+  const dnsList: ServerStore[] = store.get("dnsList");
+  const serverStore = dnsList.find((ser) => ser.key === server.key);
+  if (serverStore) {
+    serverStore.isPin = !serverStore.isPin;
+    store.set("dnsList", dnsList);
+
+    return {
+      success: true,
+      servers: dnsList,
+    };
+  }
+});
 
 ipcMain.handle(EventsKeys.GET_NETWORK_INTERFACE_LIST, () => {
   return dnsService.getInterfacesList();
@@ -182,7 +196,7 @@ async function getCurrentActive(): Promise<any> {
     if (!dns.length) return { success: false, server: null };
 
     const servers = store.get("dnsList") || [];
-    const server: Server | null = servers.find(
+    const server: ServerStore | null = servers.find(
       (server) => server.servers.toString() == dns.toString()
     );
 
@@ -197,6 +211,7 @@ async function getCurrentActive(): Promise<any> {
             fa: "unknown",
           },
           avatar: "",
+          isPin: false,
         },
       };
     else {

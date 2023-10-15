@@ -1,4 +1,7 @@
-import { Server } from "../../../../shared/interfaces/server.interface";
+import {
+  Server,
+  ServerStore,
+} from "../../../../shared/interfaces/server.interface";
 import React, { useContext } from "react";
 import { serversContext } from "../../../context/servers.context";
 import { ServersContext } from "../../../interfaces/servers-context.interface";
@@ -30,16 +33,48 @@ export function ServersListSelectComponent() {
 }
 
 function servers(serversStateContext: ServersContext): any {
-  return serversStateContext.servers.map((server: Server) => {
-    const isConnect = serversStateContext.currentActive?.key == server.key;
+  const pinsServers = serversStateContext.servers.filter((ser) => ser.isPin);
+
+  const renderServer = (server: ServerStore) => {
+    const isConnect = serversStateContext.currentActive?.key === server.key;
     return (
       <Select.Option
         key={server.key}
         value={server.key}
-        selected={server.key == serversStateContext.selected?.key}
+        selected={server.key === serversStateContext.selected?.key}
       >
         {isConnect ? "🟢" : "🔴"} {server.name}
       </Select.Option>
     );
-  });
+  };
+
+  const pins = pinsServers.map(renderServer);
+
+  if (pins.length > 0) {
+    pins.unshift(
+      <Select.Option
+        key=""
+        value=""
+        disabled={true}
+        className="text-center bg-gray-300 text-gray-600 dark:bg-[#262626] dark:text-gray-500 mt-5"
+      >
+        Pins
+      </Select.Option>
+    );
+  }
+
+  const allServers = serversStateContext.servers.filter((ser) => !ser.isPin);
+  const all = allServers.map(renderServer);
+  all.unshift(
+    <Select.Option
+      key=""
+      value=""
+      disabled={true}
+      className="text-center bg-gray-300 text-gray-600 dark:bg-[#262626] dark:text-gray-500"
+    >
+      All
+    </Select.Option>
+  );
+
+  return [...pins, ...all];
 }

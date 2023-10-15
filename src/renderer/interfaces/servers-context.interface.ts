@@ -1,12 +1,12 @@
-import { Server } from "../../shared/interfaces/server.interface";
+import { Server, ServerStore } from "../../shared/interfaces/server.interface";
 
 export interface ServersContext {
-  servers: Server[];
+  servers: ServerStore[];
   setServers: any;
-  currentActive: Server | null;
+  currentActive: ServerStore | null;
   setCurrentActive: any;
 
-  selected: Server | null;
+  selected: ServerStore | null;
   setSelected: any;
 
   network: string;
