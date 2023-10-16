@@ -1,6 +1,6 @@
-import { Server } from "../interfaces/server.interface";
+import { Server, ServerStore } from "../interfaces/server.interface";
 
-export const serversConstant: Array<Server> = [
+export const serversConstant: Array<ServerStore> = [
   {
     key: "SHECAN",
     name: "Shecan",
@@ -8,6 +8,7 @@ export const serversConstant: Array<Server> = [
     avatar: "shecan.png",
     rate: 10,
     tags: ["Gaming", "Web", "Ai"],
+    isPin: false,
   },
   {
     key: "ELECTRO",
@@ -16,6 +17,7 @@ export const serversConstant: Array<Server> = [
     avatar: "electro.png",
     rate: 9,
     tags: ["Gaming", "Web", "Ai"],
+    isPin: false,
   },
   {
     key: "RADAR_GAME",
@@ -24,23 +26,9 @@ export const serversConstant: Array<Server> = [
     avatar: "radar.png",
     rate: 5,
     tags: ["Gaming"],
+    isPin: false,
   },
-  {
-    key: "403.ONLINE",
-    name: "403.online",
-    servers: ["10.202.10.202", "10.202.10.102"],
-    avatar: "403.png",
-    rate: 2,
-    tags: ["Web", "Ai"],
-  },
-  {
-    key: "ASIA_TECH",
-    name: "Asiatech",
-    servers: ["194.36.174.161", "178.22.122.100"],
-    avatar: "asiatech.png",
-    rate: 1,
-    tags: ["Web"],
-  },
+
   {
     key: "ClOUD_FLARE",
     name: "Cloudflare",
@@ -48,5 +36,6 @@ export const serversConstant: Array<Server> = [
     avatar: "cloudflare.png",
     rate: 0,
     tags: ["Web"],
+    isPin: false,
   },
 ];

@@ -32,7 +32,7 @@ export function UpdateListItemComponent() {
       const response = await axios.get<Server[]>(
         cacheBuster(UrlsConstant.STORE)
       );
-      const servers = serversContextData.servers.concat(response.data);
+      const servers = serversContextData.servers.concat(response.data as any);
       const uniqList: Server[] = _.uniqWith(servers, _.isEqual);
 
       serversContextData.setServers(uniqList);
