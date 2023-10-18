@@ -1,5 +1,9 @@
 # Changelog
 
+# v2.1.11
+- feat: pin favorite server
+- ui: dialogs improvement [issues #57](https://github.com/DnsChanger/dnsChanger-desktop/issues/57)
+
 ## v2.1.10
 - ui: setting page improvement
 - ui: main page improvement
