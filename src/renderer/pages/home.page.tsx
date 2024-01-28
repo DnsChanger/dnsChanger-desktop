@@ -61,9 +61,9 @@ export function HomePage() {
           setNetwork: setNetwork,
         }}
       >
-        <div className="px-0 sm:p-4 hero-content text-center max-w-[500px]   mb-1 ">
-          <div className="max-w-full sm:pt-[100px] sm:pb-[100px] sm:pr-[30px] sm:pl-[30px] p-1">
-            <div className={"flex flex-row gap-10"}>
+        <div className="px-0  sm:p-4 hero-content text-center max-w-[500px]   mb-1 ">
+          <div className="max-w-full re sm:pt-[100px] sm:pb-[100px] sm:pr-[30px] sm:pl-[30px] p-1">
+            <div className={"flex  flex-row gap-10"}>
               <div className={"absolute right-[550px] flex-grow-0"}>
                 <div className={"flex flex-col"}>
                   <ConnectButtonComponent />
