@@ -1,26 +1,36 @@
 # Changelog
 
+# v2.1.12
+
+- feat(explore): implement dynamic ping for servers
+- Fix UI layout and update loading message
+- fixed: Startup #66
+- improved(settings): improve UI
+
 # v2.1.11
+
 - feat: pin favorite server
 - ui: dialogs improvement [issues #57](https://github.com/DnsChanger/dnsChanger-desktop/issues/57)
 
 ## v2.1.10
+
 - ui: setting page improvement
 - ui: main page improvement
 - feat: enable/disable analytic
 - feat: change & switch Network Interface [ Windows ]
 - fixed: error when macOS not support Ethernet [PR #51](https://github.com/DnsChanger/dnsChanger-desktop/pull/51)
 
-
 ## v2.1.9
+
 - feat: Ethernet for mac mini and mac studio [PR #49](https://github.com/DnsChanger/dnsChanger-desktop/pull/49)
 - feat: Change Network Interface [windows]
 
 ## v2.1.8
--  feat: delete favorite server
--  added zip target #43
--  fixed: custom server modal styles & add close button
--  fixed: #44
+
+- feat: delete favorite server
+- added zip target #43
+- fixed: custom server modal styles & add close button
+- fixed: #44
 
 ## v2.1.7
 
