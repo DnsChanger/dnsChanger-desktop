@@ -66,7 +66,7 @@ export function SettingPage() {
                     <div>
                       <Typography
                         color="blue-gray"
-                        className="font-medium dark:text-white font-[Inter] flex flex-row items-center gap-1"
+                        className="font-medium dark:text-gray-400 font-[Inter] flex flex-row items-center gap-2"
                       >
                         <VscRunAbove />
                         Start up
@@ -84,7 +84,7 @@ export function SettingPage() {
                     className: "-mt-5 mr-2",
                   }}
                   onChange={toggleStartUp}
-                  defaultChecked={startUp}
+                  defaultChecked={settingState.startUp}
                 />
                 <Switch
                   id={"autoUP"}
@@ -94,7 +94,7 @@ export function SettingPage() {
                     <div>
                       <Typography
                         color="blue-gray"
-                        className="font-medium dark:text-white font-[Inter] flex flex-row items-center gap-1"
+                        className="font-medium dark:text-gray-400 font-[Inter] flex flex-row items-center gap-2"
                       >
                         <MdBrowserUpdated />
                         Automatic Update
@@ -122,7 +122,7 @@ export function SettingPage() {
                     <div>
                       <Typography
                         color="blue-gray"
-                        className="font-medium  dark:text-white font-[Inter] flex flex-row items-center gap-1"
+                        className="font-medium  dark:text-gray-400 font-[Inter] flex flex-row items-center gap-2"
                       >
                         <TbWindowMinimize />
                         Minimize to Tray
@@ -150,7 +150,7 @@ export function SettingPage() {
                     <div>
                       <Typography
                         color="blue-gray"
-                        className="font-medium  dark:text-white font-[Inter] flex flex-row items-center gap-1"
+                        className="font-medium  dark:text-gray-400 font-[Inter] flex flex-row items-center gap-2"
                       >
                         <MdBugReport />
                         Analytic

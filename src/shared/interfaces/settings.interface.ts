@@ -10,7 +10,7 @@ export interface Settings {
   use_analytic: boolean;
 }
 
-export interface SettingInStore extends Omit<Settings, "startUp"> {}
+export type SettingInStore = Settings;
 
 export type StoreKey = {
   dnsList: ServerStore[];

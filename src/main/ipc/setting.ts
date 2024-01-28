@@ -1,4 +1,4 @@
-import { ipcMain } from "electron";
+import { app, ipcMain } from "electron";
 import { store } from "../store/store";
 import { autoLauncher } from "../config";
 import { EventsKeys } from "../../shared/constants/eventsKeys.constant";
@@ -9,26 +9,26 @@ ipcMain.handle(EventsKeys.SAVE_SETTINGS, function (event, data: Settings) {
   store.set("settings", data);
   return { success: true, data };
 });
+
 ipcMain.handle(EventsKeys.TOGGLE_START_UP, async () => {
-  let startUp = await autoLauncher.isEnabled();
+  try {
+    const setting = store.get("settings");
 
-  if (startUp) {
-    await autoLauncher.disable();
-    startUp = false;
-  } else {
-    await autoLauncher.enable();
-    startUp = true;
-  }
+    setting.startUp = !setting.startUp; //toggle
+    console.log(setting.startUp);
+    app.setLoginItemSettings({
+      openAtLogin: setting.startUp,
+      path: app.getPath("exe"),
+    });
 
-  return startUp;
+    store.set("settings", setting);
+
+    return setting.startUp;
+  } catch {}
 });
 
 ipcMain.handle(EventsKeys.GET_SETTINGS, async () => {
-  const settings: Settings = {
-    startUp: false,
-    ...store.get("settings"),
-  };
-
-  settings.startUp = await autoLauncher.isEnabled();
+  const settings: Settings = store.get("settings");
+  console.log(settings);
   return settings;
 });
