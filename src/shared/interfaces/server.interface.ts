@@ -1,4 +1,4 @@
-export interface Server {
+export interface Server extends Record<string, any> {
   key: string;
   name: string;
   servers: string[];

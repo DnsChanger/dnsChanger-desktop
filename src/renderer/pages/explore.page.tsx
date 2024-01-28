@@ -21,6 +21,7 @@ const cacheBuster = (url: string) => `${url}?cb=${Date.now()}`;
 
 export function ExplorePage() {
   const TABLE_HEAD = ["Name", "Tags", "Ping", "options"];
+  const [loading, setLoading] = useState<boolean>(true);
   const [TABLE_ROWS, SetTableRow] = useState<Server[]>([]);
   const [storeServers, setStoreServers] = useState<Server[]>([]);
 
@@ -35,19 +36,43 @@ export function ExplorePage() {
         const response = await axios.get<Server[]>(
           cacheBuster(UrlsConstant.STORE)
         );
-        const servers = response.data.sort((a, b) => b.rate - a.rate);
+
+        let servers = [];
+        for (const server of response.data) {
+          const res = await window.ipc.ping(server);
+          servers.push({ ...server, ping: Number(res.data.time) || -1 });
+
+          window.ipc;
+        }
+
+        //sort by best ping first
+        servers = servers.sort((a, b) => {
+          // just ignore the -1
+          if (a.ping === -1) return 1;
+          if (b.ping === -1) return -1;
+          return a.ping - b.ping;
+        });
+
         SetTableRow(servers);
-      } catch (error) {}
+      } catch (error) {
+      } finally {
+        setLoading(false);
+      }
     }
     fetchDnsList().then(() => updateHandler());
   }, []);
 
   return (
     <div className="hero flex flex-col justify-center items-center p-5">
-      <h1 className={"font-[balooTamma] text-4xl mb-2"}>Explore</h1>
+      <h1 className={"font-[balooTamma] text-4xl mb-2"}>
+        {loading && (
+          <span className="loading loading-ring loading-xs mr-3"></span>
+        )}
+        Explore
+      </h1>
       <div className="flex flex-col items-start gap-4 py-0 ">
-        <div className="dark:bg-[#262626] bg-base-200 p-4 rounded-lg shadow w-[670px] h-[250px] overflow-auto overflow-y-auto">
-          <table className="mt-4 w-full min-w-max table-auto  text-left ">
+        <div className="dark:bg-[#262626] bg-base-200 px-2 rounded-lg shadow w-[670px] h-[250px] overflow-auto overflow-y-auto">
+          <table className="mt-4 w-full min-w-max table-auto  text-left">
             <thead>
               <tr>
                 {TABLE_HEAD.map((head) => (
@@ -59,6 +84,7 @@ export function ExplorePage() {
                 ))}
               </tr>
             </thead>
+
             <tbody>
               {TABLE_ROWS.map((server, index) => {
                 const isLast = index === TABLE_ROWS.length - 1;
@@ -71,6 +97,7 @@ export function ExplorePage() {
                     classes={classes}
                     storeServers={storeServers}
                     setStoreServer={setStoreServers}
+                    key={server.key}
                   />
                 );
               })}
@@ -91,14 +118,10 @@ interface Prop {
 
 function ServerTrComponent(prop: Prop) {
   const { avatar, name, key, servers, tags, rate } = prop.server;
+  const ping = prop.server.ping;
+  console.log(ping);
   const storeServers = prop.storeServers;
-  const [ping, setPing] = useState<number>(0);
   const ratingValue = Number((rate / 2).toFixed());
-  useEffect(() => {
-    window.ipc
-      .ping(prop.server)
-      .then((res) => res.success && setPing(res.data.time));
-  }, []);
 
   async function DeleteHandler() {
     const response = await window.ipc.deleteDns(prop.server);
@@ -154,7 +177,7 @@ function ServerTrComponent(prop: Prop) {
       <td className={prop.classes}>
         <div className="w-max flex flex-row gap-2 opacity-70">
           <span className={"mt-1"}>{getPingIcon(ping)}</span>
-          <p className="text-md"> {!Number(ping) ? 0 : ping}</p>
+          <p className="text-md"> {!Number(ping) ? -1 : ping}</p>
         </div>
       </td>
       <td className={prop.classes}>
