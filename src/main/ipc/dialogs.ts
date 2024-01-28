@@ -13,7 +13,6 @@ import pingLib from "ping";
 import { userLogger } from "../shared/logger";
 import { getOverlayIcon } from "../shared/file";
 import { updateOverlayIcon } from "../shared/overlayIcon";
-import { trackEvent } from "@aptabase/electron/main";
 
 // todo Refactoring
 
@@ -25,10 +24,10 @@ ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
     const filepath = await getOverlayIcon(server);
     updateOverlayIcon(win, filepath, "connected");
 
-    if (store.get("settings").use_analytic)
-      trackEvent(`USE_DNS:${server.name}`, {
-        servers: server.servers.toString(),
-      }).catch();
+    // if (store.get("settings").use_analytic)
+    // trackEvent(`USE_DNS:${server.name}`, {
+    //   servers: server.servers.toString(),
+    // }).catch();
     return {
       server,
       success: true,

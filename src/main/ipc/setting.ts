@@ -1,6 +1,5 @@
 import { app, ipcMain } from "electron";
 import { store } from "../store/store";
-import { autoLauncher } from "../config";
 import { EventsKeys } from "../../shared/constants/eventsKeys.constant";
 
 import { Settings } from "../../shared/interfaces/settings.interface";
@@ -15,7 +14,7 @@ ipcMain.handle(EventsKeys.TOGGLE_START_UP, async () => {
     const setting = store.get("settings");
 
     setting.startUp = !setting.startUp; //toggle
-    console.log(setting.startUp);
+
     app.setLoginItemSettings({
       openAtLogin: setting.startUp,
       path: app.getPath("exe"),
@@ -29,6 +28,5 @@ ipcMain.handle(EventsKeys.TOGGLE_START_UP, async () => {
 
 ipcMain.handle(EventsKeys.GET_SETTINGS, async () => {
   const settings: Settings = store.get("settings");
-  console.log(settings);
   return settings;
 });

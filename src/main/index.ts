@@ -17,8 +17,6 @@ import { store } from "./store/store";
 import { EventsKeys } from "../shared/constants/eventsKeys.constant";
 import { getPublicFilePath } from "./shared/file";
 import os from "os";
-import { initialize } from "@aptabase/electron/main";
-import { trackEvent } from "@aptabase/electron/main";
 
 config();
 if (isDev)
@@ -48,7 +46,6 @@ const preload = join(__dirname, "../preload/index.js");
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
 const icon = nativeImage.createFromPath(getIconPath());
-initialize("A-EU-0537046370");
 
 async function createWindow() {
   win = new BrowserWindow({
@@ -103,7 +100,6 @@ async function createWindow() {
   });
 
   update(win, app);
-  await trackEvent(`app_started__${app.getVersion()}`);
   return win;
 }
 ipcMain.on(EventsKeys.MINIMIZE, () => {
