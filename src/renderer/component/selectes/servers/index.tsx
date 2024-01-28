@@ -1,7 +1,4 @@
-import {
-  Server,
-  ServerStore,
-} from "../../../../shared/interfaces/server.interface";
+import { ServerStore } from "../../../../shared/interfaces/server.interface";
 import React, { useContext } from "react";
 import { serversContext } from "../../../context/servers.context";
 import { ServersContext } from "../../../interfaces/servers-context.interface";
@@ -58,7 +55,7 @@ function servers(serversStateContext: ServersContext): any {
         disabled={true}
         className="text-center bg-gray-300 text-gray-600 dark:bg-[#262626] dark:text-gray-500 mt-5"
       >
-        Pins
+        Pinned
       </Select.Option>
     );
   }
