@@ -6,6 +6,9 @@ import { getThemeSystem, themeChanger } from "../utils/theme.util";
 import { CgDarkMode } from "react-icons/cg";
 import { HiMoon, HiSun } from "react-icons/hi";
 import { SettingInStore } from "../../shared/interfaces/settings.interface";
+import { MdBrowserUpdated, MdBugReport } from "react-icons/md";
+import { VscRunAbove } from "react-icons/vsc";
+import { TbWindowMinimize } from "react-icons/tb";
 
 export function SettingPage() {
   const [startUp, setStartUp] = useState<boolean>(false);
@@ -49,119 +52,126 @@ export function SettingPage() {
     >
       <div className="flex flex-col items-start gap-4 ">
         <div className="dark:bg-[#262626] bg-base-200 p-4 rounded-lg shadow w-[600px] h-[300px]">
-          <div className="flex flex-col justify-center  gap-2  p-4">
-            {/*<LanguageSwitcher cb={() => saveSetting()} />*/}
-            <div className={"grid grid-cols-2 gap-5 "}>
-              <ThemeChanger />
-              <div></div>
-              <Switch
-                id={"startUp"}
-                crossOrigin={"true"}
-                color={"green"}
-                label={
-                  <div>
-                    <Typography
-                      color="blue-gray"
-                      className="font-medium  dark:text-white font-[Inter] "
-                    >
-                      Start up
-                    </Typography>
-                    <Typography
-                      variant="paragraph"
-                      color="gray"
-                      className="font-normal  dark:text-gray-600 font-[Inter] text-sm "
-                    >
-                      {LL.pages.settings.autoRunningTitle()}
-                    </Typography>
-                  </div>
-                }
-                containerProps={{
-                  className: "-mt-5 mr-5",
-                }}
-                onChange={toggleStartUp}
-                defaultChecked={startUp}
-              />
-              <Switch
-                id={"autoUP"}
-                crossOrigin={"true"}
-                color={"green"}
-                label={
-                  <div className={"mb-4"}>
-                    <Typography
-                      color="blue-gray"
-                      className="font-medium  dark:text-white font-[Inter]"
-                    >
-                      Automatic Update
-                    </Typography>
-                    <Typography
-                      variant="paragraph"
-                      color="gray"
-                      className="font-normal  dark:text-gray-600 font-[Inter] text-sm "
-                    >
-                      Get updates automatically
-                    </Typography>
-                  </div>
-                }
-                containerProps={{
-                  className: "-mt-5 mr-2",
-                }}
-                onChange={toggleAutoUpdate}
-                defaultChecked={settingState.autoUpdate}
-              />
-              <Switch
-                id={"Minimize"}
-                crossOrigin={"true"}
-                color={"green"}
-                label={
-                  <div>
-                    <Typography
-                      color="blue-gray"
-                      className="font-medium  dark:text-white font-[Inter]"
-                    >
-                      Minimize to Tray
-                    </Typography>
-                    <Typography
-                      variant="paragraph"
-                      color="gray"
-                      className="font-medium  dark:text-gray-600 font-[Inter] text-sm "
-                    >
-                      The app move to try in background
-                    </Typography>
-                  </div>
-                }
-                containerProps={{
-                  className: "-mt-5 mr-2",
-                }}
-                onChange={toggleMinimize_tray}
-                defaultChecked={settingState.minimize_tray}
-              />
-              <Switch
-                id={"Analytic"}
-                crossOrigin={"true"}
-                color={"green"}
-                label={
-                  <div className="ml-2">
-                    <Typography
-                      color="blue-gray"
-                      className="font-medium  dark:text-white font-[Inter]"
-                    >
-                      Analytic
-                    </Typography>
-                    <Typography
-                      variant="paragraph"
-                      color="gray"
-                      className="font-medium  dark:text-gray-600 font-[Inter] text-sm"
-                    >
-                      Enable/disable sending servers for analysis[name,address]
-                    </Typography>
-                  </div>
-                }
-                containerProps={{
-                  className: "-mt-5 mr-2",
-                }}
-                onChange={toggleAnalytic}
-                defaultChecked={settingState.use_analytic}
-              />
+          <div className="flex flex-col justify-center overflow-auto h-64  p-4">
+            <div className={"flex flex-col"}>
+              <div className="mb-2 mt-10">
+                <ThemeChanger />
+              </div>
+              <div className="flex flex-col mt-2 gap-2 ">
+                <Switch
+                  id={"startUp"}
+                  crossOrigin={"true"}
+                  color={"green"}
+                  label={
+                    <div>
+                      <Typography
+                        color="blue-gray"
+                        className="font-medium dark:text-white font-[Inter] flex flex-row items-center gap-1"
+                      >
+                        <VscRunAbove />
+                        Start up
+                      </Typography>
+                      <Typography
+                        variant="paragraph"
+                        color="gray"
+                        className="font-normal  dark:text-gray-600 font-[Inter] text-[12px] "
+                      >
+                        {LL.pages.settings.autoRunningTitle()}
+                      </Typography>
+                    </div>
+                  }
+                  containerProps={{
+                    className: "-mt-5 mr-2",
+                  }}
+                  onChange={toggleStartUp}
+                  defaultChecked={startUp}
+                />
+                <Switch
+                  id={"autoUP"}
+                  crossOrigin={"true"}
+                  color={"green"}
+                  label={
+                    <div>
+                      <Typography
+                        color="blue-gray"
+                        className="font-medium dark:text-white font-[Inter] flex flex-row items-center gap-1"
+                      >
+                        <MdBrowserUpdated />
+                        Automatic Update
+                      </Typography>
+                      <Typography
+                        variant="paragraph"
+                        color="gray"
+                        className="font-normal  dark:text-gray-600 font-[Inter] text-[12px] "
+                      >
+                        Get updates automatically
+                      </Typography>
+                    </div>
+                  }
+                  containerProps={{
+                    className: "-mt-5 mr-2",
+                  }}
+                  onChange={toggleAutoUpdate}
+                  defaultChecked={settingState.autoUpdate}
+                />
+                <Switch
+                  id={"Minimize"}
+                  crossOrigin={"true"}
+                  color={"green"}
+                  label={
+                    <div>
+                      <Typography
+                        color="blue-gray"
+                        className="font-medium  dark:text-white font-[Inter] flex flex-row items-center gap-1"
+                      >
+                        <TbWindowMinimize />
+                        Minimize to Tray
+                      </Typography>
+                      <Typography
+                        variant="paragraph"
+                        color="gray"
+                        className="font-medium  dark:text-gray-600 font-[Inter] text-[12px]"
+                      >
+                        The app move to try in background
+                      </Typography>
+                    </div>
+                  }
+                  containerProps={{
+                    className: "-mt-5 mr-2",
+                  }}
+                  onChange={toggleMinimize_tray}
+                  defaultChecked={settingState.minimize_tray}
+                />
+                <Switch
+                  id={"Analytic"}
+                  crossOrigin={"true"}
+                  color={"green"}
+                  label={
+                    <div>
+                      <Typography
+                        color="blue-gray"
+                        className="font-medium  dark:text-white font-[Inter] flex flex-row items-center gap-1"
+                      >
+                        <MdBugReport />
+                        Analytic
+                      </Typography>
+                      <Typography
+                        variant="paragraph"
+                        color="gray"
+                        className="font-medium  dark:text-gray-600 font-[Inter] text-[12px]"
+                      >
+                        Give Permission to collect analytics and send crash
+                        reports to improve the app
+                      </Typography>
+                    </div>
+                  }
+                  containerProps={{
+                    className: "-mt-5 mr-2",
+                  }}
+                  onChange={toggleAnalytic}
+                  defaultChecked={settingState.use_analytic}
+                />
+              </div>
             </div>
           </div>
         </div>
