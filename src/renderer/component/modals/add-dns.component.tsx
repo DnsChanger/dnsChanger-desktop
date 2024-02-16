@@ -152,7 +152,8 @@ export function AddDnsModalComponent(props: Props) {
                 <div className={'grid'}>
                   <div>
                     <p className="text-sm dark:text-gray-400 font-[Inter] bg-[#f2f2f2] dark:bg-[#262626] p-2 rounded-md">
-                      Selecting the default DNS server will remove the custom DNS server
+                      Set the default DNS server for your system. This will be used when no custom server is set.
+                      (Optional)
                     </p>
                   </div>
                   <div className={''}>

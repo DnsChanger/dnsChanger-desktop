@@ -2,6 +2,12 @@
 
 # v2.1.12
 
+- feat: default server: automatically set to default if disconnected (optionally) 
+- feat: added open log file
+- Refactor setting page layout
+
+# v2.1.12
+
 - feat(explore): implement dynamic ping for servers
 - Fix UI layout and update loading message
 - fixed: Startup #66
