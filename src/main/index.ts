@@ -51,7 +51,7 @@ async function createWindow() {
     },
     darkTheme: true,
     resizable: false,
-    //center: !isDev, // => false
+    center: isDev === false,
     show: true,
 
     alwaysOnTop: isDev,

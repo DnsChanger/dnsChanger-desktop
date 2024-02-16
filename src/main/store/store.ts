@@ -8,7 +8,8 @@ import { ServerStore } from '../../shared/interfaces/server.interface'
 export const store = new electronStore<StoreKey>({
   defaults: {
     dnsList: serversConstant,
-    settings: defaultSetting
+    settings: defaultSetting,
+    defaultServer: null
   },
   name: 'dnsChangerStore_1.9.0'
 })

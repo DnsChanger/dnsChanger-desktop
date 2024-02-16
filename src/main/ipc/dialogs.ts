@@ -51,6 +51,16 @@ ipcMain.handle(EventsKeys.CLEAR_DNS, async (event, server: Server) => {
     const currentLng = LN[getCurrentLng()]
     const win = BrowserWindow.getAllWindows()[0]
     updateOverlayIcon(win, null, 'disconnect')
+    const defaultServer = store.get('defaultServer')
+    if (defaultServer) {
+      // only set default server if it's not the same as the current server
+      // is not connect state, because it's not necessary to set default server
+      // if it's already connected
+      const servers = defaultServer.servers
+      dnsService.setDns(servers).catch(err => {
+        userLogger.error(err.stack, err.message)
+      })
+    }
     return {
       server,
       success: true,
@@ -63,9 +73,27 @@ ipcMain.handle(EventsKeys.CLEAR_DNS, async (event, server: Server) => {
 })
 
 ipcMain.handle(EventsKeys.ADD_DNS, async (event, data: Partial<Server>) => {
-  // validators ..
+  if (data.name === 'default') {
+    const defaultServer = store.get('defaultServer')
+    let server: Server = {
+      key: 'default',
+      servers: data.servers,
+      name: 'default',
+      tags: [],
+      avatar: '',
+      rate: 0
+    }
+    if (!defaultServer) {
+      store.set('defaultServer', server)
+    } else {
+      defaultServer.servers = data.servers
+      store.set('defaultServer', defaultServer)
+    }
+    return { success: true, server: server }
+  }
   const nameServer1 = data.servers[0]
   const nameServer2 = data.servers[1]
+  if (!nameServer1) return { success: false, message: 'DNS1 is required' }
 
   const currentLng = LN[getCurrentLng()]
 
@@ -80,6 +108,8 @@ ipcMain.handle(EventsKeys.ADD_DNS, async (event, data: Partial<Server>) => {
       message: currentLng.validator.dns1_dns2_duplicates
     }
 
+  const list: Server[] = store.get('dnsList') || []
+
   const newServer: ServerStore = {
     key: data.key || uuid(),
     name: data.name,
@@ -90,7 +120,6 @@ ipcMain.handle(EventsKeys.ADD_DNS, async (event, data: Partial<Server>) => {
     isPin: false
   }
 
-  const list: Server[] = store.get('dnsList') || []
   const isDupKey = list.find(s => s.key == newServer.key)
   if (isDupKey) newServer.key = uuid()
 
@@ -189,7 +218,17 @@ async function getCurrentActive(): Promise<any> {
 
     const servers = store.get('dnsList') || []
     const server: ServerStore | null = servers.find(server => server.servers.toString() == dns.toString())
-
+    const defaultServer = store.get('defaultServer')
+    if (defaultServer) {
+      // if default server is connected, then return it as not connected
+      if (defaultServer.servers.toString() == dns.toString()) {
+        return {
+          success: false,
+          server: null,
+          isDefault: true
+        }
+      }
+    }
     if (!server)
       return {
         success: true,
