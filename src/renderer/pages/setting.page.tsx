@@ -47,12 +47,12 @@ export function SettingPage() {
     <div className="hero flex flex-col justify-center items-center p-5" dir={locale == 'fa' ? 'rtl' : 'ltr'}>
       <div className="flex flex-col items-start gap-4 ">
         <div className="dark:bg-[#262626] bg-base-200 p-4 rounded-lg shadow w-[600px] h-[300px]">
-          <div className="flex flex-col justify-center overflow-auto h-64  p-4">
-            <div className={'flex flex-col'}>
-              <div className="mb-2 mt-10">
-                <ThemeChanger />
-              </div>
-              <div className="flex flex-col mt-2 gap-2 ">
+          <div className="flex flex-col  overflow-auto h-[100%]  px-2">
+            <div className="flex flex-col  mt-2">
+              <ThemeChanger />
+            </div>
+            <div className="flex flex-col gap-1 mt-5">
+              <div>
                 <Switch
                   id={'startUp'}
                   crossOrigin={'true'}
@@ -79,6 +79,8 @@ export function SettingPage() {
                   onChange={toggleStartUp}
                   defaultChecked={settingState.startUp}
                 />
+              </div>
+              <div>
                 <Switch
                   id={'autoUP'}
                   crossOrigin={'true'}
@@ -105,6 +107,8 @@ export function SettingPage() {
                   onChange={toggleAutoUpdate}
                   defaultChecked={settingState.autoUpdate}
                 />
+              </div>
+              <div>
                 <Switch
                   id={'Minimize'}
                   crossOrigin={'true'}
@@ -131,6 +135,8 @@ export function SettingPage() {
                   onChange={toggleMinimize_tray}
                   defaultChecked={settingState.minimize_tray}
                 />
+              </div>
+              <div>
                 <Switch
                   id={'Analytic'}
                   crossOrigin={'true'}
