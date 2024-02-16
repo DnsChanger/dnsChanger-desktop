@@ -23,5 +23,6 @@ export enum EventsKeys {
   UPDATE_PROGRESS = 'UPDATE_PROGRESS',
   UPDATE_ERROR = 'UPDATE_ERROR',
   CLOSE = 'close',
-  MINIMIZE = 'MINIMIZE_APP'
+  MINIMIZE = 'MINIMIZE_APP',
+  OPEN_LOG_FILE = 'dialogs:open_log_file'
 }

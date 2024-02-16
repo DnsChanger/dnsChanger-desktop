@@ -10,7 +10,7 @@ import { isValidDnsAddress } from '../../shared/validators/dns.validator'
 import LN from '../../i18n/i18n-node'
 import { Locales } from '../../i18n/i18n-types'
 import pingLib from 'ping'
-import { userLogger } from '../shared/logger'
+import { getLoggerPathFile, LogId, userLogger } from '../shared/logger'
 import { getOverlayIcon } from '../shared/file'
 import { updateOverlayIcon } from '../shared/overlayIcon'
 
@@ -157,6 +157,14 @@ ipcMain.handle(EventsKeys.GET_CURRENT_ACTIVE, getCurrentActive)
 
 ipcMain.on(EventsKeys.OPEN_BROWSER, (ev, url) => {
   shell.openExternal(url)
+})
+
+// open log file
+ipcMain.on(EventsKeys.OPEN_LOG_FILE, () => {
+  const logPathFile = getLoggerPathFile(LogId.USER)
+  shell.openPath(logPathFile).catch((e: any) => {
+    userLogger.error(e.stack, e.message)
+  })
 })
 
 ipcMain.on(EventsKeys.DIALOG_ERROR, (ev: any, title: string, message: string) => {

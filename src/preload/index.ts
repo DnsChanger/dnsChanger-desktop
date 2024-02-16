@@ -30,7 +30,8 @@ export const ipcPreload = {
   off: (string: string, cb: any) => ipcRenderer.on(string, cb),
   close: () => ipcRenderer.send(EventsKeys.CLOSE),
   minimize: () => ipcRenderer.send(EventsKeys.MINIMIZE),
-  togglePinServer: (server: ServerStore) => ipcRenderer.invoke(EventsKeys.TOGGLE_PIN, server)
+  togglePinServer: (server: ServerStore) => ipcRenderer.invoke(EventsKeys.TOGGLE_PIN, server),
+  openLogFile: () => ipcRenderer.send(EventsKeys.OPEN_LOG_FILE)
 }
 
 export const uiPreload = {
