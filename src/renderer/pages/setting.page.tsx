@@ -1,172 +1,158 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 
-import { useI18nContext } from "../../i18n/i18n-react";
-import { Option, Select, Switch, Typography } from "@material-tailwind/react";
-import { getThemeSystem, themeChanger } from "../utils/theme.util";
-import { CgDarkMode } from "react-icons/cg";
-import { HiMoon, HiSun } from "react-icons/hi";
-import { SettingInStore } from "../../shared/interfaces/settings.interface";
-import { MdBrowserUpdated, MdBugReport } from "react-icons/md";
-import { VscRunAbove } from "react-icons/vsc";
-import { TbWindowMinimize } from "react-icons/tb";
+import { useI18nContext } from '../../i18n/i18n-react'
+import { Option, Select, Switch, Typography } from '@material-tailwind/react'
+import { getThemeSystem, themeChanger } from '../utils/theme.util'
+import { CgDarkMode } from 'react-icons/cg'
+import { HiMoon, HiSun } from 'react-icons/hi'
+import { SettingInStore } from '../../shared/interfaces/settings.interface'
+import { MdBrowserUpdated, MdBugReport } from 'react-icons/md'
+import { VscRunAbove } from 'react-icons/vsc'
+import { TbWindowMinimize } from 'react-icons/tb'
 
 export function SettingPage() {
-  const [startUp, setStartUp] = useState<boolean>(false);
-  const { LL, locale } = useI18nContext();
-  const [settingState, setSettingState] = useState<SettingInStore>(
-    window.storePreload.get("settings")
-  );
+  const [startUp, setStartUp] = useState<boolean>(false)
+  const { LL, locale } = useI18nContext()
+  const [settingState, setSettingState] = useState<SettingInStore>(window.storePreload.get('settings'))
 
   function toggleStartUp() {
-    window.ipc.toggleStartUP().then((res) => setStartUp(res));
+    window.ipc.toggleStartUP().then(res => setStartUp(res))
   }
   function toggleAutoUpdate() {
-    setSettingState((prevState) => ({
+    setSettingState(prevState => ({
       ...prevState,
-      autoUpdate: !prevState.autoUpdate,
-    }));
+      autoUpdate: !prevState.autoUpdate
+    }))
   }
 
   function toggleMinimize_tray() {
-    setSettingState((prevState) => ({
+    setSettingState(prevState => ({
       ...prevState,
-      minimize_tray: !prevState.minimize_tray,
-    }));
+      minimize_tray: !prevState.minimize_tray
+    }))
   }
 
   function toggleAnalytic() {
-    setSettingState((prevState) => ({
+    setSettingState(prevState => ({
       ...prevState,
-      use_analytic: !prevState.use_analytic,
-    }));
+      use_analytic: !prevState.use_analytic
+    }))
   }
 
   useEffect(() => {
-    window.ipc.saveSettings(settingState).catch();
-  }, [settingState]);
+    window.ipc.saveSettings(settingState).catch()
+  }, [settingState])
 
   return (
-    <div
-      className="hero flex flex-col justify-center items-center p-5"
-      dir={locale == "fa" ? "rtl" : "ltr"}
-    >
+    <div className="hero flex flex-col justify-center items-center p-5" dir={locale == 'fa' ? 'rtl' : 'ltr'}>
       <div className="flex flex-col items-start gap-4 ">
         <div className="dark:bg-[#262626] bg-base-200 p-4 rounded-lg shadow w-[600px] h-[300px]">
           <div className="flex flex-col justify-center overflow-auto h-64  p-4">
-            <div className={"flex flex-col"}>
+            <div className={'flex flex-col'}>
               <div className="mb-2 mt-10">
                 <ThemeChanger />
               </div>
               <div className="flex flex-col mt-2 gap-2 ">
                 <Switch
-                  id={"startUp"}
-                  crossOrigin={"true"}
-                  color={"green"}
+                  id={'startUp'}
+                  crossOrigin={'true'}
+                  color={'green'}
                   label={
                     <div>
                       <Typography
                         color="blue-gray"
-                        className="font-medium dark:text-gray-400 font-[Inter] flex flex-row items-center gap-2"
-                      >
+                        className="font-medium dark:text-gray-400 font-[Inter] flex flex-row items-center gap-2">
                         <VscRunAbove />
                         Start up
                       </Typography>
                       <Typography
                         variant="paragraph"
                         color="gray"
-                        className="font-normal  dark:text-gray-600 font-[Inter] text-[12px] "
-                      >
+                        className="font-normal  dark:text-gray-600 font-[Inter] text-[12px] ">
                         {LL.pages.settings.autoRunningTitle()}
                       </Typography>
                     </div>
                   }
                   containerProps={{
-                    className: "-mt-5 mr-2",
+                    className: '-mt-5 mr-2'
                   }}
                   onChange={toggleStartUp}
                   defaultChecked={settingState.startUp}
                 />
                 <Switch
-                  id={"autoUP"}
-                  crossOrigin={"true"}
-                  color={"green"}
+                  id={'autoUP'}
+                  crossOrigin={'true'}
+                  color={'green'}
                   label={
                     <div>
                       <Typography
                         color="blue-gray"
-                        className="font-medium dark:text-gray-400 font-[Inter] flex flex-row items-center gap-2"
-                      >
+                        className="font-medium dark:text-gray-400 font-[Inter] flex flex-row items-center gap-2">
                         <MdBrowserUpdated />
                         Automatic Update
                       </Typography>
                       <Typography
                         variant="paragraph"
                         color="gray"
-                        className="font-normal  dark:text-gray-600 font-[Inter] text-[12px] "
-                      >
+                        className="font-normal  dark:text-gray-600 font-[Inter] text-[12px] ">
                         Get updates automatically
                       </Typography>
                     </div>
                   }
                   containerProps={{
-                    className: "-mt-5 mr-2",
+                    className: '-mt-5 mr-2'
                   }}
                   onChange={toggleAutoUpdate}
                   defaultChecked={settingState.autoUpdate}
                 />
                 <Switch
-                  id={"Minimize"}
-                  crossOrigin={"true"}
-                  color={"green"}
+                  id={'Minimize'}
+                  crossOrigin={'true'}
+                  color={'green'}
                   label={
                     <div>
                       <Typography
                         color="blue-gray"
-                        className="font-medium  dark:text-gray-400 font-[Inter] flex flex-row items-center gap-2"
-                      >
+                        className="font-medium  dark:text-gray-400 font-[Inter] flex flex-row items-center gap-2">
                         <TbWindowMinimize />
                         Minimize to Tray
                       </Typography>
                       <Typography
                         variant="paragraph"
                         color="gray"
-                        className="font-medium  dark:text-gray-600 font-[Inter] text-[12px]"
-                      >
+                        className="font-medium  dark:text-gray-600 font-[Inter] text-[12px]">
                         The app move to try in background
                       </Typography>
                     </div>
                   }
                   containerProps={{
-                    className: "-mt-5 mr-2",
+                    className: '-mt-5 mr-2'
                   }}
                   onChange={toggleMinimize_tray}
                   defaultChecked={settingState.minimize_tray}
                 />
                 <Switch
-                  id={"Analytic"}
-                  crossOrigin={"true"}
-                  color={"green"}
+                  id={'Analytic'}
+                  crossOrigin={'true'}
+                  color={'green'}
                   label={
                     <div>
                       <Typography
                         color="blue-gray"
-                        className="font-medium  dark:text-gray-400 font-[Inter] flex flex-row items-center gap-2"
-                      >
+                        className="font-medium  dark:text-gray-400 font-[Inter] flex flex-row items-center gap-2">
                         <MdBugReport />
                         Analytic
                       </Typography>
                       <Typography
                         variant="paragraph"
                         color="gray"
-                        className="font-medium  dark:text-gray-600 font-[Inter] text-[12px]"
-                      >
-                        Give Permission to collect analytics and send crash
-                        reports to improve the app
+                        className="font-medium  dark:text-gray-600 font-[Inter] text-[12px]">
+                        Give Permission to collect analytics and send crash reports to improve the app
                       </Typography>
                     </div>
                   }
                   containerProps={{
-                    className: "-mt-5 mr-2",
+                    className: '-mt-5 mr-2'
                   }}
                   onChange={toggleAnalytic}
                   defaultChecked={settingState.use_analytic}
@@ -177,11 +163,11 @@ export function SettingPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 interface Prop {
-  cb: any;
+  cb: any
 }
 
 // const LanguageSwitcher = (prop: Prop) => {
@@ -235,15 +221,13 @@ interface Prop {
 // };
 
 const ThemeChanger = () => {
-  const [currentTheme, setCurrentTheme] = useState(
-    localStorage.getItem("theme") || getThemeSystem()
-  );
-  const { LL } = useI18nContext();
+  const [currentTheme, setCurrentTheme] = useState(localStorage.getItem('theme') || getThemeSystem())
+  const { LL } = useI18nContext()
 
   useEffect(() => {
-    themeChanger(currentTheme as any);
-    localStorage.setItem("theme", currentTheme);
-  }, [currentTheme]);
+    themeChanger(currentTheme as any)
+    localStorage.setItem('theme', currentTheme)
+  }, [currentTheme])
 
   return (
     <div className="select-material">
@@ -251,19 +235,18 @@ const ThemeChanger = () => {
         label={LL.pages.settings.themeChanger()}
         animate={{
           mount: { y: 0 },
-          unmount: { y: 25 },
+          unmount: { y: 25 }
         }}
         value={currentTheme}
         color="indigo"
-        selected={(element) =>
+        selected={element =>
           element &&
           React.cloneElement(element, {
-            className: "flex items-center px-0 gap-2 pointer-events-none",
+            className: 'flex items-center px-0 gap-2 pointer-events-none'
           })
         }
-        onChange={(value) => setCurrentTheme(value)}
-        className={"dark:bg-[#262626] bg-base-200 text-[#6B6A6A] font-[Inter]"}
-      >
+        onChange={value => setCurrentTheme(value)}
+        className={'dark:bg-[#262626] bg-base-200 text-[#6B6A6A] font-[Inter]'}>
         <Option value="system" className="flex items-center gap-2 font-[Inter]">
           <CgDarkMode />
           System
@@ -278,5 +261,5 @@ const ThemeChanger = () => {
         </Option>
       </Select>
     </div>
-  );
-};
+  )
+}

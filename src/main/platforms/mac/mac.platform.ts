@@ -1,27 +1,25 @@
-import { exec } from "child_process";
-import { promisify } from "util";
-import { Platform } from "../platform";
+import { exec } from 'child_process'
+import { promisify } from 'util'
+import { Platform } from '../platform'
 
-const execPromise = promisify(exec);
+const execPromise = promisify(exec)
 
 export class MacPlatform extends Platform {
   async clearDns(): Promise<void> {
     try {
-      await this.setDns(["8.8.8.8", "8.8.4.4"]);
+      await this.setDns(['8.8.8.8', '8.8.4.4'])
     } catch (e) {
-      throw e;
+      throw e
     }
   }
 
   async getActiveDns(): Promise<string[]> {
     try {
-      const { stdout } = await execPromise(
-        "scutil --dns | awk '/nameserver/ { print $3 }'"
-      );
+      const { stdout } = await execPromise("scutil --dns | awk '/nameserver/ { print $3 }'")
 
-      return stdout.trim().split("\n");
+      return stdout.trim().split('\n')
     } catch (e) {
-      throw e;
+      throw e
     }
   }
 
@@ -29,31 +27,30 @@ export class MacPlatform extends Platform {
     // Implement the logic to retrieve the list of interfaces for macOS here
     // Example: You can use the "networksetup" command to get the list of interfaces
     // For simplicity, I'm returning an empty array for now
-    return [];
+    return []
   }
 
   async setDns(nameServers: string[]): Promise<void> {
     try {
-      const dnsServers = nameServers.join(" ");
+      const dnsServers = nameServers.join(' ')
 
-      await execPromise(`networksetup -setdnsservers Wi-Fi ${dnsServers}`);
+      await execPromise(`networksetup -setdnsservers Wi-Fi ${dnsServers}`)
 
-      try{
-        await execPromise(`networksetup -setdnsservers Ethernet ${dnsServers}`);
-      }catch (e) {
+      try {
+        await execPromise(`networksetup -setdnsservers Ethernet ${dnsServers}`)
+      } catch (e) {
         // ignore if device don't have Ethernet
       }
-
     } catch (e) {
-      throw e;
+      throw e
     }
   }
 
   public async flushDns(): Promise<void> {
     try {
-      await execPromise("sudo killall -HUP mDNSResponder");
+      await execPromise('sudo killall -HUP mDNSResponder')
     } catch (e) {
-      throw e;
+      throw e
     }
   }
 }

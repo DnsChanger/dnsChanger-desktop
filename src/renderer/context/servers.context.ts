@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react'
 
-import { ServersContext } from "../interfaces/servers-context.interface";
+import { ServersContext } from '../interfaces/servers-context.interface'
 
 export const serversContext = React.createContext<ServersContext>({
   servers: [],
@@ -15,6 +15,6 @@ export const serversContext = React.createContext<ServersContext>({
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   setSelected: () => {},
 
-  network: "",
-  setNetwork: () => {},
-});
+  network: '',
+  setNetwork: () => {}
+})
