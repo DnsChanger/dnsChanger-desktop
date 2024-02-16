@@ -15,8 +15,8 @@
   "scripts": {
     "i18n": "typesafe-i18n",
     "dev": "vite",
-    "build:code": "tsc",
-    "build": "tsc && vite build",
+    "build:code": "tsc && vite build",
+    "build": "tsc && vite build && electron-builder",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\"",
     "preview": "vite preview",
     "pree2e": "vite build --mode=test",
