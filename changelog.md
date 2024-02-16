@@ -2,7 +2,8 @@
 
 # v2.1.12
 
-- feat: default server: automatically set to default if disconnected (optionally) 
+- feat: Default Server, set the default DNS server for your system. This will be used when no custom server is set.
+  (Optional)
 - feat: added open log file
 - Refactor setting page layout
 
