@@ -13,7 +13,7 @@
     "servers": ["78.157.42.100", "78.157.42.101"],
     "avatar": "electro.png",
     "rate": 9,
-    "tags": ["Gaming", "Web", "Ai"]
+    "tags": ["Gaming", "Web", "Ai", "Fivem"]
   },
   {
     "key": "RADAR_GAME",
@@ -21,7 +21,7 @@
     "servers": ["10.202.10.10", "10.202.10.11"],
     "avatar": "radar.png",
     "rate": 5,
-    "tags": ["Gaming"]
+    "tags": ["Gaming", "Fivem"]
   },
   {
     "key": "403.ONLINE",
