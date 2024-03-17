@@ -166,5 +166,13 @@
     "avatar": "AdGuardR.png",
     "rate": 3,
     "tags": ["Web"]
-  }
+  },
+    {
+        "key": "Fivem_1",
+        "name": "Fivem_1",
+        "servers": ["78.157.42.100","69.96.69.96"],
+        "avatar":"def.png",
+        "rate": 2,
+        "tags": ["Fivem"]
+    }
 ]
