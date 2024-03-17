@@ -174,5 +174,21 @@
         "avatar":"def.png",
         "rate": 2,
         "tags": ["Fivem"]
+    },
+  {
+        "key": "Fivem_2",
+        "name": "Fivem_2",
+        "servers": ["65.109.161.81","78.157.42.101"],
+        "avatar":"def.png",
+        "rate": 1,
+        "tags": ["Fivem"]
+    },
+   {
+        "key": "Fivem_3",
+        "name": "Fivem_3",
+        "servers": ["78.157.42.100","10.0.0.0"],
+        "avatar":"def.png",
+        "rate": 1,
+        "tags": ["Fivem"]
     }
 ]
