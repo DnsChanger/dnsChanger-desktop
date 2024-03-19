@@ -1,5 +1,15 @@
 # Changelog
 
+# v2.2.0
+- feat: Default Server, set the default DNS server for your system. This will be used when no custom server is set.
+  (Optional)
+- feat(explore): implement search for servers
+- feat(explore): implement refresh for servers
+- feat(explore): improve fetching servers
+- feat(settings): added open log file
+- feat(settings): added open dev tools
+
+
 # v2.1.12
 
 - feat: Default Server, set the default DNS server for your system. This will be used when no custom server is set.
