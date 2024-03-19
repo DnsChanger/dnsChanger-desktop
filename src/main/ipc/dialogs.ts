@@ -13,6 +13,7 @@ import pingLib from 'ping'
 import { getLoggerPathFile, LogId, userLogger } from '../shared/logger'
 import { getOverlayIcon } from '../shared/file'
 import { updateOverlayIcon } from '../shared/overlayIcon'
+import { log } from 'electron-log'
 
 // todo Refactoring
 
@@ -157,6 +158,12 @@ ipcMain.handle(EventsKeys.GET_CURRENT_ACTIVE, getCurrentActive)
 
 ipcMain.on(EventsKeys.OPEN_BROWSER, (ev, url) => {
   shell.openExternal(url)
+})
+ipcMain.on(EventsKeys.OPEN_DEV_TOOLS, (ev, url) => {
+  try {
+    const win = BrowserWindow.getAllWindows()[0]
+    win.webContents.openDevTools()
+  } catch (e) {}
 })
 
 // open log file

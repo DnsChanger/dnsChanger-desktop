@@ -24,5 +24,6 @@ export enum EventsKeys {
   UPDATE_ERROR = 'UPDATE_ERROR',
   CLOSE = 'close',
   MINIMIZE = 'MINIMIZE_APP',
-  OPEN_LOG_FILE = 'dialogs:open_log_file'
+  OPEN_LOG_FILE = 'dialogs:open_log_file',
+  OPEN_DEV_TOOLS = 'dialogs:open_dev_tools'
 }

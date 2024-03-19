@@ -10,7 +10,7 @@ import { MdBrowserUpdated, MdBugReport } from 'react-icons/md'
 import { VscRunAbove } from 'react-icons/vsc'
 import { TbWindowMinimize } from 'react-icons/tb'
 import { Button } from 'react-daisyui'
-import { FaFileAlt } from 'react-icons/fa'
+import { FaFileAlt, FaLaptop } from 'react-icons/fa'
 
 export function SettingPage() {
   const [startUp, setStartUp] = useState<boolean>(false)
@@ -171,7 +171,7 @@ export function SettingPage() {
                 />
               </div>
             </div>
-            <div className="flex gap-1 mt-5">
+            <div className="flex gap-2 mt-5">
               <Button
                 onClick={() => window.ipc.openLogFile()}
                 size={'sm'}
@@ -180,6 +180,15 @@ export function SettingPage() {
                 className="font-[Inter] normal-case border-2 border-gray-400 dark:border-gray-600">
                 <FaFileAlt />
                 Open Log
+              </Button>
+              <Button
+                onClick={() => window.ipc.openDevTools()}
+                size={'sm'}
+                color={'ghost'}
+                variant={'outline'}
+                className="font-[Inter] normal-case border-2 border-gray-400 dark:border-gray-600">
+                <FaLaptop />
+                Open Dev Tools
               </Button>
             </div>
           </div>
