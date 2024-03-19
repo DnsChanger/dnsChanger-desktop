@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {
   Avatar,
+  Input,
   List,
   ListItem,
   ListItemPrefix,
@@ -15,74 +16,114 @@ import { UrlsConstant } from '../../shared/constants/urls.constant'
 import { Badge, Button } from 'react-daisyui'
 import { getPingIcon } from '../utils/icons.util'
 import { CiCircleMore } from 'react-icons/ci'
-import { IoRemoveCircleOutline, IoAddCircleOutline } from 'react-icons/io5'
+import { IoRemoveCircleOutline, IoAddCircleOutline, IoReload } from 'react-icons/io5'
 import { FiCopy } from 'react-icons/fi'
 
+let STORED_SERVERS: Server[] = []
 export function ExplorePage() {
   const TABLE_HEAD = ['Name', 'Tags', 'Ping', 'options']
   const [loading, setLoading] = useState<boolean>(true)
   const [TABLE_ROWS, SetTableRow] = useState<Server[]>([])
   const [storeServers, setStoreServers] = useState<Server[]>([])
 
-  useEffect(() => {
-    async function fetchDnsList() {
+  const requestHandler = async (url: string): Promise<Server[]> => {
+    try {
+      const res = await axios.get<Server[]>(url)
+      return res.data
+    } catch (err) {
+      return []
+    }
+  }
+
+  const updateHandler = async () => {
+    let data = await requestHandler(UrlsConstant.STORE_SERVER)
+    if (data.length === 0) {
+      data = await requestHandler(UrlsConstant.STORE)
+    }
+
+    const servers: Server[] = await Promise.all(
+      data.map(async server => {
+        const res = await window.ipc.ping(server)
+        server.ping = Number(res.data.time) || -1
+        SetTableRow(prevState => [...prevState, server])
+        return server
+      })
+    )
+
+    servers.sort((a, b) => (a.ping === -1 ? 1 : b.ping === -1 ? -1 : a.ping - b.ping))
+    SetTableRow(servers)
+    STORED_SERVERS = servers
+  }
+  const fetchDnsList = async () => {
+    try {
+      SetTableRow([])
+      setLoading(true)
       const response = await window.ipc.fetchDnsList()
       setStoreServers(response.servers)
+      await updateHandler()
+    } finally {
+      setLoading(false)
     }
-
-    async function updateHandler() {
-      try {
-        let data = await requestHandler(UrlsConstant.STORE_SERVER)
-        if (data.length === 0) {
-          data = await requestHandler(UrlsConstant.STORE)
-        }
-
-        let servers: Server[] = []
-
-        for (const server of data) {
-          const res = await window.ipc.ping(server)
-
-          server.ping = Number(res.data.time) || -1
-
-          SetTableRow(prevState => [...prevState, server])
-          servers.push(server)
-        }
-        // //sort by best ping first
-        servers = servers.sort((a, b) => {
-          // ignore the -1 ping
-          console.log(`a: ${a.ping} b: ${b.ping}`)
-          if (a.ping === -1) return 1
-          if (b.ping === -1) return -1
-          return a.ping - b.ping
-        })
-        // set the sorted list to the state
-        SetTableRow(servers)
-      } catch (error) {
-      } finally {
-        setLoading(false)
-      }
-    }
-    function requestHandler(url: string): Promise<Server[]> {
-      return new Promise((resolve, reject) => {
-        axios
-          .get<Server[]>(url)
-          .then(res => resolve(res.data))
-          .catch(err => resolve([]))
-      })
-    }
-
-    fetchDnsList().then(() => updateHandler())
+  }
+  useEffect(() => {
+    fetchDnsList()
   }, [])
+
+  function onSearchHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    console.log('searching', event.target.value)
+    const value = event.target.value
+    if (value === '') {
+      SetTableRow(STORED_SERVERS)
+      return
+    }
+    const filtered = STORED_SERVERS.filter(server => {
+      let regex = new RegExp(value, 'i')
+      if (server.name.toLowerCase().match(regex)) {
+        return server
+      }
+      if (server.tags.includes(value)) {
+        return server
+      }
+    })
+
+    if (filtered.length === 0) {
+      SetTableRow([])
+      return
+    }
+
+    SetTableRow(filtered)
+  }
 
   return (
     <div className="hero flex flex-col justify-center items-center p-5">
-      <h1 className={'font-[balooTamma] text-4xl mb-2'}>
-        {loading && <span className="loading loading-ring loading-xs mr-3"></span>}
-        Explore
-      </h1>
       <div className="flex flex-col items-start gap-4 py-0 ">
-        <div className="dark:bg-[#262626] bg-base-200 px-2 rounded-lg shadow w-[670px] h-[250px] overflow-auto overflow-y-auto">
-          <table className="mt-4 w-full min-w-max table-auto  text-left">
+        <div className="dark:bg-[#262626] bg-base-200 px-2 rounded-lg shadow w-[670px] h-[320px] overflow-auto overflow-y-auto">
+          {/*search & and loading */}
+          <div className="flex flex-row justify-between items-center p-2 mt-2">
+            {/*  search bar */}
+            <div className="flex flex-row gap-2">
+              <Input
+                type={'text'}
+                color="indigo"
+                className={'dark:text-gray-400'}
+                label={'Search'}
+                name={'search'}
+                crossOrigin
+                disabled={loading}
+                onChange={onSearchHandler}
+              />
+            </div>
+            {/*  loading */}
+
+            <div className="flex flex-row justify-center items-center  px-2 gap-1">
+              {loading && <span className="loading loading-ring loading-xs mr-3"></span>}
+              {/*  refresh btn*/}
+              <Button size={'sm'} shape="circle" disabled={loading} onClick={() => fetchDnsList()}>
+                <IoReload size={20} className={'dark:text-gray-400 text-gray-800'} />
+              </Button>
+            </div>
+          </div>
+          <table className=" w-full min-w-max table-auto  text-left">
             <thead>
               <tr>
                 {TABLE_HEAD.map(head => (
