@@ -62,6 +62,7 @@ export function SettingPage() {
                   label={
                     <div>
                       <Typography
+                        variant={'small'}
                         color="blue-gray"
                         className="font-medium dark:text-gray-400 font-[Inter] flex flex-row items-center gap-2">
                         <VscRunAbove />
@@ -90,6 +91,7 @@ export function SettingPage() {
                   label={
                     <div>
                       <Typography
+                        variant={'small'}
                         color="blue-gray"
                         className="font-medium dark:text-gray-400 font-[Inter] flex flex-row items-center gap-2">
                         <MdBrowserUpdated />
@@ -118,6 +120,7 @@ export function SettingPage() {
                   label={
                     <div>
                       <Typography
+                        variant={'small'}
                         color="blue-gray"
                         className="font-medium  dark:text-gray-400 font-[Inter] flex flex-row items-center gap-2">
                         <TbWindowMinimize />
@@ -146,6 +149,7 @@ export function SettingPage() {
                   label={
                     <div>
                       <Typography
+                        variant={'small'}
                         color="blue-gray"
                         className="font-medium  dark:text-gray-400 font-[Inter] flex flex-row items-center gap-2">
                         <MdBugReport />
