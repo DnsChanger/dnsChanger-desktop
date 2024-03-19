@@ -17,7 +17,6 @@ import { getPingIcon } from '../utils/icons.util'
 import { CiCircleMore } from 'react-icons/ci'
 import { IoRemoveCircleOutline, IoAddCircleOutline } from 'react-icons/io5'
 import { FiCopy } from 'react-icons/fi'
-const cacheBuster = (url: string) => `${url}?cb=${Date.now()}`
 
 export function ExplorePage() {
   const TABLE_HEAD = ['Name', 'Tags', 'Ping', 'options']
@@ -33,30 +32,45 @@ export function ExplorePage() {
 
     async function updateHandler() {
       try {
-        const response = await axios.get<Server[]>(cacheBuster(UrlsConstant.STORE))
-
-        let servers = []
-        for (const server of response.data) {
-          const res = await window.ipc.ping(server)
-          servers.push({ ...server, ping: Number(res.data.time) || -1 })
-
-          window.ipc
+        let data = await requestHandler(UrlsConstant.STORE_SERVER)
+        if (data.length === 0) {
+          data = await requestHandler(UrlsConstant.STORE)
         }
 
-        //sort by best ping first
+        let servers: Server[] = []
+
+        for (const server of data) {
+          const res = await window.ipc.ping(server)
+
+          server.ping = Number(res.data.time) || -1
+
+          SetTableRow(prevState => [...prevState, server])
+          servers.push(server)
+        }
+        // //sort by best ping first
         servers = servers.sort((a, b) => {
-          // just ignore the -1
+          // ignore the -1 ping
+          console.log(`a: ${a.ping} b: ${b.ping}`)
           if (a.ping === -1) return 1
           if (b.ping === -1) return -1
           return a.ping - b.ping
         })
-
+        // set the sorted list to the state
         SetTableRow(servers)
       } catch (error) {
       } finally {
         setLoading(false)
       }
     }
+    function requestHandler(url: string): Promise<Server[]> {
+      return new Promise((resolve, reject) => {
+        axios
+          .get<Server[]>(url)
+          .then(res => resolve(res.data))
+          .catch(err => resolve([]))
+      })
+    }
+
     fetchDnsList().then(() => updateHandler())
   }, [])
 
