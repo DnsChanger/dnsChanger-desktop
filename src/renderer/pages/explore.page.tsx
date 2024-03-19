@@ -72,7 +72,6 @@ export function ExplorePage() {
   }, [])
 
   function onSearchHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    console.log('searching', event.target.value)
     const value = event.target.value
     if (value === '') {
       SetTableRow(STORED_SERVERS)
@@ -163,7 +162,6 @@ interface Prop {
 function ServerTrComponent(prop: Prop) {
   const { avatar, name, key, servers, tags, rate } = prop.server
   const ping = prop.server.ping
-  console.log(ping)
   const storeServers = prop.storeServers
   const ratingValue = Number((rate / 2).toFixed())
 

@@ -20,8 +20,8 @@ win:
   publish:
     - github
   target:
-    - zip
-    - msi
+#    - zip
+#    - msi
     - nsis
 linux:
   icon: "public/icons/icon.icns"

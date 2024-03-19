@@ -46,7 +46,7 @@ async function createWindow() {
       preload,
       nodeIntegration: true,
       contextIsolation: true,
-      devTools: isDev
+      devTools: true
     },
     darkTheme: true,
     resizable: false,
