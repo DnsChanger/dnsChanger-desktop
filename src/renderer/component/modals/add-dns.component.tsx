@@ -151,7 +151,7 @@ export function AddDnsModalComponent(props: Props) {
               <TabPanel value="default">
                 <div className={'grid'}>
                   <div>
-                    <p className="text-sm dark:text-gray-400 font-[Inter] bg-[#f2f2f2] dark:bg-[#262626] p-2 rounded-md">
+                    <p className="text-[13px] dark:text-gray-400 font-[Inter] bg-[#f2f2f2] dark:bg-[#262626] p-2 rounded-md">
                       Set the default DNS server for your system. This will be used when no custom server is set.
                       (Optional)
                     </p>
