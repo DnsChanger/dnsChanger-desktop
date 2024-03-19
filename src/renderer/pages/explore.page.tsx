@@ -54,6 +54,7 @@ export function ExplorePage() {
     SetTableRow(servers)
     STORED_SERVERS = servers
   }
+
   const fetchDnsList = async () => {
     try {
       SetTableRow([])
@@ -65,6 +66,7 @@ export function ExplorePage() {
       setLoading(false)
     }
   }
+
   useEffect(() => {
     fetchDnsList()
   }, [])
@@ -98,14 +100,12 @@ export function ExplorePage() {
     <div className="hero flex flex-col justify-center items-center p-5">
       <div className="flex flex-col items-start gap-4 py-0 ">
         <div className="dark:bg-[#262626] bg-base-200 px-2 rounded-lg shadow w-[670px] h-[320px] overflow-auto overflow-y-auto">
-          {/*search & and loading */}
           <div className="flex flex-row justify-between items-center p-2 mt-2">
-            {/*  search bar */}
             <div className="flex flex-row gap-2">
               <Input
                 type={'text'}
                 color="indigo"
-                className={'dark:text-gray-400'}
+                className="dark:text-gray-300 disabled:dark:bg-gray-800"
                 label={'Search'}
                 name={'search'}
                 crossOrigin
@@ -113,12 +113,9 @@ export function ExplorePage() {
                 onChange={onSearchHandler}
               />
             </div>
-            {/*  loading */}
-
             <div className="flex flex-row justify-center items-center  px-2 gap-1">
               {loading && <span className="loading loading-ring loading-xs mr-3"></span>}
-              {/*  refresh btn*/}
-              <Button size={'sm'} shape="circle" disabled={loading} onClick={() => fetchDnsList()}>
+              <Button size={'sm'} shape="circle" color={'ghost'} disabled={loading} onClick={() => fetchDnsList()}>
                 <IoReload size={20} className={'dark:text-gray-400 text-gray-800'} />
               </Button>
             </div>
