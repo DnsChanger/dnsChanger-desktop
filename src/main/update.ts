@@ -3,9 +3,9 @@ import { ipcMain } from 'electron'
 import { EventsKeys } from '../shared/constants/eventsKeys.constant'
 import { ProgressInfo } from 'electron-builder'
 import * as path from 'path'
-import isDev from 'electron-is-dev'
 import { store } from './store/store'
 import ms from 'ms'
+import isDev from './shared/isDev'
 export function update(win: Electron.BrowserWindow, app: Electron.App) {
   autoUpdater.autoDownload = store.get('settings').autoUpdate
   autoUpdater.disableWebInstaller = false

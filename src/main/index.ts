@@ -4,7 +4,6 @@ import { join } from 'node:path'
 import { getIconPath } from './shared/getIconPath'
 import { update } from './update'
 import { config } from 'dotenv'
-import isDev from 'electron-is-dev'
 import { store } from './store/store'
 import { EventsKeys } from '../shared/constants/eventsKeys.constant'
 import { getPublicFilePath } from './shared/file'
@@ -142,6 +141,7 @@ import './ipc/setting'
 import './ipc/ui'
 import './ipc/notif'
 import './ipc/dialogs'
+import isDev from './shared/isDev'
 
 function createTray() {
   const appIcon = new Tray(icon)
