@@ -190,5 +190,13 @@
         "avatar":"def.png",
         "rate": 1,
         "tags": ["Fivem"]
+    },
+    {
+      "key":"HiveDns",
+       "name": "Hive DNS",
+       "servers": ["87.107.52.11","87.107.52.13"],
+        "avatar":"hive-dns.png",
+        "rate": 6,
+        "tags": [ "Web" , "Gaming","Developing","Spotify"]
     }
 ]
