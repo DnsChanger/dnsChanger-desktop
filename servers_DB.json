@@ -2,201 +2,354 @@
   {
     "key": "SHECAN",
     "name": "Shecan",
-    "servers": ["178.22.122.100", "185.51.200.2"],
+    "servers": [
+      "178.22.122.100",
+      "185.51.200.2"
+    ],
     "avatar": "shecan.png",
     "rate": 10,
-    "tags": ["Gaming", "Web", "Ai"]
+    "tags": [
+      "Gaming",
+      "Web",
+      "Ai"
+    ]
   },
   {
     "key": "ELECTRO",
     "name": "Electro Team",
-    "servers": ["78.157.42.100", "78.157.42.101"],
+    "servers": [
+      "78.157.42.100",
+      "78.157.42.101"
+    ],
     "avatar": "electro.png",
     "rate": 9,
-    "tags": ["Gaming", "Web", "Ai", "Fivem"]
+    "tags": [
+      "Gaming",
+      "Web",
+      "Ai",
+      "Fivem"
+    ]
   },
   {
     "key": "RADAR_GAME",
     "name": "Radar game",
-    "servers": ["10.202.10.10", "10.202.10.11"],
+    "servers": [
+      "10.202.10.10",
+      "10.202.10.11"
+    ],
     "avatar": "radar.png",
     "rate": 5,
-    "tags": ["Gaming", "Fivem"]
+    "tags": [
+      "Gaming",
+      "Fivem"
+    ]
   },
   {
     "key": "403.ONLINE",
     "name": "403.online",
-    "servers": ["10.202.10.202", "10.202.10.102"],
+    "servers": [
+      "10.202.10.202",
+      "10.202.10.102"
+    ],
     "avatar": "403.png",
     "rate": 2,
-    "tags": ["Web", "Ai"]
+    "tags": [
+      "Web",
+      "Ai"
+    ]
   },
   {
     "key": "ASIA_TECH",
     "name": "Asiatech",
-    "servers": ["194.36.174.161", "178.22.122.100"],
+    "servers": [
+      "194.36.174.161",
+      "178.22.122.100"
+    ],
     "avatar": "asiatech.png",
     "rate": 1,
-    "tags": ["Web"]
+    "tags": [
+      "Web"
+    ]
   },
   {
     "key": "ClOUD_FLARE",
     "name": "Cloudflare",
-    "servers": ["1.1.1.1", "1.0.0.1"],
+    "servers": [
+      "1.1.1.1",
+      "1.0.0.1"
+    ],
     "avatar": "cloudflare.png",
     "rate": 0,
-    "tags": ["Web"]
+    "tags": [
+      "Web"
+    ]
   },
   {
     "key": "GOOGLE",
     "name": "Google",
-    "servers": ["8.8.8.8", "8.8.4.4"],
+    "servers": [
+      "8.8.8.8",
+      "8.8.4.4"
+    ],
     "avatar": "google.png",
     "rate": 5,
-    "tags": ["Gaming", "Web"]
+    "tags": [
+      "Gaming",
+      "Web"
+    ]
   },
   {
     "key": "OPENDNS",
     "name": "OpenDNS",
-    "servers": ["208.67.222.222", "208.67.220.220"],
+    "servers": [
+      "208.67.222.222",
+      "208.67.220.220"
+    ],
     "avatar": "opendns.png",
     "rate": 0,
-    "tags": ["Web"]
+    "tags": [
+      "Web"
+    ]
   },
   {
     "key": "QUAD9",
     "name": "Quad9",
-    "servers": ["9.9.9.9", "149.112.112.112"],
+    "servers": [
+      "9.9.9.9",
+      "149.112.112.112"
+    ],
     "avatar": "quad9.png",
     "rate": 0,
-    "tags": ["Web"]
+    "tags": [
+      "Web"
+    ]
   },
   {
     "key": "COMODO",
     "name": "Comodo Secure DNS",
-    "servers": ["8.26.56.26", "8.20.247.20"],
+    "servers": [
+      "8.26.56.26",
+      "8.20.247.20"
+    ],
     "avatar": "comodo.png",
     "rate": 0,
-    "tags": ["Web"]
+    "tags": [
+      "Web"
+    ]
   },
   {
     "key": "NOROTON",
     "name": "Norton ConnectSafe",
-    "servers": ["199.85.126.10", "199.85.127.10"],
+    "servers": [
+      "199.85.126.10",
+      "199.85.127.10"
+    ],
     "avatar": "noroton.png",
     "rate": 0,
-    "tags": ["Web"]
+    "tags": [
+      "Web"
+    ]
   },
   {
     "key": "YANDEX",
     "name": "Yandex.DNS",
-    "servers": ["77.88.8.8", "77.88.8.1"],
+    "servers": [
+      "77.88.8.8",
+      "77.88.8.1"
+    ],
     "avatar": "yandex.png",
     "rate": 0,
-    "tags": ["Web"]
+    "tags": [
+      "Web"
+    ]
   },
   {
     "key": "LEVEL3",
     "name": "Level 3 DNS",
-    "servers": ["209.244.0.3", "209.244.0.4"],
+    "servers": [
+      "209.244.0.3",
+      "209.244.0.4"
+    ],
     "avatar": "level3.png",
     "rate": 0,
-    "tags": ["Web"]
+    "tags": [
+      "Web"
+    ]
   },
   {
     "key": "ULTRADNS",
     "name": "UltraDNS",
-    "servers": ["156.154.70.1", "156.154.71.1"],
+    "servers": [
+      "156.154.70.1",
+      "156.154.71.1"
+    ],
     "avatar": "ultradns.png",
     "rate": 0,
-    "tags": ["Web"]
+    "tags": [
+      "Web"
+    ]
   },
   {
     "key": "DNSWATCH",
     "name": "DNS.WATCH",
-    "servers": ["84.200.69.80", "84.200.70.40"],
+    "servers": [
+      "84.200.69.80",
+      "84.200.70.40"
+    ],
     "avatar": "dnswatch.png",
     "rate": 0,
-    "tags": ["Web"]
+    "tags": [
+      "Web"
+    ]
   },
   {
     "key": "Shatel",
     "name": "Shatel",
-    "servers": ["129.250.35.250", "129.250.35.251"],
+    "servers": [
+      "129.250.35.250",
+      "129.250.35.251"
+    ],
     "avatar": "shatel.png",
     "rate": 4,
-    "tags": ["Iran", "Gaming", "Web"]
+    "tags": [
+      "Iran",
+      "Gaming",
+      "Web"
+    ]
   },
   {
     "key": "Irancell",
     "name": "Irancell",
-    "servers": ["74.82.42.42", "0.0.0.0"],
+    "servers": [
+      "74.82.42.42",
+      "0.0.0.0"
+    ],
     "avatar": "irancell.png",
     "rate": 4,
-    "tags": ["Iran", "Gaming", "Web"]
+    "tags": [
+      "Iran",
+      "Gaming",
+      "Web"
+    ]
   },
   {
     "key": "MegaLan",
     "name": "MegaLan",
-    "servers": ["95.111.55.251", "95.111.55.250"],
+    "servers": [
+      "95.111.55.251",
+      "95.111.55.250"
+    ],
     "avatar": "MegaLan.png",
     "rate": 3,
-    "tags": ["Gaming"]
+    "tags": [
+      "Gaming"
+    ]
   },
   {
     "key": "US_Dyn",
     "name": "US - Dyn",
-    "servers": ["216.146.35.35", "216.146.36.36"],
+    "servers": [
+      "216.146.35.35",
+      "216.146.36.36"
+    ],
     "avatar": "US_Dyn.png",
     "rate": 10,
-    "tags": ["Gaming"]
+    "tags": [
+      "Gaming"
+    ]
   },
   {
     "key": "CleanBrowsing_Adult_Filter",
     "name": "CleanBrowsing Adult Filter",
-    "servers": ["185.228.168.10", "185.228.169.11"],
+    "servers": [
+      "185.228.168.10",
+      "185.228.169.11"
+    ],
     "avatar": "def.png",
     "rate": 2,
-    "tags": ["Web"]
+    "tags": [
+      "Web"
+    ]
   },
   {
     "key": "AdGuard",
     "name": "AdGuard[RU]",
-    "servers": ["94.140.14.14", "94.140.15.15"],
+    "servers": [
+      "94.140.14.14",
+      "94.140.15.15"
+    ],
     "avatar": "AdGuardR.png",
     "rate": 3,
-    "tags": ["Web"]
+    "tags": [
+      "Web"
+    ]
   },
-    {
-        "key": "Fivem_1",
-        "name": "Fivem_1",
-        "servers": ["78.157.42.100","69.96.69.96"],
-        "avatar":"def.png",
-        "rate": 2,
-        "tags": ["Fivem"]
-    },
   {
-        "key": "Fivem_2",
-        "name": "Fivem_2",
-        "servers": ["65.109.161.81","78.157.42.101"],
-        "avatar":"def.png",
-        "rate": 1,
-        "tags": ["Fivem"]
-    },
-   {
-        "key": "Fivem_3",
-        "name": "Fivem_3",
-        "servers": ["78.157.42.100","10.0.0.0"],
-        "avatar":"def.png",
-        "rate": 1,
-        "tags": ["Fivem"]
-    },
-    {
-      "key":"HiveDns",
-       "name": "Hive DNS",
-       "servers": ["87.107.52.11","87.107.52.13"],
-        "avatar":"hive-dns.png",
-        "rate": 6,
-        "tags": [ "Web" , "Gaming","Developing","Spotify"]
-    }
+    "key": "Fivem_1",
+    "name": "Fivem_1",
+    "servers": [
+      "78.157.42.100",
+      "69.96.69.96"
+    ],
+    "avatar": "def.png",
+    "rate": 2,
+    "tags": [
+      "Fivem"
+    ]
+  },
+  {
+    "key": "Fivem_2",
+    "name": "Fivem_2",
+    "servers": [
+      "65.109.161.81",
+      "78.157.42.101"
+    ],
+    "avatar": "def.png",
+    "rate": 1,
+    "tags": [
+      "Fivem"
+    ]
+  },
+  {
+    "key": "Fivem_3",
+    "name": "Fivem_3",
+    "servers": [
+      "78.157.42.100",
+      "10.0.0.0"
+    ],
+    "avatar": "def.png",
+    "rate": 1,
+    "tags": [
+      "Fivem"
+    ]
+  },
+  {
+    "key": "HiveDns",
+    "name": "Hive DNS",
+    "servers": [
+      "87.107.52.11",
+      "87.107.52.13"
+    ],
+    "avatar": "hive-dns.png",
+    "rate": 6,
+    "tags": [
+      "Web",
+      "Gaming",
+      "Developing",
+      "Spotify"
+    ]
+  },
+  {
+    "key": "Shelter",
+    "name": "Shelter",
+    "servers": [
+      "91.92.242.43",
+      "91.92.242.117"
+    ],
+    "avatar": "shelter.png",
+    "rate": 4,
+    "tags": [
+      "Gaming"
+    ]
+  }
 ]
