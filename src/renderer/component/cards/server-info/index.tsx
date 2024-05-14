@@ -172,7 +172,7 @@ export function ServerInfoCardComponent(prop: Prop) {
                     variant="ghost"
                     color={isConnect ? 'green' : 'red'}
                     size="sm"
-                    value={isConnect ? 'Connected' : 'Disconnect'}
+                    value={isConnect ? 'Connected' : 'Disconnected'}
                     className={`font-[0px]  ${isConnect ? 'text-[#42A752]' : 'text-[#B43D3D]'}`}
                     icon={
                       <span
