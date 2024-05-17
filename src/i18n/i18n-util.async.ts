@@ -24,4 +24,5 @@ export const loadLocaleAsync = async (locale: Locales): Promise<void> => {
 
 export const loadAllLocalesAsync = (): Promise<void[]> => Promise.all(locales.map(loadLocaleAsync))
 
-export const loadFormatters = (locale: Locales): void => void (loadedFormatters[locale] = initFormatters(locale))
+export const loadFormatters = (locale: Locales): void =>
+  void (loadedFormatters[locale] = initFormatters(locale))

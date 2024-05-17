@@ -62,7 +62,8 @@ export function AddDnsModalComponent(props: Props) {
         })
       }
       if (resp.success) {
-        if (resp.server.name === 'default') appNotif('Success', 'Default DNS server has been set/updated', 'SUCCESS')
+        if (resp.server.name === 'default')
+          appNotif('Success', 'Default DNS server has been set/updated', 'SUCCESS')
         else appNotif('Success', LL.dialogs.added_server({ serverName: serverName }), 'SUCCESS')
         setNameServer1('')
         setNameServer2('')
@@ -84,11 +85,19 @@ export function AddDnsModalComponent(props: Props) {
 
         <CardBody className="flex flex-col gap-4">
           <Tabs value={type}>
-            <TabsHeader className="bg-gray-300 dark:bg-[#262626]" indicatorProps={{ className: 'bg-[#7487FF]' }}>
-              <Tab value="ipv4" className="dark:text-gray-200 font-[balooTamma]" onClick={() => setType('ipv4')}>
+            <TabsHeader
+              className="bg-gray-300 dark:bg-[#262626]"
+              indicatorProps={{ className: 'bg-[#7487FF]' }}>
+              <Tab
+                value="ipv4"
+                className="dark:text-gray-200 font-[balooTamma]"
+                onClick={() => setType('ipv4')}>
                 IPV4
               </Tab>
-              <Tab value="default" className="dark:text-gray-200 font-[balooTamma]" onClick={() => setType('default')}>
+              <Tab
+                value="default"
+                className="dark:text-gray-200 font-[balooTamma]"
+                onClick={() => setType('default')}>
                 Default
               </Tab>
             </TabsHeader>
@@ -152,8 +161,8 @@ export function AddDnsModalComponent(props: Props) {
                 <div className={'grid'}>
                   <div>
                     <p className="text-[13px] dark:text-gray-400 font-[Inter] bg-[#f2f2f2] dark:bg-[#262626] p-2 rounded-md">
-                      Set the default DNS server for your system. This will be used when no custom server is set.
-                      (Optional)
+                      Set the default DNS server for your system. This will be used when no custom server is
+                      set. (Optional)
                     </p>
                   </div>
                   <div className={''}>
@@ -194,7 +203,11 @@ export function AddDnsModalComponent(props: Props) {
         </CardBody>
 
         <CardFooter className="pt-0 flex flex-row gap-2">
-          <Button variant="text" className="normal-case font-[balooTamma] text-xl" color="red" onClick={handleOpen}>
+          <Button
+            variant="text"
+            className="normal-case font-[balooTamma] text-xl"
+            color="red"
+            onClick={handleOpen}>
             Close
           </Button>
           <Button

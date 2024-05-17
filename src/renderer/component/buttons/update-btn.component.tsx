@@ -1,6 +1,13 @@
 import { Button } from 'react-daisyui'
 import React, { useCallback, useEffect, useState } from 'react'
-import { Dialog, DialogBody, DialogFooter, DialogHeader, Typography, Progress } from '@material-tailwind/react'
+import {
+  Dialog,
+  DialogBody,
+  DialogFooter,
+  DialogHeader,
+  Typography,
+  Progress
+} from '@material-tailwind/react'
 import { CgSoftwareDownload } from 'react-icons/cg'
 import { ProgressInfo } from 'electron-builder'
 import { UpdateInfo } from 'electron-updater'
@@ -52,7 +59,6 @@ function DetailsModal(prop: Props): JSX.Element {
   useEffect(() => {
     if (prop.updateInfo) {
       setOpenDialog(true)
-
       ;(async () => {
         await window.ipc.startUpdate()
       })()
@@ -91,7 +97,9 @@ function DetailsModal(prop: Props): JSX.Element {
   return (
     <Dialog open={openDialog} size={'xl'} handler={() => {}} className="bg-[#282828] rounded-2xl">
       <DialogHeader className={'justify-center dark:text-white flex flex-row gap-2 py-5'}>
-        <h3 className={'font-[BalooTamma] text-[#DADADA] text-[23px]'}>🎉 Found version {prop.updateInfo.version}</h3>
+        <h3 className={'font-[BalooTamma] text-[#DADADA] text-[23px]'}>
+          🎉 Found version {prop.updateInfo.version}
+        </h3>
       </DialogHeader>
       <DialogBody className={'p-8'}>
         <div className="w-full">

@@ -74,7 +74,9 @@ export class WindowsPlatform extends Platform {
   private async getValidateInterface() {
     try {
       const interfaces: Interface[] = await this.getInterfacesList()
-      const activeInterface: Interface | null = interfaces.find((inter: Interface) => inter.gateway_ip != null)
+      const activeInterface: Interface | null = interfaces.find(
+        (inter: Interface) => inter.gateway_ip != null
+      )
 
       if (!activeInterface) throw new Error('CONNECTION_FAILED')
       return activeInterface

@@ -14,7 +14,8 @@ const { component: TypesafeI18n, context: I18nContext } = initI18nReact<
   Formatters
 >(loadedLocales, loadedFormatters)
 
-const useI18nContext = (): I18nContextType<Locales, Translations, TranslationFunctions> => useContext(I18nContext)
+const useI18nContext = (): I18nContextType<Locales, Translations, TranslationFunctions> =>
+  useContext(I18nContext)
 
 export { I18nContext, useI18nContext }
 

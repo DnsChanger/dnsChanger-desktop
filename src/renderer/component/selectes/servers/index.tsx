@@ -30,7 +30,10 @@ function servers(serversStateContext: ServersContext): any {
   const renderServer = (server: ServerStore) => {
     const isConnect = serversStateContext.currentActive?.key === server.key
     return (
-      <Select.Option key={server.key} value={server.key} selected={server.key === serversStateContext.selected?.key}>
+      <Select.Option
+        key={server.key}
+        value={server.key}
+        selected={server.key === serversStateContext.selected?.key}>
         {isConnect ? '🟢' : '🔴'} {server.name}
       </Select.Option>
     )

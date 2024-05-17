@@ -59,7 +59,10 @@ export function NavbarComponent() {
 
             {!isOnline && (
               <Button color="ghost" size="sm" className="text-[#c54444]">
-                <Tooltip message={'check your network connection status'} position={'bottom'} className="normal-case">
+                <Tooltip
+                  message={'check your network connection status'}
+                  position={'bottom'}
+                  className="normal-case">
                   <FiWifiOff />
                 </Tooltip>
               </Button>

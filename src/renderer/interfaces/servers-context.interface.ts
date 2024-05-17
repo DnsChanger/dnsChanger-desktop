@@ -1,4 +1,4 @@
-import { Server, ServerStore } from '../../shared/interfaces/server.interface'
+import { ServerStore } from '../../shared/interfaces/server.interface'
 
 export interface ServersContext {
   servers: ServerStore[]

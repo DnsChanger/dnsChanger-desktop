@@ -24,7 +24,9 @@ describe('WinPlatform()', function () {
       netmask: '',
       mac_address: ''
     }
-    jest.spyOn(WindowsPlatform.prototype as any, 'getValidateInterface').mockImplementation(() => activeInterface)
+    jest
+      .spyOn(WindowsPlatform.prototype as any, 'getValidateInterface')
+      .mockImplementation(() => activeInterface)
 
     jest.spyOn(WindowsPlatform.prototype as any, 'execCmd').mockImplementation(() => '')
 
@@ -36,7 +38,9 @@ describe('WinPlatform()', function () {
       const validatedInterface = {
         name: 'xx'
       } as any
-      jest.spyOn(WindowsPlatform.prototype as any, 'getValidateInterface').mockImplementation(() => validatedInterface)
+      jest
+        .spyOn(WindowsPlatform.prototype as any, 'getValidateInterface')
+        .mockImplementation(() => validatedInterface)
 
       jest.spyOn(WindowsPlatform.prototype as any, 'execCmd').mockImplementation()
 
@@ -50,7 +54,9 @@ describe('WinPlatform()', function () {
       const validatedInterface = {
         name: 'xx'
       } as any
-      jest.spyOn(WindowsPlatform.prototype as any, 'getValidateInterface').mockImplementation(() => validatedInterface)
+      jest
+        .spyOn(WindowsPlatform.prototype as any, 'getValidateInterface')
+        .mockImplementation(() => validatedInterface)
 
       jest.spyOn(WindowsPlatform.prototype as any, 'execCmd').mockImplementation()
 

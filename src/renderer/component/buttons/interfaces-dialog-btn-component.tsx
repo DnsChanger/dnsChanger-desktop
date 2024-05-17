@@ -14,7 +14,7 @@ export function InterfacesDialogButtonComponent() {
 
   return (
     <div>
-      <Tooltip message='Network Interfaces' position='top'>
+      <Tooltip message="Network Interfaces" position="top">
         <Button
           shape={'circle'}
           size={'sm'}

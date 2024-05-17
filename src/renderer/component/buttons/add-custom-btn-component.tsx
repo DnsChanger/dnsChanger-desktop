@@ -14,7 +14,7 @@ export function AddCustomBtnComponent() {
 
   return (
     <div>
-      <Tooltip message='Add Custom DNS' position='top'>
+      <Tooltip message="Add Custom DNS" position="top">
         <Button
           shape={'circle'}
           size={'sm'}

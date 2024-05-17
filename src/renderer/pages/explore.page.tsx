@@ -78,7 +78,7 @@ export function ExplorePage() {
       return
     }
     const filtered = STORED_SERVERS.filter(server => {
-      let regex = new RegExp(value, 'i')
+      const regex = new RegExp(value, 'i')
       if (server.name.toLowerCase().match(regex)) {
         return server
       }
@@ -114,7 +114,12 @@ export function ExplorePage() {
             </div>
             <div className="flex flex-row justify-center items-center  px-2 gap-1">
               {loading && <span className="loading loading-ring loading-xs mr-3"></span>}
-              <Button size={'sm'} shape="circle" color={'ghost'} disabled={loading} onClick={() => fetchDnsList()}>
+              <Button
+                size={'sm'}
+                shape="circle"
+                color={'ghost'}
+                disabled={loading}
+                onClick={() => fetchDnsList()}>
                 <IoReload size={20} className={'dark:text-gray-400 text-gray-800'} />
               </Button>
             </div>
@@ -254,7 +259,9 @@ function ServerTrComponent(prop: Prop) {
               className="w-72 dark:bg-[#272727] dark:border-gray-700 dark:shadow-md shadow-lg border-none">
               <List className="p-0 dark:text-gray-400">
                 <a href="#" className="text-initial w-60">
-                  <ListItem className={'text-xs'} onClick={event => navigator.clipboard.writeText(servers.join(','))}>
+                  <ListItem
+                    className={'text-xs'}
+                    onClick={() => navigator.clipboard.writeText(servers.join(','))}>
                     <ListItemPrefix>
                       <FiCopy />
                     </ListItemPrefix>
@@ -264,7 +271,7 @@ function ServerTrComponent(prop: Prop) {
                 <a href="#" className="text-initial w-60">
                   <ListItem
                     className={'text-xs cursor-default'}
-                    onClick={event => navigator.clipboard.writeText(servers.join(','))}>
+                    onClick={() => navigator.clipboard.writeText(servers.join(','))}>
                     <ListItemPrefix>Rate</ListItemPrefix>
                     <Rating className={'cursor-default'} value={ratingValue} readonly={true} />
                   </ListItem>

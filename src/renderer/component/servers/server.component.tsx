@@ -22,11 +22,9 @@ export function ServerComponent(prop: Props) {
   const isConnect = server.key == prop.currentActive?.key
   const activityContextData = React.useContext<ActivityContext>(activityContext)
   const setCurrentActive: setState<Server | null> = prop.setCurrentActive
-  const currentActive: Server = prop.currentActive
   const [connecting, setConnecting] = useState<boolean>(false)
   const [currentPing, setPing] = useState<number>(0)
 
-  // @ts-ignore
   const serverName = server.names[locale] || server.names.eng
 
   async function clickHandler() {
@@ -75,21 +73,18 @@ export function ServerComponent(prop: Props) {
   return (
     <div>
       <div
-        className={`py-6 border-l-2 border-r-2 rounded-lg shadow-md mb-2 mt-1  ${
-          isConnect ? 'dark:shadow-green-500/20 shadow-teal-300/20' : 'drop-shadow-lg'
-        }
-             border-gray-400 dark:border-gray-600
-                ${
-                  isConnect
-                    ? 'bg-green-500 text-white  hover:bg-red-500 hover:shadow-none'
-                    : 'hover:bg-green-500 text-accent-content'
-                }
+        className={`py-6 border-l-2 border-r-2 rounded-lg shadow-md mb-2 mt-1  
+        ${isConnect ? 'dark:shadow-green-500/20 shadow-teal-300/20' : 'drop-shadow-lg'} 
+        border-gray-400 dark:border-gray-600  
+        ${isConnect ? 'bg-green-500 text-white  hover:bg-red-500 hover:shadow-none' : 'hover:bg-green-500 text-accent-content'}
                 ${activityContextData.isWaiting && isConnect ? 'bg-red-400 animate-pulse shadow-none' : ''}
                 ${activityContextData.isWaiting && connecting ? 'bg-green-400 animate-pulse' : ''}
                 overflow-y-hidden
             `}>
         <div className="flex flex-nowrap ">
-          <div className="flex-none ml-2 relative" onClick={() => !activityContextData.isWaiting && clickHandler()}>
+          <div
+            className="flex-none ml-2 relative"
+            onClick={() => !activityContextData.isWaiting && clickHandler()}>
             {typeof activityContextData.reqPing == 'boolean' && Number(currentPing) ? (
               <div
                 className={`absolute top-1/2 text-left -translate-y-1/2 -right-10 border-1 w-20 h-10 rounded-3xl bg-opacity-80 ${getColor(
@@ -110,7 +105,9 @@ export function ServerComponent(prop: Props) {
               </div>
             )}
           </div>
-          <div className="flex-1 w-20 cursor-pointer" onClick={() => !activityContextData.isWaiting && clickHandler()}>
+          <div
+            className="flex-1 w-20 cursor-pointer"
+            onClick={() => !activityContextData.isWaiting && clickHandler()}>
             <Tooltip message={isConnect ? LL.help_disconnect() : LL.help_connect()} position={'bottom'}>
               <p className={'font-medium'}>{serverName}</p>
             </Tooltip>

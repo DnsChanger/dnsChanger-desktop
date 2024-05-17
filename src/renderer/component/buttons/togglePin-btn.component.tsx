@@ -1,11 +1,8 @@
-import { Button, Dialog, DialogBody, DialogFooter, DialogHeader, Typography, Badge } from '@material-tailwind/react'
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Button as ButtonDaisyui } from 'react-daisyui'
-import { AiOutlineDelete } from 'react-icons/ai'
-import { TbInfoHexagon } from 'react-icons/tb'
+
 import { serversContext } from '../../context/servers.context'
 import { ServersContext } from '../../interfaces/servers-context.interface'
-import { appNotif } from '../../notifications/appNotif'
 import { BsPin, BsPinFill } from 'react-icons/bs'
 
 export function ToggleButtonComponent() {
@@ -34,7 +31,9 @@ export function ToggleButtonComponent() {
       <ButtonDaisyui
         shape={'circle'}
         size={'sm'}
-        className={'dark:bg-[#262626] bg-base-200 hover:bg-[#c4c4c4] hover:dark:bg-[#323232] border-none text-center'}
+        className={
+          'dark:bg-[#262626] bg-base-200 hover:bg-[#c4c4c4] hover:dark:bg-[#323232] border-none text-center'
+        }
         onClick={handleClick}>
         {isPin ? (
           <BsPinFill className={'dark:text-gray-600 text-gray-800'} size={16} />
