@@ -1,21 +1,19 @@
 import _ from 'lodash'
 import { v4 as uuid } from 'uuid'
-import { store } from '../store/store'
 import { ipcMain, shell, dialog, BrowserWindow } from 'electron'
+import pingLib from 'ping'
 
+import { store } from '../store/store'
 import { dnsService } from '../config'
 import { Server, ServerStore } from '../../shared/interfaces/server.interface'
 import { EventsKeys } from '../../shared/constants/eventsKeys.constant'
 import { isValidDnsAddress } from '../../shared/validators/dns.validator'
 import LN from '../../i18n/i18n-node'
 import { Locales } from '../../i18n/i18n-types'
-import pingLib from 'ping'
 import { getLoggerPathFile, LogId, userLogger } from '../shared/logger'
 import { getOverlayIcon } from '../shared/file'
 import { updateOverlayIcon } from '../shared/overlayIcon'
-import { log } from 'electron-log'
 
-// todo Refactoring
 
 ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
   try {
@@ -25,18 +23,14 @@ ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
     const filepath = await getOverlayIcon(server)
     updateOverlayIcon(win, filepath, 'connected')
 
-    // if (store.get("settings").use_analytic)
-    // trackEvent(`USE_DNS:${server.name}`, {
-    //   servers: server.servers.toString(),
-    // }).catch();
     return {
       server,
-      success: true,
-      message: currentLng.pages.home.connected({
+        success: true, 
+       message: currentLng.pages.home.connected({
         currentActive: server.name
       })
     }
-  } catch (e: any) {
+  } catch (e) {
     userLogger.error(e.stack, e.message)
     return {
       server,
@@ -49,25 +43,28 @@ ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
 ipcMain.handle(EventsKeys.CLEAR_DNS, async (event, server: Server) => {
   try {
     await dnsService.clearDns()
+
     const currentLng = LN[getCurrentLng()]
     const win = BrowserWindow.getAllWindows()[0]
+
+
     updateOverlayIcon(win, null, 'disconnect')
     const defaultServer = store.get('defaultServer')
+
     if (defaultServer) {
-      // only set default server if it's not the same as the current server
-      // is not connect state, because it's not necessary to set default server
-      // if it's already connected
       const servers = defaultServer.servers
       dnsService.setDns(servers).catch(err => {
         userLogger.error(err.stack, err.message)
       })
     }
+
+
     return {
       server,
       success: true,
       message: currentLng.pages.home.disconnected()
     }
-  } catch (e: any) {
+  } catch (e) {
     userLogger.error(e.stack, e.message)
     return { server, success: false, message: 'Unknown error while clear DNS' }
   }
@@ -76,7 +73,7 @@ ipcMain.handle(EventsKeys.CLEAR_DNS, async (event, server: Server) => {
 ipcMain.handle(EventsKeys.ADD_DNS, async (event, data: Partial<Server>) => {
   if (data.name === 'default') {
     const defaultServer = store.get('defaultServer')
-    let server: Server = {
+    const server: Server = {
       key: 'default',
       servers: data.servers,
       name: 'default',
@@ -84,14 +81,17 @@ ipcMain.handle(EventsKeys.ADD_DNS, async (event, data: Partial<Server>) => {
       avatar: '',
       rate: 0
     }
+
     if (!defaultServer) {
       store.set('defaultServer', server)
     } else {
       defaultServer.servers = data.servers
       store.set('defaultServer', defaultServer)
     }
+
     return { success: true, server: server }
   }
+
   const nameServer1 = data.servers[0]
   const nameServer2 = data.servers[1]
   if (!nameServer1) return { success: false, message: 'DNS1 is required' }
@@ -130,7 +130,7 @@ ipcMain.handle(EventsKeys.ADD_DNS, async (event, data: Partial<Server>) => {
   return { success: true, server: newServer, servers: list }
 })
 
-ipcMain.handle(EventsKeys.DELETE_DNS, (ev: any, server: Server) => {
+ipcMain.handle(EventsKeys.DELETE_DNS, (ev, server: Server) => {
   const dnsList = store.get('dnsList')
 
   _.remove(dnsList, dns => dns.key === server.key)
@@ -154,35 +154,38 @@ ipcMain.handle(EventsKeys.FETCH_DNS_LIST, () => {
 })
 
 ipcMain.on(EventsKeys.GET_CURRENT_ACTIVE, getCurrentActive)
+
 ipcMain.handle(EventsKeys.GET_CURRENT_ACTIVE, getCurrentActive)
 
 ipcMain.on(EventsKeys.OPEN_BROWSER, (ev, url) => {
   shell.openExternal(url)
 })
-ipcMain.on(EventsKeys.OPEN_DEV_TOOLS, (ev, url) => {
+
+ipcMain.on(EventsKeys.OPEN_DEV_TOOLS, () => {
   try {
     const win = BrowserWindow.getAllWindows()[0]
     win.webContents.openDevTools()
-  } catch (e) {}
+  } catch (e) { }
 })
 
 // open log file
 ipcMain.on(EventsKeys.OPEN_LOG_FILE, () => {
   const logPathFile = getLoggerPathFile(LogId.USER)
-  shell.openPath(logPathFile).catch((e: any) => {
+  shell.openPath(logPathFile).catch((e) => {
     userLogger.error(e.stack, e.message)
   })
 })
 
-ipcMain.on(EventsKeys.DIALOG_ERROR, (ev: any, title: string, message: string) => {
+ipcMain.on(EventsKeys.DIALOG_ERROR, (ev, title: string, message: string) => {
   dialog.showErrorBox(title, message)
 })
 
-ipcMain.handle(EventsKeys.FLUSHDNS, async function (evet, _: any) {
+ipcMain.handle(EventsKeys.FLUSHDNS, async function () {
   try {
     await dnsService.flushDns()
     return { success: true }
-  } catch {
+  } catch (error) {
+    userLogger.error(error.stack, error.message)
     return { success: false }
   }
 })
@@ -207,6 +210,7 @@ ipcMain.handle(EventsKeys.PING, async function (event, server: Server) {
 })
 ipcMain.handle(EventsKeys.TOGGLE_PIN, async function (event, server: Server) {
   const dnsList: ServerStore[] = store.get('dnsList')
+
   const serverStore = dnsList.find(ser => ser.key === server.key)
   if (serverStore) {
     serverStore.isPin = !serverStore.isPin
@@ -222,10 +226,12 @@ ipcMain.handle(EventsKeys.TOGGLE_PIN, async function (event, server: Server) {
 ipcMain.handle(EventsKeys.GET_NETWORK_INTERFACE_LIST, () => {
   return dnsService.getInterfacesList()
 })
+
 function getCurrentLng(): Locales {
   return store.get('settings').lng
 }
-async function getCurrentActive(): Promise<any> {
+
+async function getCurrentActive(): Promise<{ success: boolean, server?: Partial<ServerStore>, isDefault?: boolean,message?: string }> {
   try {
     const dns: string[] = await dnsService.getActiveDns()
 
@@ -260,11 +266,14 @@ async function getCurrentActive(): Promise<any> {
       }
     else {
       const win = BrowserWindow.getAllWindows()[0]
+      
       const filepath = await getOverlayIcon(server)
+      
       updateOverlayIcon(win, filepath, 'connected')
+      
       return { success: true, server }
     }
-  } catch (e: any) {
+  } catch (e) {
     userLogger.error(e.stack, e.message)
     return { success: false, message: 'Unknown error while clear DNS' }
   }
