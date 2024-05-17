@@ -104,7 +104,7 @@ export function ConnectButtonComponent() {
             <span className="absolute inset-0 outline-[#cfcfcf1a] outline-8 "></span>
             <CiPower size={60} style={{ transform: 'rotate(180deg)' }} className={'text-gray-300 dark:text-gray-500'} />
           </Button>
-          <div className={'mt-5 font-[balooTamma] text-2xl dark:text-white text-[#6B6A6A]'}>Disconnect</div>
+          <div className={'mt-5 font-[balooTamma] text-2xl dark:text-white text-[#6B6A6A]'}>Disconnected</div>
         </div>
       )
     }

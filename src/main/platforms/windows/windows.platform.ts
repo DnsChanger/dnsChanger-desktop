@@ -1,11 +1,8 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import network from 'network'
 import sudo from 'sudo-prompt'
 
 import { Platform } from '../platform'
 import { Interface } from './interfaces/interface'
-import os from 'os'
 import { store } from '../../store/store'
 
 export class WindowsPlatform extends Platform {
@@ -50,9 +47,9 @@ export class WindowsPlatform extends Platform {
 
   getInterfacesList(): Promise<Interface[]> {
     return new Promise((resolve, reject) => {
-      network.get_interfaces_list((err: any, obj: any) => {
+      network.get_interfaces_list((err: unknown, obj: unknown) => {
         if (err) reject(err)
-        else resolve(obj)
+        else resolve(obj as Interface[])
       })
     })
   }
