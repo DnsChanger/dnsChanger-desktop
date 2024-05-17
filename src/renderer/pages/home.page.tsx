@@ -1,4 +1,4 @@
-import { Server, ServerStore } from '../../shared/interfaces/server.interface'
+import { ServerStore } from '../../shared/interfaces/server.interface'
 import { serversContext } from '../context/servers.context'
 import { useEffect, useState } from 'react'
 import { ConnectButtonComponent } from '../component/buttons/connect-btn.component'
@@ -8,6 +8,7 @@ import { AddCustomBtnComponent } from '../component/buttons/add-custom-btn-compo
 import { DeleteButtonComponent } from '../component/buttons/delete-btn.component'
 import { InterfacesDialogButtonComponent } from '../component/buttons/interfaces-dialog-btn-component'
 import { ToggleButtonComponent } from '../component/buttons/togglePin-btn.component'
+import { FlushDNS_BtnComponent } from '../component/buttons/flush-dns-btn-component'
 
 export function HomePage() {
   const [serversState, setServers] = useState<ServerStore[]>([])
@@ -76,12 +77,12 @@ export function HomePage() {
                 <div className={'absolute bottom-[216px] right-10 flex flex-row-reverse gap-2'}>
                   <AddCustomBtnComponent />
                   {osType == 'win32' && <InterfacesDialogButtonComponent />}
+                  <FlushDNS_BtnComponent />
                 </div>
               </div>
               <div className={'absolute top-[330px] left-[360px] grid grid-cols-10 gap-10'}>
                 <DeleteButtonComponent />
                 <ToggleButtonComponent />
-                {/*<EditButtonComponent />*/}
               </div>
             </div>
           </div>
