@@ -1,5 +1,13 @@
-import { Button, Dialog, DialogBody, DialogFooter, DialogHeader, Typography, Badge } from '@material-tailwind/react'
-import React, { useContext, useState } from 'react'
+import {
+  Button,
+  Dialog,
+  DialogBody,
+  DialogFooter,
+  DialogHeader,
+  Typography,
+  Badge
+} from '@material-tailwind/react'
+import { useContext, useState } from 'react'
 import { Button as ButtonDaisyui } from 'react-daisyui'
 import { AiOutlineDelete } from 'react-icons/ai'
 import { TbInfoHexagon } from 'react-icons/tb'
@@ -35,28 +43,40 @@ export function DeleteButtonComponent() {
       <ButtonDaisyui
         shape={'circle'}
         size={'sm'}
-        className={'dark:bg-[#262626] bg-base-200 hover:bg-[#c4c4c4] hover:dark:bg-[#323232] border-none text-center'}
+        className={
+          'dark:bg-[#262626] bg-base-200 hover:bg-[#c4c4c4] hover:dark:bg-[#323232] border-none text-center'
+        }
         onClick={handleOpen}>
         <AiOutlineDelete className={'dark:text-gray-600 text-gray-800'} size={16} />
       </ButtonDaisyui>
       <Dialog open={open} handler={handleOpen} size="sm" className={'font-[balooTamma] dark:bg-[#282828] '}>
-        <DialogHeader className={'ml-1 gap-6 justify-center'}>
-          <Badge content={<TbInfoHexagon size={20} />} overlap="square" color={'red'}></Badge>
+        <DialogHeader className={'ml-1 gap-5 justify-start'}>
+          <Badge content={<TbInfoHexagon size={18} />} overlap="square" color={'red'}></Badge>
           <Typography variant="h5" color="blue-gray" className={'font-[balooTamma] dark:text-gray-200'}>
-            Attention Required
+            Confirm Delete
           </Typography>
         </DialogHeader>
-        <DialogBody divider className="grid place-items-center gap-4 ">
+        <DialogBody
+          divider
+          className="grid place-items-center gap-4 border-t-2 border-b-0 border-t-blue-gray-700">
           <Typography className="text-center font-normal font-[balooTamma] text-gray-700 dark:text-gray-300">
             Are you sure you want to delete the server <strong>{server.name}</strong>?
           </Typography>
         </DialogBody>
         <DialogFooter className="space-x-2">
-          <Button variant="text" color="blue-gray" onClick={handleOpen}>
+          <Button
+            variant="text"
+            color="blue-gray"
+            className="normal-case font-[balooTamma]"
+            onClick={handleOpen}>
             Close
           </Button>
-          <Button variant="gradient" color={'red'} onClick={handleDelete}>
-            Delete
+          <Button
+            variant="gradient"
+            className="normal-case font-[balooTamma]"
+            color={'red'}
+            onClick={handleDelete}>
+            Confirm Delete
           </Button>
         </DialogFooter>
       </Dialog>
