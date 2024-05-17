@@ -14,7 +14,6 @@ import { getLoggerPathFile, LogId, userLogger } from '../shared/logger'
 import { getOverlayIcon } from '../shared/file'
 import { updateOverlayIcon } from '../shared/overlayIcon'
 
-
 ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
   try {
     await dnsService.setDns(server.servers)
@@ -25,8 +24,8 @@ ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
 
     return {
       server,
-        success: true, 
-       message: currentLng.pages.home.connected({
+      success: true,
+      message: currentLng.pages.home.connected({
         currentActive: server.name
       })
     }
@@ -47,7 +46,6 @@ ipcMain.handle(EventsKeys.CLEAR_DNS, async (event, server: Server) => {
     const currentLng = LN[getCurrentLng()]
     const win = BrowserWindow.getAllWindows()[0]
 
-
     updateOverlayIcon(win, null, 'disconnect')
     const defaultServer = store.get('defaultServer')
 
@@ -57,7 +55,6 @@ ipcMain.handle(EventsKeys.CLEAR_DNS, async (event, server: Server) => {
         userLogger.error(err.stack, err.message)
       })
     }
-
 
     return {
       server,
@@ -165,13 +162,13 @@ ipcMain.on(EventsKeys.OPEN_DEV_TOOLS, () => {
   try {
     const win = BrowserWindow.getAllWindows()[0]
     win.webContents.openDevTools()
-  } catch (e) { }
+  } catch (e) {}
 })
 
 // open log file
 ipcMain.on(EventsKeys.OPEN_LOG_FILE, () => {
   const logPathFile = getLoggerPathFile(LogId.USER)
-  shell.openPath(logPathFile).catch((e) => {
+  shell.openPath(logPathFile).catch(e => {
     userLogger.error(e.stack, e.message)
   })
 })
@@ -231,7 +228,12 @@ function getCurrentLng(): Locales {
   return store.get('settings').lng
 }
 
-async function getCurrentActive(): Promise<{ success: boolean, server?: Partial<ServerStore>, isDefault?: boolean,message?: string }> {
+async function getCurrentActive(): Promise<{
+  success: boolean
+  server?: Partial<ServerStore>
+  isDefault?: boolean
+  message?: string
+}> {
   try {
     const dns: string[] = await dnsService.getActiveDns()
 
@@ -266,11 +268,11 @@ async function getCurrentActive(): Promise<{ success: boolean, server?: Partial<
       }
     else {
       const win = BrowserWindow.getAllWindows()[0]
-      
+
       const filepath = await getOverlayIcon(server)
-      
+
       updateOverlayIcon(win, filepath, 'connected')
-      
+
       return { success: true, server }
     }
   } catch (e) {
