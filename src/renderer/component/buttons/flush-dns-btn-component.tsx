@@ -13,7 +13,6 @@ export function FlushDNS_BtnComponent() {
     setLoading(false)
     if (result.success) {
       appNotif('Success', `DNS Flushed Successfully`, 'SUCCESS')
-      window.ipc.notif('DNS Flushed Successfully')
     } else {
       appNotif('Failed', `Failed to Flush DNS`, 'ERROR')
     }
