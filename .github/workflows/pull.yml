@@ -9,12 +9,8 @@ on:
       - "*.md"
 
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-
+  build_on_linux:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -27,9 +23,55 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-
+      
       - name: Install electron-builder
         run: npm i electron-builder -g
 
-      - name: Build
-        run: npm run build
+      - name: Build typescript files
+        run: npm run build:code
+        
+
+        
+  build_on_win:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Node v18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Install electron-builder
+        run: npm i electron-builder -g
+
+      - name: Build typescript files
+        run: npm run build:code
+        
+        
+  build_on_macos:
+    runs-on: macOS-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Node v18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Install electron-builder
+        run: npm i electron-builder -g
+
+      - name: Build typescript files
+        run: npm run build:code
+        
