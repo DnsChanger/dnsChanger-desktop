@@ -43,11 +43,12 @@ mac:
     - github
 nsis:
   perMachine: true
-  oneClick: true
+  oneClick: false
   installerIcon: "public/icons/icon.ico"
   deleteAppDataOnUninstall: true
   runAfterFinish: true
   createDesktopShortcut: true
+  allowToChangeInstallationDirectory: true
   shortcutName: "DNS Changer"
 npmRebuild: true
 nodeGypRebuild: false
