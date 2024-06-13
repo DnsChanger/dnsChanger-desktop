@@ -35,7 +35,7 @@ export function AddDnsModalComponent(props: Props) {
   useEffect(() => {
     if (!props.isOpen) return
     const defServer = window.storePreload.get('defaultServer')
-    if (defServer.servers) {
+    if (defServer && defServer.servers) {
       setDNSAddressToInput('def-serverInput-1', defServer.servers[0])
       setDNSAddressToInput('def-serverInput-2', defServer.servers[1])
     }
