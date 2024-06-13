@@ -209,6 +209,7 @@ export function AddDnsModalComponent(props: Props) {
                       onChange={e => setServerName(e.target.value)}
                       placeholder="e.g. Google DNS"
                       className="w-full h-8 max-w-xs text-gray-600 dark:text-gray-500 font-[Inter] outline outline-1
+                      outline-gray-700/20
                       dark:outline-none
                       dark:placeholder-gray-50/20 rounded focus-visible:outline-none focus-visible:ring-2
                        focus-visible:ring-indigo-500 pl-2 transition duration-200 ease-in-out"
