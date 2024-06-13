@@ -23,10 +23,11 @@ interface Props {
   cb: (val: any) => void
 }
 
+const ipv4Pattern = /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/
+
 export function AddDnsModalComponent(props: Props) {
   const [serverName, setServerName] = useState<string>('')
   const [validationMessage, setValidationMessage] = useState<string>('')
-  // default servers
 
   const [type, setType] = useState<'ipv4' | 'default'>('ipv4')
   const { LL } = useI18nContext()
@@ -38,6 +39,10 @@ export function AddDnsModalComponent(props: Props) {
       setDNSAddressToInput('def-serverInput-1', defServer.servers[0])
       setDNSAddressToInput('def-serverInput-2', defServer.servers[1])
     }
+
+    // fetch from clipboard
+    navigator.clipboard.readText().then(clipboardHandler)
+
     setValidationMessage('')
   }, [props.isOpen])
 
@@ -46,7 +51,6 @@ export function AddDnsModalComponent(props: Props) {
   async function addHandler() {
     try {
       let resp
-      const ipv4Pattern = /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/
 
       if (type === 'default') {
         const nameServer1Default = getNameServer('def-serverInput-1')
@@ -160,7 +164,6 @@ export function AddDnsModalComponent(props: Props) {
 
   function setDNSAddressToInput(className: string, server: string) {
     const inputs: any = document.querySelectorAll(`.${className}`)
-    console.log('inputs: ', inputs)
     let index = 0
     const splietedServer = server.split('.')
     inputs.forEach((inp: any) => {
@@ -169,6 +172,29 @@ export function AddDnsModalComponent(props: Props) {
       inp.value = splietedServer[index]
       index++
     })
+  }
+
+  function clipboardHandler(clipText: string | null) {
+    if (!clipText) return
+
+    if (!clipText.includes('.')) return
+
+    let servers = clipText.split(',') as string[]
+    if (servers.length == 2) {
+      if (ipv4Pattern.test(servers[0])) setDNSAddressToInput('serverInput-1', servers[0])
+      if (ipv4Pattern.test(servers[1])) setDNSAddressToInput('serverInput-2', servers[1])
+      return
+    }
+
+    servers = clipText.split(' ')
+    if (servers.length == 2) {
+      if (ipv4Pattern.test(servers[0])) setDNSAddressToInput('serverInput-1', servers[0])
+
+      if (ipv4Pattern.test(servers[1])) setDNSAddressToInput('serverInput-2', servers[1])
+      return
+    }
+
+    if (ipv4Pattern.test(clipText)) setDNSAddressToInput('serverInput-1', clipText)
   }
 
   return (
@@ -196,7 +222,6 @@ export function AddDnsModalComponent(props: Props) {
                 Default
               </Tab>
             </TabsHeader>
-
             <TabsBody>
               <TabPanel value="ipv4">
                 <div className={'grid'}>
@@ -207,6 +232,8 @@ export function AddDnsModalComponent(props: Props) {
                     <input
                       type="text"
                       onChange={e => setServerName(e.target.value)}
+                      value={serverName}
+                      defaultValue={serverName}
                       placeholder="e.g. Google DNS"
                       className="w-full h-8 max-w-xs text-gray-600 dark:text-gray-500 font-[Inter] outline outline-1
                       outline-gray-700/20
@@ -283,7 +310,6 @@ export function AddDnsModalComponent(props: Props) {
             </TabsBody>
           </Tabs>
         </CardBody>
-
         <CardFooter className="pt-0 flex flex-row py-2">
           <Button
             variant="text"
