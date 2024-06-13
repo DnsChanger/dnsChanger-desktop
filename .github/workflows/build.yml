@@ -52,26 +52,3 @@ jobs:
 
       - name: Build typescript files
         run: npm run build:code
-        
-        
-  build_on_macos:
-    runs-on: macOS-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Install Node v20
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-      
-      - name: Install electron-builder
-        run: npm i electron-builder -g
-
-      - name: Build typescript files
-        run: npm run build:code
-        
