@@ -22,12 +22,12 @@ export function FlushDNS_BtnComponent() {
     <div>
       <Tooltip message="Flush DNS" position="top">
         <Button
-          shape={'circle'}
+          shape={'square'}
           size={'sm'}
           onClick={handleClick}
           disabled={loading}
           className={
-            'bg-[#e2e2e2] hover:bg-[#d3d2d2] dark:bg-[#383838] hover:dark:bg-[#323232]  border-none text-center'
+            'bg-base-200 hover:bg-[#d3d2d2] dark:bg-[#262626] hover:dark:bg-[#323232]  border-none text-center transition-all duration-300 ease-in-out'
           }>
           <FaBroom
             className={`dark:text-gray-600 text-gray-700  ${loading ? 'animate-pulse' : ''}`}
