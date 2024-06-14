@@ -69,7 +69,7 @@ jobs:
     - name: Install Build Tools
       run: |
         brew install libtool automake autoconf
-        sudo xcode-select --install
+        sudo xcode-select --reset
 
     - name: Update node-gyp
       run: npm install -g node-gyp
