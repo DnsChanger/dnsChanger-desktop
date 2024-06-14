@@ -11,6 +11,15 @@ export const serversConstant: Array<ServerStore> = [
     isPin: false
   },
   {
+    key: 'GreenPing',
+    name: 'Shecan',
+    servers: ['213.176.6.99'],
+    avatar: 'GreenPing.png',
+    rate: 10,
+    tags: ['Gaming', 'Web', 'Ai'],
+    isPin: false
+  },
+  {
     key: 'ELECTRO',
     name: 'Electro Team',
     servers: ['78.157.42.100', '78.157.42.101'],
