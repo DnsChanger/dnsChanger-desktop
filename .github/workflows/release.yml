@@ -75,7 +75,7 @@ jobs:
       run: npm install -g node-gyp
 
     - name: Install dependencies
-      run: npm ci
+      run: npm install
 
     - name: Install electron-builder
       run: npm i electron-builder -g
