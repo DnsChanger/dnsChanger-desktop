@@ -1,5 +1,13 @@
 # Changelog
 
+# v2.3.0
+
+- feat: Flush DNS cache [#58](https://github.com/DnsChanger/dnsChanger-desktop/issues/58)
+- feat: Enable changing installation directory for NSIS installer [#69](https://github.com/DnsChanger/dnsChanger-desktop/issues/69)
+- improved: Add custom server dialog
+- layout(home): Reposition and align homepage action buttons
+
+
 # v2.2.0
 - feat: Default Server, set the default DNS server for your system. This will be used when no custom server is set.
   (Optional)
