@@ -64,7 +64,10 @@ jobs:
         cache: npm
 
     - name: Install Python
-      run: brew install python
+      run: brew install python@3.11
+    
+    - name: "Install Python setuptools"
+      run: brew install python-setuptools
 
     - name: Install Build Tools
       run: |
