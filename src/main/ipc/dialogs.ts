@@ -63,7 +63,7 @@ ipcMain.handle(EventsKeys.CLEAR_DNS, async (event, server: Server) => {
     }
   } catch (e) {
     userLogger.error(e.stack, e.message)
-    return { server, success: false, message: 'Unknown error while clear DNS' }
+    return { server, success: false, message: 'Unknown error while clearing DNS' }
   }
 })
 
@@ -89,8 +89,7 @@ ipcMain.handle(EventsKeys.ADD_DNS, async (event, data: Partial<Server>) => {
     return { success: true, server: server }
   }
 
-  const nameServer1 = data.servers[0]
-  const nameServer2 = data.servers[1]
+  const [ nameServer1, nameserver2 ] = data.servers
   if (!nameServer1) return { success: false, message: 'DNS1 is required' }
 
   const currentLng = LN[getCurrentLng()]
