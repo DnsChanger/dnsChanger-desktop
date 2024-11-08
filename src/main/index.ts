@@ -83,18 +83,10 @@ async function createWindow() {
 	if (os.platform() === 'darwin') win.setWindowButtonVisibility(false)
 
 	win.setMenu(null)
+
 	await serve(win)
 
-	// await win.loadURL(startUrl)
-
-	// if (url) {
-	// 	await win.loadURL(url)
-	// } else {
-	// 	await win.loadFile(indexHtml)
-	// }
-	// if (isDev) win.webContents.openDevTools()
-
-	win.webContents.openDevTools()
+	if (isDev) win.webContents.openDevTools()
 
 	win.webContents.on('did-finish-load', () => {
 		win?.webContents.send('main-process-message', new Date().toLocaleString())
@@ -156,11 +148,7 @@ ipcMain.handle('open-win', (_, arg) => {
 		},
 	})
 
-	// if (process.env.VITE_DEV_SERVER_URL) {
 	childWindow.loadURL(`${startUrl}#${arg}`)
-	// } else {
-	// 	childWindow.loadFile(indexHtml, { hash: arg })
-	// }
 })
 
 import './ipc/setting'
