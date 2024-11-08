@@ -4,6 +4,7 @@ import { useContext, useState } from 'react'
 import { serversContext } from '../../context/servers.context'
 import { AiOutlineLoading } from 'react-icons/ai'
 import { appNotif } from '../../notifications/appNotif'
+import ReactGA from 'react-ga4'
 
 enum statusStep {
   CONNECTED,
@@ -35,6 +36,12 @@ export function ConnectButtonComponent() {
       if (response.success) {
         serversStateContext.setCurrentActive(serversStateContext.selected)
         window.ipc.notif(response.message)
+        ReactGA.event({
+          category: 'User',
+          action: 'CONNECTED',
+          label: serversStateContext.selected.name,
+          value: 1
+        })
       } else {
         window.ipc.dialogError('Error', response.message)
       }
