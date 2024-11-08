@@ -2,18 +2,18 @@
 import { uiPreload, ipcPreload, osItems, storePreload } from '../preload'
 
 interface ImportMetaEnv {
-  readonly PACKAGE_VERSION: string
-  // more env variables...
+	readonly PACKAGE_VERSION: string
+	// more env variables...
 }
 
 interface ImportMeta {
-  readonly env: ImportMetaEnv
+	readonly env: ImportMetaEnv
 }
 declare global {
-  interface Window {
-    ipc: typeof ipcPreload
-    ui: typeof uiPreload
-    os: typeof osItems
-    storePreload: typeof storePreload
-  }
+	interface Window {
+		ipc: typeof ipcPreload
+		ui: typeof uiPreload
+		os: typeof osItems
+		storePreload: typeof storePreload
+	}
 }

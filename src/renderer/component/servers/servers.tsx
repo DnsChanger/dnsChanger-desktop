@@ -7,18 +7,18 @@ import { ServersContext } from '../../interfaces/servers-context.interface'
 interface Props {}
 
 export function ServersComponent(props: Props) {
-  const serversContextData = useContext<ServersContext>(serversContext)
+	const serversContextData = useContext<ServersContext>(serversContext)
 
-  return (
-    <div>
-      {serversContextData.servers.map(server => (
-        <ServerComponent
-          server={server}
-          currentActive={serversContextData.currentActive}
-          setCurrentActive={serversContextData.setCurrentActive}
-          key={server.key}
-        />
-      ))}
-    </div>
-  )
+	return (
+		<div>
+			{serversContextData.servers.map((server) => (
+				<ServerComponent
+					server={server}
+					currentActive={serversContextData.currentActive}
+					setCurrentActive={serversContextData.setCurrentActive}
+					key={server.key}
+				/>
+			))}
+		</div>
+	)
 }

@@ -8,6 +8,10 @@ import type { Locales, Translations, TranslationFunctions } from './i18n-types'
 
 loadAllLocales()
 
-export const L: LocaleTranslationFunctions<Locales, Translations, TranslationFunctions> = i18n()
+export const L: LocaleTranslationFunctions<
+	Locales,
+	Translations,
+	TranslationFunctions
+> = i18n()
 
 export default L

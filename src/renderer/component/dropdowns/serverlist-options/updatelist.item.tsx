@@ -15,40 +15,46 @@ import { useI18nContext } from '../../../../i18n/i18n-react'
 const cacheBuster = (url: string) => `${url}?cb=${Date.now()}`
 
 export function UpdateListItemComponent() {
-  const serversContextData: ServersContext = useContext<ServersContext>(serversContext)
-  const activityContextData = useContext<ActivityContext>(activityContext)
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const { LL } = useI18nContext()
+	const serversContextData: ServersContext =
+		useContext<ServersContext>(serversContext)
+	const activityContextData = useContext<ActivityContext>(activityContext)
+	const [isLoading, setIsLoading] = useState<boolean>(false)
+	const { LL } = useI18nContext()
 
-  async function updateHandler() {
-    if (activityContextData.isWaiting) return alert(LL.waiting()) //todo add toast
-    try {
-      setIsLoading(true)
+	async function updateHandler() {
+		if (activityContextData.isWaiting) return alert(LL.waiting()) //todo add toast
+		try {
+			setIsLoading(true)
 
-      activityContextData.setStatus(LL.dialogs.fetching_data_from_repo())
-      activityContextData.setIsWaiting(true)
+			activityContextData.setStatus(LL.dialogs.fetching_data_from_repo())
+			activityContextData.setIsWaiting(true)
 
-      const response = await axios.get<Server[]>(cacheBuster(UrlsConstant.STORE))
-      const servers = serversContextData.servers.concat(response.data as any)
-      const uniqList: Server[] = _.uniqWith(servers, _.isEqual)
+			const response = await axios.get<Server[]>(
+				cacheBuster(UrlsConstant.STORE),
+			)
+			const servers = serversContextData.servers.concat(response.data as any)
+			const uniqList: Server[] = _.uniqWith(servers, _.isEqual)
 
-      serversContextData.setServers(uniqList)
+			serversContextData.setServers(uniqList)
 
-      await window.ipc.reloadServerList(uniqList)
-    } catch (error: any) {
-      console.log(error)
-      window.ipc.dialogError('fetching error', LL.errors.error_fetching_data({ target: 'repository' }))
-    } finally {
-      activityContextData.setIsWaiting(false)
-      activityContextData.setStatus('')
-      setIsLoading(false)
-    }
-  }
+			await window.ipc.reloadServerList(uniqList)
+		} catch (error: any) {
+			console.log(error)
+			window.ipc.dialogError(
+				'fetching error',
+				LL.errors.error_fetching_data({ target: 'repository' }),
+			)
+		} finally {
+			activityContextData.setIsWaiting(false)
+			activityContextData.setStatus('')
+			setIsLoading(false)
+		}
+	}
 
-  return (
-    <Dropdown.Item onClick={() => updateHandler()}>
-      <RxUpdate className={`${isLoading ? 'spinner' : ''}`} />
-      {LL.buttons.update()}
-    </Dropdown.Item>
-  )
+	return (
+		<Dropdown.Item onClick={() => updateHandler()}>
+			<RxUpdate className={`${isLoading ? 'spinner' : ''}`} />
+			{LL.buttons.update()}
+		</Dropdown.Item>
+	)
 }
