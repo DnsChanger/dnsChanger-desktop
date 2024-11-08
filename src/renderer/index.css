@@ -21,6 +21,7 @@ body {
 	-ms-user-select: none;
 	user-select: none;
 }
+
 img {
 	pointer-events: none;
 }
@@ -71,12 +72,15 @@ html[data-theme="dark"]::-webkit-scrollbar {
 		transform: rotate(360deg);
 	}
 }
+
 html.dark {
 	background-color: #212121;
 }
+
 html.light {
 	background-color: #e6e6e6;
 }
+
 html.dark .btm-nav {
 	background-color: #262626;
 }
@@ -93,23 +97,28 @@ html.dark .btm-nav {
 	left: -8px;
 	animation: pulse 3s infinite;
 }
+
 @keyframes pulse {
 	0% {
 		transform: scale(1);
 		opacity: 1;
 	}
+
 	50% {
 		transform: scale(1.2);
 		opacity: 0.5;
 	}
+
 	100% {
 		transform: scale(1);
 		opacity: 1;
 	}
 }
+
 .navbar {
 	-webkit-app-region: drag;
 }
+
 .navbar button {
 	-webkit-app-region: no-drag;
 }
@@ -119,6 +128,7 @@ html.dark .btm-nav {
 	border: solid #353535;
 	box-shadow: none;
 }
+
 .dark .select-material ul li:hover {
 	background: #b7b3b3;
 }

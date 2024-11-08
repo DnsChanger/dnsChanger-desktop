@@ -17,6 +17,8 @@ import { EventsKeys } from '../shared/constants/eventsKeys.constant'
 import { getPublicFilePath } from './shared/file'
 import os from 'node:os'
 import Url from 'node:url'
+import serve from './shared/serve'
+
 config()
 if (isDev)
 	Object.defineProperty(app, 'isPackaged', {
@@ -81,13 +83,17 @@ async function createWindow() {
 	if (os.platform() === 'darwin') win.setWindowButtonVisibility(false)
 
 	win.setMenu(null)
-	await win.loadURL(startUrl)
+	await serve(win)
+
+	// await win.loadURL(startUrl)
+
 	// if (url) {
 	// 	await win.loadURL(url)
 	// } else {
 	// 	await win.loadFile(indexHtml)
 	// }
 	// if (isDev) win.webContents.openDevTools()
+
 	win.webContents.openDevTools()
 
 	win.webContents.on('did-finish-load', () => {
