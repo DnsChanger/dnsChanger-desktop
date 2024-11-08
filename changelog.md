@@ -1,5 +1,8 @@
 # Changelog
 
+# v2.3.1
+- feat: integrate with the google analytics for future improvements
+
 # v2.3.0
 
 - feat: Flush DNS cache [#58](https://github.com/DnsChanger/dnsChanger-desktop/issues/58)
