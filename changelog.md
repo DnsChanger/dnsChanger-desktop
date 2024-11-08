@@ -1,5 +1,9 @@
 # Changelog
 
+# v2.3.2
+- chore: update dependencies
+- fix: integration with google analytics (serve static files)
+
 # v2.3.1
 - feat: integrate with the google analytics for future improvements
 
