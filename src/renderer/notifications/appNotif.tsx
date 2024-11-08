@@ -3,9 +3,6 @@ import { BiErrorAlt } from 'react-icons/bi'
 import { TiInputChecked } from 'react-icons/ti'
 
 export function appNotif(title: string, msg: string, type: 'SUCCESS' | 'ERROR' = 'ERROR') {
-  const audio = new Audio('./sounds/error-sound.mp3')
-  audio.volume = 0.1
-  audio.play().catch()
   return toast.custom(
     t => (
       <div

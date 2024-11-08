@@ -14,6 +14,8 @@ import { IconType } from 'react-icons'
 import { ExplorePage } from './pages/explore.page'
 import { Toaster } from 'react-hot-toast'
 export let settingStore: SettingInStore = window.storePreload.get('settings')
+import ReactGA from 'react-ga4'
+
 interface Page {
   key: string
   element: JSX.Element
@@ -48,7 +50,9 @@ export function App() {
 
     setCurrentPage(page)
   }, [currentPath])
+
   useEffect(() => {
+    ReactGA.initialize('G-XJBQXCR24P')
     async function getSetting() {
       settingStore = (await window.ipc.getSettings()) as Settings
     }

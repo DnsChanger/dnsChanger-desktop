@@ -6,14 +6,15 @@ import { getThemeSystem, themeChanger } from '../utils/theme.util'
 import { CgDarkMode } from 'react-icons/cg'
 import { HiMoon, HiSun } from 'react-icons/hi'
 import { SettingInStore } from '../../shared/interfaces/settings.interface'
-import { MdBrowserUpdated, MdBugReport } from 'react-icons/md'
+import { MdBrowserUpdated } from 'react-icons/md'
 import { VscRunAbove } from 'react-icons/vsc'
 import { TbWindowMinimize } from 'react-icons/tb'
 import { Button } from 'react-daisyui'
 import { FaFileAlt, FaLaptop } from 'react-icons/fa'
 
 export function SettingPage() {
-  const [startUp, setStartUp] = useState<boolean>(false)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setStartUp] = useState<boolean>(false)
   const { LL, locale } = useI18nContext()
   const [settingState, setSettingState] = useState<SettingInStore>(window.storePreload.get('settings'))
 
@@ -31,13 +32,6 @@ export function SettingPage() {
     setSettingState(prevState => ({
       ...prevState,
       minimize_tray: !prevState.minimize_tray
-    }))
-  }
-
-  function toggleAnalytic() {
-    setSettingState(prevState => ({
-      ...prevState,
-      use_analytic: !prevState.use_analytic
     }))
   }
 
@@ -141,35 +135,6 @@ export function SettingPage() {
                   defaultChecked={settingState.minimize_tray}
                 />
               </div>
-              <div>
-                <Switch
-                  id={'Analytic'}
-                  crossOrigin={'true'}
-                  color={'green'}
-                  label={
-                    <div>
-                      <Typography
-                        variant={'small'}
-                        color="blue-gray"
-                        className="font-medium  dark:text-gray-400 font-[Inter] flex flex-row items-center gap-2">
-                        <MdBugReport />
-                        Analytic
-                      </Typography>
-                      <Typography
-                        variant="paragraph"
-                        color="gray"
-                        className="font-medium  dark:text-gray-600 font-[Inter] text-[12px]">
-                        Give Permission to collect analytics and send crash reports to improve the app
-                      </Typography>
-                    </div>
-                  }
-                  containerProps={{
-                    className: '-mt-5 mr-2'
-                  }}
-                  onChange={toggleAnalytic}
-                  defaultChecked={settingState.use_analytic}
-                />
-              </div>
             </div>
             <div className="flex gap-2 mt-5">
               <Button
@@ -197,60 +162,6 @@ export function SettingPage() {
     </div>
   )
 }
-
-interface Prop {
-  cb: any
-}
-
-// const LanguageSwitcher = (prop: Prop) => {
-//   const { LL, locale, setLocale } = useI18nContext();
-//   const [language, setLanguage] = useState(locale);
-//
-//   const handleLanguageChange = async (lng: any) => {
-//     setLanguage(lng);
-//
-//     await loadLocaleAsync(lng);
-//     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//     // @ts-ignore
-//     setLocale(lng);
-//     settingStore.lng = lng;
-//     prop.cb();
-//   };
-//
-//   return (
-//     <div>
-//       <Select
-//         size="lg"
-//         label={LL.pages.settings.langChanger()}
-//         selected={(element) =>
-//           element &&
-//           React.cloneElement(element, {
-//             className: "flex items-center px-0 gap-2 pointer-events-none",
-//           })
-//         }
-//         value={language}
-//         onChange={(target) => handleLanguageChange(target)}
-//       >
-//         {languages.map(({ name, svg, value }) => (
-//           <Option
-//             key={name}
-//             value={value}
-//             className={`flex items-center gap-2 hover:bg-slate-400 hover:text-gray-600 ${
-//               language == value && "bg-slate-400 text-gray-600 "
-//             }`}
-//           >
-//             <img
-//               src={svg}
-//               alt={name}
-//               className="h-5 w-5 rounded-full object-cover"
-//             />
-//             {name}
-//           </Option>
-//         ))}
-//       </Select>
-//     </div>
-//   );
-// };
 
 const ThemeChanger = () => {
   const [currentTheme, setCurrentTheme] = useState(localStorage.getItem('theme') || getThemeSystem())
