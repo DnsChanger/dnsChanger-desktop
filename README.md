@@ -15,7 +15,7 @@
     <img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square" alt="prettier" >
     <img src="https://img.shields.io/badge/antivirus-PASS-green" alt="antivirus" >
     <br/>
-    <a href="https://daramet.com/dnschanger"><img  width=100 src="https://github.com/DnsChanger/dnsChanger-desktop/assets/66132114/68885be1-a4fd-434a-a6d9-9f62661b69db" /></a>
+    <a href="https://daramet.com/sajjadmrx"><img  width=100 src="https://github.com/DnsChanger/dnsChanger-desktop/assets/66132114/68885be1-a4fd-434a-a6d9-9f62661b69db" /></a>
 </p>
 
 This is an open-source DNS Changer for Windows, Mac, and Linux operating systems. Its goal is to gather the best DNS servers in a secure application.
@@ -60,4 +60,4 @@ This app has analytics that will track the number of users and servers only and 
 - tether: `0x4BE63320940fe4190ea34d5D855E6261395ac836`
 
 - or
-<a href="https://daramet.com/dnschanger"><img  width=100 src="https://github.com/DnsChanger/dnsChanger-desktop/assets/66132114/68885be1-a4fd-434a-a6d9-9f62661b69db" /></a>
+<a href="https://daramet.com/sajjadmrx"><img  width=100 src="https://github.com/DnsChanger/dnsChanger-desktop/assets/66132114/68885be1-a4fd-434a-a6d9-9f62661b69db" /></a>
