@@ -1,21 +1,35 @@
+import { BrowserWindow, dialog, ipcMain, shell } from 'electron'
 import _ from 'lodash'
-import { v4 as uuid } from 'uuid'
-import { ipcMain, shell, dialog, BrowserWindow } from 'electron'
 import pingLib from 'ping'
+import { v4 as uuid } from 'uuid'
 
-import { store } from '../store/store'
-import { dnsService } from '../config'
-import { Server, ServerStore } from '../../shared/interfaces/server.interface'
-import { EventsKeys } from '../../shared/constants/eventsKeys.constant'
-import { isValidDnsAddress } from '../../shared/validators/dns.validator'
 import LN from '../../i18n/i18n-node'
 import { Locales } from '../../i18n/i18n-types'
-import { getLoggerPathFile, LogId, userLogger } from '../shared/logger'
+import { EventsKeys } from '../../shared/constants/eventsKeys.constant'
+import { Server, ServerStore } from '../../shared/interfaces/server.interface'
+import { isValidDnsAddress } from '../../shared/validators/dns.validator'
+import { dnsService } from '../config'
+import { WindowsPlatform } from '../platforms/windows/windows.platform'
 import { getOverlayIcon } from '../shared/file'
+import { LogId, getLoggerPathFile, userLogger } from '../shared/logger'
 import { updateOverlayIcon } from '../shared/overlayIcon'
+import { isWindows } from '../shared/platform'
+import { store } from '../store/store'
 
 ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
 	try {
+		if (isWindows()) {
+			const winPlatform = new WindowsPlatform()
+			const isAvailableWmic = await winPlatform.isWmicAvailable()
+			if (!isAvailableWmic) {
+				return {
+					server,
+					success: false,
+					message: 'wmic_not_available',
+				}
+			}
+		}
+
 		await dnsService.setDns(server.servers)
 		const currentLng = LN[getCurrentLng()]
 		const win = BrowserWindow.getAllWindows()[0]
@@ -41,6 +55,18 @@ ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
 
 ipcMain.handle(EventsKeys.CLEAR_DNS, async (event, server: Server) => {
 	try {
+		if (isWindows()) {
+			const winPlatform = new WindowsPlatform()
+			const isAvailableWmic = await winPlatform.isWmicAvailable()
+			if (!isAvailableWmic) {
+				return {
+					server,
+					success: false,
+					message: 'wmic_not_available',
+				}
+			}
+		}
+
 		await dnsService.clearDns()
 
 		const currentLng = LN[getCurrentLng()]
@@ -224,7 +250,18 @@ ipcMain.handle(EventsKeys.TOGGLE_PIN, async (event, server: Server) => {
 	}
 })
 
-ipcMain.handle(EventsKeys.GET_NETWORK_INTERFACE_LIST, () => {
+ipcMain.handle(EventsKeys.GET_NETWORK_INTERFACE_LIST, async () => {
+	if (isWindows()) {
+		const winPlatform = new WindowsPlatform()
+		const isAvailableWmic = await winPlatform.isWmicAvailable()
+		if (!isAvailableWmic) {
+			return {
+				success: false,
+				message: 'wmic_not_available',
+			}
+		}
+	}
+
 	return dnsService.getInterfacesList()
 })
 

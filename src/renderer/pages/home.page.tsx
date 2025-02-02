@@ -1,14 +1,16 @@
-import { ServerStore } from '../../shared/interfaces/server.interface'
-import { serversContext } from '../context/servers.context'
 import { useEffect, useState } from 'react'
-import { ConnectButtonComponent } from '../component/buttons/connect-btn.component'
-import { ServersListSelectComponent } from '../component/selectes/servers'
-import { ServerInfoCardComponent } from '../component/cards/server-info'
+import ReactGA from 'react-ga4'
+import { ServerStore } from '../../shared/interfaces/server.interface'
 import { AddCustomBtnComponent } from '../component/buttons/add-custom-btn-component'
+import { ConnectButtonComponent } from '../component/buttons/connect-btn.component'
 import { DeleteButtonComponent } from '../component/buttons/delete-btn.component'
+import { FlushDNS_BtnComponent } from '../component/buttons/flush-dns-btn-component'
 import { InterfacesDialogButtonComponent } from '../component/buttons/interfaces-dialog-btn-component'
 import { ToggleButtonComponent } from '../component/buttons/togglePin-btn.component'
-import { FlushDNS_BtnComponent } from '../component/buttons/flush-dns-btn-component'
+import { ServerInfoCardComponent } from '../component/cards/server-info'
+import { WmicHelperModal } from '../component/modals/wmic-helper.modal'
+import { ServersListSelectComponent } from '../component/selectes/servers'
+import { serversContext } from '../context/servers.context'
 
 export function HomePage() {
 	const [serversState, setServers] = useState<ServerStore[]>([])
@@ -17,6 +19,8 @@ export function HomePage() {
 	const [selectedServer, setSelectedServer] = useState<ServerStore | null>(null)
 	const [loadingCurrentActive, setLoadingCurrentActive] =
 		useState<boolean>(true)
+	const [isWmicModalOpen, setIsWmicModalOpen] = useState(false)
+
 	const osType = window.os.os
 	useEffect(() => {
 		async function fetchDnsList() {
@@ -24,7 +28,22 @@ export function HomePage() {
 			setServers(response.servers)
 		}
 
+		const handleOpenModal = () => {
+			setIsWmicModalOpen(true)
+			ReactGA.event({
+				category: 'User',
+				action: 'WMIC_HELPER_MODAL',
+				label: 'WMIC_HELPER_MODAL',
+				value: 1,
+			})
+		}
+		window.addEventListener('wmic-helper-modal', handleOpenModal)
+
 		fetchDnsList()
+
+		return () => {
+			window.removeEventListener('wmic-helper-modal', handleOpenModal)
+		}
 	}, [])
 
 	useEffect(() => {
@@ -98,6 +117,10 @@ export function HomePage() {
 							</div>
 						</div>
 					</div>
+					<WmicHelperModal
+						isOpen={isWmicModalOpen}
+						setIsOpen={setIsWmicModalOpen}
+					/>
 				</div>
 			</serversContext.Provider>
 		</div>

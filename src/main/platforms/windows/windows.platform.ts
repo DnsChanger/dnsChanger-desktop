@@ -1,9 +1,9 @@
 import network from 'network'
 import sudo from 'sudo-prompt'
 
+import { store } from '../../store/store'
 import { Platform } from '../platform'
 import { Interface } from './interfaces/interface'
-import { store } from '../../store/store'
 
 export class WindowsPlatform extends Platform {
 	async clearDns(): Promise<void> {
@@ -72,6 +72,24 @@ export class WindowsPlatform extends Platform {
 		} catch (e) {
 			throw e
 		}
+	}
+
+	async isWmicAvailable(): Promise<boolean> {
+		return new Promise((resolve, reject) => {
+			sudo.exec(
+				'wmic',
+				{
+					name: 'DnsChanger',
+				},
+				(error) => {
+					if (error) {
+						resolve(false)
+						return
+					}
+					resolve(true)
+				},
+			)
+		})
 	}
 
 	private async getValidateInterface() {

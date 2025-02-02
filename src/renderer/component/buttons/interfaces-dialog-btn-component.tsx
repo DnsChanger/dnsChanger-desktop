@@ -1,7 +1,7 @@
-import { Button, Tooltip } from 'react-daisyui'
 import { useContext, useState } from 'react'
-import { serversContext } from '../../context/servers.context'
+import { Button, Tooltip } from 'react-daisyui'
 import { BsHddNetwork } from 'react-icons/bs'
+import { serversContext } from '../../context/servers.context'
 import { NetworkOptionsModalComponent } from '../modals/network-options.component'
 
 export function InterfacesDialogButtonComponent() {

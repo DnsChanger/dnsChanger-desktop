@@ -1,10 +1,10 @@
-import { Button } from 'react-daisyui'
-import { CiPower } from 'react-icons/ci'
 import { useContext, useState } from 'react'
-import { serversContext } from '../../context/servers.context'
-import { AiOutlineLoading } from 'react-icons/ai'
-import { appNotif } from '../../notifications/appNotif'
+import { Button } from 'react-daisyui'
 import ReactGA from 'react-ga4'
+import { AiOutlineLoading } from 'react-icons/ai'
+import { CiPower } from 'react-icons/ci'
+import { serversContext } from '../../context/servers.context'
+import { appNotif } from '../../notifications/appNotif'
 
 enum statusStep {
 	CONNECTED = 0,
@@ -29,7 +29,14 @@ export function ConnectButtonComponent() {
 			if (response.success) {
 				serversStateContext.setCurrentActive(null)
 				window.ipc.notif(response.message)
-			} else window.ipc.dialogError('Error', response.message)
+			} else {
+				if (response.message == 'wmic_not_available') {
+					const event = new Event('wmic-helper-modal')
+					window.dispatchEvent(event)
+				} else {
+					window.ipc.dialogError('Error', response.message)
+				}
+			}
 		} else if (step == statusStep.DISCONNECT) {
 			// req connect
 			const response = await window.ipc.setDns(serversStateContext.selected)
@@ -43,7 +50,12 @@ export function ConnectButtonComponent() {
 					value: 1,
 				})
 			} else {
-				window.ipc.dialogError('Error', response.message)
+				if (response.message == 'wmic_not_available') {
+					const event = new Event('wmic-helper-modal')
+					window.dispatchEvent(event)
+				} else {
+					window.ipc.dialogError('Error', response.message)
+				}
 			}
 		}
 

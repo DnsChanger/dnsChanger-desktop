@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
 
-import { setState } from '../../interfaces/react.interface'
 import {
 	Button,
 	Card,
@@ -9,9 +8,10 @@ import {
 	Dialog,
 } from '@material-tailwind/react'
 import { Select } from 'react-daisyui'
-import { ServersContext } from '../../interfaces/servers-context.interface'
-import { serversContext } from '../../context/servers.context'
 import { settingStore } from '../../app'
+import { serversContext } from '../../context/servers.context'
+import { setState } from '../../interfaces/react.interface'
+import { ServersContext } from '../../interfaces/servers-context.interface'
 
 interface Props {
 	isOpen: boolean
@@ -31,19 +31,28 @@ export function NetworkOptionsModalComponent(props: Props) {
 	const [networkAdapters, setNetworkAdapters] = useState<string[]>([])
 
 	useEffect(() => {
+		const fetchNetworkInterfaces = async () => {
+			try {
+				const interfaces = await window.os.getInterfaces()
+				if ('success' in interfaces) {
+					props.setIsOpen(false)
+					const event = new Event('wmic-helper-modal')
+					window.dispatchEvent(event)
+					return
+				}
+
+				const networks = interfaces.map((d) => d.name)
+				networks.unshift('Auto')
+				setNetworkAdapters(networks)
+			} finally {
+				setLoading(false)
+			}
+		}
+
 		if (props.isOpen) {
 			const current = window.storePreload.get('settings').network_interface
-
 			setNetwork(current)
-
-			window.os
-				.getInterfaces()
-				.then((interfaces) => {
-					const networks = interfaces.map((d) => d.name)
-					networks.unshift('Auto')
-					setNetworkAdapters(networks)
-				})
-				.finally(() => setLoading(false))
+			fetchNetworkInterfaces()
 		}
 	}, [props.isOpen])
 
@@ -75,7 +84,7 @@ export function NetworkOptionsModalComponent(props: Props) {
 					<div className={'grid'}>
 						<div>
 							<div className="label">
-								<span className="label-text text-lg font-normal ">
+								<span className="text-lg font-normal label-text ">
 									Network Interface
 								</span>
 							</div>
@@ -103,7 +112,7 @@ export function NetworkOptionsModalComponent(props: Props) {
 						</div>
 					</div>
 				</CardBody>
-				<CardFooter className="pt-0 flex flex-row gap-2">
+				<CardFooter className="flex flex-row gap-2 pt-0">
 					<Button
 						variant="text"
 						className="normal-case font-[balooTamma] text-xl flex-1"
