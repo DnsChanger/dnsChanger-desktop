@@ -1,8 +1,7 @@
-import path from 'path'
-import { join } from 'node:path'
+import path from 'node:path'
 
 export function getIconPath(): string {
-	let icon
+	let icon: string
 	switch (process.platform) {
 		case 'win32':
 			icon = path.join(process.env.PUBLIC, 'icons/icon.ico')

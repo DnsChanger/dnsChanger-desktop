@@ -33,7 +33,11 @@
 			},
 			"suspicious": {
 				"noExplicitAny": "off",
-				"noArrayIndexKey": "off"
+				"noArrayIndexKey": "off",
+				"noDoubleEquals": "off"
+			},
+			"complexity": {
+				"noUselessCatch": "off"
 			}
 		}
 	},

@@ -4,7 +4,7 @@ import { EventsKeys } from '../../shared/constants/eventsKeys.constant'
 
 import { Settings } from '../../shared/interfaces/settings.interface'
 
-ipcMain.handle(EventsKeys.SAVE_SETTINGS, function (event, data: Settings) {
+ipcMain.handle(EventsKeys.SAVE_SETTINGS, (event, data: Settings) => {
 	store.set('settings', data)
 	return { success: true, data }
 })

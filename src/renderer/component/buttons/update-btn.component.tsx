@@ -147,13 +147,17 @@ function DetailsModal(prop: Props): JSX.Element {
 function formatSize(sizeInBytes: number): string {
 	if (sizeInBytes >= 1000000000) {
 		return `${(sizeInBytes / 1000000000).toFixed(2)} GB`
-	} else if (sizeInBytes >= 1000000) {
-		return `${(sizeInBytes / 1000000).toFixed(2)} MB`
-	} else if (sizeInBytes >= 1000) {
-		return `${(sizeInBytes / 1000).toFixed(2)} KB`
-	} else {
-		return `${sizeInBytes} B`
 	}
+
+	if (sizeInBytes >= 1000000) {
+		return `${(sizeInBytes / 1000000).toFixed(2)} MB`
+	}
+
+	if (sizeInBytes >= 1000) {
+		return `${(sizeInBytes / 1000).toFixed(2)} KB`
+	}
+
+	return `${sizeInBytes} B`
 }
 
 function calculateProgress(transferred, total) {
@@ -164,11 +168,15 @@ function calculateProgress(transferred, total) {
 function formatSpeed(speedInBytes) {
 	if (speedInBytes >= 1000000000) {
 		return `${(speedInBytes / 1000000000).toFixed(2)} GB/s`
-	} else if (speedInBytes >= 1000000) {
-		return `${(speedInBytes / 1000000).toFixed(2)} MB/s`
-	} else if (speedInBytes >= 1000) {
-		return `${(speedInBytes / 1000).toFixed(2)} KB/s`
-	} else {
-		return `${speedInBytes} B/s`
 	}
+
+	if (speedInBytes >= 1000000) {
+		return `${(speedInBytes / 1000000).toFixed(2)} MB/s`
+	}
+
+	if (speedInBytes >= 1000) {
+		return `${(speedInBytes / 1000).toFixed(2)} KB/s`
+	}
+
+	return `${speedInBytes} B/s`
 }
