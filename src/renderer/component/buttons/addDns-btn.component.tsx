@@ -1,10 +1,10 @@
-import { MdOutlineAddModerator } from 'react-icons/md'
-import { Button, Tooltip } from 'react-daisyui'
 import { useContext, useState } from 'react'
-import { AddDnsModalComponent } from '../modals/add-dns.component'
+import { Button, Tooltip } from 'react-daisyui'
+import { MdOutlineAddModerator } from 'react-icons/md'
 import { serversContext } from '../../context/servers.context'
+import { AddDnsModalComponent } from '../modals/add-dns.component'
 
-export function AddCustomBtnComponent() {
+export function AddCustomDnsButton() {
 	const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
 	const serversStateContext = useContext(serversContext)
 

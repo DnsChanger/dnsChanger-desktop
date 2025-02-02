@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import ReactGA from 'react-ga4'
 import { ServerStore } from '../../shared/interfaces/server.interface'
-import { AddCustomBtnComponent } from '../component/buttons/add-custom-btn-component'
+import { AddCustomDnsButton } from '../component/buttons/addDns-btn.component'
 import { ConnectButtonComponent } from '../component/buttons/connect-btn.component'
 import { DeleteButtonComponent } from '../component/buttons/delete-btn.component'
 import { FlushDNS_BtnComponent } from '../component/buttons/flush-dns-btn-component'
@@ -102,7 +102,7 @@ export function HomePage() {
 										'absolute bottom-[60px] right-[368px] flex flex-col gap-y-2'
 									}
 								>
-									<AddCustomBtnComponent />
+									<AddCustomDnsButton />
 									{osType == 'win32' && <InterfacesDialogButtonComponent />}
 									<FlushDNS_BtnComponent />
 								</div>
