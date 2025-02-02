@@ -75,17 +75,21 @@ export class WindowsPlatform extends Platform {
 	}
 
 	async isWmicAvailable(): Promise<boolean> {
-		return new Promise((resolve, reject) => {
+		return new Promise((resolve) => {
 			sudo.exec(
-				'wmic',
+				'wmic os get caption',
 				{
 					name: 'DnsChanger',
 				},
-				(error) => {
-					if (error) {
+				(error, stdout, stderr) => {
+					if (error || stderr) {
+						console.log('WMIC is not installed or not recognized')
+						console.log('Error:', error?.message || stderr)
 						resolve(false)
 						return
 					}
+
+					console.log('WMIC is available')
 					resolve(true)
 				},
 			)
