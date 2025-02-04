@@ -1,7 +1,7 @@
 # Changelog
 
 # v2.3.3
-- feat: added WMIC availability check and helper modal for Windows users
+- feat: added WMIC availability check and helper modal for Windows users [#74](https://github.com/DnsChanger/dnsChanger-desktop/issues/74)
 - improved: removed close button from alert notification
 
 # v2.3.2
