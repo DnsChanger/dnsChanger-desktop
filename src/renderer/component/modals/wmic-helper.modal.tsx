@@ -55,7 +55,7 @@ export function WmicHelperModal(props: Props) {
 							2. Run the following command:
 						</p>
 						<div className="relative mt-2">
-							<div className="absolute left-0 p-2 top-1">
+							<div className="absolute p-2 rounded-lg left-1 top-1 backdrop-blur-md">
 								<Button
 									variant="text"
 									className=" rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 normal-case font-[balooTamma] text-sm bg-gray-300/80 dark:bg-gray-700 dark:text-gray-400"
@@ -70,7 +70,7 @@ export function WmicHelperModal(props: Props) {
 								</Button>
 							</div>
 
-							<pre className="pl-16 bg-gray-100 dark:bg-gray-800 p-4 rounded-lg text-[13px] font-mono border border-gray-200 dark:border-gray-700 dark:text-gray-300 overflow-x-auto">
+							<pre className="pl-20 bg-gray-100 dark:bg-gray-800 p-4 rounded-lg text-[13px] font-mono border border-gray-200 dark:border-gray-700 dark:text-gray-300 overflow-x-auto">
 								DISM /Online /Add-Capability /CapabilityName:WMIC~~~~​
 							</pre>
 						</div>
