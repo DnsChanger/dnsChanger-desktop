@@ -1,3 +1,5 @@
+import os from 'node:os'
+
 export function isWindows() {
-	return process.platform === 'win32'
+	return os.platform() === 'win32'
 }
