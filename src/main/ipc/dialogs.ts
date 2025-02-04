@@ -94,44 +94,9 @@ ipcMain.handle(EventsKeys.CLEAR_DNS, async (event, server: Server) => {
 })
 
 ipcMain.handle(EventsKeys.ADD_DNS, async (event, data: Partial<Server>) => {
-	if (data.name === 'default') {
-		const defaultServer = store.get('defaultServer')
-		const server: Server = {
-			key: 'default',
-			servers: data.servers,
-			name: 'default',
-			tags: [],
-			avatar: '',
-			rate: 0,
-		}
-
-		if (!defaultServer) {
-			store.set('defaultServer', server)
-		} else {
-			defaultServer.servers = data.servers
-			store.set('defaultServer', defaultServer)
-		}
-
-		return { success: true, server: server }
-	}
-
 	const nameServer1 = data.servers[0]
 	const nameServer2 = data.servers[1]
 	if (!nameServer1) return { success: false, message: 'DNS1 is required' }
-
-	const currentLng = LN[getCurrentLng()]
-
-	if (!isValidDnsAddress(nameServer1))
-		return { success: false, message: currentLng.validator.invalid_dns1 }
-
-	if (nameServer2 && !isValidDnsAddress(nameServer2))
-		return { success: false, message: currentLng.validator.invalid_dns2 }
-
-	if (nameServer1.toString() === nameServer2.toString())
-		return {
-			success: false,
-			message: currentLng.validator.dns1_dns2_duplicates,
-		}
 
 	const list: Server[] = store.get('dnsList') || []
 
@@ -143,6 +108,7 @@ ipcMain.handle(EventsKeys.ADD_DNS, async (event, data: Partial<Server>) => {
 		rate: data.rate || 0,
 		tags: data.tags || [],
 		isPin: false,
+		type: data.type,
 	}
 
 	const isDupKey = list.find((s) => s.key === newServer.key)

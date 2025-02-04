@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react'
 import {
 	Avatar,
 	Input,
@@ -11,17 +10,18 @@ import {
 	Rating,
 } from '@material-tailwind/react'
 import axios from 'axios'
-import { Server } from '../../shared/interfaces/server.interface'
-import { UrlsConstant } from '../../shared/constants/urls.constant'
+import React, { useState, useEffect } from 'react'
 import { Badge, Button } from 'react-daisyui'
-import { getPingIcon } from '../utils/icons.util'
 import { CiCircleMore } from 'react-icons/ci'
+import { FiCopy } from 'react-icons/fi'
 import {
-	IoRemoveCircleOutline,
 	IoAddCircleOutline,
 	IoReload,
+	IoRemoveCircleOutline,
 } from 'react-icons/io5'
-import { FiCopy } from 'react-icons/fi'
+import { UrlsConstant } from '../../shared/constants/urls.constant'
+import { Server } from '../../shared/interfaces/server.interface'
+import { getPingIcon } from '../utils/icons.util'
 
 let STORED_SERVERS: Server[] = []
 export function ExplorePage() {
@@ -103,10 +103,10 @@ export function ExplorePage() {
 	}
 
 	return (
-		<div className="hero flex flex-col justify-center items-center p-5">
+		<div className="flex flex-col items-center justify-center p-5 hero">
 			<div className="flex flex-col items-start gap-4 py-0 ">
 				<div className="dark:bg-[#262626] bg-base-200 px-2 rounded-lg shadow w-[670px] h-[320px] overflow-auto overflow-y-auto">
-					<div className="flex flex-row justify-between items-center p-2 mt-2">
+					<div className="flex flex-row items-center justify-between p-2 mt-2">
 						<div className="flex flex-row gap-2">
 							<Input
 								type={'text'}
@@ -118,9 +118,9 @@ export function ExplorePage() {
 								onChange={onSearchHandler}
 							/>
 						</div>
-						<div className="flex flex-row justify-center items-center  px-2 gap-1">
+						<div className="flex flex-row items-center justify-center gap-1 px-2">
 							{loading && (
-								<span className="loading loading-ring loading-xs mr-3"></span>
+								<span className="mr-3 loading loading-ring loading-xs"></span>
 							)}
 							<Button
 								size={'sm'}
@@ -136,11 +136,11 @@ export function ExplorePage() {
 							</Button>
 						</div>
 					</div>
-					<table className=" w-full min-w-max table-auto  text-left">
+					<table className="w-full text-left table-auto min-w-max">
 						<thead>
 							<tr>
 								{TABLE_HEAD.map((head) => (
-									<th key={head} className="  p-4">
+									<th key={head} className="p-4 ">
 										<p className="font-normal leading-none opacity-70">
 											{head}
 										</p>
@@ -181,7 +181,7 @@ interface Prop {
 }
 
 function ServerTrComponent(prop: Prop) {
-	const { avatar, name, key, servers, tags, rate } = prop.server
+	const { avatar, name, key, servers, tags, rate, type } = prop.server
 	const ping = prop.server.ping
 	const storeServers = prop.storeServers
 	const ratingValue = Number((rate / 2).toFixed())
@@ -203,7 +203,7 @@ function ServerTrComponent(prop: Prop) {
 	return (
 		<tr>
 			<td className={prop.classes}>
-				<div className="flex items-center gap-3  p-2  rounded-2xl dark:bg-gray-900 bg-gray-300">
+				<div className="flex items-center gap-3 p-2 bg-gray-300 rounded-2xl dark:bg-gray-900">
 					<Avatar
 						src={`./servers-icon/${avatar}`}
 						alt={name}
@@ -214,7 +214,7 @@ function ServerTrComponent(prop: Prop) {
 						}}
 					/>
 					<div className="flex flex-col">
-						<p className="font-normal text-sm dark:text-white truncate w-32 opacity-70">
+						<p className="w-32 text-sm font-normal truncate dark:text-white opacity-70">
 							{name}
 						</p>
 					</div>
@@ -223,13 +223,12 @@ function ServerTrComponent(prop: Prop) {
 
 			<td className={prop.classes}>
 				<div className={'grid grid-cols-1 gap-2 h-10 overflow-auto'}>
-					{tags.map((tag, index) => {
+					{[type ? type : 'ipv4', ...tags].map((tag, index) => {
 						return (
 							<Badge
 								key={index}
 								size={'xs'}
-								className="text-xs  text-gray-600 dark:text-gray-500 truncate p-2
-                dark:border-gray-800 border-gray-300"
+								className="p-2 text-xs text-gray-600 truncate border-gray-300 dark:text-gray-500 dark:border-gray-800"
 								variant={'outline'}
 							>
 								{tag}
@@ -239,7 +238,7 @@ function ServerTrComponent(prop: Prop) {
 				</div>
 			</td>
 			<td className={prop.classes}>
-				<div className="w-max flex flex-row gap-2 opacity-70">
+				<div className="flex flex-row gap-2 w-max opacity-70">
 					<span className={'mt-1'}>{getPingIcon(ping)}</span>
 					<p className="text-md"> {!Number(ping) ? -1 : ping}</p>
 				</div>
