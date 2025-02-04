@@ -1,7 +1,7 @@
 {
 	"name": "dnschanger",
 	"productName": "dnschanger",
-	"version": "2.3.2",
+	"version": "2.3.3",
 	"debug": {
 		"env": {
 			"VITE_DEV_SERVER_URL": "http://127.0.0.1:7777/"
@@ -57,7 +57,7 @@
 		"node-sass": "9.0.0",
 		"postcss": "8.4.47",
 		"postcss-loader": "8.1.1",
-		"react-hot-toast": "^2.5.1",
+		"react-hot-toast": "3.4.14",
 		"tailwindcss-flip": "1.0.0",
 		"ts-jest": "29.2.5",
 		"ts-loader": "9.5.1",
@@ -86,6 +86,7 @@
 		"react-daisyui": "5.0.5",
 		"react-dom": "18.3.1",
 		"react-ga4": "^2.1.0",
+		"react-hot-toast": "2.4.1",
 		"react-icons": "5.3.0",
 		"serve-handler": "^6.1.6",
 		"style-loader": "4.0.0",

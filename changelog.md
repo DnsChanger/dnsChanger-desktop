@@ -1,5 +1,9 @@
 # Changelog
 
+# v2.3.3
+- feat: added WMIC availability check and helper modal for Windows users
+- improved: removed close button from alert notification
+
 # v2.3.2
 - chore: update dependencies
 - fix: integration with google analytics (serve static files)
