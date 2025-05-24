@@ -96,19 +96,17 @@ export function HomePage() {
 							<div className="flex-none">
 								<ServersListSelectComponent />
 							</div>
-
-							<ServerInfoCardComponent
-								loadingCurrentActive={loadingCurrentActive}
-							/>
-
-							<AdvertisementCardComponent />
-
-							{/* Action buttons */}
-							{/* <div className="flex flex-row justify-end gap-2 mt-4">
+							<div className="relative">
+								<ServerInfoCardComponent
+									loadingCurrentActive={loadingCurrentActive}
+								/>
+								<div className="absolute flex flex-col gap-2 top-3 -left-10">
 									<AddCustomDnsButton />
 									{osType == 'win32' && <InterfacesDialogButtonComponent />}
 									<FlushDNS_BtnComponent />
-								</div> */}
+								</div>
+							</div>
+							<AdvertisementCardComponent />
 						</div>
 					</div>
 				</div>
