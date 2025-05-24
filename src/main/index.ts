@@ -69,7 +69,7 @@ async function createWindow() {
 			devTools: true,
 		},
 		darkTheme: true,
-		resizable: true,
+		resizable: false,
 		center: isDev === false,
 		show: true,
 
