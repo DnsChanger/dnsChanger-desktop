@@ -1,6 +1,5 @@
-import { Chip } from '@material-tailwind/react'
 import { useContext, useEffect, useState } from 'react'
-import { Avatar, Button } from 'react-daisyui'
+import { Avatar } from 'react-daisyui'
 import { FiCopy } from 'react-icons/fi'
 import { TfiReload } from 'react-icons/tfi'
 import icon from '../../../../../public/icons/icon.png'
