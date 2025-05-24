@@ -1,5 +1,6 @@
 {
   "name": "test-brand",
   "banner": "https://media.discordapp.net/attachments/838831277221216340/1375845264409100389/Frame_18.png?ex=68332b41&is=6831d9c1&hm=83ccba857241b959fd59149f56d81baad99217296f22f9c6407b9d25be508d37&=&format=webp&quality=lossless",
-  "url": "https://widgetify.ir?ref=dnschanger.github.io"
+  "url": "https://widgetify.ir?ref=dnschanger.github.io",
+  "disabled": true
 }
