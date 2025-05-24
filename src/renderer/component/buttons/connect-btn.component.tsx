@@ -71,15 +71,13 @@ export function ConnectButtonComponent() {
 		) {
 			//disconnecting
 			return (
-				<div>
+				<div className="flex flex-col justify-center pt-10 text-center">
+					{' '}
 					<div
-						className="bg-[#BB3D3D]  outline -outline-offset-2 outline-8 outline-[#8c37373b] rounded-[70px]"
+						className="bg-[#BB3D3D] outline -outline-offset-2 outline-8 outline-[#8c37373b] rounded-[70px] flex items-center justify-center"
 						style={{ width: 130, height: 130 }}
 					>
-						<AiOutlineLoading
-							size={60}
-							className={'absolute spinner bottom-20 left-9'}
-						/>
+						<AiOutlineLoading size={60} className={'spinner'} />
 					</div>
 					<div
 						className={
@@ -94,15 +92,13 @@ export function ConnectButtonComponent() {
 
 		//connecting
 		return (
-			<div>
+			<div className="flex flex-col justify-center pt-10 text-center">
+				{' '}
 				<div
-					className="bg-[#63A76A]  outline -outline-offset-2 outline-8 outline-[#378c4040] rounded-[70px]"
+					className="bg-[#63A76A] outline -outline-offset-2 outline-8 outline-[#378c4040] rounded-[70px] flex items-center justify-center"
 					style={{ width: 130, height: 130 }}
 				>
-					<AiOutlineLoading
-						size={60}
-						className={'absolute spinner bottom-20 left-9'}
-					/>
+					<AiOutlineLoading size={60} className={'spinner'} />
 				</div>
 				<div
 					className={
@@ -121,7 +117,7 @@ export function ConnectButtonComponent() {
 	) {
 		//isConnect
 		return (
-			<div>
+			<div className="flex flex-col justify-center pt-10 text-center">
 				<Button
 					onClick={() => clickHandler(statusStep.CONNECTED)}
 					shape={'circle'}
@@ -143,15 +139,14 @@ export function ConnectButtonComponent() {
 
 	//disconnect Btn
 	return (
-		<div>
+		<div className="flex flex-col justify-center pt-10 text-center">
 			<Button
 				onClick={() => clickHandler(statusStep.DISCONNECT)}
 				shape={'circle'}
-				className="relative disconnectedBtn dark:bg-white bg-[#AFAFAF] border-none
-             outline -outline-offset-2 outline-8 outline-[#cfcfcf1a] hover:bg-[#AAA9A9] dark:hover:bg-gray-300 "
+				className="disconnectedBtn dark:bg-white bg-[#AFAFAF] border-none
+             outline -outline-offset-2 outline-8 outline-[#cfcfcf1a] hover:bg-[#AAA9A9] dark:hover:bg-gray-300 flex items-center justify-center"
 				style={{ width: 130, height: 130 }}
 			>
-				<span className="absolute inset-0 outline-[#cfcfcf1a] outline-8 "></span>
 				<CiPower
 					size={60}
 					style={{ transform: 'rotate(180deg)' }}

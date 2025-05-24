@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
-import { NavbarComponent } from '../component/head/navbar.component'
 import { useI18nContext } from '../../i18n/i18n-react'
+import { NavbarComponent } from '../component/head/navbar.component'
 
 interface Props {
 	children: JSX.Element
@@ -13,11 +13,7 @@ export function PageWrapper(prop: Props) {
 	return (
 		<div dir={locale == 'fa' ? 'rtl' : 'ltr'}>
 			<NavbarComponent />
-			<div className="lg:flex-row ">
-				<main className=" rounded-3xl ">
-					{React.cloneElement(prop.children, { currentPage })}
-				</main>
-			</div>
+			{React.cloneElement(prop.children, { currentPage })}
 		</div>
 	)
 }

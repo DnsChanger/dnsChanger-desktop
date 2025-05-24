@@ -1,8 +1,8 @@
-import { ServerStore } from '../../../../shared/interfaces/server.interface'
 import React, { useContext } from 'react'
+import { Select } from 'react-daisyui'
+import { ServerStore } from '../../../../shared/interfaces/server.interface'
 import { serversContext } from '../../../context/servers.context'
 import { ServersContext } from '../../../interfaces/servers-context.interface'
-import { Select } from 'react-daisyui'
 
 export function ServersListSelectComponent() {
 	const serversStateContext = useContext(serversContext)
@@ -16,7 +16,7 @@ export function ServersListSelectComponent() {
 	return (
 		<Select
 			className={
-				'w-[360px] dark:bg-[#262626] bg-base-200 text-[#6B6A6A] border-none rounded-[23px]'
+				'w-[360px] dark:bg-[#262626] bg-base-200 text-[#6B6A6A] border-none rounded-2xl'
 			}
 			borderOffset={true}
 			onChange={(data) => onChange(data.target.value)}

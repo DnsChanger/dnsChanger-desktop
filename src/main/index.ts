@@ -1,23 +1,23 @@
-import {
-	app,
-	BrowserWindow,
-	shell,
-	ipcMain,
-	Tray,
-	Menu,
-	nativeImage,
-} from 'electron'
 import { release } from 'node:os'
+import os from 'node:os'
 import { join } from 'node:path'
-import { getIconPath } from './shared/getIconPath'
-import { update } from './update'
+import Url from 'node:url'
 import { config } from 'dotenv'
-import { store } from './store/store'
+import {
+	BrowserWindow,
+	Menu,
+	Tray,
+	app,
+	ipcMain,
+	nativeImage,
+	shell,
+} from 'electron'
 import { EventsKeys } from '../shared/constants/eventsKeys.constant'
 import { getPublicFilePath } from './shared/file'
-import os from 'node:os'
-import Url from 'node:url'
+import { getIconPath } from './shared/getIconPath'
 import serve from './shared/serve'
+import { store } from './store/store'
+import { update } from './update'
 
 config()
 if (isDev)
@@ -60,7 +60,7 @@ async function createWindow() {
 	win = new BrowserWindow({
 		title: 'DNS Changer',
 		icon: icon,
-		height: 483,
+		height: 500,
 		width: 743,
 		webPreferences: {
 			preload,
