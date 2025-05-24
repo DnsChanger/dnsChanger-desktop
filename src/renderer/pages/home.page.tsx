@@ -89,10 +89,6 @@ export function HomePage() {
 					</div>
 
 					{/* Middle section - Server controls */}
-					{/* <div className="flex flex-col items-center justify-center">
-							<DeleteButtonComponent />
-							<ToggleButtonComponent />
-						</div> */}
 
 					{/* Right section - Server info and options */}
 					<div className="flex-none">

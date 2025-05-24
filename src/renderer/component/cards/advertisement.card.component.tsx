@@ -2,7 +2,7 @@ export function AdvertisementCardComponent() {
 	return (
 		<div
 			className={
-				'p-2 dark:bg-[#262626] bg-base-200  rounded-lg shadow-sm h-[70px] max-h-[70px]'
+				'p-2 dark:bg-[#262626] bg-base-200  rounded-2xl shadow-sm h-[70px] max-h-[70px]'
 			}
 		>
 			<div className={'text-center'}>
