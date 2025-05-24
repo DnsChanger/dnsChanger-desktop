@@ -7,6 +7,7 @@ import { DeleteButtonComponent } from '../component/buttons/delete-btn.component
 import { FlushDNS_BtnComponent } from '../component/buttons/flush-dns-btn-component'
 import { InterfacesDialogButtonComponent } from '../component/buttons/interfaces-dialog-btn-component'
 import { ToggleButtonComponent } from '../component/buttons/togglePin-btn.component'
+import { AdvertisementCardComponent } from '../component/cards/advertisement.card.component'
 import { ServerInfoCardComponent } from '../component/cards/server-info'
 import { WmicHelperModal } from '../component/modals/wmic-helper.modal'
 import { ServersListSelectComponent } from '../component/selectes/servers'
@@ -64,9 +65,8 @@ export function HomePage() {
 
 		getCurrentActive()
 	}, [network])
-
 	return (
-		<div className="container">
+		<div className="w-full h-[370px] min-h-[370px] max-h-[370px]">
 			<serversContext.Provider
 				value={{
 					servers: serversState,
@@ -79,82 +79,48 @@ export function HomePage() {
 					setNetwork: setNetwork,
 				}}
 			>
-				<div className="px-0  p-4 hero-content text-center max-w-[500px]   mb-1 ">
-					<div className="max-w-full  pt-[100px] pb-[100px] pr-[30px] pl-[30px] p-1">
-						<div className={'flex  flex-row gap-10'}>
-							<div className={'absolute right-[550px] flex-grow-0'}>
-								<div className={'flex flex-col'}>
-									<ConnectButtonComponent />
-								</div>
+				{/* Main layout container - using flex instead of absolute positioning */}
+				<div className="flex flex-row items-start justify-around p-5">
+					{/* Left section - Connect button */}
+					<div className="items-start self-center flex-none">
+						<div className="flex flex-col">
+							<ConnectButtonComponent />
+						</div>
+					</div>
+
+					{/* Middle section - Server controls */}
+					{/* <div className="flex flex-col items-center justify-center">
+							<DeleteButtonComponent />
+							<ToggleButtonComponent />
+						</div> */}
+
+					{/* Right section - Server info and options */}
+					<div className="flex-none">
+						<div className="flex flex-col gap-1">
+							<div className="flex-none">
+								<ServersListSelectComponent />
 							</div>
 
-							<div className={'absolute right-[50px] top-[90px]'}>
-								{' '}
-								<div className={'flex flex-col'}>
-									<div className={'flex-none'}>
-										<ServersListSelectComponent />
-									</div>
-									<ServerInfoCardComponent
-										loadingCurrentActive={loadingCurrentActive}
-									/>{' '}
-									{/* Advertisement Section */}
-									<div
-										className={
-											'mt-4 p-4 dark:bg-[#262626] bg-base-200 border dark:border-gray-600 border-gray-200 rounded-lg shadow-sm'
-										}
-									>
-										<div className={'text-center'}>
-											<h3
-												className={
-													'text-sm font-semibold dark:text-gray-300 text-gray-700 mb-2'
-												}
-											>
-												Your Ads Here
-											</h3>
-											<p
-												className={
-													'text-xs dark:text-gray-400 text-gray-500 mb-3'
-												}
-											>
-												Advertisement space available
-											</p>
-											<div className={'flex justify-center'}>
-												<button
-													className={
-														'px-4 py-2 dark:bg-gray-700 bg-gray-300 dark:text-gray-300 text-gray-600 text-xs rounded dark:hover:bg-gray-600 hover:bg-gray-400 transition-colors'
-													}
-												>
-													Contact for Advertisement
-												</button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div
-									className={
-										'absolute bottom-[60px] right-[368px] flex flex-col gap-y-2'
-									}
-								>
+							<ServerInfoCardComponent
+								loadingCurrentActive={loadingCurrentActive}
+							/>
+
+							<AdvertisementCardComponent />
+
+							{/* Action buttons */}
+							{/* <div className="flex flex-row justify-end gap-2 mt-4">
 									<AddCustomDnsButton />
 									{osType == 'win32' && <InterfacesDialogButtonComponent />}
 									<FlushDNS_BtnComponent />
-								</div>
-							</div>
-							<div
-								className={
-									'absolute top-[330px] left-[360px] grid grid-cols-10 gap-10'
-								}
-							>
-								<DeleteButtonComponent />
-								<ToggleButtonComponent />
-							</div>
+								</div> */}
 						</div>
 					</div>
-					<WmicHelperModal
-						isOpen={isWmicModalOpen}
-						setIsOpen={setIsWmicModalOpen}
-					/>
 				</div>
+
+				<WmicHelperModal
+					isOpen={isWmicModalOpen}
+					setIsOpen={setIsWmicModalOpen}
+				/>
 			</serversContext.Provider>
 		</div>
 	)
