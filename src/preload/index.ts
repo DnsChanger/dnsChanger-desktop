@@ -2,14 +2,14 @@
 // https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
 import { contextBridge, ipcRenderer } from 'electron'
 
-import { Server, ServerStore } from '../shared/interfaces/server.interface'
+import os from 'node:os'
+import { store } from '../main/store/store'
 import { EventsKeys } from '../shared/constants/eventsKeys.constant'
+import { Server, ServerStore } from '../shared/interfaces/server.interface'
 import {
 	SettingInStore,
 	StoreKey,
 } from '../shared/interfaces/settings.interface'
-import os from 'node:os'
-import { store } from '../main/store/store'
 
 export const ipcPreload = {
 	setDns: (server: Server) => ipcRenderer.invoke(EventsKeys.SET_DNS, server),
@@ -43,6 +43,14 @@ export const ipcPreload = {
 		ipcRenderer.invoke(EventsKeys.TOGGLE_PIN, server),
 	openLogFile: () => ipcRenderer.send(EventsKeys.OPEN_LOG_FILE),
 	openDevTools: () => ipcRenderer.send(EventsKeys.OPEN_DEV_TOOLS),
+	scheduleShutdown: (data: {
+		delay: number
+		scheduledTime: Date
+		description?: string
+	}) => ipcRenderer.invoke(EventsKeys.SCHEDULE_SHUTDOWN, data),
+	cancelScheduledShutdown: (shutdownId: string) =>
+		ipcRenderer.invoke(EventsKeys.CANCEL_SCHEDULED_SHUTDOWN, shutdownId),
+	clearAllShutdowns: () => ipcRenderer.invoke(EventsKeys.CLEAR_ALL_SHUTDOWNS),
 }
 
 export const uiPreload = {
