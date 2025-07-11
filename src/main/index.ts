@@ -155,6 +155,7 @@ import './ipc/setting'
 import './ipc/ui'
 import './ipc/notif'
 import './ipc/dialogs'
+import './ipc/shutdown'
 import isDev from './shared/isDev'
 
 function createTray() {

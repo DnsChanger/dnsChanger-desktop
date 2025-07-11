@@ -1,21 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { BottomNavigation, Tooltip } from 'react-daisyui'
 
-import { TbSettings, TbSmartHome } from 'react-icons/tb'
+import { Toaster } from 'react-hot-toast'
+import { IconType } from 'react-icons'
+import { BsPower } from 'react-icons/bs'
 import { MdOutlineExplore } from 'react-icons/md'
-import { HomePage } from './pages/home.page'
-import { SettingPage } from './pages/setting.page'
-import { loadLocaleAsync } from '../i18n/i18n-util.async'
+import { TbSettings, TbSmartHome } from 'react-icons/tb'
 import TypesafeI18n from '../i18n/i18n-react'
+import { loadLocaleAsync } from '../i18n/i18n-util.async'
 import {
 	SettingInStore,
 	Settings,
 } from '../shared/interfaces/settings.interface'
 import { PageWrapper } from './Wrappers/pages.wrapper'
-import { getThemeSystem, themeChanger } from './utils/theme.util'
-import { IconType } from 'react-icons'
 import { ExplorePage } from './pages/explore.page'
-import { Toaster } from 'react-hot-toast'
+import { HomePage } from './pages/home.page'
+import { SettingPage } from './pages/setting.page'
+import { ShutdownPage } from './pages/shutdown.page'
+import { getThemeSystem, themeChanger } from './utils/theme.util'
 export let settingStore: SettingInStore = window.storePreload.get('settings')
 import ReactGA from 'react-ga4'
 
@@ -36,6 +38,12 @@ export function App() {
 			element: <ExplorePage />,
 			icon: MdOutlineExplore,
 			name: 'Explore',
+		},
+		{
+			key: '/shutdown',
+			element: <ShutdownPage />,
+			icon: BsPower,
+			name: 'Shutdown',
 		},
 		{
 			key: '/setting',

@@ -26,4 +26,7 @@ export enum EventsKeys {
 	MINIMIZE = 'MINIMIZE_APP',
 	OPEN_LOG_FILE = 'dialogs:open_log_file',
 	OPEN_DEV_TOOLS = 'dialogs:open_dev_tools',
+	SCHEDULE_SHUTDOWN = 'shutdown:schedule',
+	CANCEL_SCHEDULED_SHUTDOWN = 'shutdown:cancel',
+	CLEAR_ALL_SHUTDOWNS = 'shutdown:clear_all',
 }
