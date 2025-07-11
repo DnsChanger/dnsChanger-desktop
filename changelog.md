@@ -1,5 +1,12 @@
 # Changelog
 
+# v2.3.5
+- feat: add shutdown scheduling functionality with IPC integration
+- refactor: use sass instead of node-sass by @brutalchrist in https://github.com/DnsChanger/dnsChanger-desktop/pull/129
+
+# v2.3.4
+- improved: improve UI
+
 # v2.3.3
 - feat: added WMIC availability check and helper modal for Windows users [#74](https://github.com/DnsChanger/dnsChanger-desktop/issues/74)
 - improved: removed close button from alert notification
