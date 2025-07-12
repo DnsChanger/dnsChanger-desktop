@@ -1,9 +1,9 @@
 import type { Translation } from '../i18n-types'
 
-const eng: Translation = {
+const ko: Translation = {
 	pages: {
 		home: {
-			homeTitle: 'DNS Changer',
+			homeTitle: 'DNS 변경기',
 			connectedHTML: '연결됨 <u>{currentActive}</u>',
 			connected: '연결됨 {currentActive}',
 			disconnected: '연결 끊김',
@@ -40,7 +40,7 @@ const eng: Translation = {
 	help_disconnect: '연결 해제하려면 클릭',
 	dialogs: {
 		fetching_data_from_repo: '저장소에서 데이터를 가져오는 중...',
-		removed_server: '{serverName}이 목록에서 성공적으로 제거되었습니다.',
+		removed_server: '{serverName}이(가) 목록에서 성공적으로 제거되었습니다.',
 		added_server: '서버 {serverName}이(가) 성공적으로 추가되었습니다.',
 		flush_successful: '비우기가 성공했습니다.',
 		flush_failure: '비우기가 실패했습니다.',
