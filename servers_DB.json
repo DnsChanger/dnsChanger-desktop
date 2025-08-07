@@ -137,11 +137,19 @@
 	},
 	{
 		"key": "US_Dyn",
-		"name": "US - Dyn",
+		"name": "DynX Adblocker",
 		"servers": ["216.146.35.35", "216.146.36.36"],
 		"avatar": "US_Dyn.png",
-		"rate": 10,
+		"rate": 5,
 		"tags": ["Gaming"]
+	},
+	{
+		"key": " DynX_Iran_Anti-Sanctions",
+		"name": "DynX Iran Anti-Sanctions",
+		"servers": ["10.70.95.150", "10.70.95.162"],
+		"avatar": "def.png",
+		"rate": 5,
+		"tags": ["Gaming","Ad Blocker"]
 	},
 	{
 		"key": "CleanBrowsing_Adult_Filter",
