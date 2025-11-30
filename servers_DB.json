@@ -8,6 +8,14 @@
 		"tags": ["Iran", "Gaming", "Web", "Ai"]
 	},
 	{
+		"key": "zeusdns",
+		"name": "Zeus DNS",
+		"servers": ["37.32.5.60", "37.32.5.61"],
+		"avatar": "zeusdns.png",
+		"rate": 8,
+		"tags": ["Iran", "Gaming"]
+	},
+	{
 		"key": "ELECTRO",
 		"name": "Electro Team",
 		"servers": ["78.157.42.100", "78.157.42.101"],
