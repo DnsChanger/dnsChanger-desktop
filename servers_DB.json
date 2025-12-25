@@ -144,6 +144,14 @@
 		"tags": ["Gaming"]
 	},
 	{
+		"key":"RapidGame",
+		"name":"RapidGame DNS",
+		"servers":["94.182.137.166","94.183.170.141"],
+		"avatar":"RapidGame.png",
+		"tags": ["Gaming"],
+		"rate":4
+	},
+	{
 		"key": "US_Dyn",
 		"name": "DynX Adblocker",
 		"servers": ["216.146.35.35", "216.146.36.36"],
