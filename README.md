@@ -1,5 +1,8 @@
-# ✍ Introduction
+## 🎁 Donate Us
+https://reymit.ir/dnschanger
 
+
+# ✍ Introduction
 <p align="center">
     <img src=".github/banner.png" alt="dnsChanger banner" width="600">
 </p>
@@ -25,8 +28,7 @@ This is an open-source DNS Changer for Windows, Mac, and Linux operating systems
   - [📝 Changelog](#-changelog)
   - [🛠 Collaboration](#-collaboration)
 
-## 🎁 Donate Us
-https://reymit.ir/dnschanger
+
 
 ## 📥 Download
 
