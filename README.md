@@ -14,8 +14,6 @@
     <img src="https://img.shields.io/github/downloads/DnsChanger/dnsChanger-desktop/total.svg" alt="total" >
     <img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square" alt="prettier" >
     <img src="https://img.shields.io/badge/antivirus-PASS-green" alt="antivirus" >
-    <br/>
-    <a href="https://daramet.com/sajjadmrx"><img  width=100 src="https://github.com/DnsChanger/dnsChanger-desktop/assets/66132114/68885be1-a4fd-434a-a6d9-9f62661b69db" /></a>
 </p>
 
 This is an open-source DNS Changer for Windows, Mac, and Linux operating systems. Its goal is to gather the best DNS servers in a secure application.
@@ -26,7 +24,9 @@ This is an open-source DNS Changer for Windows, Mac, and Linux operating systems
   - [🖼 Images](#-images)
   - [📝 Changelog](#-changelog)
   - [🛠 Collaboration](#-collaboration)
-  - [❤️ Donate](#-donate)
+
+## 🎁 Donate Us
+https://reymit.ir/dnschanger
 
 ## 📥 Download
 
