@@ -35,6 +35,15 @@ process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
 
 if (release().startsWith('6.1')) app.disableHardwareAcceleration()
 
+// Enable native Wayland rendering on KDE/GNOME; falls back to XWayland automatically
+if (process.platform === 'linux') {
+	app.commandLine.appendSwitch('ozone-platform-hint', 'auto')
+	app.commandLine.appendSwitch(
+		'enable-features',
+		'UseOzonePlatform,WaylandWindowDecorations',
+	)
+}
+
 if (process.platform === 'win32') app.setAppUserModelId(app.getName())
 
 if (!app.requestSingleInstanceLock()) {

@@ -1,5 +1,5 @@
 appId: dnschanger.github.io
-productName: DNS Changer
+productName: DNSChanger
 afterPack: "removeLocales.js"
 artifactName: "${productName}-${os}-${arch}-${version}.${ext}"
 files:
@@ -28,13 +28,26 @@ win:
     - msi
     - nsis
 linux:
-  icon: "public/icons/icon.icns"
+  icon: "public/icons/icon.png"
   maintainer: "dnschanger.github.io"
+  executableName: dnschanger
   target:
-    - rpm
     - AppImage
     - deb
   category: Utilities
+deb:
+  depends:
+    - libgtk-3-0
+    - libnotify4
+    - libnss3
+    - libxss1
+    - libxtst6
+    - xdg-utils
+    - libatspi2.0-0
+    - libuuid1
+    - libsecret-1-0
+    - network-manager
+  afterInstall: "build/postinst.sh"
   publish:
     - github
 mac:
