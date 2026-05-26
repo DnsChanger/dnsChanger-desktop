@@ -1,50 +1,71 @@
+import { exec } from 'node:child_process'
+import { promisify } from 'node:util'
 import { Platform } from '../platform'
 
+const execAsync = promisify(exec)
+
 export class LinuxPlatform extends Platform {
+	private async getActiveConnectionName(): Promise<string> {
+		const { stdout } = await execAsync('nmcli -t -f NAME con show --active')
+		const conn = stdout.trim().split('\n')[0]
+		if (!conn) throw new Error('No active network connection found')
+		return conn
+	}
+
+	async setDns(nameServers: Array<string>): Promise<void> {
+		const conn = await this.getActiveConnectionName()
+		const dns = nameServers.join(' ')
+		await this.execCmd(
+			`nmcli con mod "${conn}" ipv4.dns "${dns}" ipv4.ignore-auto-dns yes && nmcli con up "${conn}"`,
+		)
+	}
+
 	async clearDns(): Promise<void> {
-		try {
-			await this.setDns(['1.1.1.1', '8.8.8.8', '192.168.1.1', '127.0.0.1'])
-		} catch (e) {
-			throw e
-		}
+		const conn = await this.getActiveConnectionName()
+		await this.execCmd(
+			`nmcli con mod "${conn}" ipv4.dns "" ipv4.ignore-auto-dns no && nmcli con up "${conn}"`,
+		)
 	}
 
 	async getActiveDns(): Promise<Array<string>> {
 		try {
-			const cmd = "grep nameserver /etc/resolv.conf | awk '{print $2}'"
-			const text = (await this.execCmd(cmd)) as string
+			const { stdout } = await execAsync(
+				"nmcli -t -f IP4.DNS con show --active 2>/dev/null | cut -d: -f2",
+			)
+			const results = stdout.trim().split('\n').filter(Boolean)
+			if (results.length) return results
+		} catch {}
 
-			const regex = /(?<=nameserver\s)\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/g
-			return text.trim().match(regex)
-		} catch (e) {
-			throw e
-		}
+		// fallback to resolv.conf
+		const { stdout } = await execAsync(
+			"grep '^nameserver' /etc/resolv.conf | awk '{print $2}'",
+		)
+		return stdout.trim().split('\n').filter(Boolean)
 	}
 
-	async getInterfacesList(): Promise<any> {
-		return []
-	}
-
-	async setDns(nameServers: Array<string>): Promise<void> {
+	async getInterfacesList(): Promise<Array<{ name: string; value: string }>> {
 		try {
-			let lines = ''
-
-			for (let i = 0; i < nameServers.length; i++) {
-				lines += `nameserver ${nameServers[i]}\n`
-			}
-
-			const cmd = `echo '${lines.trim()}' > /etc/resolv.conf`
-			await this.execCmd(cmd)
-
-			const cmdRestart = 'systemctl restart systemd-networkd'
-			await this.execCmd(cmdRestart)
-		} catch (e) {
-			throw e
+			const { stdout } = await execAsync(
+				"nmcli -t -f DEVICE,TYPE,STATE device status | grep ':connected'",
+			)
+			return stdout
+				.trim()
+				.split('\n')
+				.filter(Boolean)
+				.map((line) => {
+					const [device] = line.split(':')
+					return { name: device, value: device }
+				})
+		} catch {
+			return []
 		}
 	}
 
 	public async flushDns(): Promise<void> {
-		await this.execCmd('systemd-resolve --flush-caches')
+		try {
+			await this.execCmd(
+				'resolvectl flush-caches 2>/dev/null || systemd-resolve --flush-caches',
+			)
+		} catch {}
 	}
 }
-// Powered by ChatGpt
