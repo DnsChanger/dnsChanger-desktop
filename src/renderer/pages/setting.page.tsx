@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from 'react'
-import { useI18nContext } from '../../i18n/i18n-react'
-import { getThemeSystem, themeChanger } from '../utils/theme.util'
 import { CgDarkMode } from 'react-icons/cg'
+import { FaChartBar, FaFileAlt, FaLaptop } from 'react-icons/fa'
 import { HiMoon, HiSun } from 'react-icons/hi'
-import type { SettingInStore } from '../../shared/interfaces/settings.interface'
-import { MdBrowserUpdated } from 'react-icons/md'
-import { VscRunAbove } from 'react-icons/vsc'
+import { MdBrowserUpdated, MdLanguage } from 'react-icons/md'
 import { TbWindowMinimize } from 'react-icons/tb'
-import { FaFileAlt, FaLaptop } from 'react-icons/fa'
-import { ToggleSwitch } from '../component/toggle/toggle-switch.component'
+import { VscRunAbove } from 'react-icons/vsc'
+import { useI18nContext } from '../../i18n/i18n-react'
+import type { Locales } from '../../i18n/i18n-types'
+import { languages } from '../../shared/constants/languages.constant'
+import { isRtlLocale } from '../../shared/constants/languages.constant'
+import type { SettingInStore } from '../../shared/interfaces/settings.interface'
+import { settingStore } from '../app'
 import { ItemSelector } from '../component/item-selector/item-selector'
+import { ToggleSwitch } from '../component/toggle/toggle-switch.component'
+import { syncAnalyticsPreference } from '../utils/analytics.util'
+import { getThemeSystem, themeChanger } from '../utils/theme.util'
 
 export function SettingPage() {
 	const [_, setStartUp] = useState<boolean>(false)
 	const { LL, locale } = useI18nContext()
 	const [settingState, setSettingState] = useState<SettingInStore>(
-		window.storePreload.get('settings')
+		window.storePreload.get('settings'),
 	)
 
 	function toggleStartUp() {
@@ -36,12 +41,28 @@ export function SettingPage() {
 		}))
 	}
 
+	function toggleAnalytics() {
+		setSettingState((prevState) => {
+			const next = !prevState.use_analytic
+			syncAnalyticsPreference(next)
+			return {
+				...prevState,
+				use_analytic: next,
+			}
+		})
+	}
+
 	useEffect(() => {
+		settingStore.lng = settingState.lng
+		settingStore.use_analytic = settingState.use_analytic
 		window.ipc.saveSettings(settingState).catch()
 	}, [settingState])
 
 	return (
-		<div className="p-2 overflow-y-auto" dir={locale === 'fa' ? 'rtl' : 'ltr'}>
+		<div
+			className="p-2 overflow-y-auto"
+			dir={isRtlLocale(locale) ? 'rtl' : 'ltr'}
+		>
 			<div className="max-w-2xl mx-auto">
 				<div className="border shadow-lg bg-base-100 rounded-xl border-base-300">
 					<div className="p-4 space-y-4">
@@ -49,8 +70,20 @@ export function SettingPage() {
 
 						<div className="border-t border-base-300" />
 
+						<LanguageChanger
+							value={settingState.lng}
+							onChange={(lng) => {
+								setSettingState((prev) => ({ ...prev, lng }))
+								window.dispatchEvent(
+									new CustomEvent('locale-change', { detail: lng }),
+								)
+							}}
+							label={LL.pages.settings.langChanger()}
+						/>
+
+						<div className="border-t border-base-300" />
+
 						<div className="space-y-3">
-							{/* Start Up */}
 							<SettingsSwitch
 								id="startUp"
 								checked={settingState.startUp}
@@ -60,7 +93,6 @@ export function SettingPage() {
 								description={LL.pages.settings.autoRunningTitle()}
 							/>
 
-							{/* Auto Update */}
 							<SettingsSwitch
 								id="autoUP"
 								checked={settingState.autoUpdate}
@@ -70,7 +102,6 @@ export function SettingPage() {
 								description="Get updates automatically"
 							/>
 
-							{/* Minimize to Tray */}
 							<SettingsSwitch
 								id="Minimize"
 								checked={settingState.minimize_tray}
@@ -78,6 +109,15 @@ export function SettingPage() {
 								icon={<TbWindowMinimize className="text-secondary" />}
 								title="Minimize to Tray"
 								description="The app moves to tray in background"
+							/>
+
+							<SettingsSwitch
+								id="analytics"
+								checked={settingState.use_analytic}
+								onChange={toggleAnalytics}
+								icon={<FaChartBar className="text-info" />}
+								title="Analytics"
+								description="Share anonymous usage counts (users & servers only)"
 							/>
 						</div>
 
@@ -125,6 +165,10 @@ function SettingsSwitch({
 }: SettingsSwitchProps) {
 	const [isChecked, setIsChecked] = useState(checked)
 
+	useEffect(() => {
+		setIsChecked(checked)
+	}, [checked])
+
 	const handleToggle = () => {
 		setIsChecked(!isChecked)
 		onChange()
@@ -152,7 +196,7 @@ function SettingsSwitch({
 
 function ThemeChanger() {
 	const [currentTheme, setCurrentTheme] = useState(
-		localStorage.getItem('theme') || getThemeSystem()
+		localStorage.getItem('theme') || getThemeSystem(),
 	)
 	const { LL } = useI18nContext()
 
@@ -179,6 +223,35 @@ function ThemeChanger() {
 						label={f.label}
 						onClick={() => setCurrentTheme(f.value)}
 						key={f.value}
+					/>
+				))}
+			</div>
+		</div>
+	)
+}
+
+function LanguageChanger({
+	value,
+	onChange,
+	label,
+}: {
+	value: Locales
+	onChange: (lng: Locales) => void
+	label: string
+}) {
+	return (
+		<div className="space-y-2">
+			<div className="flex items-center gap-2">
+				<MdLanguage className="text-primary" size={16} />
+				<label className="text-sm font-medium text-base-content">{label}</label>
+			</div>
+			<div className="flex flex-wrap gap-2">
+				{languages.map((lang) => (
+					<ItemSelector
+						key={lang.value}
+						isActive={value === lang.value}
+						label={lang.name}
+						onClick={() => onChange(lang.value as Locales)}
 					/>
 				))}
 			</div>

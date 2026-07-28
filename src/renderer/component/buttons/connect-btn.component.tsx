@@ -1,11 +1,11 @@
 import { useContext, useMemo, useState } from 'react'
-import ReactGA from 'react-ga4'
 import { AiOutlineLoading } from 'react-icons/ai'
 import { CiPower } from 'react-icons/ci'
 
-import { cn } from '../../utils/cn'
 import { serversContext } from '../../context/servers.context'
 import { appNotif } from '../../notifications/appNotif'
+import { trackEvent } from '../../utils/analytics.util'
+import { cn } from '../../utils/cn'
 
 export function ConnectButtonComponent() {
 	const servers = useContext(serversContext)
@@ -59,7 +59,7 @@ export function ConnectButtonComponent() {
 				servers.setCurrentActive(servers.selected)
 				window.ipc.notif(response.message)
 
-				ReactGA.event({
+				trackEvent({
 					category: 'User',
 					action: 'CONNECTED',
 					label: servers.selected.name,
