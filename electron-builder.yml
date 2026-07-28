@@ -1,5 +1,5 @@
 appId: dnschanger.github.io
-productName: DNS Changer
+productName: DNSChanger
 afterPack: 'removeLocales.js'
 artifactName: '${productName}-${os}-${arch}-${version}.${ext}'
 files:
@@ -17,7 +17,9 @@ files:
   - '!**/.eslint*'
   - '!**/jest*'
   - '!**/*.test.*'
+  - '!**/*.spec.*'
   - '!**/__tests__'
+  - '!**/__test__'
 asar: true
 compression: maximum
 directories:
@@ -32,15 +34,45 @@ win:
     - msi
     - nsis
 linux:
-  icon: 'public/icons/icon.icns'
+  icon: 'public/icons/icon.png'
   maintainer: 'dnschanger.github.io'
+  vendor: 'DnsChanger'
+  synopsis: 'DNS Changer for Linux'
+  description: 'Change system DNS settings easily on Linux (NetworkManager / systemd-resolved)'
+  executableName: dnschanger
+  desktop:
+    entry:
+      Name: DNS Changer
+      Comment: Change system DNS settings easily
+      Categories: Utility;Network;
+      StartupWMClass: dnschanger
+      Terminal: false
+      Type: Application
   target:
-    - rpm
     - AppImage
     - deb
-  category: Utilities
+    - rpm
+  category: Utility
   publish:
     - github
+deb:
+  packageName: dnschanger
+  depends:
+    - libgtk-3-0
+    - libnotify4
+    - libnss3
+    - libxss1
+    - libxtst6
+    - xdg-utils
+    - libatspi2.0-0
+    - libuuid1
+    - libsecret-1-0
+  recommends:
+    - libappindicator3-1
+    - network-manager
+  afterInstall: 'build/postinst.sh'
+rpm:
+  packageName: dnschanger
 mac:
   icon: 'public/icons/icon.png'
   target:

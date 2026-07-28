@@ -78,7 +78,9 @@ export function HomePage() {
 						<div className="flex absolute -left-11 -top-6 flex-col gap-2 pt-18.5">
 							<AddCustomDnsButton />
 
-							{osType === 'win32' && <InterfacesDialogButtonComponent />}
+							{(osType === 'win32' || osType === 'linux') && (
+								<InterfacesDialogButtonComponent />
+							)}
 
 							<FlushDNS_BtnComponent />
 

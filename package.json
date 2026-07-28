@@ -1,6 +1,7 @@
 {
   "name": "dnschanger",
   "productName": "dnschanger",
+  "desktopName": "dnschanger.desktop",
   "version": "2.3.7",
   "debug": {
     "env": {
