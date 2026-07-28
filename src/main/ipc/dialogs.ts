@@ -4,12 +4,11 @@ import pingLib from 'ping'
 import { v4 as uuid } from 'uuid'
 
 import LN from '../../i18n/i18n-node'
-import { Locales } from '../../i18n/i18n-types'
+import type { Locales } from '../../i18n/i18n-types'
 import { EventsKeys } from '../../shared/constants/eventsKeys.constant'
-import { Server, ServerStore } from '../../shared/interfaces/server.interface'
-import { isValidDnsAddress } from '../../shared/validators/dns.validator'
+import type { Server, ServerStore } from '../../shared/interfaces/server.interface'
+import { validateServerAddresses } from '../../shared/validators/dns.validator'
 import { dnsService } from '../config'
-import { WindowsPlatform } from '../platforms/windows/windows.platform'
 import { getOverlayIcon } from '../shared/file'
 import { LogId, getLoggerPathFile, userLogger } from '../shared/logger'
 import { updateOverlayIcon } from '../shared/overlayIcon'
@@ -18,8 +17,7 @@ import { store } from '../store/store'
 
 ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
 	try {
-
-		await dnsService.setDns(server.servers)
+		await dnsService.setDns(server)
 		const currentLng = LN[getCurrentLng()]
 		const win = BrowserWindow.getAllWindows()[0]
 		const filepath = await getOverlayIcon(server)
@@ -32,19 +30,18 @@ ipcMain.handle(EventsKeys.SET_DNS, async (event, server: Server) => {
 				currentActive: server.name,
 			}),
 		}
-	} catch (e) {
+	} catch (e: any) {
 		userLogger.error(e.stack, e.message)
 		return {
 			server,
 			success: false,
-			message: 'Unknown error while connecting',
+			message: e?.message || 'Unknown error while connecting',
 		}
 	}
 })
 
 ipcMain.handle(EventsKeys.CLEAR_DNS, async (event, server: Server) => {
 	try {
-
 		await dnsService.clearDns()
 
 		const currentLng = LN[getCurrentLng()]
@@ -54,8 +51,7 @@ ipcMain.handle(EventsKeys.CLEAR_DNS, async (event, server: Server) => {
 		const defaultServer = store.get('defaultServer')
 
 		if (defaultServer) {
-			const servers = defaultServer.servers
-			dnsService.setDns(servers).catch((err) => {
+			dnsService.setDns(defaultServer).catch((err) => {
 				userLogger.error(err.stack, err.message)
 			})
 		}
@@ -65,7 +61,7 @@ ipcMain.handle(EventsKeys.CLEAR_DNS, async (event, server: Server) => {
 			success: true,
 			message: currentLng.pages.home.disconnected(),
 		}
-	} catch (e) {
+	} catch (e: any) {
 		userLogger.error(e.stack, e.message)
 		return { server, success: false, message: 'Unknown error while clear DNS' }
 	}
@@ -76,51 +72,55 @@ ipcMain.handle(EventsKeys.ADD_DNS, async (event, data: Partial<Server>) => {
 		const defaultServer = store.get('defaultServer')
 		const server: Server = {
 			key: 'default',
-			servers: data.servers,
+			servers: data.servers || [],
 			name: 'default',
 			tags: [],
 			avatar: '',
 			rate: 0,
+			protocol: 'plain',
 		}
 
 		if (!defaultServer) {
 			store.set('defaultServer', server)
 		} else {
-			defaultServer.servers = data.servers
+			defaultServer.servers = data.servers || []
 			store.set('defaultServer', defaultServer)
 		}
 
 		return { success: true, server: server }
 	}
 
-	const nameServer1 = data.servers[0]
-	const nameServer2 = data.servers[1]
-	if (!nameServer1) return { success: false, message: 'DNS1 is required' }
-
 	const currentLng = LN[getCurrentLng()]
-
-	if (!isValidDnsAddress(nameServer1))
-		return { success: false, message: currentLng.validator.invalid_dns1 }
-
-	if (nameServer2 && !isValidDnsAddress(nameServer2))
-		return { success: false, message: currentLng.validator.invalid_dns2 }
-
-	if (nameServer1.toString() === nameServer2.toString())
-		return {
-			success: false,
-			message: currentLng.validator.dns1_dns2_duplicates,
+	const validationError = validateServerAddresses(data)
+	if (validationError) {
+		if (validationError.includes('DNS1')) {
+			return { success: false, message: currentLng.validator.invalid_dns1 }
 		}
+		if (validationError.includes('DNS2') || validationError.includes('Alternate')) {
+			return { success: false, message: currentLng.validator.invalid_dns2 }
+		}
+		if (validationError.includes('duplicates')) {
+			return {
+				success: false,
+				message: currentLng.validator.dns1_dns2_duplicates,
+			}
+		}
+		return { success: false, message: validationError }
+	}
 
 	const list: Server[] = store.get('dnsList') || []
 
 	const newServer: ServerStore = {
 		key: data.key || uuid(),
-		name: data.name,
-		avatar: data.avatar,
-		servers: data.servers,
+		name: data.name!,
+		avatar: data.avatar || '',
+		servers: data.servers || [],
 		rate: data.rate || 0,
 		tags: data.tags || [],
 		isPin: false,
+		protocol: data.protocol || 'plain',
+		dohUrl: data.dohUrl,
+		dotHost: data.dotHost,
 	}
 
 	const isDupKey = list.find((s) => s.key === newServer.key)
@@ -145,13 +145,10 @@ ipcMain.handle(EventsKeys.DELETE_DNS, (ev, server: Server) => {
 	}
 })
 
-ipcMain.handle(
-	EventsKeys.RELOAD_SERVER_LIST,
-	async (event, servers: Server[]) => {
-		store.set('dnsList', servers)
-		return { success: true }
-	},
-)
+ipcMain.handle(EventsKeys.RELOAD_SERVER_LIST, async (event, servers: Server[]) => {
+	store.set('dnsList', servers)
+	return { success: true }
+})
 
 ipcMain.handle(EventsKeys.FETCH_DNS_LIST, () => {
 	const servers = store.get('dnsList') || []
@@ -197,7 +194,16 @@ ipcMain.handle(EventsKeys.FLUSHDNS, async () => {
 
 ipcMain.handle(EventsKeys.PING, async (event, server: Server) => {
 	try {
-		const result = await pingLib.promise.probe(server.servers[0], {
+		const target =
+			server.servers?.[0] ||
+			(server.dohUrl ? new URL(server.dohUrl).hostname : null) ||
+			server.dotHost?.split(':')[0]
+
+		if (!target) {
+			return { success: false }
+		}
+
+		const result = await pingLib.promise.probe(target, {
 			timeout: 10,
 		})
 		return {
@@ -243,13 +249,38 @@ async function getCurrentActive(): Promise<{
 	message?: string
 }> {
 	try {
+		const encrypted = dnsService.getActiveEncryptedConnection()
+		if (encrypted) {
+			const servers = store.get('dnsList') || []
+			const server = servers.find((item) => item.key === encrypted.key)
+			if (server) {
+				const win = BrowserWindow.getAllWindows()[0]
+				const filepath = await getOverlayIcon(server)
+				updateOverlayIcon(win, filepath, 'connected')
+				return { success: true, server }
+			}
+			return {
+				success: true,
+				server: {
+					key: encrypted.key,
+					name: encrypted.protocol.toUpperCase(),
+					servers: encrypted.bootstrap,
+					protocol: encrypted.protocol,
+					dohUrl: encrypted.dohUrl,
+					dotHost: encrypted.dotHost,
+					avatar: '',
+					isPin: false,
+				},
+			}
+		}
+
 		const dns: string[] = await dnsService.getActiveDns()
 
 		if (!dns.length) return { success: false, server: null }
 
 		const servers = store.get('dnsList') || []
 		const server: ServerStore | null = servers.find(
-			(server) => server.servers.toString() === dns.toString(),
+			(server) => server.servers.toString() === dns.toString()
 		)
 		const defaultServer = store.get('defaultServer')
 		if (defaultServer) {
@@ -285,7 +316,7 @@ async function getCurrentActive(): Promise<{
 		updateOverlayIcon(win, filepath, 'connected')
 
 		return { success: true, server }
-	} catch (e) {
+	} catch (e: any) {
 		userLogger.error(e.stack, e.message)
 		return { success: false, message: 'Unknown error while clear DNS' }
 	}

@@ -1,14 +1,14 @@
 import type React from 'react'
 import { useEffect, useState } from 'react'
 
-import type { setState } from '../../interfaces/react.interface'
 import { useI18nContext } from '../../../i18n/i18n-react'
-
+import type { DnsProtocol } from '../../../shared/interfaces/server.interface'
+import type { setState } from '../../interfaces/react.interface'
 import { appNotif } from '../../notifications/appNotif'
-import Modal from './modal'
-import { TabNavigation } from '../tab/tab-navigation'
-import { TextInput } from '../input/text-input'
 import { Button } from '../button/button'
+import { TextInput } from '../input/text-input'
+import { TabNavigation } from '../tab/tab-navigation'
+import Modal from './modal'
 
 interface Props {
 	isOpen: boolean
@@ -18,11 +18,16 @@ interface Props {
 
 const ipv4Pattern = /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/
 
+type TabType = 'ipv4' | 'doh' | 'dot' | 'default'
+
 export function AddDnsModalComponent(props: Props) {
 	const [serverName, setServerName] = useState<string>('')
 	const [validationMessage, setValidationMessage] = useState<string>('')
+	const [dohUrl, setDohUrl] = useState('https://')
+	const [dotHost, setDotHost] = useState('')
+	const [bootstrapIp, setBootstrapIp] = useState('')
 
-	const [type, setType] = useState<'ipv4' | 'default'>('ipv4')
+	const [type, setType] = useState<TabType>('ipv4')
 	const { LL } = useI18nContext()
 
 	useEffect(() => {
@@ -33,7 +38,6 @@ export function AddDnsModalComponent(props: Props) {
 			setDNSAddressToInput('def-serverInput-2', defServer.servers[1])
 		}
 
-		// fetch from clipboard
 		navigator.clipboard.readText().then(clipboardHandler)
 
 		setValidationMessage('')
@@ -61,7 +65,36 @@ export function AddDnsModalComponent(props: Props) {
 				resp = await window.ipc.addDns({
 					name: 'default',
 					servers: [nameServer1Default, nameServer2Default],
+					protocol: 'plain',
 				})
+			} else if (type === 'doh' || type === 'dot') {
+				if (!serverName) {
+					setValidationMessage('Server name cannot be empty')
+					return
+				}
+				if (serverName === 'default') {
+					return appNotif('Error', 'Server name cannot be "default"', 'ERROR')
+				}
+
+				const protocol: DnsProtocol = type
+				const servers =
+					bootstrapIp && ipv4Pattern.test(bootstrapIp) ? [bootstrapIp] : []
+
+				if (type === 'doh') {
+					resp = await window.ipc.addDns({
+						name: serverName,
+						servers,
+						protocol,
+						dohUrl: dohUrl.trim(),
+					})
+				} else {
+					resp = await window.ipc.addDns({
+						name: serverName,
+						servers,
+						protocol,
+						dotHost: dotHost.trim(),
+					})
+				}
 			} else {
 				if (!serverName)
 					return setValidationMessage('Server name cannot be empty')
@@ -75,7 +108,6 @@ export function AddDnsModalComponent(props: Props) {
 				}
 
 				const nameServer2 = getNameServer('serverInput-2')
-				console.log('nameServer2', nameServer2, ipv4Pattern.test(nameServer2))
 				if (nameServer2 && !ipv4Pattern.test(nameServer2)) {
 					setValidationMessage(`Invalid DNS Address ${nameServer2}`)
 					return
@@ -84,6 +116,7 @@ export function AddDnsModalComponent(props: Props) {
 				resp = await window.ipc.addDns({
 					name: serverName,
 					servers: [nameServer1, nameServer2],
+					protocol: 'plain',
 				})
 			}
 
@@ -104,6 +137,9 @@ export function AddDnsModalComponent(props: Props) {
 				}
 
 				setServerName('')
+				setDohUrl('https://')
+				setDotHost('')
+				setBootstrapIp('')
 
 				if (resp.server.name !== 'default') props.cb(resp.server)
 			} else {
@@ -116,9 +152,7 @@ export function AddDnsModalComponent(props: Props) {
 
 	async function onChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const value = e.target.value
-		// validate value is a DNS Address
 		if (!value) {
-			//back to previous input
 			const prevInput: any = e.target.previousElementSibling
 			if (!prevInput) return
 			if (prevInput.tagName === 'SPAN' && prevInput.previousElementSibling) {
@@ -141,7 +175,6 @@ export function AddDnsModalComponent(props: Props) {
 			const nextInput: any = e.target.nextElementSibling
 			if (!nextInput) return
 
-			// ignore "." element
 			if (nextInput.tagName === 'SPAN' && nextInput.nextElementSibling) {
 				nextInput.nextElementSibling.focus()
 				return
@@ -180,6 +213,12 @@ export function AddDnsModalComponent(props: Props) {
 	function clipboardHandler(clipText: string | null) {
 		if (!clipText) return
 
+		if (clipText.startsWith('https://')) {
+			setType('doh')
+			setDohUrl(clipText.trim())
+			return
+		}
+
 		if (!clipText.includes('.')) return
 
 		let servers = clipText.split(',') as string[]
@@ -214,19 +253,21 @@ export function AddDnsModalComponent(props: Props) {
 			<div className="flex flex-col gap-2 py-2">
 				<TabNavigation
 					tabs={[
-						{
-							id: 'ipv4',
-							label: 'IPV4',
-						},
-						{
-							id: 'Default',
-							label: 'Default',
-						},
+						{ id: 'ipv4', label: 'IPv4' },
+						{ id: 'doh', label: 'DoH' },
+						{ id: 'dot', label: 'DoT' },
+						{ id: 'default', label: 'Default' },
 					]}
 					activeTab={type}
 					tabMode="simple"
-					onTabClick={(val) => setType(val as any)}
+					onTabClick={(val) => setType(val as TabType)}
 				/>
+
+				{validationMessage && (
+					<div className="text-[12px] alert alert-error font-[Inter] text-center flex items-center">
+						{validationMessage}
+					</div>
+				)}
 
 				{type === 'ipv4' ? (
 					<div className={'px-2 flex flex-col gap-y-2'}>
@@ -242,12 +283,6 @@ export function AddDnsModalComponent(props: Props) {
 						</div>
 
 						<div className={'flex flex-col h-full w-full'}>
-							{validationMessage && (
-								<div className="text-[12px] alert alert-error font-[Inter] h-2 text-center flex items-center">
-									{validationMessage}
-								</div>
-							)}
-
 							<div className="flex flex-row items-center justify-between w-full gap-2 mt-2">
 								<span className="text-gray-700 font-[balooTamma] dark:text-gray-300 text-[12px]">
 									Preferred DNS server:
@@ -272,7 +307,70 @@ export function AddDnsModalComponent(props: Props) {
 							</div>
 						</div>
 					</div>
-				) : (
+				) : null}
+
+				{type === 'doh' ? (
+					<div className="flex flex-col gap-2 px-2">
+						<p className="text-[12px] dark:text-gray-400 font-[Inter] bg-[#f2f2f2] dark:bg-[#262626] p-2 rounded-md">
+							DNS-over-HTTPS endpoint (e.g. AdGuard Home:
+							https://example.com/dns-query)
+						</p>
+						<span className="label-text text-lg font-[balooTamma]">Name</span>
+						<TextInput
+							onChange={setServerName}
+							value={serverName}
+							placeholder="My DoH server"
+						/>
+						<span className="label-text text-lg font-[balooTamma]">
+							DoH URL
+						</span>
+						<TextInput
+							onChange={setDohUrl}
+							value={dohUrl}
+							placeholder="https://dns.example/dns-query"
+						/>
+						<span className="label-text text-lg font-[balooTamma]">
+							Bootstrap IP (optional)
+						</span>
+						<TextInput
+							onChange={setBootstrapIp}
+							value={bootstrapIp}
+							placeholder="1.1.1.1"
+						/>
+					</div>
+				) : null}
+
+				{type === 'dot' ? (
+					<div className="flex flex-col gap-2 px-2">
+						<p className="text-[12px] dark:text-gray-400 font-[Inter] bg-[#f2f2f2] dark:bg-[#262626] p-2 rounded-md">
+							DNS-over-TLS hostname on port 853 (host or host:port)
+						</p>
+						<span className="label-text text-lg font-[balooTamma]">Name</span>
+						<TextInput
+							onChange={setServerName}
+							value={serverName}
+							placeholder="My DoT server"
+						/>
+						<span className="label-text text-lg font-[balooTamma]">
+							DoT hostname
+						</span>
+						<TextInput
+							onChange={setDotHost}
+							value={dotHost}
+							placeholder="dns.example.com"
+						/>
+						<span className="label-text text-lg font-[balooTamma]">
+							Bootstrap IP (optional)
+						</span>
+						<TextInput
+							onChange={setBootstrapIp}
+							value={bootstrapIp}
+							placeholder="1.1.1.1"
+						/>
+					</div>
+				) : null}
+
+				{type === 'default' ? (
 					<div>
 						<div className={'grid'}>
 							<div>
@@ -319,7 +417,7 @@ export function AddDnsModalComponent(props: Props) {
 							</div>
 						</div>
 					</div>
-				)}
+				) : null}
 
 				<div className="flex flex-row gap-2">
 					<Button

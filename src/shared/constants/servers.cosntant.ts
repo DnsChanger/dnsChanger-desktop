@@ -1,4 +1,4 @@
-import { Server, ServerStore } from '../interfaces/server.interface'
+import type { ServerStore } from '../interfaces/server.interface'
 
 export const serversConstant: Array<ServerStore> = [
 	{
@@ -9,6 +9,7 @@ export const serversConstant: Array<ServerStore> = [
 		rate: 10,
 		tags: ['Gaming', 'Web', 'Ai'],
 		isPin: false,
+		protocol: 'plain',
 	},
 	{
 		key: 'ELECTRO',
@@ -18,6 +19,7 @@ export const serversConstant: Array<ServerStore> = [
 		rate: 9,
 		tags: ['Gaming', 'Web', 'Ai'],
 		isPin: false,
+		protocol: 'plain',
 	},
 	{
 		key: 'RADAR_GAME',
@@ -27,8 +29,8 @@ export const serversConstant: Array<ServerStore> = [
 		rate: 5,
 		tags: ['Gaming'],
 		isPin: false,
+		protocol: 'plain',
 	},
-
 	{
 		key: 'ClOUD_FLARE',
 		name: 'Cloudflare',
@@ -37,5 +39,41 @@ export const serversConstant: Array<ServerStore> = [
 		rate: 0,
 		tags: ['Web'],
 		isPin: false,
+		protocol: 'plain',
+	},
+	{
+		key: 'CLOUDFLARE_DOH',
+		name: 'Cloudflare DoH',
+		servers: ['1.1.1.1', '1.0.0.1'],
+		avatar: 'cloudflare.png',
+		rate: 0,
+		tags: ['Web', 'DoH'],
+		isPin: false,
+		protocol: 'doh',
+		dohUrl: 'https://cloudflare-dns.com/dns-query',
+		dotHost: 'cloudflare-dns.com',
+	},
+	{
+		key: 'CLOUDFLARE_DOT',
+		name: 'Cloudflare DoT',
+		servers: ['1.1.1.1', '1.0.0.1'],
+		avatar: 'cloudflare.png',
+		rate: 0,
+		tags: ['Web', 'DoT'],
+		isPin: false,
+		protocol: 'dot',
+		dotHost: 'cloudflare-dns.com',
+	},
+	{
+		key: 'QUAD9_DOH',
+		name: 'Quad9 DoH',
+		servers: ['9.9.9.9', '149.112.112.112'],
+		avatar: 'def.png',
+		rate: 0,
+		tags: ['Web', 'DoH'],
+		isPin: false,
+		protocol: 'doh',
+		dohUrl: 'https://dns.quad9.net/dns-query',
+		dotHost: 'dns.quad9.net',
 	},
 ]
