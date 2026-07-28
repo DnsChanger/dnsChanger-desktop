@@ -9,7 +9,15 @@ import type {
 export type BaseTranslation = BaseTranslationType
 export type BaseLocale = 'fa'
 
-export type Locales = 'eng' | 'fa' | 'ru'
+export type Locales =
+	| 'ar'
+	| 'eng'
+	| 'fa'
+	| 'it'
+	| 'ja'
+	| 'ko'
+	| 'ru'
+	| 'zh'
 
 export type Translation = RootTranslation
 

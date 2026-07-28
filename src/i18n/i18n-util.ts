@@ -22,7 +22,16 @@ import type {
 
 export const baseLocale: Locales = 'fa'
 
-export const locales: Locales[] = ['eng', 'fa', 'ru']
+export const locales: Locales[] = [
+	'ar',
+	'eng',
+	'fa',
+	'it',
+	'ja',
+	'ko',
+	'ru',
+	'zh',
+]
 
 export const isLocale = (locale: string): locale is Locales =>
 	locales.includes(locale as Locales)
