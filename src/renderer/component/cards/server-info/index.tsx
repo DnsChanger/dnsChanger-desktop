@@ -175,9 +175,17 @@ export function ServerInfoCardComponent({ loadingCurrentActive }: Prop) {
 				</div>
 				{/* Stats */}
 				<div className="grid grid-cols-3 gap-3 mt-4">
-					<InfoTile title={window.os.os === 'win32' ? 'Network' : 'Status'}>
+					<InfoTile
+						title={
+							window.os.os === 'win32' || window.os.os === 'linux'
+								? 'Network'
+								: 'Status'
+						}
+					>
 						<div className="text-sm font-medium truncate text-base-content">
-							{window.os.os === 'win32' ? network : 'Ready'}
+							{window.os.os === 'win32' || window.os.os === 'linux'
+								? network
+								: 'Ready'}
 						</div>
 					</InfoTile>
 
