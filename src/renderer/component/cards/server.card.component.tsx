@@ -151,7 +151,7 @@ export function ServerCardComponent({
 
 							<button
 								onClick={() => setMenuOpen(!menuOpen)}
-								className="p-1.5 transition-colors rounded-lg shrink-0 text-base-content/50 hover:bg-base-200 hover:text-base-content"
+								className="p-1.5 transition-colors rounded-lg shrink-0 text-base-content/50 hover:bg-base-200 hover:text-base-content cursor-pointer"
 								aria-label="More options"
 							>
 								<CiCircleMore size={18} />
