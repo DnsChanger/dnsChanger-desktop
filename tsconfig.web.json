@@ -1,22 +1,27 @@
 {
   "extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
   "include": [
-    "src/renderer/src/env.d.ts",
-    "src/renderer/src/**/*",
-    "src/renderer/src/**/*.tsx",
+    "src/renderer/vite-env.d.ts",
+    "src/renderer/**/*",
     "src/preload/*.d.ts",
-    "src/utils"
+    "src/preload/**/*",
+    "src/shared/**/*",
+    "src/i18n/**/*",
+    "src/utils/**/*"
   ],
   "compilerOptions": {
+    "composite": true,
+    "outDir": "./dist-tsc/web",
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "composite": true,
     "jsx": "react-jsx",
     "jsxImportSource": "react",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
       "@renderer/*": [
-        "src/renderer/src/*"
+        "src/renderer/*"
       ]
     }
   }

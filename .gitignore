@@ -92,6 +92,7 @@ out/
 ./store
 
 dist-electron
+dist-tsc
 release
 dist
 .env

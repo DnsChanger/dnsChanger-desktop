@@ -15,13 +15,13 @@ export function BenchmarkDnsButtonComponent({ servers }: Props) {
 
 	return (
 		<div>
-			<Tooltip content="DNS Speed Test" position="left">
+			<Tooltip content="Find Best DNS Server" position="left">
 				<Button
-					size={'sm'}
+					size="sm"
 					onClick={() => setIsOpenModal(true)}
-					className={'bg-base-200 hover:bg-base-200/80 rounded-xl'}
+					className="bg-base-200 hover:bg-base-300 rounded-xl transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer"
 				>
-					<MdSpeed className="text-base-content/80" size={14} />
+					<MdSpeed className="text-base-content/80" size={15} />
 				</Button>
 			</Tooltip>
 

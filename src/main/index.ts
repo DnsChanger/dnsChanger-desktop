@@ -64,8 +64,7 @@ async function createWindow() {
 		resizable: false,
 		center: isDev === false,
 		show: true,
-
-		alwaysOnTop: true,
+		alwaysOnTop: isDev,
 		movable: true,
 		frame: false,
 		titleBarStyle: 'hidden',

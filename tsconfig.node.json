@@ -5,12 +5,16 @@
 		"src/main/**/*",
 		"src/preload/**/*",
 		"src/utils/**/*",
-		"src/shared/**/*"
+		"src/shared/**/*",
+		"src/i18n/**/*"
 	],
 	"compilerOptions": {
 		"composite": true,
+		"outDir": "./dist-tsc/node",
 		"noUnusedLocals": false,
 		"noUnusedParameters": false,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
 		"types": ["node", "electron-vite/node"]
 	}
 }
