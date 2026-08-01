@@ -61,7 +61,10 @@ export function ExploreHeaderComponent({
 					<IoReload size={18} />
 				</Button>
 
-				<BenchmarkDnsButtonComponent servers={filteredServers} />
+				<BenchmarkDnsButtonComponent
+					servers={filteredServers}
+					className="bg-transparent shadow-none border-0"
+				/>
 			</div>
 
 			<div className="flex items-center justify-between text-xs text-base-content/60 px-1">
