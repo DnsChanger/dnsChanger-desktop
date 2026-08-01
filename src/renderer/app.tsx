@@ -2,9 +2,10 @@ import React, { useState, useEffect, type JSX } from 'react'
 
 import { Toaster } from 'react-hot-toast'
 import type { IconType } from 'react-icons'
-import { BsPower } from 'react-icons/bs'
+import { TbTool } from 'react-icons/tb'
 import { MdOutlineExplore } from 'react-icons/md'
 import { TbSettings, TbSmartHome } from 'react-icons/tb'
+import { ToolsPage } from './pages/tools/tools.page'
 import TypesafeI18n from '../i18n/i18n-react'
 import { loadLocaleAsync } from '../i18n/i18n-util.async'
 import type { SettingInStore, Settings } from '../shared/interfaces/settings.interface'
@@ -12,7 +13,7 @@ import { PageWrapper } from './Wrappers/pages.wrapper'
 import { ExplorePage } from './pages/explore.page'
 import { HomePage } from './pages/home.page'
 import { SettingPage } from './pages/setting.page'
-import { ShutdownPage } from './pages/shutdown.page'
+
 import { getThemeSystem, themeChanger } from './utils/theme.util'
 export let settingStore: SettingInStore = window.storePreload.get('settings')
 import ReactGA from 'react-ga4'
@@ -35,7 +36,7 @@ const pages: Page[] = [
 		icon: MdOutlineExplore,
 		name: 'Explore',
 	},
-	{ key: '/shutdown', element: <ShutdownPage />, icon: BsPower, name: 'Shutdown' },
+	{ key: '/tools', element: <ToolsPage />, icon: TbTool, name: 'Tools' },
 	{ key: '/setting', element: <SettingPage />, icon: TbSettings, name: 'Setting' },
 ]
 const queryClient = new QueryClient()
@@ -116,7 +117,7 @@ export function App() {
 									}`}
 								>
 									{React.createElement(page.icon, {
-										size: 28,
+										size: 20,
 									})}
 									<AnimatePresence mode="wait">
 										{InPath(page.key) && (

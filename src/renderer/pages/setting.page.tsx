@@ -114,7 +114,7 @@ export function SettingPage() {
 							id="startUp"
 							checked={settingState.startUp}
 							onChange={toggleStartUp}
-							icon={<VscRunAbove className="text-primary text-lg" />}
+							icon={<VscRunAbove />}
 							title="Start up"
 							description={LL.pages.settings.autoRunningTitle()}
 						/>
@@ -124,7 +124,7 @@ export function SettingPage() {
 							id="autoUP"
 							checked={settingState.autoUpdate}
 							onChange={toggleAutoUpdate}
-							icon={<MdBrowserUpdated className="text-success text-lg" />}
+							icon={<MdBrowserUpdated />}
 							title="Automatic Update"
 							description="Get updates automatically"
 						/>
@@ -134,7 +134,7 @@ export function SettingPage() {
 							id="Minimize"
 							checked={settingState.minimize_tray}
 							onChange={toggleMinimize_tray}
-							icon={<TbWindowMinimize className="text-secondary text-lg" />}
+							icon={<TbWindowMinimize />}
 							title="Minimize to Tray"
 							description="The app moves to tray in background"
 						/>
@@ -144,7 +144,7 @@ export function SettingPage() {
 							id="Analytics"
 							checked={settingState.use_analytic ?? true}
 							onChange={toggleUseAnalytic}
-							icon={<MdOutlineAnalytics className="text-accent text-lg" />}
+							icon={<MdOutlineAnalytics />}
 							title="Anonymous Analytics"
 							description="Help improve the application with anonymous usage data"
 						/>
