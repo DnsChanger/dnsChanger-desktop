@@ -1,5 +1,15 @@
 # Changelog
 
+# 2.3.9
+- improve UI
+- add tools page with IP info and shutdown utilities
+- fix some bugs
+
+
+# 2.3.8
+- Fix/tsconfig
+- improve UI
+
 # v2.3.7
 - Refactor/UI and codebase overhaul by @sajjadmrx in https://github.com/DnsChanger/dnsChanger-desktop/pull/211
 -  feat: add target benchmark and ping testing for DNS servers by @sajjadmrx [#198](https://github.com/DnsChanger/dnsChanger-desktop/issues/198)
