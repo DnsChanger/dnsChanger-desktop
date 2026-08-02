@@ -27,7 +27,7 @@ process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
 
 if (release().startsWith('6.1')) app.disableHardwareAcceleration()
 
-if (process.platform === 'win32') app.setAppUserModelId(app.getName())
+if (process.platform === 'win32') app.setAppUserModelId('com.dnschanger.desktop')
 
 if (!app.requestSingleInstanceLock()) {
 	app.quit()
@@ -46,12 +46,13 @@ const startUrl =
 	})
 
 // const indexHtml = join(process.env.DIST, 'index.html')
-const icon = nativeImage.createFromPath(getIconPath())
+const iconPath = getIconPath()
+const icon = nativeImage.createFromPath(iconPath)
 
 async function createWindow() {
 	win = new BrowserWindow({
 		title: 'DNS Changer',
-		icon: icon,
+		icon: iconPath,
 		height: 500,
 		width: 743,
 		webPreferences: {
