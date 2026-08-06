@@ -1,5 +1,6 @@
-import { Locales } from '../../i18n/i18n-types'
-import { ServerStore } from './server.interface'
+import type { Locales } from '../../i18n/i18n-types'
+import type { ActiveEncryptedConnection } from './encrypted-dns.interface'
+import type { ServerStore } from './server.interface'
 
 export interface Settings {
 	startUp: boolean
@@ -16,4 +17,5 @@ export type StoreKey = {
 	dnsList: ServerStore[]
 	settings: SettingInStore
 	defaultServer: ServerStore | null
+	activeEncryptedConnection: ActiveEncryptedConnection | null
 }

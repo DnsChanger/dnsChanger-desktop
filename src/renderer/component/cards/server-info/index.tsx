@@ -150,7 +150,11 @@ export function ServerInfoCardComponent({ loadingCurrentActive }: Prop) {
 							</div>
 
 							<p className="text-xs text-base-content/50">
-								Public DNS Server
+								{servers.selected.protocol === 'doh'
+									? 'DNS-over-HTTPS'
+									: servers.selected.protocol === 'dot'
+										? 'DNS-over-TLS'
+										: 'Public DNS Server'}
 							</p>
 						</div>
 					</div>
@@ -202,17 +206,29 @@ export function ServerInfoCardComponent({ loadingCurrentActive }: Prop) {
 					</InfoTile>
 
 					<InfoTile
-						title="DNS"
+						title={
+							servers.selected.protocol === 'doh'
+								? 'DoH'
+								: servers.selected.protocol === 'dot'
+									? 'DoT'
+									: 'DNS'
+						}
 						action={
 							copied ? (
 								<span className="text-xs text-success">Copied</span>
 							) : (
 								<button
 									onClick={() => {
-										navigator.clipboard.writeText(
-											servers.selected?.servers?.join(', ') || ''
-										)
+										const text =
+											servers.selected?.protocol === 'doh'
+												? servers.selected.dohUrl || ''
+												: servers.selected?.protocol === 'dot'
+													? servers.selected.dotHost || ''
+													: servers.selected?.servers?.join(
+															', '
+														) || ''
 
+										navigator.clipboard.writeText(text)
 										setCopied(true)
 									}}
 									className="p-1 transition-colors rounded cursor-pointer hover:bg-base-300/60"
@@ -223,13 +239,23 @@ export function ServerInfoCardComponent({ loadingCurrentActive }: Prop) {
 						}
 					>
 						<div className="text-sm font-medium truncate">
-							{servers.selected.servers[0]}
+							{servers.selected.protocol === 'doh'
+								? servers.selected.dohUrl
+								: servers.selected.protocol === 'dot'
+									? servers.selected.dotHost
+									: servers.selected.servers[0]}
 						</div>
 					</InfoTile>
 				</div>
 
 				<div className="flex items-center justify-between pt-3 mt-auto text-xs text-base-content/40">
-					<span>{servers.selected.type ?? 'DNS Server'}</span>
+					<span>
+						{servers.selected.protocol === 'doh'
+							? 'DoH Server'
+							: servers.selected.protocol === 'dot'
+								? 'DoT Server'
+								: (servers.selected.type ?? 'DNS Server')}
+					</span>
 					<div className="flex items-center gap-1">
 						<DeleteButtonComponent />
 						<ToggleButtonComponent />
