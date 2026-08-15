@@ -1,9 +1,13 @@
 import ReactDOM from 'react-dom/client'
 import { App } from './app'
 import './index.css'
-// eslint-disable-next-line import/no-unresolved
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+import { ErrorBoundary } from './component/error-boundary/error-boundary.component'
+
 // @ts-ignore
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
-root.render(<App />)
+root.render(
+	<ErrorBoundary>
+		<App />
+	</ErrorBoundary>,
+)
