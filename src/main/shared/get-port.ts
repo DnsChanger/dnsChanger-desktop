@@ -87,7 +87,7 @@ const getAvailablePort = async (
 		try {
 			await checkAvailablePort({ port: options.port, host })
 		} catch (error: any) {
-			if (!['EADDRNOTAVAIL', 'EINVAL'].includes(error.code)) {
+			if (['EADDRINUSE', 'EACCES'].includes(error?.code)) {
 				throw error
 			}
 		}

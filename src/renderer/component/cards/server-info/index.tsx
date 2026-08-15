@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import { FiCopy } from 'react-icons/fi'
 import { TfiReload } from 'react-icons/tfi'
 
-import icon from '../../../../../public/icons/icon.png'
+const icon = '/icons/icon.png'
 
 import { useI18nContext } from '../../../../i18n/i18n-react'
 import { serversContext } from '../../../context/servers.context'

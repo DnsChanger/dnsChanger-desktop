@@ -7,6 +7,7 @@ import { BrowserWindow, Menu, Tray, app, ipcMain, nativeImage, shell } from 'ele
 import { EventsKeys } from '../shared/constants/eventsKeys.constant'
 import { getPublicFilePath } from './shared/file'
 import { getIconPath } from './shared/getIconPath'
+import { userLogger } from './shared/logger'
 import serve from './shared/serve'
 import { store } from './store/store'
 import { update } from './update'
@@ -76,9 +77,30 @@ async function createWindow() {
 
 	win.setMenu(null)
 
-	await serve(win)
+	try {
+		await serve(win)
+	} catch (error: any) {
+		userLogger.error(error?.stack, error?.message || 'Failed to serve app')
+		try {
+			await win.loadFile(join(process.env.DIST, 'index.html'))
+		} catch (fileError: any) {
+			userLogger.error(
+				fileError?.stack,
+				fileError?.message || 'Failed to load index.html directly'
+			)
+		}
+	}
 
-	if (isDev) win.webContents.openDevTools()
+	// if (isDev) win.webContents.openDevTools()
+
+	win.webContents.on(
+		'did-fail-load',
+		(_event, errorCode, errorDescription, validatedURL) => {
+			userLogger.error(
+				`Failed to load ${validatedURL}: (${errorCode}) ${errorDescription}`
+			)
+		}
+	)
 
 	win.webContents.on('did-finish-load', () => {
 		win?.webContents.send('main-process-message', new Date().toLocaleString())
@@ -89,13 +111,15 @@ async function createWindow() {
 		return { action: 'deny' }
 	})
 
-	let tray = null
+	let tray: Tray | null = null
 	ipcMain.on('close', (event) => {
 		if (!store.get('settings').minimize_tray) return app.exit(0)
 		event.preventDefault()
-		win.setSkipTaskbar(false)
+		if (win) {
+			win.setSkipTaskbar(false)
+		}
 		if (!tray) tray = createTray()
-		win.hide()
+		if (win) win.hide()
 	})
 
 	update(win, app)
@@ -103,7 +127,7 @@ async function createWindow() {
 }
 ipcMain.on(EventsKeys.MINIMIZE, () => {
 	app.focus()
-	win.isMinimized() ? win.focus() : win.minimize()
+	win?.isMinimized() ? win.focus() : win?.minimize()
 })
 
 app.whenReady().then(createWindow)
@@ -166,7 +190,7 @@ function createTray() {
 			label: 'Show',
 			icon: showIcon,
 			click: () => {
-				win.show()
+				win?.show()
 				ipcMain.emit(EventsKeys.GET_CURRENT_ACTIVE)
 			},
 		},
@@ -180,7 +204,7 @@ function createTray() {
 	])
 
 	appIcon.on('double-click', (event) => {
-		win.show()
+		win?.show()
 		ipcMain.emit(EventsKeys.GET_CURRENT_ACTIVE)
 	})
 	appIcon.setToolTip('DNS Changer')

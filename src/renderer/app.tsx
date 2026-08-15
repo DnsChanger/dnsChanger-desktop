@@ -15,7 +15,11 @@ import { HomePage } from './pages/home.page'
 import { SettingPage } from './pages/setting.page'
 
 import { getThemeSystem, themeChanger } from './utils/theme.util'
-export let settingStore: SettingInStore = window.storePreload.get('settings')
+import { defaultSetting } from '../shared/constants/default-setting.contant'
+export let settingStore: SettingInStore =
+	(window.storePreload && typeof window.storePreload.get === 'function'
+		? window.storePreload.get('settings')
+		: null) || defaultSetting
 import ReactGA from 'react-ga4'
 import { NavbarComponent } from './component/head/navbar.component'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -54,35 +58,59 @@ export function App() {
 	}, [currentPath])
 
 	useEffect(() => {
-		ReactGA.initialize('G-XJBQXCR24P')
-		async function getSetting() {
-			settingStore = (await window.ipc.getSettings()) as Settings
+		try {
+			ReactGA.initialize('G-XJBQXCR24P')
+		} catch (e) {
+			console.error('Failed to initialize GA', e)
 		}
 
-		getSetting().then(() => {
-			loadLocaleAsync(settingStore.lng).then(() => setWasLoaded(true))
-		})
+		async function getSetting() {
+			try {
+				if (window.ipc && typeof window.ipc.getSettings === 'function') {
+					const res = (await window.ipc.getSettings()) as Settings
+					if (res) settingStore = res
+				}
+			} catch (e) {
+				console.error('Failed to get settings:', e)
+			}
+		}
+
+		getSetting()
+			.then(() => {
+				const lng = settingStore?.lng || 'eng'
+				return loadLocaleAsync(lng)
+			})
+			.catch((e) => {
+				console.error('Failed to load locale:', e)
+			})
+			.finally(() => {
+				setWasLoaded(true)
+			})
 
 		let theme = localStorage.getItem('theme') || 'dark'
 		if (theme === 'system') theme = getThemeSystem()
 
-		window
-			.matchMedia('(prefers-color-scheme: dark)')
-			.addEventListener('change', ({ matches }) => {
-				if (theme === 'system') {
-					if (matches) {
-						themeChanger('dark')
-					} else {
-						themeChanger('light')
+		try {
+			window
+				.matchMedia('(prefers-color-scheme: dark)')
+				.addEventListener('change', ({ matches }) => {
+					if (theme === 'system') {
+						if (matches) {
+							themeChanger('dark')
+						} else {
+							themeChanger('light')
+						}
 					}
-				}
-			})
+				})
+		} catch (e) {}
 
 		themeChanger(theme as any)
 		return () => {
-			window
-				.matchMedia('(prefers-color-scheme: dark)')
-				.removeEventListener('change', () => {})
+			try {
+				window
+					.matchMedia('(prefers-color-scheme: dark)')
+					.removeEventListener('change', () => {})
+			} catch (e) {}
 		}
 	}, [])
 
