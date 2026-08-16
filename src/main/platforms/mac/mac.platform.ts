@@ -19,7 +19,8 @@ export class MacPlatform extends Platform {
 				"scutil --dns | awk '/nameserver/ { print $3 }'",
 			)
 
-			return stdout.trim().split('\n')
+			// scutil prints the same nameserver once per resolver, so de-duplicate
+			return [...new Set(stdout.trim().split('\n').filter(Boolean))]
 		} catch (e) {
 			throw e
 		}
