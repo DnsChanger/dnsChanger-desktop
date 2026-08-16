@@ -117,10 +117,9 @@ export function ServerInfoCardComponent({ loadingCurrentActive }: Prop) {
 
 	const isConnected = servers.currentActive?.key === servers.selected.key
 
-	const name =
-		servers.selected.name.length > 18
-			? `${servers.selected.name.slice(0, 18)}...`
-			: servers.selected.name
+	const serverName = servers.selected.name || 'Unknown'
+
+	const name = serverName.length > 18 ? `${serverName.slice(0, 18)}...` : serverName
 
 	const network =
 		servers.network && servers.network.length > 18
