@@ -268,10 +268,7 @@ async function getCurrentActive(): Promise<{
 				server: {
 					key: 'unknown',
 					servers: dns,
-					names: {
-						eng: 'unknown',
-						fa: 'unknown',
-					},
+					name: 'unknown',
 					avatar: '',
 					isPin: false,
 				},
