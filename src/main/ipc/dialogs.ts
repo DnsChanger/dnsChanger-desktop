@@ -238,7 +238,7 @@ function getCurrentLng(): Locales {
 
 async function getCurrentActive(): Promise<{
 	success: boolean
-	server?: Partial<ServerStore>
+	server?: ServerStore | null
 	isDefault?: boolean
 	message?: string
 }> {
@@ -248,9 +248,9 @@ async function getCurrentActive(): Promise<{
 		if (!dns.length) return { success: false, server: null }
 
 		const servers = store.get('dnsList') || []
-		const server: ServerStore | null = servers.find(
-			(server) => server.servers.toString() === dns.toString(),
-		)
+		const server: ServerStore | null =
+			servers.find((server) => server.servers.toString() === dns.toString()) ??
+			null
 		const defaultServer = store.get('defaultServer')
 		if (defaultServer) {
 			// if default server is connected, then return it as not connected
@@ -267,9 +267,11 @@ async function getCurrentActive(): Promise<{
 				success: true,
 				server: {
 					key: 'unknown',
+					name: 'Unknown',
 					servers: dns,
-					name: 'unknown',
-					avatar: '',
+					avatar: 'def.png',
+					rate: 0,
+					tags: [],
 					isPin: false,
 				},
 			}
