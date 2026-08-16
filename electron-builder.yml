@@ -1,7 +1,7 @@
 appId: dnschanger.github.io
 productName: DNS Changer
 afterPack: 'removeLocales.js'
-artifactName: '${productName}-${os}-${arch}-${version}.${ext}'
+artifactName: '${productName}-prelease-${os}-${arch}-${version}.${ext}'
 files:
   - '**/*'
   - '!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme,test,__tests__,tests,powered-test,example,examples}'
