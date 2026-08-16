@@ -57,18 +57,18 @@ jobs:
             "
           fi
 
-      - name: Pull, commit and push changes
+      - name: Commit, pull and push changes
         if: github.event_name == 'workflow_dispatch'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase origin ${{ github.ref_name }}
           git add package.json electron-builder.yml
           if [ -f package-lock.json ]; then
             git add package-lock.json
           fi
           if ! git diff --staged --quiet; then
             git commit -m "chore(release): bump version to ${{ github.event.inputs.version }} [${{ github.event.inputs.release_type }}]"
+            git pull --rebase origin ${{ github.ref_name }}
             git push origin HEAD:${{ github.ref_name }}
           fi
 
