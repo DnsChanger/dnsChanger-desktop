@@ -4,15 +4,89 @@ on:
     tags:
       - "v*"
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release Version (e.g. v1.0.0)'
+        required: false
+        default: 'v1.0.0'
+      release_type:
+        type: choice
+        description: 'Build Type (Release or Demo)'
+        required: true
+        default: 'release'
+        options:
+          - 'release'
+          - 'prelease'
+
 jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      commit_sha: ${{ steps.set_sha.outputs.commit_sha }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.TOKEN || secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Install Node v20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Update version and artifact name
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          RELEASE_TYPE="${{ github.event.inputs.release_type }}"
+          CLEAN_VERSION="${VERSION#v}"
+
+          if [ -n "$CLEAN_VERSION" ]; then
+            npm version "$CLEAN_VERSION" --no-git-tag-version --allow-same-version
+          fi
+
+          if [ "$RELEASE_TYPE" = "prelease" ]; then
+            node -e "
+              const fs = require('fs');
+              let content = fs.readFileSync('electron-builder.yml', 'utf8');
+              content = content.replace(/artifactName:\s*['\"].*?['\"]/, \"artifactName: '\${productName}-prelease-\${os}-\${arch}-\${version}.\${ext}'\");
+              fs.writeFileSync('electron-builder.yml', content, 'utf8');
+            "
+          fi
+
+      - name: Pull, commit and push changes
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin ${{ github.ref_name }}
+          git add package.json electron-builder.yml
+          if [ -f package-lock.json ]; then
+            git add package-lock.json
+          fi
+          if ! git diff --staged --quiet; then
+            git commit -m "chore(release): bump version to ${{ github.event.inputs.version }} [${{ github.event.inputs.release_type }}]"
+            git push origin HEAD:${{ github.ref_name }}
+          fi
+
+      - name: Set output commit SHA
+        id: set_sha
+        run: echo "commit_sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+
   publish_on_linux:
+    needs: [prepare]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.prepare.outputs.commit_sha || github.ref }}
 
       - name: Install Node v20
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
@@ -27,14 +101,18 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.TOKEN }}
         run: npm run publish:linux
+
   publish_on_win:
+    needs: [prepare]
     runs-on: windows-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.prepare.outputs.commit_sha || github.ref }}
 
       - name: Install Node v20
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
@@ -49,14 +127,18 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.TOKEN }}
         run: npm run publish:win
+
   publish_on_macos:
+    needs: [prepare]
     runs-on: macOS-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.prepare.outputs.commit_sha || github.ref }}
 
       - name: Install Node v20
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
