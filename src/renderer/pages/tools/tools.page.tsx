@@ -34,9 +34,9 @@ export function ToolsPage() {
 
 	if (activeTool) {
 		return (
-			<div className="w-full h-full p-3 bg-base-300">
-				<div className="max-w-2xl mx-auto space-y-3 pb-20">
-					<div className="flex items-center gap-3">
+			<div className="flex flex-col w-full h-full p-3 overflow-hidden bg-base-300">
+				<div className="flex flex-col w-full h-full max-w-2xl pb-0 mx-auto space-y-3">
+					<div className="flex items-center gap-3 shrink-0">
 						<button
 							type="button"
 							onClick={() => setActiveTool(null)}
@@ -45,7 +45,7 @@ export function ToolsPage() {
 							<IoArrowBack size={16} />
 							<span>Back</span>
 						</button>
-						<div className="h-4 w-px bg-base-content/10" />
+						<div className="w-px h-4 bg-base-content/10" />
 						<div className="flex items-center gap-2">
 							<span className={`text-base ${activeTool.iconColor}`}>
 								{React.createElement(activeTool.icon)}
@@ -56,7 +56,9 @@ export function ToolsPage() {
 						</div>
 					</div>
 
-					{React.createElement(activeTool.component)}
+					<div className="flex-1 h-full min-h-0 overflow-hidden">
+						{React.createElement(activeTool.component)}
+					</div>
 				</div>
 			</div>
 		)
@@ -64,9 +66,9 @@ export function ToolsPage() {
 
 	return (
 		<div className="w-full h-full p-3 overflow-y-auto bg-base-300">
-			<div className="max-w-2xl mx-auto space-y-4 pb-20">
+			<div className="max-w-2xl pb-20 mx-auto space-y-4">
 				<div className="px-1">
-					<h1 className="text-base font-bold text-base-content leading-tight">
+					<h1 className="text-base font-bold leading-tight text-base-content">
 						Tools
 					</h1>
 					<p className="text-xs text-base-content/60 mt-0.5">
@@ -74,13 +76,13 @@ export function ToolsPage() {
 					</p>
 				</div>
 
-				<div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+				<div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
 					{tools.map((tool) => (
 						<button
 							key={tool.key}
 							type="button"
 							onClick={() => handleSelectTool(tool)}
-							className="flex items-center justify-between p-3 border rounded-2xl bg-base-100 border-base-300 shadow-sm hover:shadow-md hover:border-primary/40 transition-all duration-200 cursor-pointer text-left group"
+							className="flex items-center justify-between p-3 text-left transition-all duration-200 border shadow-sm cursor-pointer rounded-2xl bg-base-100 border-base-300 hover:shadow-md hover:border-primary/40 group"
 						>
 							<div className="flex items-center gap-3.5 min-w-0">
 								<div
@@ -89,10 +91,10 @@ export function ToolsPage() {
 									{React.createElement(tool.icon, { size: 20 })}
 								</div>
 								<div className="min-w-0">
-									<h3 className="text-sm font-semibold text-base-content leading-tight group-hover:text-primary transition-colors">
+									<h3 className="text-sm font-semibold leading-tight transition-colors text-base-content group-hover:text-primary">
 										{tool.name}
 									</h3>
-									<p className="text-xs text-base-content/60 mt-1 leading-snug line-clamp-2">
+									<p className="mt-1 text-xs leading-snug text-base-content/60 line-clamp-2">
 										{tool.description}
 									</p>
 								</div>

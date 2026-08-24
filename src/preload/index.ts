@@ -53,6 +53,10 @@ export const ipcPreload = {
 	cancelScheduledShutdown: (shutdownId: string) =>
 		ipcRenderer.invoke(EventsKeys.CANCEL_SCHEDULED_SHUTDOWN, shutdownId),
 	clearAllShutdowns: () => ipcRenderer.invoke(EventsKeys.CLEAR_ALL_SHUTDOWNS),
+	setInterfaceStatus: (name: string, enable: boolean) =>
+		ipcRenderer.invoke(EventsKeys.SET_INTERFACE_STATUS, { name, enable }),
+	switchNetworkType: (targetType: 'lan' | 'wifi' | 'both') =>
+		ipcRenderer.invoke(EventsKeys.SWITCH_NETWORK_TYPE, targetType),
 }
 
 export const uiPreload = {

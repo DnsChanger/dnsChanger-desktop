@@ -7,4 +7,6 @@ export interface Interface {
 	type: string
 	netmask: string | null
 	gateway_ip: string | null
+	admin_state?: 'Enabled' | 'Disabled'
+	connection_state?: 'Connected' | 'Disconnected'
 }
