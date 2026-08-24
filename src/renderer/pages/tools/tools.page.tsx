@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import ReactGA from 'react-ga4'
 import { FiChevronRight } from 'react-icons/fi'
 import { IoArrowBack } from 'react-icons/io5'
@@ -6,6 +6,14 @@ import { tools, type ToolDefinition } from './tools.registry'
 
 export function ToolsPage() {
 	const [activeTool, setActiveTool] = useState<ToolDefinition | null>(null)
+
+	const currentPlatform = useMemo(() => {
+		return window.os?.os || 'win32'
+	}, [])
+
+	const availableTools = useMemo(() => {
+		return tools.filter((tool) => tool.platforms.includes(currentPlatform as any))
+	}, [currentPlatform])
 
 	useEffect(() => {
 		if (activeTool) {
@@ -77,7 +85,7 @@ export function ToolsPage() {
 				</div>
 
 				<div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-					{tools.map((tool) => (
+					{availableTools.map((tool) => (
 						<button
 							key={tool.key}
 							type="button"
