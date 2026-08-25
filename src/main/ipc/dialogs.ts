@@ -232,6 +232,32 @@ ipcMain.handle(EventsKeys.GET_NETWORK_INTERFACE_LIST, async () => {
 	return dnsService.getInterfacesList()
 })
 
+ipcMain.handle(
+	EventsKeys.SET_INTERFACE_STATUS,
+	async (event, data: { name: string; enable: boolean }) => {
+		try {
+			await dnsService.setInterfaceStatus(data.name, data.enable)
+			return { success: true }
+		} catch (e: any) {
+			userLogger.error(e.stack, e.message)
+			return { success: false, message: e.message }
+		}
+	},
+)
+
+ipcMain.handle(
+	EventsKeys.SWITCH_NETWORK_TYPE,
+	async (event, targetType: 'lan' | 'wifi' | 'both') => {
+		try {
+			await dnsService.switchNetworkType(targetType)
+			return { success: true }
+		} catch (e: any) {
+			userLogger.error(e.stack, e.message)
+			return { success: false, message: e.message }
+		}
+	},
+)
+
 function getCurrentLng(): Locales {
 	return store.get('settings').lng
 }

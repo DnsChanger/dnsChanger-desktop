@@ -22,4 +22,12 @@ export class DnsService {
 	async flushDns() {
 		return this.platform.flushDns()
 	}
+
+	async setInterfaceStatus(name: string, enable: boolean) {
+		return this.platform.setInterfaceStatus(name, enable)
+	}
+
+	async switchNetworkType(targetType: 'lan' | 'wifi' | 'both') {
+		return this.platform.switchNetworkType(targetType)
+	}
 }

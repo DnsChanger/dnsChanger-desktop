@@ -30,4 +30,6 @@ export enum EventsKeys {
 	SCHEDULE_SHUTDOWN = 'shutdown:schedule',
 	CANCEL_SCHEDULED_SHUTDOWN = 'shutdown:cancel',
 	CLEAR_ALL_SHUTDOWNS = 'shutdown:clear_all',
+	SET_INTERFACE_STATUS = 'network:set_interface_status',
+	SWITCH_NETWORK_TYPE = 'network:switch_network_type',
 }

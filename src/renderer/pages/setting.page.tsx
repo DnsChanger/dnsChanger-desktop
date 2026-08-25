@@ -179,7 +179,7 @@ export function SettingPage() {
 								onChange={handleNetworkInterfaceChange}
 								className="select select-bordered select-sm rounded-xl max-w-xs bg-base-200 text-base-content"
 							>
-								<option value="Auto">✨ Auto (Detect Active)</option>
+								<option value="Auto">Auto (Detect Active)</option>
 								{interfaces.map((inter) => (
 									<option key={inter.name} value={inter.name}>
 										{inter.name} {inter.type ? `(${inter.type})` : ''}
