@@ -26,3 +26,6 @@ jobs:
 
       - name: Type check and build
         run: npm run build:code
+
+      - name: Run tests
+        run: npm run test

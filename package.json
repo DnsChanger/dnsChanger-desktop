@@ -16,6 +16,7 @@
     "i18n": "typesafe-i18n",
     "dev": "vite",
     "build:code": "tsc --noEmit && vite build",
+    "test": "jest",
     "build": "vite build && electron-builder",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\"",
     "preview": "vite preview",
@@ -69,7 +70,7 @@
     "ts-jest": "29.4.11",
     "ts-loader": "9.6.2",
     "ts-node": "10.9.2",
-    "typescript": "7.0.2",
+    "typescript": "~5.9.3",
     "vite": "8.1.5",
     "vite-plugin-electron": "1.1.0",
     "vite-plugin-electron-renderer": "1.0.0"
